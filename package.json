@@ -7,8 +7,19 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.5.0",
+    "@emotion/styled": "^11.3.0",
+    "@hookform/resolvers": "^2.8.2",
+    "@mui/icons-material": "^5.0.5",
+    "@mui/material": "^5.0.6",
+    "@reduxjs/toolkit": "^1.6.2",
     "react": "^17.0.0",
-    "react-dom": "^17.0.0"
+    "react-dom": "^17.0.0",
+    "react-hook-form": "^7.18.0",
+    "react-redux": "^7.2.6",
+    "sass": "^1.43.4",
+    "styled-components": "^5.3.3",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@types/react": "^17.0.0",

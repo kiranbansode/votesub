@@ -1,17 +1,17 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import { EsLinter, linterPlugin, TypeScriptLinter } from 'vite-plugin-linter';
+// import { EsLinter, linterPlugin, TypeScriptLinter } from 'vite-plugin-linter';
 import { VitePWA as vitePWA } from 'vite-plugin-pwa';
 
 // https://vitejs.dev/config/
-export default defineConfig((configEnv) => ({
+export default defineConfig(() => ({
   plugins: [
     react(),
     vitePWA(),
-    linterPlugin({
-      include: ['./src/**/*.ts', './src/**/*.tsx'],
-      linters: [new EsLinter({ configEnv }), new TypeScriptLinter()],
-    }),
+    // linterPlugin({
+    //   include: ['./src/**/*.ts', './src/**/*.tsx'],
+    //   linters: [new EsLinter({ configEnv: viteConfig }), new TypeScriptLinter()],
+    // }),
   ],
 
   // Absolute imports (aliases)

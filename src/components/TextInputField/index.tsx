@@ -7,13 +7,13 @@ import { TextField } from '@mui/material';
 import InputWrapper from 'styled/InputWrapper';
 import InputLabel from 'styled/InputLabel';
 
-import './TextInputField.scss';
+import './TextInputField.styles.scss';
 
-interface TextInputFieldProps {
+interface TextInputFieldPropsType {
   useFormRegister: UseFormRegisterReturn;
 }
 
-const TextInputField = ({ useFormRegister }: TextInputFieldProps) => (
+const TextInputField = ({ useFormRegister }: TextInputFieldPropsType) => (
   <>
     <InputWrapper>
       <InputLabel className="separate__label">Label</InputLabel>

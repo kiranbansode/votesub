@@ -19,6 +19,7 @@
     "import/no-extraneous-dependencies": 0,
     "react/jsx-sort-props": [1, { "callbacksLast": true, "shorthandFirst": true }],
     "react/react-in-jsx-scope": 0,
+    "react/button-has-type": [1, { "reset": true }],
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }]
   }
 }

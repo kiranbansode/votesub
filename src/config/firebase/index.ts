@@ -1,11 +1,10 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app';
-import { getAnalytics } from 'firebase/analytics';
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getAuth, connectAuthEmulator } from 'firebase/auth';
+import { getFirestore, connectFirestoreEmulator } from 'firebase/firestore';
+import { getStorage, connectStorageEmulator } from 'firebase/storage';
+import { getFunctions, connectFunctionsEmulator } from 'firebase/functions';
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: 'AIzaSyB7jYV6hOGW65ZdT8WXyLmVawNPOsij-lE',
   authDomain: 'votesub-kiranbansode.firebaseapp.com',
@@ -18,4 +17,15 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+const auth = getAuth();
+const firestore = getFirestore();
+const storage = getStorage();
+const functions = getFunctions(app);
+
+// automatically connect to Firebase Emulators in localhost
+if (window.location.hostname === 'localhost') {
+  connectAuthEmulator(auth, 'http://localhost:9099');
+  connectFirestoreEmulator(firestore, 'localhost', 9000);
+  connectStorageEmulator(storage, 'localhost', 9199);
+  connectFunctionsEmulator(functions, 'localhost', 5001);
+}

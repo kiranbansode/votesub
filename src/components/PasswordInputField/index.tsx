@@ -36,7 +36,7 @@ const PasswordInputField = ({ useFormRegister }: PasswordInputFieldPropsType) =>
   return (
     <InputWrapper>
       <FormControl variant="outlined">
-        <InputLabelMaterial htmlFor="outlined-adornment-password">Password</InputLabelMaterial>
+        <InputLabelMaterial htmlFor={useFormRegister.name}>Password</InputLabelMaterial>
         <OutlinedInput
           fullWidth
           endAdornment={

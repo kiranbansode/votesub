@@ -8,7 +8,7 @@ const LoginPage = () => {
   return (
     <div id="login-page">
       <form onSubmit={handleSubmit((data) => console.log(data))}>
-        <TextInputField formRegister={register('username')} />
+        <TextInputField useFormRegister={register('username')} />
         <button type="submit">Submit</button>
       </form>
     </div>

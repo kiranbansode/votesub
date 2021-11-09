@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form';
 
 import TextInputField from 'components/TextInputField';
 import PasswordInputField from 'components/PasswordInputField';
+import Button from 'components/Button';
 
 const LoginPage = () => {
   const { register, handleSubmit } = useForm();
@@ -13,7 +14,8 @@ const LoginPage = () => {
 
         <PasswordInputField useFormRegister={register('password')} />
 
-        <button type="submit">Submit</button>
+        <Button>Login</Button>
+        <Button color="success">Register</Button>
       </form>
     </div>
   );

@@ -12,6 +12,7 @@
     "@emotion/styled": "^11.3.0",
     "@hookform/resolvers": "^2.8.2",
     "@mui/icons-material": "^5.0.5",
+    "@mui/lab": "^5.0.0-alpha.54",
     "@mui/material": "^5.0.6",
     "@reduxjs/toolkit": "^1.6.2",
     "firebase": "^9.3.0",

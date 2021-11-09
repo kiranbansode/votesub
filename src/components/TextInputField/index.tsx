@@ -4,8 +4,8 @@
 
 import { UseFormRegisterReturn } from 'react-hook-form';
 import { TextField } from '@mui/material';
-import InputWrapper from 'styled/InputWrapper';
-import InputLabel from 'styled/InputLabel';
+import InputFieldWrapper from 'styled/InputFieldWrapper';
+import InputLabelWrapper from 'styled/InputLabelWrapper';
 
 import './TextInputField.styles.scss';
 
@@ -15,8 +15,8 @@ interface TextInputFieldPropsType {
 
 const TextInputField = ({ useFormRegister }: TextInputFieldPropsType) => (
   <>
-    <InputWrapper>
-      <InputLabel className="separate__label">Label</InputLabel>
+    <InputFieldWrapper>
+      <InputLabelWrapper className="separate__label">Label</InputLabelWrapper>
       <TextField
         fullWidth
         id={useFormRegister.name}
@@ -25,7 +25,7 @@ const TextInputField = ({ useFormRegister }: TextInputFieldPropsType) => (
         onBlur={useFormRegister.onBlur}
         onChange={useFormRegister.onChange}
       />
-    </InputWrapper>
+    </InputFieldWrapper>
   </>
 );
 

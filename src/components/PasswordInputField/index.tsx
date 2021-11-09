@@ -15,7 +15,7 @@ import {
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
-import InputWrapper from 'styled/InputWrapper';
+import InputFieldWrapper from 'styled/InputFieldWrapper';
 
 interface PasswordInputFieldPropsType {
   useFormRegister: UseFormRegisterReturn;
@@ -34,7 +34,7 @@ const PasswordInputField = ({ useFormRegister }: PasswordInputFieldPropsType) =>
   };
 
   return (
-    <InputWrapper>
+    <InputFieldWrapper>
       <FormControl variant="outlined">
         <InputLabelMaterial htmlFor={useFormRegister.name}>Password</InputLabelMaterial>
         <OutlinedInput
@@ -59,7 +59,7 @@ const PasswordInputField = ({ useFormRegister }: PasswordInputFieldPropsType) =>
           onChange={useFormRegister.onChange}
         />
       </FormControl>
-    </InputWrapper>
+    </InputFieldWrapper>
   );
 };
 

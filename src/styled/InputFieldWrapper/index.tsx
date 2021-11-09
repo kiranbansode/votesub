@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
-const InputWrapper = styled.div`
+const InputFieldWrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding: 10px;
 `;
 
-export default InputWrapper;
+export default InputFieldWrapper;

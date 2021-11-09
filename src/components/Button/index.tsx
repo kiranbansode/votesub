@@ -1,6 +1,6 @@
 import { ButtonProps } from '@mui/material';
 import { LoadingButton as LoadingButtonMaterial, LoadingButtonProps } from '@mui/lab';
-import InputWrapper from 'styled/InputWrapper';
+import InputFieldWrapper from 'styled/InputFieldWrapper';
 
 interface ButtonPropsType {
   children?: ButtonProps['children'];
@@ -12,7 +12,7 @@ interface ButtonPropsType {
 }
 
 const Button = ({ color, variant, children, size, type, loading }: ButtonPropsType) => (
-  <InputWrapper>
+  <InputFieldWrapper>
     <LoadingButtonMaterial
       fullWidth
       color={color}
@@ -23,7 +23,7 @@ const Button = ({ color, variant, children, size, type, loading }: ButtonPropsTy
     >
       {children}
     </LoadingButtonMaterial>
-  </InputWrapper>
+  </InputFieldWrapper>
 );
 
 Button.defaultProps = {

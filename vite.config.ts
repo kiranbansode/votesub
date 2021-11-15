@@ -3,11 +3,14 @@ import react from '@vitejs/plugin-react';
 // import { EsLinter, linterPlugin, TypeScriptLinter } from 'vite-plugin-linter';
 import { VitePWA as vitePWA } from 'vite-plugin-pwa';
 
+const reactSvgPlugin = require('vite-plugin-react-svg');
+
 // https://vitejs.dev/config/
 export default defineConfig(() => ({
   plugins: [
     react(),
     vitePWA(),
+    reactSvgPlugin(),
     // linterPlugin({
     //   include: ['./src/**/*.ts', './src/**/*.tsx'],
     //   linters: [new EsLinter({ configEnv: viteConfig }), new TypeScriptLinter()],

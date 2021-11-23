@@ -1,4 +1,4 @@
-import VoteSubLogo from 'assets/svg/votesub.logo.svg';
+import VoteSubLogo from 'assets/svg/logo.votesub.svg';
 
 import './Logo.styles.scss';
 

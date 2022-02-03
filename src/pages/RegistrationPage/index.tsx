@@ -3,22 +3,57 @@ import { useForm } from 'react-hook-form';
 import TextInputField from 'components/TextInputField';
 import PasswordInputField from 'components/PasswordInputField';
 import Button from 'components/Button';
-import Logo from 'components/Logo';
+
+import './RegistrationPage.styles.scss';
 
 const RegistrationPage = () => {
   const { register, handleSubmit } = useForm();
 
   return (
-    <div>
+    <div className="page" id="registration-page">
+      <h1>Register Now</h1>
+      <hr />
+
       <form onSubmit={handleSubmit((data) => console.log(data))}>
-        <Logo />
-        <TextInputField useFormRegister={register('schoolName')} />
+        <TextInputField
+          autoFocus
+          separateLabel
+          inputLabel="Name"
+          inputPlaceHolder="Your Name"
+          useFormRegister={register('name.firstName')}
+        />
 
-        <TextInputField useFormRegister={register('mobileNo')} />
+        <TextInputField
+          noLabel
+          inputPlaceHolder="Father/Husband Name"
+          useFormRegister={register('name.middleName')}
+        />
 
-        <TextInputField useFormRegister={register('altMobileNo')} />
+        <TextInputField
+          noLabel
+          inputPlaceHolder="Surname"
+          useFormRegister={register('name.lastName')}
+        />
 
-        <TextInputField useFormRegister={register('emailId')} />
+        <TextInputField
+          separateLabel
+          inputLabel="School Name"
+          useFormRegister={register('schoolName')}
+        />
+
+        <TextInputField
+          separateLabel
+          inputLabel="Mobile No. (WhatsApp)"
+          useFormRegister={register('mobileNo')}
+        />
+
+        <TextInputField
+          separateLabel
+          inputLabel="Alternate Mobile No."
+          useFormRegister={register('altMobileNo')}
+        />
+
+        <TextInputField separateLabel inputLabel="Email ID" useFormRegister={register('emailId')} />
 
         <PasswordInputField useFormRegister={register('password')} />
 

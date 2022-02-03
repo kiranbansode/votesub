@@ -16,11 +16,11 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const auth = getAuth();
-const firestore = getFirestore();
-const storage = getStorage();
-const functions = getFunctions(app);
+export const app = initializeApp(firebaseConfig);
+export const auth = getAuth();
+export const firestore = getFirestore();
+export const storage = getStorage();
+export const functions = getFunctions(app);
 
 // automatically connect to Firebase Emulators in localhost
 if (window.location.hostname === 'localhost') {

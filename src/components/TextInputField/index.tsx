@@ -1,4 +1,3 @@
-/* eslint-disable no-nested-ternary */
 /* 
   Author : Kiran A. Bansode
 */
@@ -12,10 +11,12 @@ import './TextInputField.styles.scss';
 
 interface TextInputFieldPropsType {
   useFormRegister: UseFormRegisterReturn;
-  inputLabel: string;
+  inputLabel?: string;
   inputHelperText?: string;
   separateLabel?: boolean;
   noLabel?: boolean;
+  inputPlaceHolder?: string;
+  autoFocus?: boolean;
 }
 
 const TextInputField = ({
@@ -24,39 +25,54 @@ const TextInputField = ({
   useFormRegister,
   inputLabel,
   inputHelperText,
-}: TextInputFieldPropsType) => (
-  <>
-    <InputFieldWrapper>
-      <FormControl>
-        {separateLabel ? (
-          <SeparateLabel
-            className="separate-label"
-            htmlFor={useFormRegister.name}
-            label={inputLabel}
+  inputPlaceHolder,
+  autoFocus,
+}: TextInputFieldPropsType) => {
+  let labelToShow;
+  if (!noLabel) {
+    labelToShow = !separateLabel ? inputLabel : null;
+  } else {
+    labelToShow = null;
+  }
+
+  return (
+    <>
+      <InputFieldWrapper>
+        <FormControl>
+          {separateLabel ? (
+            <SeparateLabel
+              className="separate-label"
+              htmlFor={useFormRegister.name}
+              label={inputLabel}
+            />
+          ) : null}
+
+          <TextField
+            fullWidth
+            autoFocus={autoFocus}
+            id={useFormRegister.name}
+            inputRef={useFormRegister.ref}
+            label={labelToShow}
+            name={useFormRegister.name}
+            placeholder={inputPlaceHolder}
+            onBlur={useFormRegister.onBlur}
+            onChange={useFormRegister.onChange}
           />
-        ) : null}
 
-        <TextField
-          fullWidth
-          id={useFormRegister.name}
-          inputRef={useFormRegister.ref}
-          label={!noLabel ? (!separateLabel ? inputLabel : null) : null}
-          name={useFormRegister.name}
-          placeholder={noLabel ? inputLabel : ''}
-          onBlur={useFormRegister.onBlur}
-          onChange={useFormRegister.onChange}
-        />
-
-        <FormHelperText id={useFormRegister.name}>{inputHelperText}</FormHelperText>
-      </FormControl>
-    </InputFieldWrapper>
-  </>
-);
+          <FormHelperText id={useFormRegister.name}>{inputHelperText}</FormHelperText>
+        </FormControl>
+      </InputFieldWrapper>
+    </>
+  );
+};
 
 TextInputField.defaultProps = {
-  separateLabel: false,
-  noLabel: false,
+  autoFocus: false,
   inputHelperText: '',
+  inputLabel: 'TextField',
+  inputPlaceHolder: '',
+  noLabel: false,
+  separateLabel: false,
 };
 
 export default TextInputField;

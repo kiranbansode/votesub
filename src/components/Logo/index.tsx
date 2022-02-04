@@ -4,7 +4,7 @@ import './Logo.styles.scss';
 
 const Logo = () => (
   <div className="logo">
-    <img alt="votesub-logo" src={VoteSubLogo} />{' '}
+    <img alt="votesub-logo" src={VoteSubLogo} />
   </div>
 );
 

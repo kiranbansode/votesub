@@ -57,11 +57,7 @@ const TextInputField = ({
       <InputFieldWrapper>
         <FormControl>
           {separateLabel ? (
-            <SeparateLabel
-              className="separate-label"
-              htmlFor={useFormRegister.name}
-              label={inputLabel}
-            />
+            <SeparateLabel htmlFor={useFormRegister.name} label={inputLabel} />
           ) : null}
 
           <TextField

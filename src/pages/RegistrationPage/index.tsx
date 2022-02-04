@@ -1,13 +1,31 @@
-import { useForm } from 'react-hook-form';
+import { useForm, FieldValues } from 'react-hook-form';
 
 import TextInputField from 'components/TextInputField';
 import PasswordInputField from 'components/PasswordInputField';
 import Button from 'components/Button';
+import RadioInputField from 'components/RadioInputField';
 
 import './RegistrationPage.styles.scss';
 
+const REGISTRATION_FORM_DEFAULT_VALUE = {
+  name: {
+    firstName: '',
+    middleName: '',
+    lastName: '',
+  },
+  gender: 'male',
+  schoolName: '',
+  mobileNo: '',
+  altMobileNo: '',
+  emailId: '',
+  password: '',
+  confirmPassword: '',
+};
+
 const RegistrationPage = () => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, control } = useForm<FieldValues>({
+    defaultValues: REGISTRATION_FORM_DEFAULT_VALUE,
+  });
 
   return (
     <div className="page" id="registration-page">
@@ -35,6 +53,8 @@ const RegistrationPage = () => {
           useFormRegister={register('name.lastName')}
         />
 
+        <RadioInputField fieldName="gender" inputLabel="Gender" useFormControl={control} />
+
         <TextInputField
           separateLabel
           inputLabel="School Name"
@@ -55,9 +75,17 @@ const RegistrationPage = () => {
 
         <TextInputField separateLabel inputLabel="Email ID" useFormRegister={register('emailId')} />
 
-        <PasswordInputField useFormRegister={register('password')} />
+        <PasswordInputField
+          separateLabel
+          inputLabel="Password"
+          useFormRegister={register('password')}
+        />
 
-        <PasswordInputField useFormRegister={register('confirmPassword')} />
+        <PasswordInputField
+          separateLabel
+          inputLabel="Confirm Your Password"
+          useFormRegister={register('confirmPassword')}
+        />
 
         <Button type="submit">Register</Button>
       </form>

@@ -3,3 +3,10 @@
 .page {
   margin: 20px;
 }
+
+.page-title {
+  margin-left: 10px;
+  margin-bottom: 0;
+  font-family: 'Nunito Sans';
+  font-weight: 400;
+}

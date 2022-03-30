@@ -9,12 +9,14 @@ interface ButtonPropsType {
   size?: ButtonProps['size'];
   type?: 'reset' | 'submit' | 'button';
   variant?: ButtonProps['variant'];
+  className?: string;
 }
 
-const Button = ({ color, variant, children, size, type, loading }: ButtonPropsType) => (
+const Button = ({ color, variant, children, size, type, loading, className }: ButtonPropsType) => (
   <InputFieldWrapper>
     <LoadingButtonMaterial
       fullWidth
+      className={className}
       color={color}
       loading={loading}
       size={size}
@@ -28,6 +30,7 @@ const Button = ({ color, variant, children, size, type, loading }: ButtonPropsTy
 
 Button.defaultProps = {
   children: 'Button',
+  className: '',
   color: 'primary',
   loading: false,
   size: 'large',

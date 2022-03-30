@@ -4,8 +4,12 @@ import TextInputField from 'components/TextInputField';
 import PasswordInputField from 'components/PasswordInputField';
 import Button from 'components/Button';
 import RadioInputField from 'components/RadioInputField';
+import DateInputField from 'components/DateInputField';
 
 import './RegistrationPage.styles.scss';
+import Separator from 'components/Separator';
+import Logo from 'components/Logo';
+import Caption from 'components/Caption';
 
 const REGISTRATION_FORM_DEFAULT_VALUE = {
   name: {
@@ -14,6 +18,7 @@ const REGISTRATION_FORM_DEFAULT_VALUE = {
     lastName: '',
   },
   gender: 'male',
+  dob: '',
   schoolName: '',
   mobileNo: '',
   altMobileNo: '',
@@ -29,8 +34,13 @@ const RegistrationPage = () => {
 
   return (
     <div className="page" id="registration-page">
-      <h1>Register Now</h1>
-      <hr />
+      <Logo />
+
+      <Caption />
+
+      <h1 className="page-title">Register Now</h1>
+
+      <Separator />
 
       <form onSubmit={handleSubmit((data) => console.log(data))}>
         <TextInputField
@@ -54,6 +64,12 @@ const RegistrationPage = () => {
         />
 
         <RadioInputField fieldName="gender" inputLabel="Gender" useFormControl={control} />
+
+        <DateInputField
+          separateLabel
+          inputLabel="Date of Birth"
+          useFormRegister={register('dob')}
+        />
 
         <TextInputField
           separateLabel

@@ -6,13 +6,13 @@ import { getStorage, connectStorageEmulator } from 'firebase/storage';
 import { getFunctions, connectFunctionsEmulator } from 'firebase/functions';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyB7jYV6hOGW65ZdT8WXyLmVawNPOsij-lE',
-  authDomain: 'votesub-kiranbansode.firebaseapp.com',
-  projectId: 'votesub-kiranbansode',
-  storageBucket: 'votesub-kiranbansode.appspot.com',
-  messagingSenderId: '436389693520',
-  appId: '1:436389693520:web:1d5e0cffa5c16a4a152955',
-  measurementId: 'G-9D6LESEQ6F',
+  apiKey: 'AIzaSyBpXpz4rghVJIx-FJSsuTxrhLJrNbOm4Co',
+  authDomain: 'kiranbansode-votesub.firebaseapp.com',
+  projectId: 'kiranbansode-votesub',
+  storageBucket: 'kiranbansode-votesub.appspot.com',
+  messagingSenderId: '932399851612',
+  appId: '1:932399851612:web:cde57ec475008b554d1e99',
+  measurementId: 'G-QNMMM5XC5L',
 };
 
 // Initialize Firebase

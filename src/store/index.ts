@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import counterSlice from 'store/counterSlice';
+import userLoginSlice from 'store/loginPage/userLoginSlice';
 
 export const store = configureStore({
   reducer: {
     counter: counterSlice,
+    user: userLoginSlice,
   },
 });
 

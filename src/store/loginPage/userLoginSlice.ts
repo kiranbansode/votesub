@@ -27,7 +27,7 @@ export type UserInfoType = {
     uid: UserInfo['uid'];
     email: UserInfo['email'];
   };
-  loading: Boolean | null;
+  loading: boolean;
 };
 
 const initialState: UserInfoType = {
@@ -35,7 +35,7 @@ const initialState: UserInfoType = {
     email: '',
     uid: '',
   },
-  loading: null,
+  loading: false,
 };
 
 const userLoginSlice = createSlice({

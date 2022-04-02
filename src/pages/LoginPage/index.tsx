@@ -1,6 +1,6 @@
 import { useForm, FieldValues } from 'react-hook-form';
 import useAppDisparch from 'hooks/useAppDispatch';
-
+import useAppSelector from 'hooks/useAppSelector';
 import TextInputField from 'components/TextInputField';
 import PasswordInputField from 'components/PasswordInputField';
 import Button from 'components/Button';
@@ -26,6 +26,7 @@ const LoginPage = () => {
     defaultValues: loginPageFormDefaultValues,
   });
   const dispatch = useAppDisparch();
+  const userState = useAppSelector(({ user }) => user);
 
   return (
     <div className="page" id="login-page">
@@ -47,7 +48,7 @@ const LoginPage = () => {
           useFormRegister={register('password')}
         />
 
-        <Button className="login-button" type="submit">
+        <Button className="login-button" loading={userState.loading} type="submit">
           Login
         </Button>
 

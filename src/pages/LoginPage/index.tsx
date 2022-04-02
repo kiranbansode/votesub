@@ -1,4 +1,4 @@
-import { useForm } from 'react-hook-form';
+import { useForm, FieldValues } from 'react-hook-form';
 import useAppDisparch from 'hooks/useAppDispatch';
 
 import TextInputField from 'components/TextInputField';
@@ -11,18 +11,25 @@ import './LoginPage.styles.scss';
 import Logo from 'components/Logo';
 import Caption from 'components/Caption';
 
-export type userLoginFormTypes = {
+export type UserLoginFormTypes = {
   username: string;
   password: string;
 };
 
+const loginPageFormDefaultValues: UserLoginFormTypes = {
+  username: '',
+  password: '',
+};
+
 const LoginPage = () => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit } = useForm<FieldValues>({
+    defaultValues: loginPageFormDefaultValues,
+  });
   const dispatch = useAppDisparch();
 
   return (
     <div className="page" id="login-page">
-      <form onSubmit={handleSubmit((data: userLoginFormTypes) => dispatch(userLogIn(data)))}>
+      <form onSubmit={handleSubmit((data: UserLoginFormTypes) => dispatch(userLogIn(data)))}>
         <Logo />
 
         <Caption />

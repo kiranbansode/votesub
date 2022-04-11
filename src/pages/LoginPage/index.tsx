@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useForm, FieldValues } from 'react-hook-form';
 import useAppDisparch from 'hooks/useAppDispatch';
 import useAppSelector from 'hooks/useAppSelector';
@@ -59,7 +60,9 @@ const LoginPage = () => {
           below
         </p>
 
-        <Button color="success">Register</Button>
+        <Link to="/register">
+          <Button color="success">Register</Button>
+        </Link>
       </form>
     </div>
   );

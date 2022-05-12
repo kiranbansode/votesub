@@ -7,6 +7,8 @@ import PasswordInputField from 'components/PasswordInputField';
 import Button from 'components/Button';
 import Separator from 'components/Separator';
 import { userLogIn } from 'store/loginPage/userLoginSlice';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 
 import './LoginPage.styles.scss';
 import Logo from 'components/Logo';
@@ -22,9 +24,15 @@ const loginPageFormDefaultValues: UserLoginFormTypes = {
   password: '',
 };
 
+const loginPageFormValidation = yup.object({
+  username: yup.string().required('Username is required'),
+  password: yup.string().required('Password is required'),
+});
+
 const LoginPage = () => {
-  const { register, handleSubmit } = useForm<FieldValues>({
+  const { register, handleSubmit, formState } = useForm<FieldValues>({
     defaultValues: loginPageFormDefaultValues,
+    resolver: yupResolver(loginPageFormValidation),
   });
   const dispatch = useAppDisparch();
   const userState = useAppSelector(({ user }) => user);
@@ -39,12 +47,14 @@ const LoginPage = () => {
         <TextInputField
           autoFocus
           separateLabel
+          errors={formState.errors}
           inputLabel="Username"
           useFormRegister={register('username')}
         />
 
         <PasswordInputField
           separateLabel
+          errors={formState.errors}
           inputLabel="Password"
           useFormRegister={register('password')}
         />

@@ -7,6 +7,8 @@ import { TextField, FormControl, FormHelperText } from '@mui/material';
 import InputFieldWrapper from 'styled/InputFieldWrapper';
 import SeparateLabel from 'components/SeparateLabel';
 
+import errorMessageFinder from 'utils/helperFunctions/errorMessageFinder';
+
 import './TextInputField.styles.scss';
 
 interface TextInputFieldPropsType {
@@ -17,6 +19,7 @@ interface TextInputFieldPropsType {
   noLabel?: boolean;
   inputPlaceHolder?: string;
   autoFocus?: boolean;
+  errors: { [x: string]: string };
 }
 
 /**
@@ -37,12 +40,14 @@ const TextInputField = ({
   separateLabel,
   noLabel,
   inputHelperText,
+  errors,
   inputLabel,
   inputPlaceHolder,
   useFormRegister,
 }: TextInputFieldPropsType) => {
-  let labelToShow;
+  const errorMessage = errorMessageFinder(useFormRegister.name, errors);
 
+  let labelToShow;
   if (!noLabel) {
     /* Depending on passed conditon it will do one of follwing
     1. Separate Label - Detached from TextInputField
@@ -55,7 +60,7 @@ const TextInputField = ({
   return (
     <>
       <InputFieldWrapper>
-        <FormControl>
+        <FormControl error={!!errorMessage}>
           {separateLabel ? (
             <SeparateLabel htmlFor={useFormRegister.name} label={inputLabel} />
           ) : null}
@@ -63,6 +68,7 @@ const TextInputField = ({
           <TextField
             fullWidth
             autoFocus={autoFocus}
+            error={!!errorMessage}
             id={useFormRegister.name}
             inputRef={useFormRegister.ref}
             label={labelToShow}
@@ -72,7 +78,9 @@ const TextInputField = ({
             onChange={useFormRegister.onChange}
           />
 
-          <FormHelperText id={useFormRegister.name}>{inputHelperText}</FormHelperText>
+          <FormHelperText id={useFormRegister.name}>
+            {errorMessage || inputHelperText}
+          </FormHelperText>
         </FormControl>
       </InputFieldWrapper>
     </>

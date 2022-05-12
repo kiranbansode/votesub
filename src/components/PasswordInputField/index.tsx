@@ -19,6 +19,8 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 import InputFieldWrapper from 'styled/InputFieldWrapper';
 
+import errorMessageFinder from 'utils/helperFunctions/errorMessageFinder';
+
 import './PasswordInputField.styles.scss';
 
 interface PasswordInputFieldPropsType {
@@ -28,6 +30,7 @@ interface PasswordInputFieldPropsType {
   separateLabel?: boolean;
   noLabel?: boolean;
   inputPlaceHolder?: string;
+  errors: { [x: string]: string };
 }
 
 const PasswordInputField = ({
@@ -37,8 +40,10 @@ const PasswordInputField = ({
   inputLabel,
   inputPlaceHolder,
   useFormRegister,
+  errors,
 }: PasswordInputFieldPropsType) => {
   const [showPassword, setShowPassword] = useState(false);
+  const errorMessage = errorMessageFinder(useFormRegister.name, errors);
 
   let labelToShow;
 
@@ -62,7 +67,7 @@ const PasswordInputField = ({
 
   return (
     <InputFieldWrapper id="password-input-field">
-      <FormControl variant="outlined">
+      <FormControl error={!!errorMessage} variant="outlined">
         {separateLabel ? <SeparateLabel htmlFor={useFormRegister.name} label={inputLabel} /> : null}
 
         <OutlinedInput
@@ -78,6 +83,7 @@ const PasswordInputField = ({
               </IconButton>
             </InputAdornment>
           }
+          error={!!errorMessage}
           id={useFormRegister.name}
           inputRef={useFormRegister.ref}
           label={labelToShow}
@@ -88,7 +94,7 @@ const PasswordInputField = ({
           onChange={useFormRegister.onChange}
         />
 
-        <FormHelperText id={useFormRegister.name}>{inputHelperText}</FormHelperText>
+        <FormHelperText id={useFormRegister.name}>{errorMessage || inputHelperText}</FormHelperText>
       </FormControl>
     </InputFieldWrapper>
   );

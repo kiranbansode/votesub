@@ -17,7 +17,7 @@ import { FieldErrors } from 'react-hook-form';
  * @returns - an error message
  */
 
-const errorMessageFinder = (inputFieldName: string, errorObject: FieldErrors) => {
+const inputErrorMessageFinder = (inputFieldName: string, errorObject: FieldErrors) => {
   const names: string[] = inputFieldName.split('.');
 
   /* Solution 1 = Original Solution */
@@ -49,4 +49,4 @@ const errorMessageFinder = (inputFieldName: string, errorObject: FieldErrors) =>
   return error[names.length];
 };
 
-export default errorMessageFinder;
+export default inputErrorMessageFinder;

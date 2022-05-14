@@ -7,7 +7,7 @@ import { TextField, FormControl, FormHelperText } from '@mui/material';
 import InputFieldWrapper from 'styled/InputFieldWrapper';
 import SeparateLabel from 'components/SeparateLabel';
 
-import errorMessageFinder from 'utils/helperFunctions/errorMessageFinder';
+import inputErrorMessageFinder from 'utils/helperFunctions/inputErrorMessageFinder';
 
 import './TextInputField.styles.scss';
 
@@ -45,7 +45,7 @@ const TextInputField = ({
   inputPlaceHolder,
   useFormRegister,
 }: TextInputFieldPropsType) => {
-  const errorMessage = errorMessageFinder(useFormRegister.name, errors);
+  const errorMessage = inputErrorMessageFinder(useFormRegister.name, errors);
 
   let labelToShow;
   if (!noLabel) {

@@ -19,7 +19,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 import InputFieldWrapper from 'styled/InputFieldWrapper';
 
-import errorMessageFinder from 'utils/helperFunctions/errorMessageFinder';
+import inputErrorMessageFinder from 'utils/helperFunctions/inputErrorMessageFinder';
 
 import './PasswordInputField.styles.scss';
 
@@ -43,7 +43,7 @@ const PasswordInputField = ({
   errors,
 }: PasswordInputFieldPropsType) => {
   const [showPassword, setShowPassword] = useState(false);
-  const errorMessage = errorMessageFinder(useFormRegister.name, errors);
+  const errorMessage = inputErrorMessageFinder(useFormRegister.name, errors);
 
   let labelToShow;
 

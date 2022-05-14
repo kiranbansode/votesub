@@ -2,7 +2,7 @@ import { FormHelperText, MenuItem, FormControl, Select } from '@mui/material';
 import SeparateLabel from 'components/SeparateLabel';
 import { Controller, FieldErrors, Control } from 'react-hook-form';
 import InputFieldWrapper from 'styled/InputFieldWrapper';
-import errorMessageFinder from 'utils/helperFunctions/errorMessageFinder';
+import inputErrorMessageFinder from 'utils/helperFunctions/inputErrorMessageFinder';
 
 import './SelectInputField.styles.scss';
 
@@ -28,7 +28,7 @@ const SelectInputField = ({
   options,
   fieldName,
 }: SelectInputFieldProps) => {
-  const error = errorMessageFinder(fieldName, inputErrors);
+  const error = inputErrorMessageFinder(fieldName, inputErrors);
 
   return (
     <InputFieldWrapper id="select-input-field">

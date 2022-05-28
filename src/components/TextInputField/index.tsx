@@ -1,99 +1,79 @@
-/* 
-  Author : Kiran A. Bansode
-*/
-
-import { UseFormRegisterReturn } from 'react-hook-form';
 import { TextField, FormControl, FormHelperText } from '@mui/material';
-import InputFieldWrapper from 'styled/InputFieldWrapper';
+import { ITextInputFieldProps } from 'components/types';
 import SeparateLabel from 'components/SeparateLabel';
-
+import InputFieldWrapper from 'styled/InputFieldWrapper';
 import inputErrorMessageFinder from 'utils/helperFunctions/inputErrorMessageFinder';
-
 import './TextInputField.styles.scss';
 
-interface TextInputFieldPropsType {
-  useFormRegister: UseFormRegisterReturn;
-  inputLabel?: string;
-  inputHelperText?: string;
-  separateLabel?: boolean;
-  noLabel?: boolean;
-  inputPlaceHolder?: string;
-  autoFocus?: boolean;
-  errors: { [x: string]: string };
-}
-
 /**
- * Generate TextInput Field
- * @author Kiran A. Bansode <kiran5120135@gmail.com>
- * @param autoFocus - bring user attention to input field
- * @param separateLabel - detach label from input field
- * @param noLabel - label will not be shown
- * @param inputHelperText - guidence or error message will be shown below input field
- * @param inputLabel - label for input field
- * @param inputPlaceHolder - placeholder inside input field
- * @param useFormRegister - register() method from useForm() [React Hook Form]
- * @return return TextInputField [JSX.Element]
+ * TextInputField is a wrapper component around Material-UI's TextField.
+ * It has much more capabilities like intergration with React-Hook-Form,
+ * custom Error Messages and more.
+ *
+ * @author Kiran A. Bansode <czar.kiran@gmail.com>
+ * @return TextField Componenet
  */
 
-const TextInputField = ({
-  autoFocus,
-  separateLabel,
-  noLabel,
-  inputHelperText,
-  errors,
-  inputLabel,
-  inputPlaceHolder,
-  useFormRegister,
-}: TextInputFieldPropsType) => {
-  const errorMessage = inputErrorMessageFinder(useFormRegister.name, errors);
+function TextInputField({
+    autoFocus,
+    noLabel,
+    separateLabel,
+    errors,
+    formRegister,
+    inputHelperText,
+    inputLabel,
+    inputPlaceholder,
+}: ITextInputFieldProps) {
+    const errorMessage = inputErrorMessageFinder(formRegister.name, errors);
 
-  let labelToShow;
-  if (!noLabel) {
-    /* Depending on passed conditon it will do one of follwing
-    1. Separate Label - Detached from TextInputField
-    2. No Label - Label will not be showed
-    3. Default - Label will be shown in top border of TextInputField
-  */
-    labelToShow = !separateLabel ? inputLabel : null;
-  }
+    let labelToShow;
+    /*
+     * Depending on passed conditon it will do one of follwing
+     * Separate Label - Detached from TextInputField
+     * No Label - Label will not be showed
+     * Default - Label will be shown in top border of TextInputField like legend of a fieldset tag
+     */
+    if (!noLabel) {
+        labelToShow = !separateLabel ? inputLabel : null;
+    }
 
-  return (
-    <>
-      <InputFieldWrapper>
-        <FormControl error={!!errorMessage}>
-          {separateLabel ? (
-            <SeparateLabel htmlFor={useFormRegister.name} label={inputLabel} />
-          ) : null}
+    return (
+        <>
+            <InputFieldWrapper>
+                <FormControl error={Boolean(errorMessage)}>
+                    {separateLabel ? (
+                        <SeparateLabel htmlFor={formRegister.name} label={inputLabel} />
+                    ) : null}
 
-          <TextField
-            fullWidth
-            autoFocus={autoFocus}
-            error={!!errorMessage}
-            id={useFormRegister.name}
-            inputRef={useFormRegister.ref}
-            label={labelToShow}
-            name={useFormRegister.name}
-            placeholder={inputPlaceHolder}
-            onBlur={useFormRegister.onBlur}
-            onChange={useFormRegister.onChange}
-          />
+                    <TextField
+                        fullWidth
+                        autoFocus={autoFocus}
+                        error={Boolean(errorMessage)}
+                        id={formRegister.name}
+                        inputRef={formRegister.ref}
+                        label={labelToShow}
+                        name={formRegister.name}
+                        placeholder={inputPlaceholder}
+                        onBlur={formRegister.onBlur}
+                        onChange={formRegister.onChange}
+                    />
 
-          <FormHelperText id={useFormRegister.name}>
-            {errorMessage || inputHelperText}
-          </FormHelperText>
-        </FormControl>
-      </InputFieldWrapper>
-    </>
-  );
-};
+                    <FormHelperText id={formRegister.name}>
+                        {errorMessage || inputHelperText}
+                    </FormHelperText>
+                </FormControl>
+            </InputFieldWrapper>
+        </>
+    );
+}
 
 TextInputField.defaultProps = {
-  autoFocus: false,
-  separateLabel: false,
-  noLabel: false,
-  inputHelperText: '',
-  inputLabel: 'TextField',
-  inputPlaceHolder: '',
+    autoFocus: false,
+    separateLabel: false,
+    noLabel: false,
+    inputHelperText: '',
+    inputLabel: 'TextField',
+    inputPlaceholder: '',
 };
 
 export default TextInputField;

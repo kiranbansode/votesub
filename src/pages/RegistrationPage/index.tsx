@@ -1,112 +1,149 @@
 import { useForm, FieldValues } from 'react-hook-form';
-
 import TextInputField from 'components/TextInputField';
 import PasswordInputField from 'components/PasswordInputField';
 import Button from 'components/Button';
 import RadioInputField from 'components/RadioInputField';
 import DateInputField from 'components/DateInputField';
-
-import './RegistrationPage.styles.scss';
+import SelectInputField from 'components/SelectInputField';
+import { standardOptions } from 'utils/menuOptions/standards';
+import { divisionOptions } from 'utils/menuOptions/divisions';
 import Separator from 'components/Separator';
 import Logo from 'components/Logo';
 import Caption from 'components/Caption';
 
+import './RegistrationPage.styles.scss';
+
 const REGISTRATION_FORM_DEFAULT_VALUE = {
-  name: {
-    firstName: '',
-    middleName: '',
-    lastName: '',
-  },
-  gender: 'male',
-  dob: '',
-  schoolName: '',
-  mobileNo: '',
-  altMobileNo: '',
-  emailId: '',
-  password: '',
-  confirmPassword: '',
+    name: {
+        firstName: '',
+        middleName: '',
+        lastName: '',
+    },
+    gender: 'male',
+    dob: '',
+    schoolName: '',
+    std: '',
+    div: '',
+    mobileNo: '',
+    altMobileNo: '',
+    emailId: '',
+    password: '',
+    confirmPassword: '',
 };
 
 const RegistrationPage = () => {
-  const { register, handleSubmit, control } = useForm<FieldValues>({
-    defaultValues: REGISTRATION_FORM_DEFAULT_VALUE,
-  });
+    const { register, handleSubmit, control, formState } = useForm<FieldValues>({
+        defaultValues: REGISTRATION_FORM_DEFAULT_VALUE,
+    });
 
-  return (
-    <div className="page" id="registration-page">
-      <Logo />
+    return (
+        <div className="page" id="registration-page">
+            <Logo />
 
-      <Caption />
+            <Caption />
 
-      <h1 className="page-title">Register Now</h1>
+            <h1 className="page-title">Register Now</h1>
 
-      <Separator />
+            <Separator />
 
-      <form onSubmit={handleSubmit((data) => console.log(data))}>
-        <TextInputField
-          autoFocus
-          separateLabel
-          inputLabel="Name"
-          inputPlaceHolder="Your Name"
-          useFormRegister={register('name.firstName')}
-        />
+            <form onSubmit={handleSubmit((data) => console.log(data))}>
+                <TextInputField
+                    autoFocus
+                    separateLabel
+                    errors={formState.errors}
+                    formRegister={register('name.firstName')}
+                    inputLabel="Name"
+                    inputPlaceholder="Your Name"
+                />
 
-        <TextInputField
-          noLabel
-          inputPlaceHolder="Father/Husband Name"
-          useFormRegister={register('name.middleName')}
-        />
+                <TextInputField
+                    noLabel
+                    errors={formState.errors}
+                    formRegister={register('name.middleName')}
+                    inputPlaceholder="Father/Husband Name"
+                />
 
-        <TextInputField
-          noLabel
-          inputPlaceHolder="Surname"
-          useFormRegister={register('name.lastName')}
-        />
+                <TextInputField
+                    noLabel
+                    errors={formState.errors}
+                    formRegister={register('name.lastName')}
+                    inputPlaceholder="Surname"
+                />
 
-        <RadioInputField fieldName="gender" inputLabel="Gender" useFormControl={control} />
+                <RadioInputField fieldName="gender" inputLabel="Gender" useFormControl={control} />
 
-        <DateInputField
-          separateLabel
-          inputLabel="Date of Birth"
-          useFormRegister={register('dob')}
-        />
+                <DateInputField
+                    separateLabel
+                    control={control}
+                    fieldName="dob"
+                    inputErrors={formState.errors}
+                    inputLabel="Date of Birth"
+                />
 
-        <TextInputField
-          separateLabel
-          inputLabel="School Name"
-          useFormRegister={register('schoolName')}
-        />
+                <TextInputField
+                    separateLabel
+                    errors={formState.errors}
+                    formRegister={register('schoolName')}
+                    inputLabel="School Name"
+                />
 
-        <TextInputField
-          separateLabel
-          inputLabel="Mobile No. (WhatsApp)"
-          useFormRegister={register('mobileNo')}
-        />
+                <SelectInputField
+                    showSeparateLabel
+                    control={control}
+                    fieldName="std"
+                    inputErrors={formState.errors}
+                    inputLabel="Standard"
+                    options={standardOptions}
+                />
 
-        <TextInputField
-          separateLabel
-          inputLabel="Alternate Mobile No."
-          useFormRegister={register('altMobileNo')}
-        />
+                <SelectInputField
+                    showSeparateLabel
+                    control={control}
+                    fieldName="div"
+                    inputErrors={formState.errors}
+                    inputLabel="Division"
+                    options={divisionOptions}
+                />
 
-        <TextInputField separateLabel inputLabel="Email ID" useFormRegister={register('emailId')} />
+                <TextInputField
+                    separateLabel
+                    errors={formState.errors}
+                    formRegister={register('mobileNo')}
+                    inputLabel="Mobile No. (WhatsApp)"
+                />
 
-        <PasswordInputField
-          separateLabel
-          inputLabel="Password"
-          useFormRegister={register('password')}
-        />
+                <TextInputField
+                    separateLabel
+                    errors={formState.errors}
+                    formRegister={register('altMobileNo')}
+                    inputLabel="Alternate Mobile No."
+                />
 
-        <PasswordInputField
-          separateLabel
-          inputLabel="Confirm Your Password"
-          useFormRegister={register('confirmPassword')}
-        />
+                <TextInputField
+                    separateLabel
+                    errors={formState.errors}
+                    formRegister={register('emailId')}
+                    inputLabel="Email ID"
+                />
 
-        <Button type="submit">Register</Button>
-      </form>
-    </div>
-  );
+                <PasswordInputField
+                    separateLabel
+                    errors={formState.errors}
+                    formRegister={register('password')}
+                    inputLabel="Password"
+                />
+
+                <PasswordInputField
+                    separateLabel
+                    errors={formState.errors}
+                    formRegister={register('confirmPassword')}
+                    inputLabel="Confirm Your Password"
+                />
+
+                <Button type="submit">Register</Button>
+            </form>
+        </div>
+    );
 };
 
 export default RegistrationPage;

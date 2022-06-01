@@ -20,7 +20,7 @@ const REGISTRATION_FORM_DEFAULT_VALUE = {
         lastName: '',
     },
     gender: 'male',
-    dob: '',
+    dob: new Date(),
     schoolName: '',
     std: '',
     div: '',

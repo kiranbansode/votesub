@@ -57,10 +57,16 @@ const DateInputField = ({
                                     disableFuture
                                     label={labelToShow}
                                     openTo="day"
-                                    // eslint-disable-next-line react/jsx-props-no-spreading
-                                    renderInput={(params) => <TextField {...params} />}
-                                    // eslint-disable-next-line react/jsx-props-no-spreading
-                                    {...field}
+                                    renderInput={(params) => (
+                                        <TextField
+                                            name={field.name}
+                                            onBlur={field.onBlur}
+                                            // eslint-disable-next-line react/jsx-props-no-spreading
+                                            {...params}
+                                        />
+                                    )}
+                                    value={field.value}
+                                    onChange={field.onChange}
                                 />
                             </LocalizationProvider>
                         )}
@@ -75,7 +81,7 @@ const DateInputField = ({
 DateInputField.defaultProps = {
     separateLabel: false,
     noLabel: false,
-    inputHelperText: 'DateInputField',
+    inputHelperText: '',
 };
 
 export default DateInputField;

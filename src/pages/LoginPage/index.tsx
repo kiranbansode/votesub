@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm, FieldValues } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -44,7 +45,14 @@ const LoginPage = () => {
         resolver: yupResolver(loginPageFormValidation),
     });
     const dispatch = useAppDisparch();
+    const navigate = useNavigate();
     const userState = useAppSelector(({ user }) => user);
+
+    useEffect(() => {
+        if (userState.userDetails.uid) {
+            navigate('/dashboard');
+        }
+    }, [userState.userDetails.uid]);
 
     return (
         <div className="page" id="login-page">

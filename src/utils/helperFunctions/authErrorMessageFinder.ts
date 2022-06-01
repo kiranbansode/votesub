@@ -6,7 +6,7 @@ const authErrorMessageFinder = (error: FirebaseError): string => {
         [x: string]: string;
     } = {
         'auth/wrong-password': 'Wrong Password Entered!',
-        'auth/user-not-found': 'User not found. Check your Email ID',
+        'auth/user-not-found': 'User not found. Check your Username',
     };
 
     return customAuthMessages[code];

@@ -10,6 +10,8 @@ import { divisionOptions } from 'utils/menuOptions/divisions';
 import Separator from 'components/Separator';
 import Logo from 'components/Logo';
 import Caption from 'components/Caption';
+import useAppDispatch from 'hooks/useAppDispatch';
+import { createNewUserThunk } from 'store/registrationPage/createNewUserSlice';
 
 import './RegistrationPage.styles.scss';
 
@@ -36,6 +38,8 @@ const RegistrationPage = () => {
         defaultValues: REGISTRATION_FORM_DEFAULT_VALUE,
     });
 
+    const dispatch = useAppDispatch();
+
     return (
         <div className="page" id="registration-page">
             <Logo />
@@ -46,7 +50,7 @@ const RegistrationPage = () => {
 
             <Separator />
 
-            <form onSubmit={handleSubmit((data) => console.log(data))}>
+            <form onSubmit={handleSubmit((data) => dispatch(createNewUserThunk(data)))}>
                 <TextInputField
                     autoFocus
                     separateLabel

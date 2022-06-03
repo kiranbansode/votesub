@@ -22,7 +22,9 @@ export const auth = getAuth();
 export const firestore = getFirestore();
 export const storage = getStorage();
 export const functions = getFunctions(app, 'asia-south1');
-export const appCheck = initializeAppCheck(app, {
+
+// Invoke App Check
+initializeAppCheck(app, {
     provider: new ReCaptchaEnterpriseProvider('6LcorT8gAAAAACtD_q31tTj42WIDfHKdKffKkT1O'),
     isTokenAutoRefreshEnabled: true,
 });

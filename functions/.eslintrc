@@ -22,7 +22,10 @@
     ],
     "plugins": ["@typescript-eslint", "import"],
     "rules": {
-        "quotes": ["error", "double"],
+        "quotes": ["error", "single"],
+        "indent": ["error", 4],
+        "object-curly-spacing": ["error", "always"],
+        "max-len": ["error", 100],
         "import/no-unresolved": 0
     }
 }

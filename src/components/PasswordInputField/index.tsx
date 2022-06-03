@@ -2,14 +2,14 @@
   Author : Kiran A. Bansode
 */
 
-import { useState } from 'react';
+import { useState, MouseEvent } from 'react';
 import { UseFormRegisterReturn } from 'react-hook-form';
 import {
-  FormControl,
-  OutlinedInput,
-  InputAdornment,
-  IconButton,
-  FormHelperText,
+    FormControl,
+    OutlinedInput,
+    InputAdornment,
+    IconButton,
+    FormHelperText,
 } from '@mui/material';
 
 import SeparateLabel from 'components/SeparateLabel';
@@ -19,87 +19,96 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 import InputFieldWrapper from 'styled/InputFieldWrapper';
 
+import inputErrorMessageFinder from 'utils/helperFunctions/inputErrorMessageFinder';
+
 import './PasswordInputField.styles.scss';
 
-interface PasswordInputFieldPropsType {
-  useFormRegister: UseFormRegisterReturn;
-  inputLabel?: string;
-  inputHelperText?: string;
-  separateLabel?: boolean;
-  noLabel?: boolean;
-  inputPlaceHolder?: string;
+interface IPasswordInputFieldProps {
+    formRegister: UseFormRegisterReturn;
+    inputLabel?: string;
+    inputHelperText?: string;
+    separateLabel?: boolean;
+    noLabel?: boolean;
+    inputPlaceHolder?: string;
+    errors: { [x: string]: string };
 }
 
 const PasswordInputField = ({
-  separateLabel,
-  noLabel,
-  inputHelperText,
-  inputLabel,
-  inputPlaceHolder,
-  useFormRegister,
-}: PasswordInputFieldPropsType) => {
-  const [showPassword, setShowPassword] = useState(false);
+    separateLabel,
+    noLabel,
+    inputHelperText,
+    inputLabel,
+    inputPlaceHolder,
+    formRegister,
+    errors,
+}: IPasswordInputFieldProps) => {
+    const [showPassword, setShowPassword] = useState(false);
+    const errorMessage = inputErrorMessageFinder(formRegister.name, errors);
 
-  let labelToShow;
+    let labelToShow;
 
-  if (!noLabel) {
-    /* Depending on passed conditon it will do one of follwing
-    1. Separate Label - Detached from TextInputField
-    2. No Label - Label will not be showed
-    3. Default - Label will be shown in top border of TextInputField
-  */
-    labelToShow = !separateLabel ? inputLabel : null;
-  }
+    if (!noLabel) {
+        /* Depending on passed conditon it will do one of follwing
+          1. Separate Label - Detached from TextInputField
+          2. No Label - Label will not be showed
+          3. Default - Label will be shown in top border of TextInputField
+        */
+        labelToShow = !separateLabel ? inputLabel : null;
+    }
 
-  const handleClickShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
+    const handleClickShowPassword = () => {
+        setShowPassword(!showPassword);
+    };
 
-  // @ts-ignore
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
+    const handleMouseDownPassword = (e: MouseEvent) => {
+        e.preventDefault();
+    };
 
-  return (
-    <InputFieldWrapper id="password-input-field">
-      <FormControl variant="outlined">
-        {separateLabel ? <SeparateLabel htmlFor={useFormRegister.name} label={inputLabel} /> : null}
+    return (
+        <InputFieldWrapper id="password-input-field">
+            <FormControl error={!!errorMessage} variant="outlined">
+                {separateLabel ? (
+                    <SeparateLabel htmlFor={formRegister.name} label={inputLabel} />
+                ) : null}
 
-        <OutlinedInput
-          fullWidth
-          endAdornment={
-            <InputAdornment position="end">
-              <IconButton
-                edge="end"
-                onClick={handleClickShowPassword}
-                onMouseDown={handleMouseDownPassword}
-              >
-                {showPassword ? <VisibilityOff /> : <Visibility />}
-              </IconButton>
-            </InputAdornment>
-          }
-          id={useFormRegister.name}
-          inputRef={useFormRegister.ref}
-          label={labelToShow}
-          name={useFormRegister.name}
-          placeholder={inputPlaceHolder}
-          type={showPassword ? 'text' : 'password'}
-          onBlur={useFormRegister.onBlur}
-          onChange={useFormRegister.onChange}
-        />
+                <OutlinedInput
+                    fullWidth
+                    endAdornment={
+                        <InputAdornment position="end">
+                            <IconButton
+                                edge="end"
+                                onClick={handleClickShowPassword}
+                                onMouseDown={handleMouseDownPassword}
+                            >
+                                {showPassword ? <VisibilityOff /> : <Visibility />}
+                            </IconButton>
+                        </InputAdornment>
+                    }
+                    error={!!errorMessage}
+                    id={formRegister.name}
+                    inputRef={formRegister.ref}
+                    label={labelToShow}
+                    name={formRegister.name}
+                    placeholder={inputPlaceHolder}
+                    type={showPassword ? 'text' : 'password'}
+                    onBlur={formRegister.onBlur}
+                    onChange={formRegister.onChange}
+                />
 
-        <FormHelperText id={useFormRegister.name}>{inputHelperText}</FormHelperText>
-      </FormControl>
-    </InputFieldWrapper>
-  );
+                <FormHelperText id={formRegister.name}>
+                    {errorMessage || inputHelperText}
+                </FormHelperText>
+            </FormControl>
+        </InputFieldWrapper>
+    );
 };
 
 PasswordInputField.defaultProps = {
-  separateLabel: false,
-  noLabel: false,
-  inputHelperText: '',
-  inputLabel: 'PasswordInputField',
-  inputPlaceHolder: '',
+    separateLabel: false,
+    noLabel: false,
+    inputHelperText: '',
+    inputLabel: 'PasswordInputField',
+    inputPlaceHolder: '',
 };
 
 export default PasswordInputField;

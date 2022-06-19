@@ -1,22 +1,29 @@
-import { useEffect } from 'react';
+import { useEffect, lazy } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm, FieldValues } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import useAppDisparch from 'hooks/useAppDispatch';
 import useAppSelector from 'hooks/useAppSelector';
-import TextInputField from 'components/TextInputField';
-import PasswordInputField from 'components/PasswordInputField';
-import Button from 'components/Button';
-import Separator from 'components/Separator';
-import Logo from 'components/Logo';
-import Caption from 'components/Caption';
+// import TextInputField from 'components/TextInputField';
+// import PasswordInputField from 'components/PasswordInputField';
+// import Button from 'components/Button';
+// import Separator from 'components/Separator';
+// import Logo from 'components/Logo';
+// import Caption from 'components/Caption';
 import { userLogIn } from 'store/loginPage/userLoginSlice';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import InputFieldWrapper from 'styled/InputFieldWrapper';
 
 import './LoginPage.styles.scss';
+
+const TextInputField = lazy(() => import('components/TextInputField'));
+const PasswordInputField = lazy(() => import('components/PasswordInputField'));
+const Button = lazy(() => import('components/Button'));
+const Separator = lazy(() => import('components/Separator'));
+const Logo = lazy(() => import('components/Logo'));
+const Caption = lazy(() => import('components/Caption'));
 
 export type UserLoginFormTypes = {
     username: string;
@@ -56,6 +63,7 @@ const LoginPage = () => {
 
     return (
         <div className="page" id="login-page">
+            {/* @ts-ignore */}
             <form onSubmit={handleSubmit((data: UserLoginFormTypes) => dispatch(userLogIn(data)))}>
                 <Logo />
 

@@ -1,4 +1,5 @@
 import { useForm, FieldValues } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import TextInputField from 'components/TextInputField';
 import PasswordInputField from 'components/PasswordInputField';
 import Button from 'components/Button';
@@ -11,8 +12,11 @@ import Separator from 'components/Separator';
 import Logo from 'components/Logo';
 import Caption from 'components/Caption';
 import useAppDispatch from 'hooks/useAppDispatch';
+import useAppSelector from 'hooks/useAppSelector';
 import { createNewUserThunk } from 'store/registrationPage/createNewUserSlice';
 
+// @ts-ignore
+import registrationFormValidation from './yupValidation.ts';
 import './RegistrationPage.styles.scss';
 
 const REGISTRATION_FORM_DEFAULT_VALUE = {
@@ -36,9 +40,11 @@ const REGISTRATION_FORM_DEFAULT_VALUE = {
 const RegistrationPage = () => {
     const { register, handleSubmit, control, formState } = useForm<FieldValues>({
         defaultValues: REGISTRATION_FORM_DEFAULT_VALUE,
+        resolver: yupResolver(registrationFormValidation),
     });
 
     const dispatch = useAppDispatch();
+    const createNewUserState = useAppSelector((state) => state.registration);
 
     return (
         <div className="page" id="registration-page">
@@ -144,7 +150,9 @@ const RegistrationPage = () => {
                     inputLabel="Confirm Your Password"
                 />
 
-                <Button type="submit">Register</Button>
+                <Button loading={createNewUserState.loading} type="submit">
+                    Register
+                </Button>
             </form>
         </div>
     );

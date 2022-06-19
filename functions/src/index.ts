@@ -7,14 +7,25 @@ const clf = cloudFunctions.region('asia-south1');
 admin.initializeApp();
 
 exports.createNewUser = clf.https.onCall(async (data) => {
+    const { name, gender, dob, schoolName, std, div, mobileNo, altMobileNo, emailId, password } =
+        data;
+
     try {
         const response = await admin.auth().createUser({
-            email: data.emailId,
-            password: data.password,
+            email: emailId,
+            password: password,
         });
 
         if (response.uid) {
             await admin.firestore().collection('users').doc(response.uid).set({
+                name,
+                gender,
+                dob,
+                schoolName,
+                std,
+                div,
+                mobileNo1: mobileNo,
+                mobileNo2: altMobileNo,
                 email: response.email,
                 userId: response.uid,
             });
@@ -22,7 +33,7 @@ exports.createNewUser = clf.https.onCall(async (data) => {
 
         return 'User created successully';
     } catch (error) {
-        throw new HttpsError('already-exists', 'User already exists');
+        throw new HttpsError('already-exists', 'Email ID is already exists. Try another Email ID');
     }
 });
 

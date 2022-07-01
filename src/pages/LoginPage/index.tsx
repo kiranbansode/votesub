@@ -2,7 +2,6 @@ import { useEffect, lazy } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm, FieldValues } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
 import useAppDisparch from 'hooks/useAppDispatch';
 import useAppSelector from 'hooks/useAppSelector';
 // import TextInputField from 'components/TextInputField';
@@ -16,6 +15,8 @@ import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import InputFieldWrapper from 'styled/InputFieldWrapper';
 
+// @ts-ignore
+import loginPageFormValidation from './yupValidation.ts';
 import './LoginPage.styles.scss';
 
 const TextInputField = lazy(() => import('components/TextInputField'));
@@ -34,17 +35,6 @@ const loginPageFormDefaultValues: UserLoginFormTypes = {
     username: '',
     password: '',
 };
-
-const loginPageFormValidation = yup.object({
-    username: yup
-        .string()
-        .strict()
-        .trim('Blank Spaces are not allowed')
-        .email('Username must be a valid Email ID')
-        .max(255)
-        .required('Username is required'),
-    password: yup.string().strict().required('Password is required'),
-});
 
 const LoginPage = () => {
     const { register, handleSubmit, formState } = useForm<FieldValues>({

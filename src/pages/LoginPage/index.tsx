@@ -4,12 +4,6 @@ import { useForm, FieldValues } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import useAppDisparch from 'hooks/useAppDispatch';
 import useAppSelector from 'hooks/useAppSelector';
-// import TextInputField from 'components/TextInputField';
-// import PasswordInputField from 'components/PasswordInputField';
-// import Button from 'components/Button';
-// import Separator from 'components/Separator';
-// import Logo from 'components/Logo';
-// import Caption from 'components/Caption';
 import { userLogIn } from 'store/loginPage/userLoginSlice';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
@@ -53,12 +47,12 @@ const LoginPage = () => {
 
     return (
         <div className="page" id="login-page">
+            <Logo />
+
+            <Caption />
+
             {/* @ts-ignore */}
             <form onSubmit={handleSubmit((data: UserLoginFormTypes) => dispatch(userLogIn(data)))}>
-                <Logo />
-
-                <Caption />
-
                 <TextInputField
                     autoFocus
                     separateLabel

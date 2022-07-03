@@ -1,25 +1,19 @@
-import { lazy } from 'react';
 import { useForm, FieldValues } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
+import TextInputField from 'components/TextInputField';
+import PasswordInputField from 'components/PasswordInputField';
+import Button from 'components/Button';
+import RadioInputField from 'components/RadioInputField';
+import DateInputField from 'components/DateInputField';
+import SelectInputField from 'components/SelectInputField';
 import { standardOptions } from 'utils/menuOptions/standards';
 import { divisionOptions } from 'utils/menuOptions/divisions';
+import Separator from 'components/Separator';
+import Logo from 'components/Logo';
+import Caption from 'components/Caption';
 import useAppDispatch from 'hooks/useAppDispatch';
-import useAppSelector from 'hooks/useAppSelector';
 import { createNewUserThunk } from 'store/registrationPage/createNewUserSlice';
 
-// @ts-ignore
-import registrationFormValidation from './yupValidation.ts';
 import './RegistrationPage.styles.scss';
-
-const TextInputField = lazy(() => import('components/TextInputField'));
-const PasswordInputField = lazy(() => import('components/PasswordInputField'));
-const Button = lazy(() => import('components/Button'));
-const RadioInputField = lazy(() => import('components/RadioInputField'));
-const DateInputField = lazy(() => import('components/DateInputField'));
-const SelectInputField = lazy(() => import('components/SelectInputField'));
-const Separator = lazy(() => import('components/Separator'));
-const Logo = lazy(() => import('components/Logo'));
-const Caption = lazy(() => import('components/Caption'));
 
 const REGISTRATION_FORM_DEFAULT_VALUE = {
     name: {
@@ -42,11 +36,9 @@ const REGISTRATION_FORM_DEFAULT_VALUE = {
 const RegistrationPage = () => {
     const { register, handleSubmit, control, formState } = useForm<FieldValues>({
         defaultValues: REGISTRATION_FORM_DEFAULT_VALUE,
-        resolver: yupResolver(registrationFormValidation),
     });
 
     const dispatch = useAppDispatch();
-    const createNewUserState = useAppSelector((state) => state.registration);
 
     return (
         <div className="page" id="registration-page">
@@ -152,9 +144,7 @@ const RegistrationPage = () => {
                     inputLabel="Confirm Your Password"
                 />
 
-                <Button loading={createNewUserState.loading} type="submit">
-                    Register
-                </Button>
+                <Button type="submit">Register</Button>
             </form>
         </div>
     );

@@ -6,6 +6,7 @@ export const createNewUserThunk = createAsyncThunk(
     async (userData: any, thunkAPI) => {
         try {
             const userCredentials = await createNewUserCLF(userData);
+
             return userCredentials.data;
         } catch (error) {
             return thunkAPI.rejectWithValue(error);
@@ -13,14 +14,18 @@ export const createNewUserThunk = createAsyncThunk(
     },
 );
 
+const initialState = {
+    loading: false,
+    data: {},
+    error: null,
+};
+
 const createNewUserSlice = createSlice({
     name: 'createNewUser',
-    initialState: {
-        loading: false,
-        data: {},
-        error: null,
+    initialState,
+    reducers: {
+        resetCreateNewUserSlice: () => initialState,
     },
-    reducers: {},
     extraReducers: (builder) => {
         builder.addCase(createNewUserThunk.pending, (state) => {
             state.loading = true;
@@ -38,4 +43,5 @@ const createNewUserSlice = createSlice({
     },
 });
 
+export const { resetCreateNewUserSlice } = createNewUserSlice.actions;
 export default createNewUserSlice.reducer;

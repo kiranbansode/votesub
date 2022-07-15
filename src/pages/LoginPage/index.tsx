@@ -54,7 +54,7 @@ const LoginPage = () => {
                 navigate('/dashboard');
                 dispatch(HIDE_LOGIN_SUCCESS_MSSG());
             }
-        }, 3000);
+        }, 2000);
     }, [userState.userDetails.uid]);
 
     return (

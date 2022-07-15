@@ -4,9 +4,14 @@ import { useForm, FieldValues } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import useAppDisparch from 'hooks/useAppDispatch';
 import useAppSelector from 'hooks/useAppSelector';
-import { userLogIn } from 'store/loginPage/userLoginSlice';
+import {
+    userLogIn,
+    SHOW_LOGIN_SUCCESS_MSSG,
+    HIDE_LOGIN_SUCCESS_MSSG,
+} from 'store/loginPage/userLoginSlice';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
+import BackdropMssg from 'components/BackdropMssg';
 import InputFieldWrapper from 'styled/InputFieldWrapper';
 
 // @ts-ignore
@@ -41,8 +46,15 @@ const LoginPage = () => {
 
     useEffect(() => {
         if (userState.userDetails.uid) {
-            navigate('/dashboard');
+            dispatch(SHOW_LOGIN_SUCCESS_MSSG());
         }
+
+        setTimeout(() => {
+            if (userState.userDetails.uid) {
+                navigate('/dashboard');
+                dispatch(HIDE_LOGIN_SUCCESS_MSSG());
+            }
+        }, 3000);
     }, [userState.userDetails.uid]);
 
     return (
@@ -96,6 +108,13 @@ const LoginPage = () => {
                     <Button color="success">Register</Button>
                 </Link>
             </form>
+            {userState.ui.showLoginSuccessMssg ? (
+                <BackdropMssg
+                    header="Login Successfull."
+                    mssg="Redirecting to Dashboard..."
+                    open={userState.ui.showLoginSuccessMssg}
+                />
+            ) : null}
         </div>
     );
 };

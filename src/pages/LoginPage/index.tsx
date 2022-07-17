@@ -2,20 +2,20 @@ import { useEffect, lazy } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm, FieldValues } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
 import useAppDisparch from 'hooks/useAppDispatch';
 import useAppSelector from 'hooks/useAppSelector';
-// import TextInputField from 'components/TextInputField';
-// import PasswordInputField from 'components/PasswordInputField';
-// import Button from 'components/Button';
-// import Separator from 'components/Separator';
-// import Logo from 'components/Logo';
-// import Caption from 'components/Caption';
-import { userLogIn } from 'store/loginPage/userLoginSlice';
+import {
+    userLogIn,
+    SHOW_LOGIN_SUCCESS_MSSG,
+    HIDE_LOGIN_SUCCESS_MSSG,
+} from 'store/loginPage/userLoginSlice';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
+import BackdropMssg from 'components/BackdropMssg';
 import InputFieldWrapper from 'styled/InputFieldWrapper';
 
+// @ts-ignore
+import loginPageFormValidation from './yupValidation.ts';
 import './LoginPage.styles.scss';
 
 const TextInputField = lazy(() => import('components/TextInputField'));
@@ -35,17 +35,6 @@ const loginPageFormDefaultValues: UserLoginFormTypes = {
     password: '',
 };
 
-const loginPageFormValidation = yup.object({
-    username: yup
-        .string()
-        .strict()
-        .trim('Blank Spaces are not allowed')
-        .email('Username must be a valid Email ID')
-        .max(255)
-        .required('Username is required'),
-    password: yup.string().strict().required('Password is required'),
-});
-
 const LoginPage = () => {
     const { register, handleSubmit, formState } = useForm<FieldValues>({
         defaultValues: loginPageFormDefaultValues,
@@ -57,18 +46,25 @@ const LoginPage = () => {
 
     useEffect(() => {
         if (userState.userDetails.uid) {
-            navigate('/dashboard');
+            dispatch(SHOW_LOGIN_SUCCESS_MSSG());
         }
+
+        setTimeout(() => {
+            if (userState.userDetails.uid) {
+                navigate('/dashboard');
+                dispatch(HIDE_LOGIN_SUCCESS_MSSG());
+            }
+        }, 2000);
     }, [userState.userDetails.uid]);
 
     return (
         <div className="page" id="login-page">
+            <Logo />
+
+            <Caption />
+
             {/* @ts-ignore */}
             <form onSubmit={handleSubmit((data: UserLoginFormTypes) => dispatch(userLogIn(data)))}>
-                <Logo />
-
-                <Caption />
-
                 <TextInputField
                     autoFocus
                     separateLabel
@@ -112,6 +108,13 @@ const LoginPage = () => {
                     <Button color="success">Register</Button>
                 </Link>
             </form>
+            {userState.ui.showLoginSuccessMssg ? (
+                <BackdropMssg
+                    header="Login Successfull."
+                    mssg="Redirecting to Dashboard..."
+                    open={userState.ui.showLoginSuccessMssg}
+                />
+            ) : null}
         </div>
     );
 };

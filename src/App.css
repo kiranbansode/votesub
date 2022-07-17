@@ -1,12 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;400;700&display=swap');
 
 .page {
-  margin: 20px;
+    padding: 20px;
 }
 
 .page-title {
-  margin-left: 10px;
-  margin-bottom: 0;
-  font-family: 'Nunito Sans';
-  font-weight: 400;
+    margin-left: 10px;
+    margin-bottom: 0;
+    font-family: 'Nunito Sans';
+    font-weight: 400;
 }

@@ -44,6 +44,9 @@ export interface IUserInfo {
     };
     loading: boolean;
     error: any;
+    ui: {
+        showLoginSuccessMssg: boolean;
+    };
 }
 
 const initialState: IUserInfo = {
@@ -56,12 +59,23 @@ const initialState: IUserInfo = {
     },
     loading: false,
     error: {},
+    ui: {
+        showLoginSuccessMssg: false,
+    },
 };
 
 const userLoginSlice = createSlice({
     name: 'user',
     initialState,
-    reducers: {},
+    reducers: {
+        SHOW_LOGIN_SUCCESS_MSSG: (state) => {
+            state.ui.showLoginSuccessMssg = true;
+        },
+
+        HIDE_LOGIN_SUCCESS_MSSG: (state) => {
+            state.ui.showLoginSuccessMssg = false;
+        },
+    },
     extraReducers: (builder) => {
         builder.addCase(userLogIn.pending, (state) => {
             state.loading = true;
@@ -87,6 +101,8 @@ const userLoginSlice = createSlice({
         });
     },
 });
+
+export const { SHOW_LOGIN_SUCCESS_MSSG, HIDE_LOGIN_SUCCESS_MSSG } = userLoginSlice.actions;
 
 export default userLoginSlice.reducer;
 

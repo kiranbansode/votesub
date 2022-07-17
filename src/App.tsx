@@ -11,9 +11,19 @@ const DashboardPage = lazy(() => import(`./pages/DashboardPage`));
 function App() {
     return (
         <div className="App">
-            {/* <p style={{ textAlign: 'center', color: 'red', margin: '0' }}>Only For Mobiles</p>
-      <p style={{ textAlign: 'center', margin: '0', fontSize: '10px' }}> Try on a mobile device</p> */}
-            <Suspense fallback={<CircularProgress />}>
+            <Suspense
+                fallback={
+                    <CircularProgress
+                        color="warning"
+                        sx={{
+                            position: 'absolute',
+                            top: '45%',
+                            left: '45%',
+                            transform: 'translate(50%, 50%)',
+                        }}
+                    />
+                }
+            >
                 <BrowserRouter>
                     <Routes>
                         <Route element={<LoginPage />} path="/" />

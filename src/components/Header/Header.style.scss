@@ -1,0 +1,21 @@
+#header {
+    padding: 0 20px;
+    height: 75px;
+    background-color: #fff;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    -webkit-box-shadow: 0px -15px 50px 0px rgba(0, 0, 0, 0.7);
+    -moz-box-shadow: 0px -15px 50px 0px rgba(0, 0, 0, 0.7);
+    box-shadow: 0px -15px 50px 0px rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    #votesub-logo {
+        width: 100px;
+    }
+
+    .header-icons {
+        font-size: 35px;
+    }
+}

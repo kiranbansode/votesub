@@ -7,6 +7,8 @@ import './App.css';
 const LoginPage = lazy(() => import(`./pages/LoginPage`));
 const RegistrationPage = lazy(() => import(`./pages/RegistrationPage`));
 const DashboardPage = lazy(() => import(`./pages/DashboardPage`));
+const AddNewTopicPage = lazy(() => import(`./pages/AddNewTopicPage`));
+const UserVotingHistory = lazy(() => import(`./pages/UserVotingHistory`));
 
 function App() {
     return (
@@ -29,6 +31,8 @@ function App() {
                         <Route element={<LoginPage />} path="/" />
                         <Route element={<RegistrationPage />} path="/register" />
                         <Route element={<DashboardPage />} path="/dashboard" />
+                        <Route element={<AddNewTopicPage />} path="/addNewTopic" />
+                        <Route element={<UserVotingHistory />} path="/userVotingHistory" />
                     </Routes>
                 </BrowserRouter>
             </Suspense>

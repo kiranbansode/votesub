@@ -3,10 +3,13 @@ import Separator from 'components/Separator';
 import Candidate from 'components/Candidate';
 
 import './Dashboard.styles.scss';
+import SideBar from 'components/SideBar';
 
 const DashboardPage = () => (
     <div id="dashboard-page">
         <Header />
+
+        <SideBar />
         <p id="remainig-votes">
             Your Remaining Votes : <span>100</span>
         </p>

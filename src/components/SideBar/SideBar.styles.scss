@@ -1,16 +1,17 @@
 #sidebar {
     position: absolute;
-    top: 65px;
+    top: 0;
+    left: 0;
     z-index: 100;
-    height: calc(100vh - 60px);
+    height: 100vh;
     width: 100%;
     background-color: rgba(0, 0, 0, 0.5);
 
     ul {
-        width: 80%;
+        width: 60%;
         border-top-right-radius: 15px;
         border-bottom-right-radius: 15px;
-        height: calc(100vh - 60px);
+        height: 100vh;
         background-color: #fff;
         margin-block: 0;
         padding: 0;
@@ -22,6 +23,13 @@
 
         .separator {
             margin: 0 5px;
+        }
+
+        .close-sidebar-icon {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 10px;
+            padding-right: 10px;
         }
 
         li {

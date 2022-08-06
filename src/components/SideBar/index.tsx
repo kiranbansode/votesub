@@ -7,18 +7,17 @@ import AddIcon from '@mui/icons-material/Add';
 import HistoryIcon from '@mui/icons-material/History';
 import CloseIcon from '@mui/icons-material/Close';
 import Separator from 'components/Separator';
+import useAppDispatch from 'hooks/useAppDispatch';
+import { HIDE_SIDEBAR } from 'store/globalUIState';
 
 import './SideBar.styles.scss';
 
 const SideBar = () => {
-    const handleShowSidebar = () => {
-        const closeIcon = document.querySelector('#sidebar')! as HTMLElement;
-        closeIcon.style.display = 'none';
-    };
+    const dispatch = useAppDispatch();
     return (
         <div id="sidebar">
             <ul>
-                <span className="close-sidebar-icon" onClick={() => handleShowSidebar()}>
+                <span className="close-sidebar-icon" onClick={() => dispatch(HIDE_SIDEBAR())}>
                     <CloseIcon />
                 </span>
                 <Separator />

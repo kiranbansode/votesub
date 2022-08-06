@@ -13,14 +13,14 @@ const globalUiStateSlice = createSlice({
     initialState,
     reducers: {
         SHOW_SIDEBAR: (state) => {
-            const closeIcon = document.querySelector('#sidebar')! as HTMLElement;
-            closeIcon.style.display = 'block';
+            const sidebar = document.querySelector('#sidebar')! as HTMLElement;
+            sidebar.style.display = 'block';
             state.showSidebar = !state.showSidebar;
         },
 
         HIDE_SIDEBAR: (state) => {
-            const closeIcon = document.querySelector('#sidebar')! as HTMLElement;
-            closeIcon.style.display = 'none';
+            const sidebar = document.querySelector('#sidebar')! as HTMLElement;
+            sidebar.style.display = 'none';
             state.showSidebar = !state.showSidebar;
         },
     },

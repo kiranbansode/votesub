@@ -1,4 +1,5 @@
 #sidebar {
+    display: none;
     position: absolute;
     top: 0;
     left: 0;
@@ -29,11 +30,9 @@
             display: flex;
             justify-content: flex-end;
             margin-bottom: 10px;
-            padding-right: 10px;
         }
 
         li {
-            padding-left: 20px;
             display: flex;
             justify-content: flex-start;
             align-items: center;
@@ -55,8 +54,8 @@
         justify-content: flex-start;
         align-items: center;
 
-        span {
-            margin-left: 20px;
-        }
+        // span {
+        //     margin-left: 20px;
+        // }
     }
 }

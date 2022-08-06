@@ -40,14 +40,31 @@
                 margin-right: 20px;
             }
 
+            // Close Icon
             &:first-child {
                 justify-content: flex-end;
                 padding-top: 10px;
-                margin-right: 0;
+
+                svg {
+                    margin-right: 0px;
+                }
+            }
+
+            // Admin
+            &:nth-last-child(2) {
+                margin-top: auto;
+                border-top: solid 2px rgba(0, 0, 0, 0.25);
+            }
+
+            // Settings
+            &:last-child {
+                border-bottom: solid 2px rgba(0, 0, 0, 0.25);
+                margin-bottom: 15px;
             }
         }
     }
 
+    // Reset styles for a tag
     a,
     a:hover,
     a:focus,

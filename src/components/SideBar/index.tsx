@@ -7,6 +7,8 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import AddIcon from '@mui/icons-material/Add';
 import HistoryIcon from '@mui/icons-material/History';
 import CloseIcon from '@mui/icons-material/Close';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import SettingsIcon from '@mui/icons-material/Settings';
 import useAppDispatch from 'hooks/useAppDispatch';
 import { HIDE_SIDEBAR } from 'store/globalUIState';
 
@@ -17,6 +19,8 @@ const linksToPages = [
     { link: '/dashboard', linkIcon: <DashboardIcon />, linkName: 'Dashboard' },
     { link: '/addNewTopic', linkIcon: <AddIcon />, linkName: 'Add New Topic' },
     { link: '/userVotingHistory', linkIcon: <HistoryIcon />, linkName: 'Voting History' },
+    { link: '/adminPanel', linkIcon: <AdminPanelSettingsIcon />, linkName: 'Admin' },
+    { link: '/settings', linkIcon: <SettingsIcon />, linkName: 'Settings' },
 ];
 
 const SideBar = () => {

@@ -1,7 +1,7 @@
 import { Control, Controller, FieldErrors } from 'react-hook-form';
 import DateAdapter from '@mui/lab/AdapterDateFns';
 import { TextField, FormControl, FormHelperText } from '@mui/material';
-import { DatePicker, LocalizationProvider } from '@mui/lab';
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import InputFieldWrapper from 'styled/InputFieldWrapper';
 import SeparateLabel from 'components/SeparateLabel';
 import inputErrorMessageFinder from 'utils/helperFunctions/inputErrorMessageFinder';

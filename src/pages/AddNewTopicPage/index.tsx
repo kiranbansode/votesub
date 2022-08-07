@@ -1,5 +1,5 @@
 import Header from 'components/Header';
-import './AddNewTopicPage.style.scss';
+import './AddNewTopicPage.styles.scss';
 
 const AddNewTopicPage = () => (
     <div>

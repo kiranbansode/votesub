@@ -1,5 +1,5 @@
 import Header from 'components/Header';
-import './UserVotingHistory.style.scss';
+import './UserVotingHistory.styles.scss';
 
 const UserVotingHistory = () => (
     <div>

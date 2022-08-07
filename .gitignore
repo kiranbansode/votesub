@@ -4,5 +4,5 @@ dist
 dist-ssr
 *.local
 *.log
-.yarn
-.yarnrc.yml
+.yarn/cache
+.yarn/install-state.gz

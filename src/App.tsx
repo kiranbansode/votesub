@@ -9,6 +9,11 @@ const RegistrationPage = lazy(() => import(`./pages/RegistrationPage`));
 const DashboardPage = lazy(() => import(`./pages/DashboardPage`));
 const AddNewTopicPage = lazy(() => import(`./pages/AddNewTopicPage`));
 const UserVotingHistory = lazy(() => import(`./pages/UserVotingHistory`));
+const FeedbackPage = lazy(() => import(`./pages/FeedbackPage`));
+const CreditsPage = lazy(() => import(`./pages/CreditsPage`));
+const AboutMePage = lazy(() => import(`./pages/AboutMePage`));
+const AdminPage = lazy(() => import(`./pages/AdminPage`));
+const SettingsPage = lazy(() => import(`./pages/SettingsPage`));
 
 function App() {
     return (
@@ -33,6 +38,11 @@ function App() {
                         <Route element={<DashboardPage />} path="/dashboard" />
                         <Route element={<AddNewTopicPage />} path="/addNewTopic" />
                         <Route element={<UserVotingHistory />} path="/userVotingHistory" />
+                        <Route element={<FeedbackPage />} path="/feedback" />
+                        <Route element={<CreditsPage />} path="/credits" />
+                        <Route element={<AboutMePage />} path="/aboutMe" />
+                        <Route element={<AdminPage />} path="/adminPanel" />
+                        <Route element={<SettingsPage />} path="/settings" />
                     </Routes>
                 </BrowserRouter>
             </Suspense>

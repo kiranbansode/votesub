@@ -2,14 +2,14 @@ import { configureStore } from '@reduxjs/toolkit';
 import counterSlice from 'store/counterSlice';
 import userLoginSlice from 'store/loginPage/userLoginSlice';
 import createNewUserSlice from 'store/registrationPage/createNewUserSlice';
-import globalUIState from 'store/globalUIState';
+import uiSlice from 'store/ui';
 
 export const store = configureStore({
     reducer: {
         counter: counterSlice,
         user: userLoginSlice,
         registration: createNewUserSlice,
-        globalUI: globalUIState,
+        ui: uiSlice,
     },
 });
 

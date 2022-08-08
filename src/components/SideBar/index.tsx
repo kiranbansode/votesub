@@ -13,7 +13,7 @@ import FeedbackIcon from '@mui/icons-material/Feedback';
 import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
 import InfoIcon from '@mui/icons-material/Info';
 import useAppDispatch from 'hooks/useAppDispatch';
-import { HIDE_SIDEBAR } from 'store/globalUIState';
+import { HIDE_SIDEBAR } from 'store/ui';
 
 import './SideBar.styles.scss';
 

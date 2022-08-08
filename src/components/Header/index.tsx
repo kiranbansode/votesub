@@ -5,7 +5,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import useAppDispatch from 'hooks/useAppDispatch';
 import Logo from 'components/Logo';
 import SideBar from 'components/SideBar';
-import { SHOW_SIDEBAR } from 'store/globalUIState';
+import { SHOW_SIDEBAR } from 'store/ui';
 import './Header.style.scss';
 
 const Header = () => {

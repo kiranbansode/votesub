@@ -20,15 +20,16 @@ function App() {
         <div className="App">
             <Suspense
                 fallback={
-                    <CircularProgress
-                        color="warning"
-                        sx={{
-                            position: 'absolute',
-                            top: '45%',
-                            left: '45%',
-                            transform: 'translate(50%, 50%)',
+                    <div
+                        style={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            height: '100vh',
                         }}
-                    />
+                    >
+                        <CircularProgress color="warning" />
+                    </div>
                 }
             >
                 <BrowserRouter>

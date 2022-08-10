@@ -80,14 +80,12 @@ const SideBar = () => {
         <div id="sidebar">
             <ul>
                 {linksToPages.map((page) => (
-                    <>
-                        <li key={page.id} onClick={() => dispatch(HIDE_SIDEBAR())}>
-                            <Link to={page.link}>
-                                {page.linkIcon}
-                                <span>{page.linkName}</span>
-                            </Link>
-                        </li>
-                    </>
+                    <li key={page.id} onClick={() => dispatch(HIDE_SIDEBAR())}>
+                        <Link to={page.link}>
+                            {page.linkIcon}
+                            <span>{page.linkName}</span>
+                        </Link>
+                    </li>
                 ))}
             </ul>
         </div>

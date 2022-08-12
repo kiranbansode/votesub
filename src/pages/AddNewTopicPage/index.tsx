@@ -1,11 +1,38 @@
+import { useForm } from 'react-hook-form';
+import TextInputField from 'components/TextInputField';
 import Header from 'components/Header';
-import './AddNewTopicPage.styles.scss';
+import Button from 'components/Button';
+import PageTitle from 'components/Title';
 
-const AddNewTopicPage = () => (
-    <div>
-        <Header />
-        <h2>Add New Topic</h2>
-    </div>
-);
+import './AddNewTopicPage.styles.scss';
+import Separator from 'components/Separator';
+
+const AddNewTopicPage = () => {
+    const {
+        register,
+        formState: { errors },
+    } = useForm();
+
+    return (
+        <div id="add-new-topic-page">
+            <Header />
+
+            <PageTitle title="Add New Topic" />
+
+            <Separator />
+
+            <form className="form">
+                <TextInputField
+                    separateLabel
+                    errors={errors}
+                    formRegister={register('topicName')}
+                    inputLabel="Enter topic name for voting"
+                />
+
+                <Button>Save</Button>
+            </form>
+        </div>
+    );
+};
 
 export default AddNewTopicPage;

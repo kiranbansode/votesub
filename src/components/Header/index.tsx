@@ -10,13 +10,14 @@ import './Header.style.scss';
 
 const Header = () => {
     const dispatch = useAppDispatch();
+
     return (
         <div id="header">
             <SideBar />
             <div onClick={() => dispatch(SHOW_SIDEBAR())}>
                 <MenuIcon className="header-icons" />
             </div>
-            <Logo />
+            <Logo goHere="/dashboard" />
             <PersonIcon className="header-icons" />
         </div>
     );

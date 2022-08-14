@@ -50,7 +50,7 @@ const RegistrationPage = () => {
 
     return (
         <div className="page" id="registration-page">
-            <Logo />
+            <Logo goHere="/" />
 
             <Caption />
 

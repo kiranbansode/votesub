@@ -57,7 +57,7 @@ const LoginPage = () => {
 
     return (
         <div className="page" id="login-page">
-            <Logo />
+            <Logo goHere="/" />
 
             <Caption />
 

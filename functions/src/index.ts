@@ -31,7 +31,7 @@ exports.createNewUser = clf.https.onCall(async (data) => {
             });
         }
 
-        return 'User created successully';
+        return { actor: 'auth', code: 201, message: 'User created successully' };
     } catch (error) {
         throw new HttpsError('already-exists', 'Email ID is already exists. Try another Email ID');
     }

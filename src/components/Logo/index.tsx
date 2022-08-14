@@ -1,12 +1,23 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 // import VoteSubLogo from 'assets/svg/logo.votesub.svg';
+import { useNavigate } from 'react-router-dom';
 import VoteSubLogoDarker from 'assets/svg/logo.votesub.darker.svg';
 
 import './Logo.styles.scss';
 
-const Logo = () => (
-    <div className="logo" id="votesub-logo">
-        <img alt="votesub-logo" src={VoteSubLogoDarker} />
-    </div>
-);
+interface ILogo {
+    goHere: string;
+}
+
+const Logo = ({ goHere }: ILogo) => {
+    const navigate = useNavigate();
+
+    return (
+        <div className="logo" id="votesub-logo" onClick={() => navigate(goHere)}>
+            <img alt="votesub-logo" src={VoteSubLogoDarker} />
+        </div>
+    );
+};
 
 export default Logo;

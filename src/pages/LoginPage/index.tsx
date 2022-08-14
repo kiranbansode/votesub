@@ -4,11 +4,8 @@ import { useForm, FieldValues } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import useAppDisparch from 'hooks/useAppDispatch';
 import useAppSelector from 'hooks/useAppSelector';
-import {
-    userLogIn,
-    SHOW_LOGIN_SUCCESS_MSSG,
-    HIDE_LOGIN_SUCCESS_MSSG,
-} from 'store/loginPage/userLoginSlice';
+import { userLogIn } from 'store/loginPage/userLoginSlice';
+import { SHOW_SIGN_SUCCESS_POP_UP, HIDE_SIGN_SUCCESS_POP_UP } from 'store/ui';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import BackdropMssg from 'components/BackdropMssg';
@@ -43,23 +40,24 @@ const LoginPage = () => {
     const dispatch = useAppDisparch();
     const navigate = useNavigate();
     const userState = useAppSelector(({ user }) => user);
+    const ui = useAppSelector((state) => state.ui);
 
     useEffect(() => {
         if (userState.userDetails.uid) {
-            dispatch(SHOW_LOGIN_SUCCESS_MSSG());
+            dispatch(SHOW_SIGN_SUCCESS_POP_UP());
         }
 
         setTimeout(() => {
             if (userState.userDetails.uid) {
                 navigate('/dashboard');
-                dispatch(HIDE_LOGIN_SUCCESS_MSSG());
+                dispatch(HIDE_SIGN_SUCCESS_POP_UP());
             }
         }, 2000);
     }, [userState.userDetails.uid]);
 
     return (
         <div className="page" id="login-page">
-            <Logo />
+            <Logo goHere="/" />
 
             <Caption />
 
@@ -108,11 +106,11 @@ const LoginPage = () => {
                     <Button color="success">Register</Button>
                 </Link>
             </form>
-            {userState.ui.showLoginSuccessMssg ? (
+            {ui.showSignSuccessPopUp ? (
                 <BackdropMssg
                     header="Login Successfull."
                     mssg="Redirecting to Dashboard..."
-                    open={userState.ui.showLoginSuccessMssg}
+                    open={ui.showSignSuccessPopUp}
                 />
             ) : null}
         </div>

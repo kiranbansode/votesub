@@ -3,6 +3,7 @@ import counterSlice from 'store/counterSlice';
 import userLoginSlice from 'store/loginPage/userLoginSlice';
 import createNewUserSlice from 'store/registrationPage/createNewUserSlice';
 import uiSlice from 'store/ui';
+import addNewTopicSlice from 'store/addNewTopic';
 
 export const store = configureStore({
     reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
         user: userLoginSlice,
         registration: createNewUserSlice,
         ui: uiSlice,
+        addNewTopic: addNewTopicSlice,
     },
 });
 

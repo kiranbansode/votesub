@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { nanoid } from 'nanoid';
+import toProperCase from 'utils/helperFunctions/toProperCase';
 
 interface ICandidate {
     id: string;
@@ -32,10 +33,12 @@ const addNewTopicSlice = createSlice({
             },
             prepare: (candidate: ICandidate['candidateName']) => {
                 const id = nanoid();
+                const candidateName = toProperCase(candidate);
+
                 return {
                     payload: {
                         id,
-                        candidateName: candidate,
+                        candidateName,
                     },
                 };
             },

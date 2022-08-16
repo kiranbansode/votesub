@@ -5,9 +5,38 @@
     }
 
     form {
-        margin: 0 20px;
+        margin: 0 10px;
         padding: 10px;
         border-radius: 15px;
+
+        & > div:first-child {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 50px;
+        }
+
+        & > div:nth-child(2) {
+            background-color: #fff;
+            padding: 20px;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+            margin-top: 50px;
+        }
+
+        & > div:nth-child(3) {
+            background-color: #fff;
+            padding: 20px;
+            padding-top: 10px;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+        }
+
+        & > div:last-child {
+            padding: 0px;
+            margin: 30px 0;
+            margin-top: 50px;
+        }
     }
 
     .candidate-container {
@@ -15,18 +44,18 @@
         justify-content: space-between;
         align-items: center;
         background-color: #fff;
-        margin: 20px;
+        margin: 30px 0;
         height: 70px;
         padding: 0 20px;
-        border-radius: 5px;
-        -webkit-box-shadow: 0px 0px 40px -16px rgba(0, 0, 0, 0.75);
-        -moz-box-shadow: 0px 0px 40px -16px rgba(0, 0, 0, 0.75);
-        box-shadow: 0px 0px 40px -16px rgba(0, 0, 0, 0.75);
+        border-radius: 8px;
+        -webkit-box-shadow: 0px 0px 40px -16px rgba(0, 0, 0, 0.5);
+        -moz-box-shadow: 0px 0px 40px -16px rgba(0, 0, 0, 0.5);
+        box-shadow: 0px 0px 40px -16px rgba(0, 0, 0, 0.5);
 
         .candidate-name {
             flex-grow: 2;
             margin: 0 10px;
-            text-align: center;
+            padding-left: 10px;
         }
 
         .candidate-position,
@@ -51,11 +80,27 @@
         .edit-button,
         .delete-button {
             padding: 5px;
+            & > div:first-child {
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 15px;
+                margin-bottom: 50px;
+            }
             padding-bottom: 3px;
         }
 
         .edit-button {
             margin-right: 20px;
+        }
+
+        .edit-button:hover {
+            background-color: #ffb74d;
+            color: #fff;
+        }
+
+        .delete-button:hover {
+            background-color: #e57373;
+            color: #fff;
         }
     }
 }

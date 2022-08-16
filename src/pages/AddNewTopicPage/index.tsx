@@ -17,12 +17,12 @@ import Separator from 'components/Separator';
 import './AddNewTopicPage.styles.scss';
 
 const yupValidation = yup.object({
-    topicName: yup.string().trim().strict().required('Topic is required'),
+    subject: yup.string().trim().strict().required('Topic is required'),
     candidateName: yup.string().trim().strict().required('Candidate is required'),
 });
 
 const defaultValues = {
-    topicName: '',
+    subject: '',
     candidateName: '',
 };
 
@@ -73,30 +73,11 @@ const AddNewTopicPage = () => {
                 <TextInputField
                     separateLabel
                     errors={formState.errors}
-                    formRegister={register('topicName')}
-                    inputHelperText="Make sure you submit small and expressive topic name"
-                    inputLabel="Enter topic name for voting"
+                    formRegister={register('subject')}
+                    inputHelperText="Make sure you submit small and expressive subject for voting"
+                    inputLabel="Enter a subject for voting"
                     inputPlaceholder="Example: Favourite Fast Food ?"
                 />
-
-                {addNewTopicState.candidates.map((candidate, index) => (
-                    <div className="candidate-container" key={candidate.id}>
-                        <span className="candidate-position">{index + 1}</span>
-                        <p className="candidate-name">{candidate.candidateName}</p>
-                        <span
-                            className="edit-button"
-                            onClick={() => editButtonHandler(candidate.id)}
-                        >
-                            <EditIcon fontSize="small" />
-                        </span>
-                        <span
-                            className="delete-button"
-                            onClick={() => dispatch(DELETE_CANDIDATE(candidate.id))}
-                        >
-                            <DeleteIcon fontSize="small" />
-                        </span>
-                    </div>
-                ))}
 
                 <TextInputField
                     separateLabel
@@ -106,6 +87,42 @@ const AddNewTopicPage = () => {
                 />
 
                 <Button onClick={() => addCandidateButtonHandler()}>Add Candidate</Button>
+
+                {addNewTopicState.candidates.length > 0 ? (
+                    <p
+                        style={{
+                            fontFamily: 'Bad Script',
+                            textAlign: 'center',
+                            fontSize: '1.5rem',
+                            color: '#ff3c3c',
+                        }}
+                    >
+                        -x- Candidates List -x-
+                    </p>
+                ) : null}
+
+                {addNewTopicState.candidates.map((candidate, index) => (
+                    <div className="candidate-container" key={candidate.id}>
+                        <span className="candidate-position">{index + 1}</span>
+                        <p className="candidate-name">{candidate.candidateName}</p>
+                        <span
+                            className="edit-button"
+                            title="Edit"
+                            onClick={() => editButtonHandler(candidate.id)}
+                        >
+                            <EditIcon fontSize="small" />
+                        </span>
+                        <span
+                            className="delete-button"
+                            title="Delete"
+                            onClick={() => dispatch(DELETE_CANDIDATE(candidate.id))}
+                        >
+                            <DeleteIcon fontSize="small" />
+                        </span>
+                    </div>
+                ))}
+
+                <Button color="success">Submit</Button>
             </form>
         </div>
     );

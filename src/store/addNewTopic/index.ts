@@ -43,9 +43,15 @@ const addNewTopicSlice = createSlice({
                 };
             },
         },
+
+        REMOVE_CANDIDATE: (state, action: PayloadAction<ICandidate['id']>) => {
+            state.candidates = state.candidates.filter(
+                (candidate) => candidate.id !== action.payload,
+            );
+        },
     },
 });
 
-export const { ADD_CANDIDATE } = addNewTopicSlice.actions;
+export const { ADD_CANDIDATE, REMOVE_CANDIDATE } = addNewTopicSlice.actions;
 
 export default addNewTopicSlice.reducer;

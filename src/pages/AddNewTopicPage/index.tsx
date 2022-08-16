@@ -1,8 +1,10 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import { useForm } from 'react-hook-form';
 import TextInputField from 'components/TextInputField';
 import useAppSelector from 'hooks/useAppSelector';
 import useAppDispatch from 'hooks/useAppDispatch';
-import { ADD_CANDIDATE } from 'store/addNewTopic';
+import { ADD_CANDIDATE, REMOVE_CANDIDATE } from 'store/addNewTopic';
 import Header from 'components/Header';
 import Button from 'components/Button';
 import PageTitle from 'components/Title';
@@ -17,7 +19,7 @@ const AddNewTopicPage = () => {
         register,
         watch,
         resetField,
-        setFocus,
+        // setFocus,
         formState: { errors },
     } = useForm();
     const dispatch = useAppDispatch();
@@ -48,7 +50,10 @@ const AddNewTopicPage = () => {
                         <span className="edit-button">
                             <EditIcon fontSize="small" />
                         </span>
-                        <span className="delete-button">
+                        <span
+                            className="delete-button"
+                            onClick={() => dispatch(REMOVE_CANDIDATE(candidate.id))}
+                        >
                             <DeleteIcon fontSize="small" />
                         </span>
                     </div>
@@ -64,7 +69,7 @@ const AddNewTopicPage = () => {
                 <Button
                     onClick={() => {
                         dispatch(ADD_CANDIDATE(watch('candidateName')));
-                        setFocus('candidateName', { shouldSelect: true });
+                        // setFocus('candidateName', { shouldSelect: true });
                         resetField('candidateName');
                     }}
                 >

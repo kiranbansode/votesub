@@ -8,7 +8,7 @@ interface ICandidate {
 }
 
 interface IAddNewTopicSlice {
-    topicName: string;
+    subject: string;
     id: string;
     createdOn: number | null;
     submittedBy: string;
@@ -16,7 +16,7 @@ interface IAddNewTopicSlice {
 }
 
 const initialState: IAddNewTopicSlice = {
-    topicName: '',
+    subject: '',
     id: '',
     createdOn: null,
     submittedBy: '',
@@ -44,7 +44,9 @@ const addNewTopicSlice = createSlice({
             },
         },
 
-        REMOVE_CANDIDATE: (state, action: PayloadAction<ICandidate['id']>) => {
+        EDIT_CANDIDATE: () => {},
+
+        DELETE_CANDIDATE: (state, action: PayloadAction<ICandidate['id']>) => {
             state.candidates = state.candidates.filter(
                 (candidate) => candidate.id !== action.payload,
             );
@@ -52,6 +54,6 @@ const addNewTopicSlice = createSlice({
     },
 });
 
-export const { ADD_CANDIDATE, REMOVE_CANDIDATE } = addNewTopicSlice.actions;
+export const { ADD_CANDIDATE, DELETE_CANDIDATE } = addNewTopicSlice.actions;
 
 export default addNewTopicSlice.reducer;

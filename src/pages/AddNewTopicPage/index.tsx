@@ -6,14 +6,18 @@ import { ADD_CANDIDATE } from 'store/addNewTopic';
 import Header from 'components/Header';
 import Button from 'components/Button';
 import PageTitle from 'components/Title';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Separator from 'components/Separator';
 
 import './AddNewTopicPage.styles.scss';
-import Separator from 'components/Separator';
 
 const AddNewTopicPage = () => {
     const {
         register,
         watch,
+        resetField,
+        setFocus,
         formState: { errors },
     } = useForm();
     const dispatch = useAppDispatch();
@@ -38,9 +42,15 @@ const AddNewTopicPage = () => {
                 />
 
                 {addNewTopicState.candidates.map((candidate, index) => (
-                    <div key={candidate.id}>
-                        <span>{index + 1}</span>
-                        <p>{candidate.candidateName}</p>
+                    <div className="candidate-container" key={candidate.id}>
+                        <span className="candidate-position">{index + 1}</span>
+                        <p className="candidate-name">{candidate.candidateName}</p>
+                        <span className="edit-button">
+                            <EditIcon fontSize="small" />
+                        </span>
+                        <span className="delete-button">
+                            <DeleteIcon fontSize="small" />
+                        </span>
                     </div>
                 ))}
 
@@ -51,7 +61,15 @@ const AddNewTopicPage = () => {
                     inputLabel="Candidate Name"
                 />
 
-                <Button onClick={() => dispatch(ADD_CANDIDATE(watch('candidateName')))}>Add</Button>
+                <Button
+                    onClick={() => {
+                        dispatch(ADD_CANDIDATE(watch('candidateName')));
+                        setFocus('candidateName', { shouldSelect: true });
+                        resetField('candidateName');
+                    }}
+                >
+                    Add
+                </Button>
             </form>
         </div>
     );

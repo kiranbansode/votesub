@@ -34,6 +34,7 @@ const AddNewTopicPage = () => {
         // setFocus,
         setError,
         formState,
+        handleSubmit,
     } = useForm<FieldValues>({
         defaultValues,
         resolver: yupResolver(yupValidation),
@@ -53,7 +54,11 @@ const AddNewTopicPage = () => {
     const addCandidateButtonHandler = () => {
         const candidateName = watch('candidateName');
         if (!candidateName) {
-            setError('candidateName', { type: 'custom', message: 'Please enter a Candidate Name' });
+            setError(
+                'candidateName',
+                { type: 'custom', message: 'Please enter a Candidate Name' },
+                { shouldFocus: true },
+            );
             return;
         }
 
@@ -69,7 +74,12 @@ const AddNewTopicPage = () => {
 
             <Separator />
 
-            <form className="form">
+            <form
+                className="form"
+                onSubmit={handleSubmit((data) => {
+                    console.log(data);
+                })}
+            >
                 <TextInputField
                     separateLabel
                     errors={formState.errors}
@@ -122,7 +132,9 @@ const AddNewTopicPage = () => {
                     </div>
                 ))}
 
-                <Button color="success">Submit</Button>
+                <Button color="success" type="submit">
+                    Submit
+                </Button>
             </form>
         </div>
     );

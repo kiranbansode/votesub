@@ -17,7 +17,7 @@ import Separator from 'components/Separator';
 import './AddNewTopicPage.styles.scss';
 
 const yupValidation = yup.object({
-    subject: yup.string().trim().strict().required('Topic is required'),
+    subject: yup.string().trim().strict().required('Subject is required'),
     candidateName: yup.string().trim().strict().required('Candidate is required'),
 });
 
@@ -84,9 +84,9 @@ const AddNewTopicPage = () => {
                     separateLabel
                     errors={formState.errors}
                     formRegister={register('subject')}
-                    inputHelperText="Make sure you submit small and expressive subject for voting"
+                    inputHelperText="Try to submit small and expressive subject for voting"
                     inputLabel="Enter a subject for voting"
-                    inputPlaceholder="Example: Favourite Fast Food ?"
+                    inputPlaceholder="Favourite Fast Food ?"
                 />
 
                 <TextInputField

@@ -1,4 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
+import { RootState } from 'store';
 import { nanoid } from 'nanoid';
 import toProperCase from 'utils/helperFunctions/toProperCase';
 
@@ -23,6 +24,14 @@ const initialState: IAddNewTopicSlice = {
     candidates: [],
 };
 
+export const addNewTopicThunk = createAsyncThunk('addNewTopic', async (data, { getState }) => {
+    const {
+        user: { userDetails },
+    } = getState() as RootState;
+
+    console.log(userDetails);
+});
+
 const addNewTopicSlice = createSlice({
     name: 'addNewTopic',
     initialState,
@@ -43,8 +52,6 @@ const addNewTopicSlice = createSlice({
                 };
             },
         },
-
-        EDIT_CANDIDATE: () => {},
 
         DELETE_CANDIDATE: (state, action: PayloadAction<ICandidate['id']>) => {
             state.candidates = state.candidates.filter(

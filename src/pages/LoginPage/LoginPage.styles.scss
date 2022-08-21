@@ -26,19 +26,18 @@
 
         #votesub-logo {
             height: 130px;
-            margin: 0 auto;
+            margin-right: 100px;
             padding-bottom: 10px;
             grid-area: logo;
             align-self: end;
+            justify-self: flex-end;
         }
 
         #votesub-caption {
             height: 35px;
-            padding: 0;
-            padding-top: 20px;
-            margin: 0 auto;
+            margin-right: 100px;
             grid-area: capation;
-            align-self: top;
+            justify-self: flex-end;
 
             img {
                 width: 100%;
@@ -48,11 +47,12 @@
         form {
             width: 350px;
             margin-top: 50px;
+            margin-left: 100px;
             padding: 20px;
             background-color: #fff;
             border-radius: 30px;
             grid-area: form;
-            justify-self: center;
+            justify-self: flex-start;
         }
     }
 }

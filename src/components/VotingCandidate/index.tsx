@@ -1,5 +1,5 @@
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
-import './Candidate.styles.scss';
+import './VotingCandidate.styles.scss';
 
 interface ICandidate {
     position: number;
@@ -7,7 +7,7 @@ interface ICandidate {
     candidateName: string;
 }
 
-const Candidate = ({ position, totalVotes, candidateName }: ICandidate) => (
+const VotingCandidate = ({ position, totalVotes, candidateName }: ICandidate) => (
     <div className="voting-candidate">
         <p className="candidate-position">{position}</p>
         <p className="candidate-name">
@@ -21,4 +21,4 @@ const Candidate = ({ position, totalVotes, candidateName }: ICandidate) => (
     </div>
 );
 
-export default Candidate;
+export default VotingCandidate;

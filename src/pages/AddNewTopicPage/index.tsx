@@ -17,7 +17,7 @@ import './AddNewTopicPage.styles.scss';
 
 const yupValidation = yup.object({
     subject: yup.string().trim().strict().required('Subject is required'),
-    candidateName: yup.string().trim().strict().required('Candidate is required'),
+    candidateName: yup.string().trim().strict(),
 });
 
 const defaultValues = {
@@ -91,7 +91,10 @@ const AddNewTopicPage = () => {
                 <TextInputField
                     separateLabel
                     errors={formState.errors}
-                    formRegister={register('candidateName')}
+                    formRegister={register('candidateName', {
+                        required: addNewTopicState.candidates.length > 0,
+                    })}
+                    inputHelperText="Minimum 2 Candidates should be there for voting"
                     inputLabel="Candidate Name"
                 />
 
@@ -110,7 +113,11 @@ const AddNewTopicPage = () => {
                     />
                 ))}
 
-                <Button color="success" type="submit">
+                <Button
+                    color="success"
+                    disabled={Boolean(!(addNewTopicState.candidates.length > 1))}
+                    type="submit"
+                >
                     Submit
                 </Button>
             </form>

@@ -6,7 +6,7 @@ import * as yup from 'yup';
 import TextInputField from 'components/TextInputField';
 import useAppSelector from 'hooks/useAppSelector';
 import useAppDispatch from 'hooks/useAppDispatch';
-import { ADD_CANDIDATE, DELETE_CANDIDATE } from 'store/addNewTopic';
+import { addNewTopicThunk, ADD_CANDIDATE, DELETE_CANDIDATE } from 'store/addNewTopic';
 import Header from 'components/Header';
 import Button from 'components/Button';
 import PageTitle from 'components/Title';
@@ -76,7 +76,7 @@ const AddNewTopicPage = () => {
             <form
                 className="form"
                 onSubmit={handleSubmit((data) => {
-                    console.log(data);
+                    dispatch(addNewTopicThunk(data));
                 })}
             >
                 <TextInputField

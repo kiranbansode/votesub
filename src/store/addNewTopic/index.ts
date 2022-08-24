@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { RootState } from 'store';
 import { nanoid } from 'nanoid';
+import { addNewSubjectCLF } from 'config/firebase';
 import toProperCase from 'utils/helperFunctions/toProperCase';
 
 interface ICandidate {
@@ -11,26 +12,37 @@ interface ICandidate {
 interface IAddNewTopicSlice {
     subject: string;
     id: string;
-    createdOn: number | null;
-    submittedBy: string;
     candidates: ICandidate[];
 }
 
 const initialState: IAddNewTopicSlice = {
     subject: '',
     id: '',
-    createdOn: null,
-    submittedBy: '',
     candidates: [],
 };
 
-export const addNewTopicThunk = createAsyncThunk('addNewTopic', async (data, { getState }) => {
-    const {
-        user: { userDetails },
-    } = getState() as RootState;
+export const addNewTopicThunk = createAsyncThunk(
+    'addNewTopic',
+    async (data: any, { getState, rejectWithValue }) => {
+        const {
+            user: { userDetails },
+            addNewTopic,
+        } = getState() as RootState;
+        const subjectId = nanoid();
 
-    console.log(userDetails);
-});
+        try {
+            const response = await addNewSubjectCLF({
+                id: subjectId,
+                subject: data.subject,
+                submittedBy: userDetails.username,
+                userId: userDetails.uid,
+                candidates: addNewTopic.candidates,
+            });
+        } catch (error) {
+            rejectWithValue(error);
+        }
+    },
+);
 
 const addNewTopicSlice = createSlice({
     name: 'addNewTopic',

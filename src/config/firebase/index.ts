@@ -32,3 +32,4 @@ if (window.location.hostname === 'localhost') {
 
 /* ----------------------------- Cloud Functions ---------------------------- */
 export const createNewUserCLF = httpsCallable(functions, 'createNewUser');
+export const addNewSubjectCLF = httpsCallable(functions, 'addNewSubject');

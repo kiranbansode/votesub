@@ -37,6 +37,24 @@ exports.createNewUser = clf.https.onCall(async (data) => {
     }
 });
 
+exports.addNewSubject = clf.https.onCall(async (data, context) => {
+    const { id, subject, submittedBy, userId, candidates } = data;
+
+    try {
+        const response = await admin.firestore().collection('subjects').doc(id).set({
+            id,
+            subject,
+            userId,
+            submittedBy,
+            candidates,
+        });
+
+        console.log(response);
+    } catch (error) {
+        console.log(error);
+    }
+});
+
 // exports.sendUserVerificationEmail = clf.auth.user().onCreate(async (user) => {
 //     const { emailVerified, email } = user;
 //     if (!emailVerified) {

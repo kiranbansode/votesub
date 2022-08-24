@@ -1,5 +1,5 @@
 import { Control, Controller, FieldErrors } from 'react-hook-form';
-import DateAdapter from '@mui/lab/AdapterDateFns';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { TextField, FormControl, FormHelperText } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import InputFieldWrapper from 'styled/InputFieldWrapper';
@@ -50,7 +50,7 @@ const DateInputField = ({
                         name={fieldName}
                         render={({ field }) => (
                             <LocalizationProvider
-                                dateAdapter={DateAdapter}
+                                dateAdapter={AdapterDateFns}
                                 dateFormats={{ keyboardDate: 'dd/MM/yyyy' }}
                             >
                                 <DatePicker

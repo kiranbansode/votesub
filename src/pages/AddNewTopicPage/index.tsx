@@ -116,6 +116,7 @@ const AddNewTopicPage = () => {
                 <Button
                     color="success"
                     disabled={Boolean(!(addNewTopicState.candidates.length > 1))}
+                    loading={addNewTopicState.loading}
                     type="submit"
                 >
                     Submit

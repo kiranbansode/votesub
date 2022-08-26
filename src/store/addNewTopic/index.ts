@@ -13,12 +13,14 @@ interface IAddNewTopicSlice {
     subject: string;
     id: string;
     candidates: ICandidate[];
+    loading: boolean;
 }
 
 const initialState: IAddNewTopicSlice = {
     subject: '',
     id: '',
     candidates: [],
+    loading: false,
 };
 
 export const addNewTopicThunk = createAsyncThunk(
@@ -70,6 +72,19 @@ const addNewTopicSlice = createSlice({
                 (candidate) => candidate.id !== action.payload,
             );
         },
+    },
+    extraReducers: (builder) => {
+        builder.addCase(addNewTopicThunk.pending, (state) => {
+            state.loading = true;
+        });
+
+        builder.addCase(addNewTopicThunk.fulfilled, (state, action: PayloadAction<any>) => {
+            state.loading = false;
+        });
+
+        builder.addCase(addNewTopicThunk.rejected, (state, action: PayloadAction<any>) => {
+            state.loading = false;
+        });
     },
 });
 

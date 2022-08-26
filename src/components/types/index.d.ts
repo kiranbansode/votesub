@@ -1,4 +1,4 @@
-import { UseFormRegisterReturn } from 'react-hook-form';
+import { UseFormRegisterReturn, FieldErrors } from 'react-hook-form';
 
 export type BaseInputField = {
     /**
@@ -22,7 +22,7 @@ export type BaseInputField = {
     /**
      * error object from useForm().[formState](https://react-hook-form.com/api/useform/formstate)
      */
-    errors: { [x: string]: string };
+    errors: FieldErrors;
 
     /**
      * Helper message for this input field

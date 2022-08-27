@@ -13,7 +13,7 @@ exports.createNewUser = clf.https.onCall(async (data) => {
     try {
         const response = await admin.auth().createUser({
             email: emailId,
-            password: password,
+            password,
         });
 
         if (response.uid) {
@@ -38,16 +38,14 @@ exports.createNewUser = clf.https.onCall(async (data) => {
 });
 
 exports.addNewSubject = clf.https.onCall(async (data, context) => {
-    const { id, subject, submittedBy, userId, candidates } = data;
-
     try {
-        const response = await admin.firestore().collection('subjects').doc(id).set({
-            id,
-            subject,
-            userId,
-            submittedBy,
-            candidates,
-        });
+        const response = await admin
+            .firestore()
+            .collection('subjects')
+            .doc(data.id)
+            .set({
+                ...data,
+            });
 
         console.log(response);
     } catch (error) {

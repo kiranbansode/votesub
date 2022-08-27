@@ -57,5 +57,8 @@
     "lint-staged": {
         "**/*": "prettier --write --ignore-unknown"
     },
-    "packageManager": "yarn@3.2.2"
+    "packageManager": "yarn@3.2.2",
+    "resolutions": {
+        "@types/react": "17.0.0"
+    }
 }

@@ -1,5 +1,16 @@
 #login-page {
     background-color: #fff;
+
+    #votesub-logo {
+        width: 85%;
+        margin: 0 auto;
+        margin-top: 10px;
+    }
+
+    #votesub-caption {
+        margin-top: 20px;
+    }
+
     p {
         font-size: 12px;
         margin-left: 10px;
@@ -16,6 +27,11 @@
 }
 
 @media (min-width: 600px) {
+    .page {
+        height: 100vh;
+        padding: 0;
+    }
+
     #login-page {
         background-color: #e5e5e5;
         margin: 0 auto;
@@ -26,7 +42,8 @@
 
         #votesub-logo {
             height: 130px;
-            margin-right: 100px;
+            width: 400px;
+            margin: 0;
             padding-bottom: 10px;
             grid-area: logo;
             align-self: end;
@@ -35,7 +52,7 @@
 
         #votesub-caption {
             height: 35px;
-            margin-right: 100px;
+            margin-right: 10px;
             grid-area: capation;
             justify-self: flex-end;
 
@@ -46,13 +63,14 @@
 
         form {
             width: 350px;
-            margin-top: 50px;
+            height: fit-content;
             margin-left: 100px;
             padding: 20px;
             background-color: #fff;
             border-radius: 30px;
             grid-area: form;
             justify-self: flex-start;
+            align-self: center;
         }
     }
 }

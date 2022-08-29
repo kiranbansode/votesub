@@ -3,7 +3,7 @@
 */
 
 import { useState, MouseEvent } from 'react';
-import { UseFormRegisterReturn } from 'react-hook-form';
+import { UseFormRegisterReturn, FieldErrors } from 'react-hook-form';
 import {
     FormControl,
     OutlinedInput,
@@ -30,7 +30,7 @@ interface IPasswordInputFieldProps {
     separateLabel?: boolean;
     noLabel?: boolean;
     inputPlaceHolder?: string;
-    errors: { [x: string]: string };
+    errors: FieldErrors;
 }
 
 const PasswordInputField = ({

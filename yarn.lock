@@ -7451,6 +7451,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-lazy-with-preload@npm:^2.2.1":
+  version: 2.2.1
+  resolution: "react-lazy-with-preload@npm:2.2.1"
+  checksum: 9d68620bc90f3dbc892cae6460bdc7981401e4ac554b85190a4c57e333e019f61b7ab4bdb1408d692a9232c882fe9033f8590694d78c6f067e134e1eb6cd7ac9
+  languageName: node
+  linkType: hard
+
 "react-redux@npm:^7.2.6":
   version: 7.2.8
   resolution: "react-redux@npm:7.2.8"
@@ -9036,6 +9043,7 @@ __metadata:
     react: ^17.0.0
     react-dom: ^17.0.0
     react-hook-form: ^7.18.0
+    react-lazy-with-preload: ^2.2.1
     react-redux: ^7.2.6
     react-router-dom: 6
     sass: ^1.43.4

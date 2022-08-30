@@ -82,7 +82,15 @@ const RegistrationPage = () => {
                     inputPlaceholder="Surname"
                 />
 
-                <RadioInputField fieldName="gender" inputLabel="Gender" useFormControl={control} />
+                <RadioInputField
+                    fieldName="gender"
+                    inputLabel="Gender"
+                    radioSelect={[
+                        { label: 'Male', value: 'male' },
+                        { label: 'Female', value: 'female' },
+                    ]}
+                    useFormControl={control}
+                />
 
                 <DateInputField
                     separateLabel

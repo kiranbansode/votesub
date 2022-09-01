@@ -1,3 +1,14 @@
 #registration-page {
     background-color: #fff;
+
+    .radio-buttons-container {
+        .radio-button {
+            display: flex;
+            height: 56px;
+            justify-content: center;
+            border: 1px solid #c4c4c4;
+            border-radius: 5px;
+            width: 100%;
+        }
+    }
 }

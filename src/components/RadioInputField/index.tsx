@@ -16,6 +16,7 @@ interface RadioInputFieldTypes {
     inputLabel: string;
     inputHelperText?: string;
     separateLabel?: boolean;
+    className?: string;
     radioSelect: IRadioSelect[];
 }
 
@@ -25,6 +26,7 @@ const RadioInputField = ({
     inputLabel,
     inputHelperText,
     separateLabel,
+    className,
     radioSelect,
 }: RadioInputFieldTypes) => (
     <Controller
@@ -32,7 +34,7 @@ const RadioInputField = ({
         name={fieldName}
         render={({ field }) => (
             <>
-                <InputFieldWrapper id="radio-buttons">
+                <InputFieldWrapper className="radio-buttons-container">
                     <FormControl>
                         {separateLabel ? (
                             <SeparateLabel htmlFor={field.name} label={inputLabel} />
@@ -40,7 +42,7 @@ const RadioInputField = ({
                         <RadioGroup
                             row
                             // aria-labelledby="gender"
-                            className="radio-buttons"
+                            className={className}
                             name={field.name}
                             value={field.value || 'male'}
                             onBlur={field.onBlur}
@@ -67,6 +69,7 @@ const RadioInputField = ({
 );
 
 RadioInputField.defaultProps = {
+    className: 'radio-button',
     inputHelperText: '',
     separateLabel: true,
 };

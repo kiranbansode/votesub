@@ -14,27 +14,7 @@ interface IAddNewSubject {
     candidates: ICandidate[];
 }
 
-exports.addNewSubject = clf.https.onCall(async (data: IAddNewSubject, context) => {
-    console.log(data, context.auth);
-
-    try {
-        // eslint-disable-next-line no-use-before-define
-        const subjRes = await saveSubjectDetails(data);
-        // eslint-disable-next-line no-use-before-define
-        const candiRes = await saveCandidateDetails(data.candidates);
-        console.log(subjRes, candiRes);
-    } catch (error) {
-        console.log(error);
-    }
-});
-
-function saveSubjectDetails({
-    id,
-    candidates,
-    subject,
-    submittedBy,
-    userId,
-}: IAddNewSubject): Promise<any> {
+function saveSubjectDetails({ id, candidates, subject, submittedBy, userId }: IAddNewSubject) {
     return admin
         .firestore()
         .collection('subjects')
@@ -44,14 +24,11 @@ function saveSubjectDetails({
             subject,
             submittedBy,
             userId,
-            // eslint-disable-next-line no-shadow
-            candidates: candidates.map(({ id }) => id),
+            candidates: candidates.map((candidate) => candidate.id),
         });
 }
 
 function saveCandidateDetails(candidates: ICandidate[]) {
-    console.log(candidates);
-
     return candidates.map(({ id, candidateName }) =>
         admin.firestore().collection('candidates').doc(id).set({
             id,
@@ -59,3 +36,14 @@ function saveCandidateDetails(candidates: ICandidate[]) {
         }),
     );
 }
+
+exports.addNewSubject = clf.https.onCall(async (data: IAddNewSubject, context) => {
+    console.log(data, context.auth);
+
+    try {
+        await saveSubjectDetails(data);
+        await saveCandidateDetails(data.candidates);
+    } catch (error) {
+        console.log(error);
+    }
+});

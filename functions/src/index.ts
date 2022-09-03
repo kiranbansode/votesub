@@ -3,9 +3,12 @@
 import * as cloudFunctions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 
+/* -------------- Functions will always be deployed to Mumbai -------------- */
 const clf = cloudFunctions.region('asia-south1');
-admin.initializeApp();
 export default clf;
+/* ----------------------------------- End ---------------------------------- */
+
+admin.initializeApp();
 
 /* -------------------- Import Individual Cloud Functions ------------------- */
 const addNewSubject = require('./addNewSubject');

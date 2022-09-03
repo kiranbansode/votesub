@@ -17,7 +17,7 @@ const SettingsPage = lazy(() => import(`./pages/SettingsPage`));
 
 function App() {
     return (
-        <div className="App">
+        <div className="app">
             <Suspense
                 fallback={
                     <div

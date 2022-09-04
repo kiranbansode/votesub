@@ -1,5 +1,16 @@
 #registration-page {
     background-color: #fff;
+    height: 100vh;
+
+    .separator {
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+
+    .role-container {
+        display: flex;
+        flex-direction: column;
+    }
 
     .radio-buttons-container {
         .radio-button {
@@ -10,5 +21,11 @@
             border-radius: 5px;
             width: 100%;
         }
+    }
+}
+
+.app {
+    .page {
+        padding-bottom: 0;
     }
 }

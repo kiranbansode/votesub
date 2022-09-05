@@ -1,10 +1,15 @@
+.page {
+    height: inherit;
+    padding: 0 20px;
+}
+
 #login-page {
     background-color: #fff;
 
     #votesub-logo {
         width: 85%;
         margin: 0 auto;
-        margin-top: 10px;
+        padding-top: 20px;
     }
 
     #votesub-caption {
@@ -28,7 +33,6 @@
 
 @media (min-width: 600px) {
     .page {
-        height: 100vh;
         padding: 0;
     }
 

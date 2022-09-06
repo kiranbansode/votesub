@@ -6,6 +6,7 @@ import { divisionOptions } from 'utils/menuOptions/divisions';
 import useAppDispatch from 'hooks/useAppDispatch';
 import useAppSelector from 'hooks/useAppSelector';
 import { createNewUserThunk } from 'store/registrationPage/createNewUserSlice';
+import { SAVE_USER_ROLE } from 'store/registrationPage/saveuserRoleSlice';
 
 // @ts-ignore
 import registrationFormValidation from './yupValidation.ts';
@@ -22,31 +23,30 @@ const Logo = lazy(() => import('components/Logo'));
 const Caption = lazy(() => import('components/Caption'));
 
 const REGISTRATION_FORM_DEFAULT_VALUE = {
-    name: {
-        firstName: '',
-        middleName: '',
-        lastName: '',
-    },
-    gender: 'male',
-    dob: new Date(),
-    schoolName: '',
-    std: '',
-    div: '',
-    mobileNo: '',
-    altMobileNo: '',
-    emailId: '',
-    password: '',
-    confirmPassword: '',
+    // name: {
+    //     firstName: '',
+    //     middleName: '',
+    //     lastName: '',
+    // },
+    // gender: 'male',
+    // dob: new Date(),
+    // schoolName: '',
+    // std: '',
+    // div: '',
+    // mobileNo: '',
+    // altMobileNo: '',
+    // emailId: '',
+    // password: '',
+    // confirmPassword: '',
+    role: 'st',
 };
 
 const RegistrationPage = () => {
-    const { register, handleSubmit, control, formState } = useForm<FieldValues>({
+    const { handleSubmit, control } = useForm<FieldValues>({
         defaultValues: REGISTRATION_FORM_DEFAULT_VALUE,
-        resolver: yupResolver(registrationFormValidation),
+        // resolver: yupResolver(registrationFormValidation),
     });
-
     const dispatch = useAppDispatch();
-    const createNewUserState = useAppSelector((state) => state.registration);
 
     return (
         <div className="page" id="registration-page">
@@ -58,8 +58,29 @@ const RegistrationPage = () => {
 
             <Separator />
 
-            <form onSubmit={handleSubmit((data) => dispatch(createNewUserThunk(data)))}>
-                <TextInputField
+            <form
+                onSubmit={handleSubmit((data) => {
+                    console.log('Submitting');
+                    dispatch(SAVE_USER_ROLE(data));
+                })}
+            >
+                <RadioInputField
+                    className="role-container"
+                    fieldName="role"
+                    inputLabel="Who are you ?"
+                    radioSelect={[
+                        { label: 'Student', value: 'st' },
+                        { label: 'Teacher, Principal, Clerk, ...', value: 'tr' },
+                        { label: 'Employer, HR, Manager, ...', value: 'hr' },
+                        { label: 'SDE, UI-UX Designer, DevOps, ...', value: 'dev' },
+                    ]}
+                    useFormControl={control}
+                />
+
+                <Button type="submit">Submit</Button>
+                <button type="submit">Submit</button>
+
+                {/* <TextInputField
                     autoFocus
                     separateLabel
                     errors={formState.errors}
@@ -158,11 +179,7 @@ const RegistrationPage = () => {
                     errors={formState.errors}
                     formRegister={register('confirmPassword')}
                     inputLabel="Confirm Your Password"
-                />
-
-                <Button loading={createNewUserState.loading} type="submit">
-                    Register
-                </Button>
+                /> */}
             </form>
         </div>
     );

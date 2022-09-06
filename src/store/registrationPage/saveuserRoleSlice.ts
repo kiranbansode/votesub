@@ -13,7 +13,7 @@ const saveUserRoleSlice = createSlice({
     initialState,
     reducers: {
         SAVE_USER_ROLE: (state, action: PayloadAction<any>) => {
-            state.role = action.payload;
+            state.role = action.payload.role;
         },
 
         RESET_USER_ROLE: (state) => {

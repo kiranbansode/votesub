@@ -2,23 +2,19 @@ import { useForm, FieldValues } from 'react-hook-form';
 import TextInputField from 'components/TextInputField';
 import SelectInputField from 'components/SelectInputField';
 import { standardOptions } from 'utils/menuOptions/standards';
-import { divisionOptions } from 'utils/menuOptions/divisions';
-import DateInputField from 'components/DateInputField';
 import RadioInputField from 'components/RadioInputField';
 import PasswordInputField from 'components/PasswordInputField';
 import Button from 'components/Button';
 
-const defaultStudentRegFormVal = {
+const defaultDeveloperRegFormVal = {
     name: {
         firstname: '',
         middlename: '',
         lastname: '',
     },
     gender: 'male',
-    dob: '',
-    schoolname: '',
-    std: '',
-    div: '',
+    companyName: '',
+    role: '',
     mobileNo: '',
     altMobileNo: '',
     emailId: '',
@@ -26,18 +22,18 @@ const defaultStudentRegFormVal = {
     confirmPassword: '',
 };
 
-const StudentRegForm = () => {
+const DeveloperRegForm = () => {
     const {
         control,
         formState: { errors },
         handleSubmit,
         register,
     } = useForm<FieldValues>({
-        defaultValues: defaultStudentRegFormVal,
+        defaultValues: defaultDeveloperRegFormVal,
     });
 
     return (
-        <div className="reg-form" id="student-reg-form">
+        <div className="reg-form" id="developer-reg-form">
             <form onSubmit={handleSubmit((data) => console.log(data))}>
                 <TextInputField
                     separateLabel
@@ -74,45 +70,27 @@ const StudentRegForm = () => {
                     ]}
                 />
 
-                <DateInputField
-                    separateLabel
-                    control={control}
-                    fieldName="dob"
-                    inputErrors={errors}
-                    inputHelperText="Enter your Birthdate"
-                    inputLabel="Date of Birth"
-                />
-
                 <TextInputField
                     separateLabel
                     errors={errors}
-                    formRegister={register('schoolname')}
-                    inputLabel="School Name"
+                    formRegister={register('companyName')}
+                    inputLabel="Company Name"
                 />
 
                 <SelectInputField
                     showSeparateLabel
                     control={control}
-                    fieldName="std"
+                    fieldName="role"
                     inputErrors={errors}
-                    inputLabel="Standard"
+                    inputLabel="Your role in Company"
                     options={standardOptions}
-                />
-
-                <SelectInputField
-                    showSeparateLabel
-                    control={control}
-                    fieldName="div"
-                    inputErrors={errors}
-                    inputLabel="Division"
-                    options={divisionOptions}
                 />
 
                 <TextInputField
                     separateLabel
                     errors={errors}
                     formRegister={register('mobileNo')}
-                    inputLabel="Mobile No. (WhatsApp)"
+                    inputLabel="Mobile No."
                 />
 
                 <TextInputField
@@ -149,4 +127,4 @@ const StudentRegForm = () => {
     );
 };
 
-export default StudentRegForm;
+export default DeveloperRegForm;

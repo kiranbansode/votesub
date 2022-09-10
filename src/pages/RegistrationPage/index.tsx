@@ -66,6 +66,7 @@ const RegistrationPage = () => {
             >
                 <RadioInputField
                     className="role-container"
+                    control={control}
                     fieldName="role"
                     inputLabel="Who are you ?"
                     radioSelect={[
@@ -74,7 +75,6 @@ const RegistrationPage = () => {
                         { label: 'Employer, HR, Manager, ...', value: 'hr' },
                         { label: 'SDE, UI-UX Designer, DevOps, ...', value: 'dev' },
                     ]}
-                    useFormControl={control}
                 />
 
                 <Button type="submit">Submit</Button>

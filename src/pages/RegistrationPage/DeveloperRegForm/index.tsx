@@ -1,7 +1,7 @@
 import { useForm, FieldValues } from 'react-hook-form';
 import TextInputField from 'components/TextInputField';
 import SelectInputField from 'components/SelectInputField';
-import { standardOptions } from 'utils/menuOptions/standards';
+import devOptions from 'utils/menuOptions/developer';
 import RadioInputField from 'components/RadioInputField';
 import PasswordInputField from 'components/PasswordInputField';
 import Button from 'components/Button';
@@ -83,7 +83,7 @@ const DeveloperRegForm = () => {
                     fieldName="role"
                     inputErrors={errors}
                     inputLabel="Your role in Company"
-                    options={standardOptions}
+                    options={devOptions}
                 />
 
                 <TextInputField

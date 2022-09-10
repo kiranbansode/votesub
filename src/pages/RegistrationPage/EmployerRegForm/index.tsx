@@ -1,9 +1,7 @@
 import { useForm, FieldValues } from 'react-hook-form';
 import TextInputField from 'components/TextInputField';
 import SelectInputField from 'components/SelectInputField';
-import { standardOptions } from 'utils/menuOptions/standards';
-import { divisionOptions } from 'utils/menuOptions/divisions';
-import DateInputField from 'components/DateInputField';
+import hrOptions from 'utils/menuOptions/hr';
 import RadioInputField from 'components/RadioInputField';
 import PasswordInputField from 'components/PasswordInputField';
 import Button from 'components/Button';
@@ -85,7 +83,7 @@ const EmployerRegForm = () => {
                     fieldName="role"
                     inputErrors={errors}
                     inputLabel="Your role in Company"
-                    options={standardOptions}
+                    options={hrOptions}
                 />
 
                 <TextInputField

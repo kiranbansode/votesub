@@ -1,8 +1,8 @@
 import { useForm, FieldValues } from 'react-hook-form';
 import TextInputField from 'components/TextInputField';
 import SelectInputField from 'components/SelectInputField';
-import { standardOptions } from 'utils/menuOptions/standards';
-import { divisionOptions } from 'utils/menuOptions/divisions';
+import standardOptions from 'utils/menuOptions/standards';
+import divisionOptions from 'utils/menuOptions/divisions';
 import DateInputField from 'components/DateInputField';
 import RadioInputField from 'components/RadioInputField';
 import PasswordInputField from 'components/PasswordInputField';

@@ -11,7 +11,7 @@ interface IRadioSelect {
 }
 
 interface RadioInputFieldTypes {
-    useFormControl: Control;
+    control: Control;
     fieldName: string;
     inputLabel: string;
     inputHelperText?: string;
@@ -21,7 +21,7 @@ interface RadioInputFieldTypes {
 }
 
 const RadioInputField = ({
-    useFormControl,
+    control,
     fieldName,
     inputLabel,
     inputHelperText,
@@ -30,7 +30,7 @@ const RadioInputField = ({
     radioSelect,
 }: RadioInputFieldTypes) => (
     <Controller
-        control={useFormControl}
+        control={control}
         name={fieldName}
         render={({ field }) => (
             <>

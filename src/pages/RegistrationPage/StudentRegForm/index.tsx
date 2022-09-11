@@ -67,6 +67,7 @@ const StudentRegForm = () => {
                     separateLabel
                     control={control}
                     fieldName="gender"
+                    inputErrors={errors}
                     inputLabel="Gender"
                     radioSelect={[
                         { label: 'Male', value: 'male' },

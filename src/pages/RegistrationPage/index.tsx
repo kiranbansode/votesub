@@ -18,7 +18,11 @@ const REGISTRATION_FORM_DEFAULT_VALUE = {
 };
 
 const RegistrationPage = () => {
-    const { handleSubmit, control } = useForm<FieldValues>({
+    const {
+        handleSubmit,
+        control,
+        formState: { errors },
+    } = useForm<FieldValues>({
         defaultValues: REGISTRATION_FORM_DEFAULT_VALUE,
         // resolver: yupResolver(registrationFormValidation),
     });
@@ -63,6 +67,7 @@ const RegistrationPage = () => {
                     className="role-container"
                     control={control}
                     fieldName="role"
+                    inputErrors={errors}
                     inputLabel="Who are you ?"
                     radioSelect={[
                         { label: 'Student', value: 'st' },

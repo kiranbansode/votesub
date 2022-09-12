@@ -1,17 +1,4 @@
-.page {
-    height: inherit;
-    padding: 0 20px;
-}
-
 #login-page {
-    background-color: #fff;
-
-    #votesub-logo {
-        width: 85%;
-        margin: 0 auto;
-        padding-top: 20px;
-    }
-
     #votesub-caption {
         margin-top: 20px;
     }
@@ -32,10 +19,6 @@
 }
 
 @media (min-width: 600px) {
-    .page {
-        padding: 0;
-    }
-
     #login-page {
         background-color: #e5e5e5;
         margin: 0 auto;

@@ -6,13 +6,35 @@
     height: 100vh;
 }
 
-.page {
+/* .page {
     padding: 20px;
-}
+} */
 
 .page-title {
     margin-left: 10px;
     margin-bottom: 0;
     font-family: 'Nunito Sans';
     font-weight: 400;
+}
+
+.reg-form {
+    background-color: #fff;
+}
+
+.reg-form .votesub-logo {
+    padding-top: 30px;
+    width: 80%;
+    margin-bottom: 10px;
+}
+
+.reg-form .page-title {
+    padding: 0 10px;
+}
+
+.reg-form .separator-container {
+    padding: 0 10px;
+}
+
+.reg-form form {
+    padding: 0 10px;
 }

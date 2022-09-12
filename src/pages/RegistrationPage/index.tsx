@@ -49,7 +49,7 @@ const RegistrationPage = () => {
     }, [userRole]);
 
     return (
-        <div className="page" id="registration-page">
+        <div className="reg-form" id="registration-page">
             <Logo goHere="/" />
 
             <Caption />

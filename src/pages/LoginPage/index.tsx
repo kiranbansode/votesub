@@ -56,7 +56,7 @@ const LoginPage = () => {
     }, [userState.userDetails.uid]);
 
     return (
-        <div className="page" id="login-page">
+        <div className="reg-form" id="login-page">
             <Logo goHere="/" />
 
             <Caption />

@@ -7,6 +7,10 @@ import DateInputField from 'components/DateInputField';
 import RadioInputField from 'components/RadioInputField';
 import PasswordInputField from 'components/PasswordInputField';
 import Button from 'components/Button';
+import Logo from 'components/Logo';
+import Caption from 'components/Caption';
+
+import './StudentRegForm.styles.scss';
 
 const defaultStudentRegFormVal = {
     name: {
@@ -38,6 +42,10 @@ const StudentRegForm = () => {
 
     return (
         <div className="reg-form" id="student-reg-form">
+            <Logo goHere="/" />
+
+            <Caption />
+
             <form onSubmit={handleSubmit((data) => console.log(data))}>
                 <TextInputField
                     separateLabel

@@ -5,6 +5,10 @@ import hrOptions from 'utils/menuOptions/hr';
 import RadioInputField from 'components/RadioInputField';
 import PasswordInputField from 'components/PasswordInputField';
 import Button from 'components/Button';
+import Logo from 'components/Logo';
+import Caption from 'components/Caption';
+
+import './EmployerRegForm.styles.scss';
 
 const defaultEmployerRegFormVal = {
     name: {
@@ -34,6 +38,10 @@ const EmployerRegForm = () => {
 
     return (
         <div className="reg-form" id="employer-reg-form">
+            <Logo goHere="/" />
+
+            <Caption />
+
             <form onSubmit={handleSubmit((data) => console.log(data))}>
                 <TextInputField
                     separateLabel

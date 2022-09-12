@@ -3,6 +3,10 @@ import TextInputField from 'components/TextInputField';
 import RadioInputField from 'components/RadioInputField';
 import PasswordInputField from 'components/PasswordInputField';
 import Button from 'components/Button';
+import Caption from 'components/Caption';
+import Logo from 'components/Logo';
+
+import './TeacherRegForm.styles.scss';
 
 const defaultTeacherRegFormVal = {
     name: {
@@ -31,6 +35,10 @@ const TeacherRegForm = () => {
 
     return (
         <div className="reg-form" id="teacher-reg-form">
+            <Logo goHere="/" />
+
+            <Caption />
+
             <form onSubmit={handleSubmit((data) => console.log(data))}>
                 <TextInputField
                     separateLabel

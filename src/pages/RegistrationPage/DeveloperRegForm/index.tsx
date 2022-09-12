@@ -5,6 +5,10 @@ import devOptions from 'utils/menuOptions/developer';
 import RadioInputField from 'components/RadioInputField';
 import PasswordInputField from 'components/PasswordInputField';
 import Button from 'components/Button';
+import Logo from 'components/Logo';
+import Caption from 'components/Caption';
+
+import './DeveloperRegForm.styles.scss';
 
 const defaultDeveloperRegFormVal = {
     name: {
@@ -34,6 +38,10 @@ const DeveloperRegForm = () => {
 
     return (
         <div className="reg-form" id="developer-reg-form">
+            <Logo goHere="/" />
+
+            <Caption />
+
             <form onSubmit={handleSubmit((data) => console.log(data))}>
                 <TextInputField
                     separateLabel

@@ -16,10 +16,11 @@ interface RadioInputFieldTypes {
     fieldName: string;
     inputErrors: FieldErrors;
     inputLabel: string;
+    showBorder?: boolean;
     inputHelperText?: string;
     separateLabel?: boolean;
-    noLabel?: boolean;
     className?: string;
+    alignCenter?: boolean;
     radioSelect: IRadioSelect[];
 }
 
@@ -29,27 +30,21 @@ const RadioInputField = ({
     inputErrors,
     inputLabel,
     inputHelperText,
+    showBorder,
     separateLabel,
-    noLabel,
     className,
+    alignCenter,
     radioSelect,
 }: RadioInputFieldTypes) => {
     const error = inputErrorMessageFinder(fieldName, inputErrors);
 
-    let labelToShow: string | null;
-
-    if (!noLabel) {
-        /* Depending on passed conditon it will do one of follwing
-            1. Separate Label - Detached from TextInputField
-            2. No Label - Label will not be showed
-            3. Default - Label will be shown in top border of TextInputField
-        */
-        labelToShow = !separateLabel ? inputLabel : null;
-    }
+    // eslint-disable-next-line no-nested-ternary
+    const showBorderClass = showBorder ? 'show-border' : '';
+    const alignCenterClass = alignCenter ? 'align-center' : '';
 
     return (
         <>
-            <InputFieldWrapper className="radio-buttons-container">
+            <InputFieldWrapper>
                 <FormControl fullWidth error={Boolean(error)}>
                     {separateLabel ? (
                         <SeparateLabel htmlFor={fieldName} label={inputLabel} />
@@ -61,7 +56,7 @@ const RadioInputField = ({
                         render={({ field }) => (
                             <RadioGroup
                                 row
-                                className={className}
+                                className={`${className} ${showBorderClass} ${alignCenterClass}`}
                                 name={field.name}
                                 value={field.value}
                                 onBlur={field.onBlur}
@@ -88,10 +83,11 @@ const RadioInputField = ({
 };
 
 RadioInputField.defaultProps = {
-    className: 'radio-button',
+    className: 'radio-buttons-container',
     inputHelperText: '',
-    separateLabel: false,
-    noLabel: false,
+    separateLabel: true,
+    showBorder: false,
+    alignCenter: false,
 };
 
 export default RadioInputField;

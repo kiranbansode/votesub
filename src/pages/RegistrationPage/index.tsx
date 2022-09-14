@@ -74,7 +74,7 @@ const RegistrationPage = () => {
                 })}
             >
                 <RadioInputField
-                    className="role-container"
+                    showBorder
                     control={control}
                     fieldName="role"
                     inputErrors={errors}

@@ -68,7 +68,9 @@ const EmployerRegForm = () => {
                 />
 
                 <RadioInputField
+                    alignCenter
                     separateLabel
+                    showBorder
                     control={control}
                     fieldName="gender"
                     inputErrors={errors}

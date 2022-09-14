@@ -50,7 +50,7 @@ const RadioInputField = ({
     return (
         <>
             <InputFieldWrapper className="radio-buttons-container">
-                <FormControl fullWidth error={Boolean()}>
+                <FormControl fullWidth error={Boolean(error)}>
                     {separateLabel ? (
                         <SeparateLabel htmlFor={fieldName} label={inputLabel} />
                     ) : null}
@@ -78,7 +78,9 @@ const RadioInputField = ({
                             </RadioGroup>
                         )}
                     />
-                    <FormHelperText id={fieldName}>{error || inputHelperText}</FormHelperText>
+                    <FormHelperText className="error-mssg" id={fieldName}>
+                        {error || inputHelperText}
+                    </FormHelperText>
                 </FormControl>
             </InputFieldWrapper>
         </>

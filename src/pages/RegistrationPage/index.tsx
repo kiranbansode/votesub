@@ -1,6 +1,8 @@
 import { lazy, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useForm, FieldValues } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 import useAppDispatch from 'hooks/useAppDispatch';
 import useAppSelector from 'hooks/useAppSelector';
 import { SAVE_USER_ROLE } from 'store/registrationPage/saveuserRoleSlice';
@@ -13,6 +15,14 @@ const Separator = lazy(() => import('components/Separator'));
 const Logo = lazy(() => import('components/Logo'));
 const Caption = lazy(() => import('components/Caption'));
 
+const registrationFormValidation = yup.object({
+    role: yup
+        .string()
+        .strict()
+        .trim()
+        .required('Please choose your role so we can navigate you to a Registration page'),
+});
+
 const REGISTRATION_FORM_DEFAULT_VALUE = {
     role: '',
 };
@@ -24,7 +34,7 @@ const RegistrationPage = () => {
         formState: { errors },
     } = useForm<FieldValues>({
         defaultValues: REGISTRATION_FORM_DEFAULT_VALUE,
-        // resolver: yupResolver(registrationFormValidation),
+        resolver: yupResolver(registrationFormValidation),
     });
     const navigate = useNavigate();
     const location = useLocation();

@@ -10,7 +10,7 @@ import './TextInputField.styles.scss';
  * It has much more capabilities like intergration with React-Hook-Form,
  * custom Error Messages and more.
  *
- * @author Kiran A. Bansode <kiran5120135@gmail.com>
+ * @author Kiran A. Bansode <kiran5120135@gmail.com> <czar.kiran@gmail.com>
  * @return TextField Componenet
  */
 

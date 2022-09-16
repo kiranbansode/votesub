@@ -1,4 +1,5 @@
 import { useForm, FieldValues } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import TextInputField from 'components/TextInputField';
 import SelectInputField from 'components/SelectInputField';
 import standardOptions from 'utils/menuOptions/standards';
@@ -9,6 +10,9 @@ import PasswordInputField from 'components/PasswordInputField';
 import Button from 'components/Button';
 import Logo from 'components/Logo';
 import Caption from 'components/Caption';
+
+// eslint-disable-next-line import/extensions
+import StudentRegFormValidations from './yupValidations';
 
 import './StudentRegForm.styles.scss';
 
@@ -38,6 +42,7 @@ const StudentRegForm = () => {
         register,
     } = useForm<FieldValues>({
         defaultValues: defaultStudentRegFormVal,
+        resolver: yupResolver(StudentRegFormValidations),
     });
 
     return (

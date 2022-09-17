@@ -1,4 +1,5 @@
 import { useForm, FieldValues } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import TextInputField from 'components/TextInputField';
 import SelectInputField from 'components/SelectInputField';
 import hrOptions from 'utils/menuOptions/hr';
@@ -7,6 +8,9 @@ import PasswordInputField from 'components/PasswordInputField';
 import Button from 'components/Button';
 import Logo from 'components/Logo';
 import Caption from 'components/Caption';
+
+// eslint-disable-next-line import/extensions
+import EmployerRegFormValidations from './yupValidations';
 
 import './EmployerRegForm.styles.scss';
 
@@ -34,6 +38,7 @@ const EmployerRegForm = () => {
         register,
     } = useForm<FieldValues>({
         defaultValues: defaultEmployerRegFormVal,
+        resolver: yupResolver(EmployerRegFormValidations),
     });
 
     return (

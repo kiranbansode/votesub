@@ -1,16 +1,14 @@
 import * as yup from 'yup';
 
-const StudentRegFormValidations = yup.object({
+const DeveloperRegFormValidations = yup.object({
     name: yup.object({
         firstname: yup.string().strict().trim().required('First name is required'),
         middlename: yup.string().strict().trim().required(),
         lastname: yup.string().strict().trim().required(),
     }),
     gender: yup.string().strict().trim().required(),
-    dob: yup.string().strict().trim().required(),
-    schoolname: yup.string().strict().trim().required(),
-    std: yup.string().strict().trim().required(),
-    div: yup.string().strict().trim().required(),
+    companyName: yup.string().strict().trim(),
+    role: yup.string().strict().trim(),
     mobileNo: yup.string().strict().trim().required(),
     altMobileNo: yup.string().strict().trim(),
     emailId: yup.string().strict().trim().email().required(),
@@ -30,4 +28,4 @@ const StudentRegFormValidations = yup.object({
         .oneOf([yup.ref('password'), null], 'Password does not match'),
 });
 
-export default StudentRegFormValidations;
+export default DeveloperRegFormValidations;

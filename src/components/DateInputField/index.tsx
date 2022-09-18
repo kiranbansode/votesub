@@ -1,5 +1,6 @@
 import { Control, Controller, FieldErrors } from 'react-hook-form';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import dayjs from 'dayjs';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { TextField, FormControl, FormHelperText } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import InputFieldWrapper from 'styled/InputFieldWrapper';
@@ -28,6 +29,7 @@ const DateInputField = ({
     required,
 }: IDateInputField) => {
     const error = inputErrorMessageFinder(fieldName, inputErrors);
+    const now = dayjs();
     let labelToShow: string | null;
 
     if (!noLabel) {
@@ -51,14 +53,12 @@ const DateInputField = ({
                         control={control}
                         name={fieldName}
                         render={({ field }) => (
-                            <LocalizationProvider
-                                dateAdapter={AdapterDateFns}
-                                dateFormats={{ keyboardDate: 'dd/MM/yyyy' }}
-                            >
+                            <LocalizationProvider dateAdapter={AdapterDayjs}>
                                 <DatePicker
                                     disableFuture
+                                    inputFormat="DD/MM/YYYY"
                                     label={labelToShow}
-                                    openTo="day"
+                                    openTo="year"
                                     renderInput={(params) => (
                                         <TextField
                                             name={field.name}
@@ -67,7 +67,8 @@ const DateInputField = ({
                                             {...params}
                                         />
                                     )}
-                                    value={field.value}
+                                    value={field.value || now}
+                                    views={['year', 'month', 'day']}
                                     onChange={field.onChange}
                                 />
                             </LocalizationProvider>

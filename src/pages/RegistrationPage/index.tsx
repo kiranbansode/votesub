@@ -20,7 +20,9 @@ const registrationFormValidation = yup.object({
         .string()
         .strict()
         .trim()
-        .required('Please choose your role so we can navigate you to a Registration page'),
+        .required(
+            'Please choose your role so we can navigate you to appropriate Registration Form',
+        ),
 });
 
 const REGISTRATION_FORM_DEFAULT_VALUE = {
@@ -74,10 +76,12 @@ const RegistrationPage = () => {
                 })}
             >
                 <RadioInputField
+                    required
                     showBorder
                     control={control}
                     fieldName="role"
                     inputErrors={errors}
+                    inputHelperText="We need to know Who are you ?, So we can navigate you to appropriate Registration Form."
                     inputLabel="Who are you ?"
                     radioSelect={[
                         { label: 'Student', value: 'st' },

@@ -49,6 +49,7 @@ const DeveloperRegForm = () => {
 
             <form onSubmit={handleSubmit((data) => console.log(data))}>
                 <TextInputField
+                    required
                     separateLabel
                     errors={errors}
                     formRegister={register('name.firstname')}
@@ -57,6 +58,7 @@ const DeveloperRegForm = () => {
                 />
 
                 <TextInputField
+                    required
                     separateLabel
                     errors={errors}
                     formRegister={register('name.middlename')}
@@ -65,6 +67,7 @@ const DeveloperRegForm = () => {
                 />
 
                 <TextInputField
+                    required
                     separateLabel
                     errors={errors}
                     formRegister={register('name.lastname')}
@@ -74,6 +77,7 @@ const DeveloperRegForm = () => {
 
                 <RadioInputField
                     alignCenter
+                    required
                     separateLabel
                     showBorder
                     control={control}
@@ -94,7 +98,8 @@ const DeveloperRegForm = () => {
                 />
 
                 <SelectInputField
-                    showSeparateLabel
+                    required
+                    separateLabel
                     control={control}
                     fieldName="role"
                     inputErrors={errors}
@@ -103,6 +108,7 @@ const DeveloperRegForm = () => {
                 />
 
                 <TextInputField
+                    required
                     separateLabel
                     errors={errors}
                     formRegister={register('mobileNo')}
@@ -117,6 +123,7 @@ const DeveloperRegForm = () => {
                 />
 
                 <TextInputField
+                    required
                     separateLabel
                     errors={errors}
                     formRegister={register('emailId')}
@@ -124,6 +131,7 @@ const DeveloperRegForm = () => {
                 />
 
                 <PasswordInputField
+                    required
                     separateLabel
                     errors={errors}
                     formRegister={register('password')}
@@ -131,6 +139,7 @@ const DeveloperRegForm = () => {
                 />
 
                 <PasswordInputField
+                    required
                     separateLabel
                     errors={errors}
                     formRegister={register('confirmPassword')}

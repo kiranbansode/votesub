@@ -41,6 +41,10 @@ export type BaseInputField = {
      * @default ''
      */
     inputPlaceholder?: string;
+    /**
+     * If true will show red asteric
+     */
+    required?: boolean;
 };
 
 export interface ITextInputFieldProps extends BaseInputField {

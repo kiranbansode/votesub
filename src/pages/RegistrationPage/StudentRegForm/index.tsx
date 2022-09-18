@@ -53,6 +53,7 @@ const StudentRegForm = () => {
 
             <form onSubmit={handleSubmit((data) => console.log(data))}>
                 <TextInputField
+                    required
                     separateLabel
                     errors={errors}
                     formRegister={register('name.firstname')}
@@ -61,6 +62,7 @@ const StudentRegForm = () => {
                 />
 
                 <TextInputField
+                    required
                     separateLabel
                     errors={errors}
                     formRegister={register('name.middlename')}
@@ -69,6 +71,7 @@ const StudentRegForm = () => {
                 />
 
                 <TextInputField
+                    required
                     separateLabel
                     errors={errors}
                     formRegister={register('name.lastname')}
@@ -78,6 +81,7 @@ const StudentRegForm = () => {
 
                 <RadioInputField
                     alignCenter
+                    required
                     separateLabel
                     showBorder
                     control={control}
@@ -91,15 +95,17 @@ const StudentRegForm = () => {
                 />
 
                 <DateInputField
+                    required
                     separateLabel
                     control={control}
                     fieldName="dob"
                     inputErrors={errors}
-                    inputHelperText="Enter your Birthdate"
+                    inputHelperText="Enter your Birthdate in format of DD/MM/YYYY"
                     inputLabel="Date of Birth"
                 />
 
                 <TextInputField
+                    required
                     separateLabel
                     errors={errors}
                     formRegister={register('schoolname')}
@@ -107,7 +113,7 @@ const StudentRegForm = () => {
                 />
 
                 <SelectInputField
-                    showSeparateLabel
+                    separateLabel
                     control={control}
                     fieldName="std"
                     inputErrors={errors}
@@ -116,7 +122,7 @@ const StudentRegForm = () => {
                 />
 
                 <SelectInputField
-                    showSeparateLabel
+                    separateLabel
                     control={control}
                     fieldName="div"
                     inputErrors={errors}
@@ -125,6 +131,7 @@ const StudentRegForm = () => {
                 />
 
                 <TextInputField
+                    required
                     separateLabel
                     errors={errors}
                     formRegister={register('mobileNo')}
@@ -139,6 +146,7 @@ const StudentRegForm = () => {
                 />
 
                 <TextInputField
+                    required
                     separateLabel
                     errors={errors}
                     formRegister={register('emailId')}
@@ -146,6 +154,7 @@ const StudentRegForm = () => {
                 />
 
                 <PasswordInputField
+                    required
                     separateLabel
                     errors={errors}
                     formRegister={register('password')}
@@ -153,6 +162,7 @@ const StudentRegForm = () => {
                 />
 
                 <PasswordInputField
+                    required
                     separateLabel
                     errors={errors}
                     formRegister={register('confirmPassword')}

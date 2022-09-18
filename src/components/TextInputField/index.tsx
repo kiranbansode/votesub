@@ -23,6 +23,7 @@ function TextInputField({
     inputHelperText,
     inputLabel,
     inputPlaceholder,
+    required,
 }: ITextInputFieldProps) {
     const errorMessage = inputErrorMessageFinder(formRegister.name, errors);
 
@@ -42,7 +43,13 @@ function TextInputField({
             <InputFieldWrapper>
                 <FormControl error={Boolean(errorMessage)}>
                     {separateLabel ? (
-                        <SeparateLabel htmlFor={formRegister.name} label={inputLabel} />
+                        <>
+                            <SeparateLabel
+                                htmlFor={formRegister.name}
+                                label={inputLabel}
+                                required={required}
+                            />
+                        </>
                     ) : null}
 
                     <TextField

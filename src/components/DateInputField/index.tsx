@@ -14,6 +14,7 @@ interface IDateInputField {
     inputHelperText?: string;
     separateLabel?: boolean;
     noLabel?: boolean;
+    required?: boolean;
 }
 
 const DateInputField = ({
@@ -24,6 +25,7 @@ const DateInputField = ({
     inputHelperText,
     inputLabel,
     control,
+    required,
 }: IDateInputField) => {
     const error = inputErrorMessageFinder(fieldName, inputErrors);
     let labelToShow: string | null;
@@ -42,7 +44,7 @@ const DateInputField = ({
             <InputFieldWrapper>
                 <FormControl fullWidth error={Boolean(error)}>
                     {separateLabel ? (
-                        <SeparateLabel htmlFor={fieldName} label={inputLabel} />
+                        <SeparateLabel htmlFor={fieldName} label={inputLabel} required={required} />
                     ) : null}
 
                     <Controller
@@ -82,6 +84,7 @@ DateInputField.defaultProps = {
     separateLabel: false,
     noLabel: false,
     inputHelperText: '',
+    required: false,
 };
 
 export default DateInputField;

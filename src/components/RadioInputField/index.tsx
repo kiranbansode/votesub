@@ -22,6 +22,7 @@ interface RadioInputFieldTypes {
     className?: string;
     alignCenter?: boolean;
     radioSelect: IRadioSelect[];
+    required?: boolean;
 }
 
 const RadioInputField = ({
@@ -35,6 +36,7 @@ const RadioInputField = ({
     className,
     alignCenter,
     radioSelect,
+    required,
 }: RadioInputFieldTypes) => {
     const error = inputErrorMessageFinder(fieldName, inputErrors);
 
@@ -47,7 +49,7 @@ const RadioInputField = ({
             <InputFieldWrapper>
                 <FormControl fullWidth error={Boolean(error)}>
                     {separateLabel ? (
-                        <SeparateLabel htmlFor={fieldName} label={inputLabel} />
+                        <SeparateLabel htmlFor={fieldName} label={inputLabel} required={required} />
                     ) : null}
 
                     <Controller
@@ -88,6 +90,7 @@ RadioInputField.defaultProps = {
     separateLabel: true,
     showBorder: false,
     alignCenter: false,
+    required: false,
 };
 
 export default RadioInputField;

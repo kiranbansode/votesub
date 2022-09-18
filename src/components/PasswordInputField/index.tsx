@@ -11,14 +11,10 @@ import {
     IconButton,
     FormHelperText,
 } from '@mui/material';
-
 import SeparateLabel from 'components/SeparateLabel';
-
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-
 import InputFieldWrapper from 'styled/InputFieldWrapper';
-
 import inputErrorMessageFinder from 'utils/helperFunctions/inputErrorMessageFinder';
 
 import './PasswordInputField.styles.scss';
@@ -31,6 +27,7 @@ interface IPasswordInputFieldProps {
     noLabel?: boolean;
     inputPlaceHolder?: string;
     errors: FieldErrors;
+    required?: boolean;
 }
 
 const PasswordInputField = ({
@@ -41,6 +38,7 @@ const PasswordInputField = ({
     inputPlaceHolder,
     formRegister,
     errors,
+    required,
 }: IPasswordInputFieldProps) => {
     const [showPassword, setShowPassword] = useState(false);
     const errorMessage = inputErrorMessageFinder(formRegister.name, errors);
@@ -68,7 +66,11 @@ const PasswordInputField = ({
         <InputFieldWrapper id="password-input-field">
             <FormControl error={!!errorMessage} variant="outlined">
                 {separateLabel ? (
-                    <SeparateLabel htmlFor={formRegister.name} label={inputLabel} />
+                    <SeparateLabel
+                        htmlFor={formRegister.name}
+                        label={inputLabel}
+                        required={required}
+                    />
                 ) : null}
 
                 <OutlinedInput
@@ -109,6 +111,7 @@ PasswordInputField.defaultProps = {
     inputHelperText: '',
     inputLabel: 'PasswordInputField',
     inputPlaceHolder: '',
+    required: false,
 };
 
 export default PasswordInputField;

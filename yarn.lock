@@ -1525,7 +1525,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@date-io/date-fns@npm:^2.13.1, @date-io/date-fns@npm:^2.15.0":
+"@date-io/date-fns@npm:^2.15.0":
   version: 2.15.0
   resolution: "@date-io/date-fns@npm:2.15.0"
   dependencies:
@@ -4297,10 +4297,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"date-fns@npm:^2.28.0":
-  version: 2.29.2
-  resolution: "date-fns@npm:2.29.2"
-  checksum: 08bebcceb0a5dbadae4c55e6592b9d5c07dbd7833433c7e9a1d4a424300db32589b8b48e5979b32863c9b00a48d9bab6663e580c2a4f9f203d46cbf9113b5664
+"dayjs@npm:^1.11.5":
+  version: 1.11.5
+  resolution: "dayjs@npm:1.11.5"
+  checksum: e3bbaa7b4883b31be4bf75a181f1447fbb19800c29b332852125aab96baeff3ac232dcba8b88c4ea17d3b636c99dac5fb9d1af4bb6ae26615698bbc4a852dffb
   languageName: node
   linkType: hard
 
@@ -9012,7 +9012,6 @@ __metadata:
   dependencies:
     "@commitlint/cli": ^13.2.1
     "@commitlint/config-conventional": ^13.2.0
-    "@date-io/date-fns": ^2.13.1
     "@emotion/react": ^11.5.0
     "@emotion/styled": ^11.3.0
     "@hookform/resolvers": ^2.8.2
@@ -9027,7 +9026,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^5.2.0
     "@typescript-eslint/parser": ^5.2.0
     "@vitejs/plugin-react": ^1.0.0
-    date-fns: ^2.28.0
+    dayjs: ^1.11.5
     eslint: ^7.32.0
     eslint-config-airbnb: ^18.2.1
     eslint-config-prettier: ^8.3.0

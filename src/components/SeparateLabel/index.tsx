@@ -1,4 +1,4 @@
-import './SeparareLabel.styles.scss';
+import './SeparateLabel.styles.scss';
 
 interface SeparateLabelBaseProps {
     htmlFor: string;

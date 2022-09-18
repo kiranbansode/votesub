@@ -1,7 +1,12 @@
 .separate-label {
-  font: inherit;
-  letter-spacing: inherit;
-  font-size: 1.2rem;
-  margin-bottom: 30px;
-  cursor: pointer;
+    font: inherit;
+    letter-spacing: inherit;
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    cursor: pointer;
+}
+
+.required-star {
+    color: red;
+    padding-left: 5px;
 }

@@ -7,7 +7,7 @@ const StudentRegFormValidations = yup.object({
         lastname: yup.string().strict().trim().required(),
     }),
     gender: yup.string().strict().trim().required(),
-    dob: yup.string().strict().trim().required(),
+    dob: yup.date().required(),
     schoolname: yup.string().strict().trim().required(),
     std: yup.string().strict().trim().required(),
     div: yup.string().strict().trim().required(),

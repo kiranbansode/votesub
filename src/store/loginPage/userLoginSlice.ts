@@ -21,6 +21,7 @@ export const userLogIn = createAsyncThunk(
                 isEmailVerified: user.emailVerified,
                 username: user.displayName,
                 profilePhoto: user.photoURL,
+                role: (await auth.currentUser?.getIdTokenResult())?.claims.role,
             };
         } catch (error: any) {
             const authErrorMessage = authErrorMessageFinder(error);
@@ -73,7 +74,7 @@ const userLoginSlice = createSlice({
          * So, as for now use `any` for PayloadAction type
          */
 
-        /* TODO: Remove any type and use proper one */
+        /* TODO: Remove type any and use right one */
         //! PayloadAction types should not be any
         builder.addCase(userLogIn.fulfilled, (state, action: PayloadAction<any>) => {
             state.userDetails = action.payload;

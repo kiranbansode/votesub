@@ -4,14 +4,27 @@ import { HttpsError } from 'firebase-functions/v1/auth';
 import clf from './index';
 
 exports.createNewUser = clf.https.onCall(async (data) => {
-    const { name, gender, dob, schoolName, std, div, mobileNo, altMobileNo, emailId, password } =
-        data;
+    const {
+        name,
+        gender,
+        dob,
+        schoolName,
+        std,
+        div,
+        mobileNo,
+        altMobileNo,
+        emailId,
+        password,
+        role,
+    } = data;
 
     try {
         const response = await admin.auth().createUser({
             email: emailId,
             password,
         });
+
+        admin.auth().setCustomUserClaims(response.uid, { role });
 
         if (response.uid) {
             await admin.firestore().collection('users').doc(response.uid).set({

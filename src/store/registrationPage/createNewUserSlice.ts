@@ -1,9 +1,16 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { createNewUserCLF } from 'config/firebase';
+import { RootState } from 'store';
 
 export const createNewUserThunk = createAsyncThunk(
     'CREATE-NEW-USER',
-    async (userData: any, thunkAPI) => {
+    async (data: any, thunkAPI) => {
+        /**
+         * ! Always use thunkAPI.getState() to get latest snapshot of redux store
+         */
+        const { userRole } = thunkAPI.getState() as RootState;
+        const userData = { ...data, ...userRole };
+
         try {
             const userCredentials = await createNewUserCLF(userData);
 

@@ -108,7 +108,7 @@ const LoginPage = () => {
             </form>
             {ui.showSignSuccessPopUp ? (
                 <BackdropMssg
-                    header="Login Successfull."
+                    header="Login Successful."
                     mssg="Redirecting to Dashboard..."
                     open={ui.showSignSuccessPopUp}
                 />

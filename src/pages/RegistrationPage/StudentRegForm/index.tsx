@@ -1,9 +1,14 @@
+/**
+ * @author: Kiran A. Bansode <czar.kiran@gmail.com> <kiran5120135@gmail.com>
+ */
+
+/* -------------------------------- Libraries ------------------------------- */
 import { useForm, FieldValues } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+
+/* ------------------------------- Components ------------------------------- */
 import TextInputField from 'components/TextInputField';
 import SelectInputField from 'components/SelectInputField';
-import standardOptions from 'utils/menuOptions/standards';
-import divisionOptions from 'utils/menuOptions/divisions';
 import DateInputField from 'components/DateInputField';
 import RadioInputField from 'components/RadioInputField';
 import PasswordInputField from 'components/PasswordInputField';
@@ -11,20 +16,30 @@ import Button from 'components/Button';
 import Logo from 'components/Logo';
 import Caption from 'components/Caption';
 
+/* ---------------------------------- Hooks --------------------------------- */
+import useAppDispatch from 'hooks/useAppDispatch';
+
+/* ---------------------------------- Redux --------------------------------- */
+import { createNewUserThunk } from 'store/registrationPage/createNewUserSlice';
+
+/* ---------------------------------- Utils --------------------------------- */
+import standardOptions from 'utils/menuOptions/standards';
+import divisionOptions from 'utils/menuOptions/divisions';
 // eslint-disable-next-line import/extensions
 import StudentRegFormValidations from './yupValidations';
 
+/* --------------------------------- Styles --------------------------------- */
 import './StudentRegForm.styles.scss';
 
 const defaultStudentRegFormVal = {
     name: {
-        firstname: '',
-        middlename: '',
-        lastname: '',
+        firstName: '',
+        middleName: '',
+        lastName: '',
     },
     gender: 'male',
     dob: '',
-    schoolname: '',
+    schoolName: '',
     std: '',
     div: '',
     mobileNo: '',
@@ -44,19 +59,24 @@ const StudentRegForm = () => {
         defaultValues: defaultStudentRegFormVal,
         resolver: yupResolver(StudentRegFormValidations),
     });
+    const dispatch = useAppDispatch();
 
-    return (
+    const View = (
         <div className="reg-form" id="student-reg-form">
             <Logo goHere="/" />
 
             <Caption />
 
-            <form onSubmit={handleSubmit((data) => console.log(data))}>
+            <form
+                onSubmit={handleSubmit((data) => {
+                    dispatch(createNewUserThunk(data));
+                })}
+            >
                 <TextInputField
                     required
                     separateLabel
                     errors={errors}
-                    formRegister={register('name.firstname')}
+                    formRegister={register('name.firstName')}
                     inputLabel="First Name"
                     inputPlaceholder="Your Name"
                 />
@@ -65,7 +85,7 @@ const StudentRegForm = () => {
                     required
                     separateLabel
                     errors={errors}
-                    formRegister={register('name.middlename')}
+                    formRegister={register('name.middleName')}
                     inputLabel="Middle Name"
                     inputPlaceholder="Father/Husband Name"
                 />
@@ -74,7 +94,7 @@ const StudentRegForm = () => {
                     required
                     separateLabel
                     errors={errors}
-                    formRegister={register('name.lastname')}
+                    formRegister={register('name.lastName')}
                     inputLabel="Last Name"
                     inputPlaceholder="Surname"
                 />
@@ -100,7 +120,7 @@ const StudentRegForm = () => {
                     control={control}
                     fieldName="dob"
                     inputErrors={errors}
-                    inputHelperText="Enter your Birthdate in format of DD/MM/YYYY"
+                    inputHelperText="Enter your Birthday in format of DD/MM/YYYY"
                     inputLabel="Date of Birth"
                 />
 
@@ -108,7 +128,7 @@ const StudentRegForm = () => {
                     required
                     separateLabel
                     errors={errors}
-                    formRegister={register('schoolname')}
+                    formRegister={register('schoolName')}
                     inputLabel="School Name"
                 />
 
@@ -173,6 +193,8 @@ const StudentRegForm = () => {
             </form>
         </div>
     );
+
+    return View;
 };
 
 export default StudentRegForm;

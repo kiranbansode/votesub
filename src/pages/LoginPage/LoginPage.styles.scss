@@ -27,27 +27,21 @@
         display: grid;
         grid-template-areas:
             'logo form'
-            'capation form';
+            'caption form';
 
-        #votesub-logo {
-            height: 130px;
-            width: 400px;
-            margin: 0;
+        .votesub-logo-container {
             padding-bottom: 10px;
             grid-area: logo;
-            align-self: end;
-            justify-self: flex-end;
+            align-self: flex-end;
+            justify-self: end;
+            justify-content: end;
         }
 
-        #votesub-caption {
-            height: 35px;
-            margin-right: 10px;
-            grid-area: capation;
-            justify-self: flex-end;
-
-            img {
-                width: 100%;
-            }
+        .votesub-caption-container {
+            height: 4rem;
+            grid-area: caption;
+            justify-self: end;
+            justify-content: end;
         }
 
         form {

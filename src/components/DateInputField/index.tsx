@@ -33,7 +33,7 @@ const DateInputField = ({
     let labelToShow: string | null;
 
     if (!noLabel) {
-        /* Depending on passed conditon it will do one of follwing
+        /* Depending on passed condition it will do one of following
             1. Separate Label - Detached from TextInputField
             2. No Label - Label will not be showed
             3. Default - Label will be shown in top border of TextInputField
@@ -56,6 +56,7 @@ const DateInputField = ({
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                                 <DatePicker
                                     disableFuture
+                                    reduceAnimations
                                     inputFormat="DD/MM/YYYY"
                                     label={labelToShow}
                                     openTo="year"

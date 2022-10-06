@@ -2,17 +2,17 @@ import * as yup from 'yup';
 
 const StudentRegFormValidations = yup.object({
     name: yup.object({
-        firstname: yup.string().strict().trim().required('First name is required'),
-        middlename: yup.string().strict().trim().required(),
-        lastname: yup.string().strict().trim().required(),
+        firstName: yup.string().strict().trim().required('First name is required'),
+        middleName: yup.string().strict().trim().required(),
+        lastName: yup.string().strict().trim().required(),
     }),
     gender: yup.string().strict().trim().required(),
     dob: yup.date().required(),
-    schoolname: yup.string().strict().trim().required(),
+    schoolName: yup.string().strict().trim().required(),
     std: yup.string().strict().trim().required(),
     div: yup.string().strict().trim().required(),
-    mobileNo: yup.string().strict().trim().required(),
-    altMobileNo: yup.string().strict().trim(),
+    mob1: yup.string().strict().trim().required(),
+    mob2: yup.string().strict().trim(),
     emailId: yup.string().strict().trim().email().required(),
     password: yup
         .string()
@@ -22,7 +22,7 @@ const StudentRegFormValidations = yup.object({
         .matches(
             // eslint-disable-next-line no-useless-escape
             /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
-            'Must Contain atleast 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character',
+            'Must Contain minimum 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character',
         ),
     confirmPassword: yup
         .string()

@@ -25,13 +25,15 @@ import { createNewUserThunk } from 'store/registrationPage/createNewUserSlice';
 /* ---------------------------------- Utils --------------------------------- */
 import standardOptions from 'utils/menuOptions/standards';
 import divisionOptions from 'utils/menuOptions/divisions';
+import { IStudentRegForm } from 'types/regFormData';
+
 // eslint-disable-next-line import/extensions
 import StudentRegFormValidations from './yupValidations';
 
 /* --------------------------------- Styles --------------------------------- */
 import './StudentRegForm.styles.scss';
 
-const defaultStudentRegFormVal = {
+const defaultStudentRegFormVal: IStudentRegForm = {
     name: {
         firstName: '',
         middleName: '',
@@ -42,8 +44,8 @@ const defaultStudentRegFormVal = {
     schoolName: '',
     std: '',
     div: '',
-    mobileNo: '',
-    altMobileNo: '',
+    mob1: '',
+    mob2: '',
     emailId: '',
     password: '',
     confirmPassword: '',
@@ -68,8 +70,8 @@ const StudentRegForm = () => {
             <Caption />
 
             <form
-                onSubmit={handleSubmit((data) => {
-                    dispatch(createNewUserThunk(data));
+                onSubmit={handleSubmit((formData) => {
+                    dispatch(createNewUserThunk(formData));
                 })}
             >
                 <TextInputField
@@ -154,14 +156,14 @@ const StudentRegForm = () => {
                     required
                     separateLabel
                     errors={errors}
-                    formRegister={register('mobileNo')}
+                    formRegister={register('mob1')}
                     inputLabel="Mobile No. (WhatsApp)"
                 />
 
                 <TextInputField
                     separateLabel
                     errors={errors}
-                    formRegister={register('altMobileNo')}
+                    formRegister={register('mob2')}
                     inputLabel="Alternate Mobile No."
                 />
 

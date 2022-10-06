@@ -6,22 +6,25 @@ import PasswordInputField from 'components/PasswordInputField';
 import Button from 'components/Button';
 import Caption from 'components/Caption';
 import Logo from 'components/Logo';
+import useAppDispatch from 'hooks/useAppDispatch';
+import { createNewUserThunk } from 'store/registrationPage/createNewUserSlice';
+import { ITeacherRegForm } from 'types/regFormData';
 
 // eslint-disable-next-line import/extensions
 import TeacherRegFormValidations from './yupValidations';
 
 import './TeacherRegForm.styles.scss';
 
-const defaultTeacherRegFormVal = {
+const defaultTeacherRegFormVal: ITeacherRegForm = {
     name: {
-        firstname: '',
-        middlename: '',
-        lastname: '',
+        firstName: '',
+        middleName: '',
+        lastName: '',
     },
     gender: 'male',
-    schoolname: '',
-    mobileNo: '',
-    altMobileNo: '',
+    schoolName: '',
+    mob1: '',
+    mob2: '',
     emailId: '',
     password: '',
     confirmPassword: '',
@@ -37,6 +40,7 @@ const TeacherRegForm = () => {
         defaultValues: defaultTeacherRegFormVal,
         resolver: yupResolver(TeacherRegFormValidations),
     });
+    const dispatch = useAppDispatch();
 
     return (
         <div className="reg-form" id="teacher-reg-form">
@@ -44,11 +48,11 @@ const TeacherRegForm = () => {
 
             <Caption />
 
-            <form onSubmit={handleSubmit((data) => console.log(data))}>
+            <form onSubmit={handleSubmit((formData) => dispatch(createNewUserThunk(formData)))}>
                 <TextInputField
                     separateLabel
                     errors={errors}
-                    formRegister={register('name.firstname')}
+                    formRegister={register('name.firstName')}
                     inputLabel="First Name"
                     inputPlaceholder="Your Name"
                 />
@@ -56,7 +60,7 @@ const TeacherRegForm = () => {
                 <TextInputField
                     separateLabel
                     errors={errors}
-                    formRegister={register('name.middlename')}
+                    formRegister={register('name.middleName')}
                     inputLabel="Middle Name"
                     inputPlaceholder="Father/Husband Name"
                 />
@@ -64,7 +68,7 @@ const TeacherRegForm = () => {
                 <TextInputField
                     separateLabel
                     errors={errors}
-                    formRegister={register('name.lastname')}
+                    formRegister={register('name.lastName')}
                     inputLabel="Last Name"
                     inputPlaceholder="Surname"
                 />
@@ -86,21 +90,22 @@ const TeacherRegForm = () => {
                 <TextInputField
                     separateLabel
                     errors={errors}
-                    formRegister={register('schoolname')}
+                    formRegister={register('schoolName')}
+                    inputHelperText="Enter name of school where do you work."
                     inputLabel="School Name"
                 />
 
                 <TextInputField
                     separateLabel
                     errors={errors}
-                    formRegister={register('mobileNo')}
-                    inputLabel="Mobile No. (WhatsApp)"
+                    formRegister={register('mob1')}
+                    inputLabel="Mobile No."
                 />
 
                 <TextInputField
                     separateLabel
                     errors={errors}
-                    formRegister={register('altMobileNo')}
+                    formRegister={register('mob2')}
                     inputLabel="Alternate Mobile No."
                 />
 

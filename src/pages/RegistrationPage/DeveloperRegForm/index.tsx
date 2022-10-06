@@ -8,23 +8,24 @@ import PasswordInputField from 'components/PasswordInputField';
 import Button from 'components/Button';
 import Logo from 'components/Logo';
 import Caption from 'components/Caption';
+import { IDeveloperRegForm } from 'types/regFormData';
 
 // eslint-disable-next-line import/extensions
 import DeveloperRegFormValidations from './yupValidations';
 
 import './DeveloperRegForm.styles.scss';
 
-const defaultDeveloperRegFormVal = {
+const defaultDeveloperRegFormVal: IDeveloperRegForm = {
     name: {
-        firstname: '',
-        middlename: '',
-        lastname: '',
+        firstName: '',
+        middleName: '',
+        lastName: '',
     },
     gender: 'male',
     companyName: '',
     role: '',
-    mobileNo: '',
-    altMobileNo: '',
+    mob1: '',
+    mob2: '',
     emailId: '',
     password: '',
     confirmPassword: '',
@@ -47,12 +48,12 @@ const DeveloperRegForm = () => {
 
             <Caption />
 
-            <form onSubmit={handleSubmit((data) => console.log(data))}>
+            <form onSubmit={handleSubmit((formData) => console.log(formData))}>
                 <TextInputField
                     required
                     separateLabel
                     errors={errors}
-                    formRegister={register('name.firstname')}
+                    formRegister={register('name.firstName')}
                     inputLabel="First Name"
                     inputPlaceholder="Your Name"
                 />
@@ -61,7 +62,7 @@ const DeveloperRegForm = () => {
                     required
                     separateLabel
                     errors={errors}
-                    formRegister={register('name.middlename')}
+                    formRegister={register('name.middleName')}
                     inputLabel="Middle Name"
                     inputPlaceholder="Father/Husband Name"
                 />
@@ -70,7 +71,7 @@ const DeveloperRegForm = () => {
                     required
                     separateLabel
                     errors={errors}
-                    formRegister={register('name.lastname')}
+                    formRegister={register('name.lastName')}
                     inputLabel="Last Name"
                     inputPlaceholder="Surname"
                 />
@@ -111,14 +112,14 @@ const DeveloperRegForm = () => {
                     required
                     separateLabel
                     errors={errors}
-                    formRegister={register('mobileNo')}
+                    formRegister={register('mob1')}
                     inputLabel="Mobile No."
                 />
 
                 <TextInputField
                     separateLabel
                     errors={errors}
-                    formRegister={register('altMobileNo')}
+                    formRegister={register('mob2')}
                     inputLabel="Alternate Mobile No."
                 />
 

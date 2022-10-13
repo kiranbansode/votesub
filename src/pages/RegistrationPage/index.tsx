@@ -5,7 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import useAppDispatch from 'hooks/useAppDispatch';
 import useAppSelector from 'hooks/useAppSelector';
-import { SAVE_USER_ROLE } from 'store/registrationPage/saveuserRoleSlice';
+import { SAVE_USER_ROLE } from 'store/registrationPage/saveUserRoleSlice';
 
 import './RegistrationPage.styles.scss';
 
@@ -81,7 +81,7 @@ const RegistrationPage = () => {
                     control={control}
                     fieldName="role"
                     inputErrors={errors}
-                    inputHelperText="We need to know Who are you ?, So we can navigate you to appropriate Registration Form."
+                    inputHelperText="We need to know Who you are ? So we can navigate you to appropriate Registration Form."
                     inputLabel="Who are you ?"
                     radioSelect={[
                         { label: 'Student', value: 'st' },

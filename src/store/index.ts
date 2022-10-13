@@ -4,7 +4,7 @@ import userLoginSlice from 'store/loginPage/userLoginSlice';
 import createNewUserSlice from 'store/registrationPage/createNewUserSlice';
 import uiSlice from 'store/ui';
 import addNewTopicSlice from 'store/addNewTopic';
-import saveuserRoleSlice from 'store/registrationPage/saveuserRoleSlice';
+import saveuserRoleSlice from 'store/registrationPage/saveUserRoleSlice';
 
 export const store = configureStore({
     reducer: {

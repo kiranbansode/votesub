@@ -35,6 +35,7 @@
             align-self: flex-end;
             justify-self: end;
             justify-content: end;
+            cursor: default;
         }
 
         .votesub-caption-container {
@@ -42,6 +43,10 @@
             grid-area: caption;
             justify-self: end;
             justify-content: end;
+        }
+
+        .votesub-caption {
+            width: 75%;
         }
 
         form {

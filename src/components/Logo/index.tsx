@@ -15,7 +15,12 @@ const Logo = ({ goHere }: ILogo) => {
 
     return (
         <div className="votesub-logo-container" onClick={() => navigate(goHere)}>
-            <img alt="votesub-logo" className="votesub-logo" src={VoteSubLogoDarker} />
+            <img
+                alt="votesub-logo"
+                className="votesub-logo"
+                loading="lazy"
+                src={VoteSubLogoDarker}
+            />
         </div>
     );
 };

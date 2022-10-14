@@ -4,7 +4,12 @@ import './Caption.styles.scss';
 
 const Caption = () => (
     <div className="votesub-caption-container">
-        <img alt="votesub-caption" className="votesub-caption" src={VoteSubCaption} />
+        <img
+            alt="votesub-caption"
+            className="votesub-caption"
+            loading="lazy"
+            src={VoteSubCaption}
+        />
     </div>
 );
 

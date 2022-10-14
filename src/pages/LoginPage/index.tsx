@@ -2,7 +2,7 @@ import { useEffect, lazy } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm, FieldValues } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import useAppDisparch from 'hooks/useAppDispatch';
+import useAppDispatch from 'hooks/useAppDispatch';
 import useAppSelector from 'hooks/useAppSelector';
 import { userLogIn } from 'store/loginPage/userLoginSlice';
 import { SHOW_SIGN_SUCCESS_POP_UP, HIDE_SIGN_SUCCESS_POP_UP } from 'store/ui';
@@ -37,7 +37,7 @@ const LoginPage = () => {
         defaultValues: loginPageFormDefaultValues,
         resolver: yupResolver(loginPageFormValidation),
     });
-    const dispatch = useAppDisparch();
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const userState = useAppSelector(({ user }) => user);
     const ui = useAppSelector((state) => state.ui);

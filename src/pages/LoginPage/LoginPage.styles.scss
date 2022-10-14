@@ -1,5 +1,6 @@
 #login-page {
     height: 100vh;
+    background-color: #e5e5e5;
 
     #votesub-caption {
         margin-top: 20px;
@@ -18,6 +19,13 @@
     .register-link {
         color: #2f7d32;
     }
+
+    form {
+        background-color: #fff;
+        margin: 0 20px;
+        border-radius: 15px;
+        padding: 10px;
+    }
 }
 
 @media (min-width: 600px) {
@@ -35,7 +43,6 @@
             align-self: flex-end;
             justify-self: end;
             justify-content: end;
-            cursor: default;
         }
 
         .votesub-caption-container {
@@ -45,9 +52,9 @@
             justify-content: end;
         }
 
-        .votesub-caption {
-            width: 75%;
-        }
+        // .votesub-caption {
+        //     width: 75%;
+        // }
 
         form {
             width: 350px;

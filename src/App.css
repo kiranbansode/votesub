@@ -6,10 +6,6 @@
     height: 100vh;
 }
 
-/* .page {
-    padding: 20px;
-} */
-
 .page-title {
     margin-left: 10px;
     margin-bottom: 0;
@@ -18,7 +14,8 @@
 }
 
 .reg-form {
-    background-color: #fff;
+    background-color: #e5e5e5;
+    padding-bottom: 75px;
 }
 
 .reg-form .votesub-logo {
@@ -27,14 +24,69 @@
     margin-bottom: 10px;
 }
 
-.reg-form .page-title {
-    padding: 0 10px;
+.reg-form .votesub-caption {
+    width: 60%;
 }
 
-.reg-form .separator-container {
-    padding: 0 10px;
+.reg-form .page-title {
+    font-size: 1.6rem;
 }
+
+/* .reg-form .separator-container {
+    padding: 0 10px;
+} */
 
 .reg-form form {
-    padding: 0 10px;
+    background-color: #fff;
+    padding: 10px;
+    margin: 0 20px;
+    border-radius: 15px;
+}
+
+@media (min-width: 600px) {
+    .reg-form {
+        background-color: #e5e5e5;
+        padding-bottom: 0;
+        margin: 0 auto;
+        display: grid;
+        grid-template-areas:
+            'logo form'
+            'caption form';
+    }
+
+    .reg-form .votesub-logo-container {
+        padding-bottom: 10px;
+        grid-area: logo;
+        align-self: flex-end;
+        justify-self: end;
+        justify-content: end;
+        cursor: pointer;
+    }
+
+    .reg-form .votesub-caption-container {
+        height: 4rem;
+        grid-area: caption;
+        justify-self: end;
+        justify-content: end;
+    }
+
+    .reg-form .votesub-caption {
+        width: 75%;
+    }
+
+    .reg-form .page-title {
+        grid-area: title;
+    }
+
+    .reg-form form {
+        width: 350px;
+        height: fit-content;
+        margin-left: 100px;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 30px;
+        grid-area: form;
+        justify-self: flex-start;
+        align-self: center;
+    }
 }

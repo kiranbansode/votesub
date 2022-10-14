@@ -1,28 +1,46 @@
-import { lazy, Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 import { CircularProgress } from '@mui/material';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { lazyWithPreload } from 'react-lazy-with-preload';
 
 import './App.css';
 
 // Main Page Routes
-const LoginPage = lazy(() => import(`pages/LoginPage`));
-const RegistrationPage = lazy(() => import(`pages/RegistrationPage`));
-const DashboardPage = lazy(() => import(`pages/DashboardPage`));
-const AddNewTopicPage = lazy(() => import(`pages/AddNewTopicPage`));
-const UserVotingHistory = lazy(() => import(`pages/UserVotingHistory`));
-const FeedbackPage = lazy(() => import(`pages/FeedbackPage`));
-const CreditsPage = lazy(() => import(`pages/CreditsPage`));
-const AboutMePage = lazy(() => import(`pages/AboutMePage`));
-const AdminPage = lazy(() => import(`pages/AdminPage`));
-const SettingsPage = lazy(() => import(`pages/SettingsPage`));
+const LoginPage = lazyWithPreload(() => import(`pages/LoginPage`));
+const DashboardPage = lazyWithPreload(() => import(`pages/DashboardPage`));
+const RegistrationPage = lazyWithPreload(() => import(`pages/RegistrationPage`));
+const AddNewTopicPage = lazyWithPreload(() => import(`pages/AddNewTopicPage`));
+const UserVotingHistory = lazyWithPreload(() => import(`pages/UserVotingHistory`));
+const FeedbackPage = lazyWithPreload(() => import(`pages/FeedbackPage`));
+const CreditsPage = lazyWithPreload(() => import(`pages/CreditsPage`));
+const AboutMePage = lazyWithPreload(() => import(`pages/AboutMePage`));
+const AdminPage = lazyWithPreload(() => import(`pages/AdminPage`));
+const SettingsPage = lazyWithPreload(() => import(`pages/SettingsPage`));
 
 // Registration Page Nested Routes
-const StudentRegForm = lazy(() => import('pages/RegistrationPage/StudentRegForm'));
-const DeveloperRegForm = lazy(() => import('pages/RegistrationPage/DeveloperRegForm'));
-const EmployerRegForm = lazy(() => import('pages/RegistrationPage/EmployerRegForm'));
-const TeacherRegForm = lazy(() => import('pages/RegistrationPage/TeacherRegForm'));
+const StudentRegForm = lazyWithPreload(() => import('pages/RegistrationPage/StudentRegForm'));
+const TeacherRegForm = lazyWithPreload(() => import('pages/RegistrationPage/TeacherRegForm'));
+const EmployerRegForm = lazyWithPreload(() => import('pages/RegistrationPage/EmployerRegForm'));
+const DeveloperRegForm = lazyWithPreload(() => import('pages/RegistrationPage/DeveloperRegForm'));
 
 function App() {
+    useEffect(() => {
+        LoginPage.preload();
+        DashboardPage.preload();
+        AddNewTopicPage.preload();
+        UserVotingHistory.preload();
+        FeedbackPage.preload();
+        CreditsPage.preload();
+        AboutMePage.preload();
+        AdminPage.preload();
+        SettingsPage.preload();
+        RegistrationPage.preload();
+        StudentRegForm.preload();
+        TeacherRegForm.preload();
+        EmployerRegForm.preload();
+        DeveloperRegForm.preload();
+    }, []);
+
     return (
         <div className="app">
             <Suspense

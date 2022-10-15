@@ -19,9 +19,7 @@ exports.createNewUser = clf.https.onCall(async (newUserData) => {
                 .collection('users')
                 .doc(uid)
                 .set({
-                    /**
-                     * otherNewUserData will save all details except password and confirmPassword
-                     */
+                    // it will save all details except password and confirmPassword
                     ...otherNewUserData,
                     uid,
                 });

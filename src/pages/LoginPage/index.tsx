@@ -10,6 +10,7 @@ import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import BackdropMssg from 'components/BackdropMssg';
 import InputFieldWrapper from 'styled/InputFieldWrapper';
+import getCurrentLoggedUser from 'utils/helperFunctions/getCurrentLoggedUser';
 
 // @ts-ignore
 import loginPageFormValidation from './yupValidation.ts';
@@ -41,6 +42,11 @@ const LoginPage = () => {
     const navigate = useNavigate();
     const userState = useAppSelector(({ user }) => user);
     const ui = useAppSelector((state) => state.ui);
+
+    // without useEffect getCurrentLoggedUser does not work properly
+    useEffect(() => {
+        getCurrentLoggedUser();
+    }, []);
 
     useEffect(() => {
         if (userState.userDetails.uid) {

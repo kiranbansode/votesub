@@ -66,28 +66,28 @@ const RegistrationPage = () => {
 
             <Caption />
 
-            <h1 className="page-title">Register Now</h1>
-
-            <Separator />
-
             <form
                 onSubmit={handleSubmit((data) => {
                     dispatch(SAVE_USER_ROLE(data));
                 })}
             >
+                <h1 className="page-title">Register Now</h1>
+
+                <Separator />
+
                 <RadioInputField
                     required
                     showBorder
                     control={control}
                     fieldName="role"
                     inputErrors={errors}
-                    inputHelperText="We need to know Who you are ? So we can navigate you to appropriate Registration Form."
+                    inputHelperText="We need to know who you are, so we can navigate you to appropriate Registration Form."
                     inputLabel="Who are you ?"
                     radioSelect={[
                         { label: 'Student', value: 'st' },
                         { label: 'Teacher, Principal, Clerk, ...', value: 'tr' },
                         { label: 'Employer, HR, Manager, ...', value: 'hr' },
-                        { label: 'SDE, UI-UX Designer, DevOps, ...', value: 'dev' },
+                        { label: 'SDE, UI-UX Designer, ...', value: 'dev' },
                     ]}
                 />
 

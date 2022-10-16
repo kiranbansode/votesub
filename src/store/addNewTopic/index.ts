@@ -36,7 +36,7 @@ export const addNewTopicThunk = createAsyncThunk(
             const response = await addNewSubjectCLF({
                 id: subjectId,
                 subject: data.subject,
-                submittedBy: userDetails.username,
+                submittedBy: userDetails.displayName,
                 userId: userDetails.uid,
                 candidates: addNewTopic.candidates,
             });

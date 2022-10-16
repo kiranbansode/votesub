@@ -1,0 +1,65 @@
+.candidate-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    margin: 30px 0;
+    height: 70px;
+    padding: 0 20px;
+    border-radius: 8px;
+    -webkit-box-shadow: 0px 0px 40px -16px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 0px 0px 40px -16px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 0px 40px -16px rgba(0, 0, 0, 0.5);
+
+    .candidate-name {
+        flex-grow: 2;
+        margin: 0 10px;
+        padding-left: 10px;
+    }
+
+    .candidate-position,
+    .edit-button,
+    .delete-button {
+        margin: 0px;
+        background-color: #fff;
+        border: 1px solid rgba(0, 0, 0, 0.3);
+        border-radius: 5px;
+        padding: 5px 10px;
+        height: 40;
+        width: 40;
+        -webkit-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        -moz-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+        svg {
+            font-size: 18px;
+        }
+    }
+
+    .edit-button,
+    .delete-button {
+        padding: 5px;
+
+        & > div:first-child {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 50px;
+        }
+        padding-bottom: 3px;
+    }
+
+    .edit-button {
+        margin-right: 20px;
+    }
+
+    .edit-button:hover {
+        background-color: #ffb74d;
+        color: #fff;
+    }
+
+    .delete-button:hover {
+        background-color: #e57373;
+        color: #fff;
+    }
+}

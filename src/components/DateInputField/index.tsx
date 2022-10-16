@@ -1,5 +1,6 @@
 import { Control, Controller, FieldErrors } from 'react-hook-form';
-import DateAdapter from '@mui/lab/AdapterDateFns';
+import dayjs from 'dayjs';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { TextField, FormControl, FormHelperText } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import InputFieldWrapper from 'styled/InputFieldWrapper';
@@ -14,6 +15,7 @@ interface IDateInputField {
     inputHelperText?: string;
     separateLabel?: boolean;
     noLabel?: boolean;
+    required?: boolean;
 }
 
 const DateInputField = ({
@@ -24,12 +26,14 @@ const DateInputField = ({
     inputHelperText,
     inputLabel,
     control,
+    required,
 }: IDateInputField) => {
     const error = inputErrorMessageFinder(fieldName, inputErrors);
+    const now = dayjs();
     let labelToShow: string | null;
 
     if (!noLabel) {
-        /* Depending on passed conditon it will do one of follwing
+        /* Depending on passed condition it will do one of following
             1. Separate Label - Detached from TextInputField
             2. No Label - Label will not be showed
             3. Default - Label will be shown in top border of TextInputField
@@ -42,21 +46,20 @@ const DateInputField = ({
             <InputFieldWrapper>
                 <FormControl fullWidth error={Boolean(error)}>
                     {separateLabel ? (
-                        <SeparateLabel htmlFor={fieldName} label={inputLabel} />
+                        <SeparateLabel htmlFor={fieldName} label={inputLabel} required={required} />
                     ) : null}
 
                     <Controller
                         control={control}
                         name={fieldName}
                         render={({ field }) => (
-                            <LocalizationProvider
-                                dateAdapter={DateAdapter}
-                                dateFormats={{ keyboardDate: 'dd/MM/yyyy' }}
-                            >
+                            <LocalizationProvider dateAdapter={AdapterDayjs}>
                                 <DatePicker
                                     disableFuture
+                                    reduceAnimations
+                                    inputFormat="DD/MM/YYYY"
                                     label={labelToShow}
-                                    openTo="day"
+                                    openTo="year"
                                     renderInput={(params) => (
                                         <TextField
                                             name={field.name}
@@ -65,7 +68,8 @@ const DateInputField = ({
                                             {...params}
                                         />
                                     )}
-                                    value={field.value}
+                                    value={field.value || now}
+                                    views={['year', 'month', 'day']}
                                     onChange={field.onChange}
                                 />
                             </LocalizationProvider>
@@ -82,6 +86,7 @@ DateInputField.defaultProps = {
     separateLabel: false,
     noLabel: false,
     inputHelperText: '',
+    required: false,
 };
 
 export default DateInputField;

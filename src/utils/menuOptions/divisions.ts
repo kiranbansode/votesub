@@ -1,11 +1,10 @@
-export interface Option {
-  value: string | number;
-  option: string;
-}
+import { IOptions } from '.';
 
-export const divisionOptions: Option[] = [
-  { value: 'A', option: 'A' },
-  { value: 'B', option: 'B' },
-  { value: 'C', option: 'C' },
-  { value: 'D', option: 'D' },
+const divisionOptions: IOptions[] = [
+    { value: 'A', option: 'A' },
+    { value: 'B', option: 'B' },
+    { value: 'C', option: 'C' },
+    { value: 'D', option: 'D' },
 ];
+
+export default divisionOptions;

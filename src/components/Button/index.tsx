@@ -5,6 +5,7 @@ import InputFieldWrapper from 'styled/InputFieldWrapper';
 interface ButtonPropsType {
     children?: ButtonProps['children'];
     color?: ButtonProps['color'];
+    disabled?: boolean;
     loading?: LoadingButtonProps['loading'];
     size?: ButtonProps['size'];
     type?: 'reset' | 'submit' | 'button';
@@ -17,6 +18,7 @@ const Button = ({
     color,
     variant,
     children,
+    disabled,
     size,
     type,
     loading,
@@ -28,6 +30,7 @@ const Button = ({
             fullWidth
             className={className}
             color={color}
+            disabled={disabled}
             loading={loading}
             size={size}
             type={type}
@@ -43,6 +46,7 @@ Button.defaultProps = {
     children: 'Button',
     className: '',
     color: 'primary',
+    disabled: false,
     loading: false,
     size: 'large',
     type: 'button',

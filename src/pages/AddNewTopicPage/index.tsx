@@ -6,19 +6,18 @@ import * as yup from 'yup';
 import TextInputField from 'components/TextInputField';
 import useAppSelector from 'hooks/useAppSelector';
 import useAppDispatch from 'hooks/useAppDispatch';
-import { ADD_CANDIDATE, DELETE_CANDIDATE } from 'store/addNewTopic';
+import { addNewTopicThunk, ADD_CANDIDATE, DELETE_CANDIDATE } from 'store/addNewTopic';
 import Header from 'components/Header';
 import Button from 'components/Button';
 import PageTitle from 'components/Title';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
 import Separator from 'components/Separator';
+import NewCandidate from 'components/NewCandidate';
 
 import './AddNewTopicPage.styles.scss';
 
 const yupValidation = yup.object({
     subject: yup.string().trim().strict().required('Subject is required'),
-    candidateName: yup.string().trim().strict().required('Candidate is required'),
+    candidateName: yup.string().trim().strict(),
 });
 
 const defaultValues = {
@@ -42,7 +41,7 @@ const AddNewTopicPage = () => {
     const dispatch = useAppDispatch();
     const addNewTopicState = useAppSelector(({ addNewTopic }) => addNewTopic);
 
-    const editButtonHandler = (id: string) => {
+    const editBtnHandler = (id: string) => {
         const candidateToEdit = addNewTopicState.candidates.filter(
             (candidate) => candidate.id === id,
         );
@@ -51,7 +50,7 @@ const AddNewTopicPage = () => {
         dispatch(DELETE_CANDIDATE(id));
     };
 
-    const addCandidateButtonHandler = () => {
+    const addCandidateBtnHandler = () => {
         const candidateName = watch('candidateName');
         if (!candidateName) {
             setError(
@@ -77,7 +76,7 @@ const AddNewTopicPage = () => {
             <form
                 className="form"
                 onSubmit={handleSubmit((data) => {
-                    console.log(data);
+                    dispatch(addNewTopicThunk(data));
                 })}
             >
                 <TextInputField
@@ -92,47 +91,34 @@ const AddNewTopicPage = () => {
                 <TextInputField
                     separateLabel
                     errors={formState.errors}
-                    formRegister={register('candidateName')}
+                    formRegister={register('candidateName', {
+                        required: addNewTopicState.candidates.length > 0,
+                    })}
+                    inputHelperText="Minimum 2 Candidates should be there for voting"
                     inputLabel="Candidate Name"
                 />
 
-                <Button onClick={() => addCandidateButtonHandler()}>Add Candidate</Button>
+                <Button onClick={() => addCandidateBtnHandler()}>Add Candidate</Button>
 
                 {addNewTopicState.candidates.length > 0 ? (
-                    <p
-                        style={{
-                            fontFamily: 'Bad Script',
-                            textAlign: 'center',
-                            fontSize: '1.5rem',
-                            color: '#ff3c3c',
-                        }}
-                    >
-                        -x- Candidates List -x-
-                    </p>
+                    <p className="candidates-list">-x- Candidates List -x-</p>
                 ) : null}
 
-                {addNewTopicState.candidates.map((candidate, index) => (
-                    <div className="candidate-container" key={candidate.id}>
-                        <span className="candidate-position">{index + 1}</span>
-                        <p className="candidate-name">{candidate.candidateName}</p>
-                        <span
-                            className="edit-button"
-                            title="Edit"
-                            onClick={() => editButtonHandler(candidate.id)}
-                        >
-                            <EditIcon fontSize="small" />
-                        </span>
-                        <span
-                            className="delete-button"
-                            title="Delete"
-                            onClick={() => dispatch(DELETE_CANDIDATE(candidate.id))}
-                        >
-                            <DeleteIcon fontSize="small" />
-                        </span>
-                    </div>
+                {addNewTopicState.candidates.map((candidate, idx) => (
+                    <NewCandidate
+                        editBtnHandler={editBtnHandler}
+                        idx={idx}
+                        key={candidate.id}
+                        newCandidate={candidate}
+                    />
                 ))}
 
-                <Button color="success" type="submit">
+                <Button
+                    color="success"
+                    disabled={Boolean(!(addNewTopicState.candidates.length > 1))}
+                    loading={addNewTopicState.loading}
+                    type="submit"
+                >
                     Submit
                 </Button>
             </form>

@@ -1,5 +1,11 @@
 #login-page {
-    background-color: #fff;
+    height: 100vh;
+    background-color: #e5e5e5;
+
+    #votesub-caption {
+        margin-top: 20px;
+    }
+
     p {
         font-size: 12px;
         margin-left: 10px;
@@ -13,6 +19,13 @@
     .register-link {
         color: #2f7d32;
     }
+
+    form {
+        background-color: #fff;
+        margin: 0 20px;
+        border-radius: 15px;
+        padding: 10px;
+    }
 }
 
 @media (min-width: 600px) {
@@ -22,37 +35,37 @@
         display: grid;
         grid-template-areas:
             'logo form'
-            'capation form';
+            'caption form';
 
-        #votesub-logo {
-            height: 130px;
-            margin-right: 100px;
+        .votesub-logo-container {
             padding-bottom: 10px;
             grid-area: logo;
-            align-self: end;
-            justify-self: flex-end;
+            align-self: flex-end;
+            justify-self: end;
+            justify-content: end;
         }
 
-        #votesub-caption {
-            height: 35px;
-            margin-right: 100px;
-            grid-area: capation;
-            justify-self: flex-end;
-
-            img {
-                width: 100%;
-            }
+        .votesub-caption-container {
+            height: 4rem;
+            grid-area: caption;
+            justify-self: end;
+            justify-content: end;
         }
+
+        // .votesub-caption {
+        //     width: 75%;
+        // }
 
         form {
             width: 350px;
-            margin-top: 50px;
+            height: fit-content;
             margin-left: 100px;
             padding: 20px;
             background-color: #fff;
             border-radius: 30px;
             grid-area: form;
             justify-self: flex-start;
+            align-self: center;
         }
     }
 }

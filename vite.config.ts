@@ -20,6 +20,7 @@ export default defineConfig(() => ({
             { find: 'store', replacement: '/src/store' },
             { find: 'styled', replacement: '/src/styled' },
             { find: 'utils', replacement: '/src/utils' },
+            { find: 'types', replacement: '/src/types' },
         ],
     },
 }));

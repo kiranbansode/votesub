@@ -7,3 +7,9 @@ typings/
 
 # Node.js dependency directory
 node_modules/
+
+# yarn cache
+.yarn
+
+#log
+firepit-log.txt

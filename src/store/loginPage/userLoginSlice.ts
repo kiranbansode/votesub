@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { UserLoginFormTypes } from 'pages/LoginPage';
-import { signInWithEmailAndPassword, UserInfo, UserCredential } from 'firebase/auth';
+import { signInWithEmailAndPassword, UserInfo, UserCredential, signOut } from 'firebase/auth';
 import { auth } from 'config/firebase';
 import authErrorMessageFinder from 'utils/helperFunctions/authErrorMessageFinder';
 
@@ -19,8 +19,9 @@ export const userLogIn = createAsyncThunk(
                 uid: user.uid,
                 email: user.email,
                 isEmailVerified: user.emailVerified,
-                username: user.displayName,
+                displayName: user.displayName,
                 profilePhoto: user.photoURL,
+                role: (await auth.currentUser?.getIdTokenResult())?.claims.role,
             };
         } catch (error: any) {
             const authErrorMessage = authErrorMessageFinder(error);
@@ -34,14 +35,17 @@ export const userLogIn = createAsyncThunk(
     },
 );
 
+const signOutCurrentUser = async () => signOut(auth).then((mssg) => mssg);
+
 export interface IUserInfo {
-    userDetails: {
-        uid: UserInfo['uid'];
-        email: UserInfo['email'];
-        isEmailVerified: boolean | null;
-        username: UserInfo['displayName'];
-        profilePhoto: UserInfo['photoURL'];
-    };
+    userDetails: UserInfo;
+    // userDetails: {
+    //     uid: UserInfo['uid'];
+    //     email: UserInfo['email'];
+    //     isEmailVerified: boolean | null;
+    //     username: UserInfo['displayName'];
+    //     profilePhoto: UserInfo['photoURL'];
+    // };
     loading: boolean;
     error: any;
 }
@@ -49,10 +53,11 @@ export interface IUserInfo {
 const initialState: IUserInfo = {
     userDetails: {
         uid: '',
+        displayName: '',
         email: '',
-        isEmailVerified: null,
-        username: '',
-        profilePhoto: '',
+        phoneNumber: '',
+        photoURL: '',
+        providerId: '',
     },
     loading: false,
     error: {},
@@ -61,7 +66,25 @@ const initialState: IUserInfo = {
 const userLoginSlice = createSlice({
     name: 'user',
     initialState,
-    reducers: {},
+    reducers: {
+        SAVE_USER_AUTH_DETAILS: {
+            reducer: (state, action: PayloadAction<UserInfo>) => {
+                state.userDetails = action.payload;
+            },
+
+            prepare: (payload: UserInfo) => {
+                const { displayName, email, phoneNumber, photoURL, providerId, uid } = payload;
+                return { payload: { displayName, email, phoneNumber, photoURL, providerId, uid } };
+            },
+        },
+
+        SIGNOUT_USER_AND_RESET_AUTH_DETAILS: (state) => {
+            signOutCurrentUser();
+            state.userDetails = initialState.userDetails;
+            state.error = initialState.error;
+            state.loading = initialState.loading;
+        },
+    },
     extraReducers: (builder) => {
         builder.addCase(userLogIn.pending, (state) => {
             state.loading = true;
@@ -73,7 +96,7 @@ const userLoginSlice = createSlice({
          * So, as for now use `any` for PayloadAction type
          */
 
-        /* TODO: Remove any type and use proper one */
+        /* TODO: Remove type any and use right one */
         //! PayloadAction types should not be any
         builder.addCase(userLogIn.fulfilled, (state, action: PayloadAction<any>) => {
             state.userDetails = action.payload;
@@ -88,22 +111,6 @@ const userLoginSlice = createSlice({
     },
 });
 
+export const { SAVE_USER_AUTH_DETAILS, SIGNOUT_USER_AND_RESET_AUTH_DETAILS } =
+    userLoginSlice.actions;
 export default userLoginSlice.reducer;
-
-// from PayloadAction<IUserInfo['userDetails']>
-//    payload: {
-//     uid: UserInfo['uid'];
-//     email: UserInfo['email'];
-//     isEmailVerified: boolean | null;
-//     username: UserInfo['displayName'];
-//     profilePhoto: UserInfo['photoURL'];
-// }
-
-// from IUserInfo['userDetails']
-//   userDetails: WritableDraft<{
-//     uid: UserInfo['uid'];
-//     email: UserInfo['email'];
-//     isEmailVerified: boolean | null;
-//     username: UserInfo['displayName'];
-//     profilePhoto: UserInfo['photoURL'];
-// }>

@@ -1,56 +1,96 @@
-import { Controller, Control } from 'react-hook-form';
+import { Controller, Control, FieldErrors } from 'react-hook-form';
 import { Radio, RadioGroup, FormControlLabel, FormControl, FormHelperText } from '@mui/material';
 import SeparateLabel from 'components/SeparateLabel';
 import InputFieldWrapper from 'styled/InputFieldWrapper';
 
 import './RadioInputField.styles.scss';
+import inputErrorMessageFinder from 'utils/helperFunctions/inputErrorMessageFinder';
+
+interface IRadioSelect {
+    label: string;
+    value: string;
+}
 
 interface RadioInputFieldTypes {
-  useFormControl: Control;
-  fieldName: string;
-  inputLabel: string;
-  inputHelperText?: string;
-  separateLabel?: boolean;
+    control: Control;
+    fieldName: string;
+    inputErrors: FieldErrors;
+    inputLabel: string;
+    showBorder?: boolean;
+    inputHelperText?: string;
+    separateLabel?: boolean;
+    className?: string;
+    alignCenter?: boolean;
+    radioSelect: IRadioSelect[];
+    required?: boolean;
 }
 
 const RadioInputField = ({
-  useFormControl,
-  fieldName,
-  inputLabel,
-  inputHelperText,
-  separateLabel,
-}: RadioInputFieldTypes) => (
-  <Controller
-    control={useFormControl}
-    name={fieldName}
-    render={({ field }) => (
-      <>
-        <InputFieldWrapper id="radio-buttons">
-          <FormControl>
-            {separateLabel ? <SeparateLabel htmlFor={field.name} label={inputLabel} /> : null}
-            <RadioGroup
-              row
-              aria-labelledby="gender"
-              className="radio-buttons"
-              name={field.name}
-              value={field.value || 'male'}
-              onBlur={field.onBlur}
-              onChange={field.onChange}
-            >
-              <FormControlLabel control={<Radio />} label="Male" value="male" />
-              <FormControlLabel control={<Radio />} label="Female" value="female" />
-            </RadioGroup>
-            <FormHelperText>{inputHelperText}</FormHelperText>
-          </FormControl>
-        </InputFieldWrapper>
-      </>
-    )}
-  />
-);
+    control,
+    fieldName,
+    inputErrors,
+    inputLabel,
+    inputHelperText,
+    showBorder,
+    separateLabel,
+    className,
+    alignCenter,
+    radioSelect,
+    required,
+}: RadioInputFieldTypes) => {
+    const error = inputErrorMessageFinder(fieldName, inputErrors);
+
+    // eslint-disable-next-line no-nested-ternary
+    const showBorderClass = showBorder ? 'show-border' : '';
+    const alignCenterClass = alignCenter ? 'align-center' : '';
+
+    return (
+        <>
+            <InputFieldWrapper>
+                <FormControl fullWidth error={Boolean(error)}>
+                    {separateLabel ? (
+                        <SeparateLabel htmlFor={fieldName} label={inputLabel} required={required} />
+                    ) : null}
+
+                    <Controller
+                        control={control}
+                        name={fieldName}
+                        render={({ field }) => (
+                            <RadioGroup
+                                row
+                                className={`${className} ${showBorderClass} ${alignCenterClass}`}
+                                name={field.name}
+                                value={field.value}
+                                onBlur={field.onBlur}
+                                onChange={field.onChange}
+                            >
+                                {radioSelect.map(({ label, value }) => (
+                                    <FormControlLabel
+                                        control={<Radio />}
+                                        key={label}
+                                        label={label}
+                                        value={value}
+                                    />
+                                ))}
+                            </RadioGroup>
+                        )}
+                    />
+                    <FormHelperText className="error-mssg" id={fieldName}>
+                        {error || inputHelperText}
+                    </FormHelperText>
+                </FormControl>
+            </InputFieldWrapper>
+        </>
+    );
+};
 
 RadioInputField.defaultProps = {
-  inputHelperText: '',
-  separateLabel: true,
+    className: 'radio-buttons-container',
+    inputHelperText: '',
+    separateLabel: true,
+    showBorder: false,
+    alignCenter: false,
+    required: false,
 };
 
 export default RadioInputField;

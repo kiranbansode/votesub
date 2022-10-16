@@ -2,7 +2,7 @@ import { useEffect, lazy } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm, FieldValues } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import useAppDisparch from 'hooks/useAppDispatch';
+import useAppDispatch from 'hooks/useAppDispatch';
 import useAppSelector from 'hooks/useAppSelector';
 import { userLogIn } from 'store/loginPage/userLoginSlice';
 import { SHOW_SIGN_SUCCESS_POP_UP, HIDE_SIGN_SUCCESS_POP_UP } from 'store/ui';
@@ -10,6 +10,7 @@ import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import BackdropMssg from 'components/BackdropMssg';
 import InputFieldWrapper from 'styled/InputFieldWrapper';
+import getCurrentLoggedUser from 'utils/helperFunctions/getCurrentLoggedUser';
 
 // @ts-ignore
 import loginPageFormValidation from './yupValidation.ts';
@@ -37,10 +38,15 @@ const LoginPage = () => {
         defaultValues: loginPageFormDefaultValues,
         resolver: yupResolver(loginPageFormValidation),
     });
-    const dispatch = useAppDisparch();
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const userState = useAppSelector(({ user }) => user);
     const ui = useAppSelector((state) => state.ui);
+
+    // without useEffect getCurrentLoggedUser does not work properly
+    useEffect(() => {
+        getCurrentLoggedUser();
+    }, []);
 
     useEffect(() => {
         if (userState.userDetails.uid) {
@@ -56,7 +62,7 @@ const LoginPage = () => {
     }, [userState.userDetails.uid]);
 
     return (
-        <div className="page" id="login-page">
+        <div className="reg-form" id="login-page">
             <Logo goHere="/" />
 
             <Caption />
@@ -108,7 +114,7 @@ const LoginPage = () => {
             </form>
             {ui.showSignSuccessPopUp ? (
                 <BackdropMssg
-                    header="Login Successfull."
+                    header="Login Successful."
                     mssg="Redirecting to Dashboard..."
                     open={ui.showSignSuccessPopUp}
                 />

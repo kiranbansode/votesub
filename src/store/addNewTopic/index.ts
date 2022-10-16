@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { RootState } from 'store';
 import { nanoid } from 'nanoid';
+import { addNewSubjectCLF } from 'config/firebase';
 import toProperCase from 'utils/helperFunctions/toProperCase';
 
 interface ICandidate {
@@ -11,26 +12,39 @@ interface ICandidate {
 interface IAddNewTopicSlice {
     subject: string;
     id: string;
-    createdOn: number | null;
-    submittedBy: string;
     candidates: ICandidate[];
+    loading: boolean;
 }
 
 const initialState: IAddNewTopicSlice = {
     subject: '',
     id: '',
-    createdOn: null,
-    submittedBy: '',
     candidates: [],
+    loading: false,
 };
 
-export const addNewTopicThunk = createAsyncThunk('addNewTopic', async (data, { getState }) => {
-    const {
-        user: { userDetails },
-    } = getState() as RootState;
+export const addNewTopicThunk = createAsyncThunk(
+    'addNewTopic',
+    async (data: any, { getState, rejectWithValue }) => {
+        const {
+            user: { userDetails },
+            addNewTopic,
+        } = getState() as RootState;
+        const subjectId = nanoid();
 
-    console.log(userDetails);
-});
+        try {
+            const response = await addNewSubjectCLF({
+                id: subjectId,
+                subject: data.subject,
+                submittedBy: userDetails.displayName,
+                userId: userDetails.uid,
+                candidates: addNewTopic.candidates,
+            });
+        } catch (error) {
+            rejectWithValue(error);
+        }
+    },
+);
 
 const addNewTopicSlice = createSlice({
     name: 'addNewTopic',
@@ -58,6 +72,19 @@ const addNewTopicSlice = createSlice({
                 (candidate) => candidate.id !== action.payload,
             );
         },
+    },
+    extraReducers: (builder) => {
+        builder.addCase(addNewTopicThunk.pending, (state) => {
+            state.loading = true;
+        });
+
+        builder.addCase(addNewTopicThunk.fulfilled, (state, action: PayloadAction<any>) => {
+            state.loading = false;
+        });
+
+        builder.addCase(addNewTopicThunk.rejected, (state, action: PayloadAction<any>) => {
+            state.loading = false;
+        });
     },
 });
 

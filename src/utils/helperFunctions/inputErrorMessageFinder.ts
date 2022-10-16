@@ -18,35 +18,39 @@ import { FieldErrors } from 'react-hook-form';
  */
 
 const inputErrorMessageFinder = (inputFieldName: string, errorObject: FieldErrors) => {
-  const names: string[] = inputFieldName.split('.');
+    const names: string[] = inputFieldName.split('.');
 
-  /* Solution 1 = Original Solution */
-  // let error;
-  // if (names.length === 2) {
-  //   error = errorObject[names[0]]?.[names[1]]?.message;
-  // } else if (names.length === 3) {
-  //   error = errorObject[names[0]]?.[names[1]]?.[names[2]]?.message;
-  // } else if (names.length === 4) {
-  //   error = errorObject[names[0]]?.[names[1]]?.[names[2]]?.[names[3]]?.message;
-  // } else if (names.length === 5) {
-  //   error = errorObject[names[0]]?.[names[1]]?.[names[2]]?.[names[3]]?.[names[4]]?.message;
-  // } else {
-  //   error = errorObject[names[0]]?.message;
-  // }
+    /* Solution 1 = Original Solution */
+    // let error;
+    // if (names.length === 2) {
+    //   error = errorObject[names[0]]?.[names[1]]?.message;
+    // } else if (names.length === 3) {
+    //   error = errorObject[names[0]]?.[names[1]]?.[names[2]]?.message;
+    // } else if (names.length === 4) {
+    //   error = errorObject[names[0]]?.[names[1]]?.[names[2]]?.[names[3]]?.message;
+    // } else if (names.length === 5) {
+    //   error = errorObject[names[0]]?.[names[1]]?.[names[2]]?.[names[3]]?.[names[4]]?.message;
+    // } else {
+    //   error = errorObject[names[0]]?.message;
+    // }
 
-  /* Solution 2 */
-  const error: {
-    [x: string]: string;
-  } = {
-    // object keys will always be converted to string
-    1: errorObject[names[0]]?.message,
-    2: errorObject[names[0]]?.[names[1]]?.message,
-    3: errorObject[names[0]]?.[names[1]]?.[names[2]]?.message,
-    4: errorObject[names[0]]?.[names[1]]?.[names[2]]?.[names[3]]?.message,
-    5: errorObject[names[0]]?.[names[1]]?.[names[2]]?.[names[3]]?.[names[4]]?.message,
-  };
+    /* Solution 2 */
+    const error = {
+        // object keys will always be converted to string
+        // @ts-ignore
+        1: errorObject[names[0]]?.message,
+        // @ts-ignore
+        2: errorObject[names[0]]?.[names[1]]?.message,
+        // @ts-ignore
+        3: errorObject[names[0]]?.[names[1]]?.[names[2]]?.message,
+        // @ts-ignore
+        4: errorObject[names[0]]?.[names[1]]?.[names[2]]?.[names[3]]?.message,
+        // @ts-ignore
+        5: errorObject[names[0]]?.[names[1]]?.[names[2]]?.[names[3]]?.[names[4]]?.message,
+    };
 
-  return error[names.length];
+    // @ts-ignore
+    return error[names.length];
 };
 
 export default inputErrorMessageFinder;

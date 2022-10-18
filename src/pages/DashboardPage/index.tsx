@@ -1,32 +1,46 @@
 import Header from 'components/Header';
 import Separator from 'components/Separator';
 import VotingCandidate from 'components/VotingCandidate';
+import useAppDispatch from 'hooks/useAppDispatch';
+import { useEffect } from 'react';
+
+import { HIDE_SIGN_IN_SUCCESS_POP_UP } from 'store/ui';
 
 import './Dashboard.styles.scss';
 
-const DashboardPage = () => (
-    <div id="dashboard-page">
-        <Header />
+const DashboardPage = () => {
+    const dispatch = useAppDispatch();
 
-        <p id="remainig-votes">
-            Your Remaining Votes : <span>100</span>
-        </p>
-        <Separator />
+    useEffect(() => {
+        dispatch(HIDE_SIGN_IN_SUCCESS_POP_UP());
+    }, []);
 
-        <p className="voting-topic"> -x- Most Favourite Subject -x-</p>
+    const dashboardPageView = (
+        <div id="dashboard-page">
+            <Header />
 
-        <div id="candidate-list">
-            <VotingCandidate candidateName="Geography" position={1} totalVotes={1995} />
+            <p id="remaining-votes">
+                Your Remaining Votes : <span>100</span>
+            </p>
+            <Separator />
 
-            <VotingCandidate candidateName="History" position={2} totalVotes={1994} />
+            <p className="voting-topic"> -x- Most Favorite Subject -x-</p>
 
-            <VotingCandidate candidateName="Mathematics" position={3} totalVotes={1993} />
+            <div id="candidate-list">
+                <VotingCandidate candidateName="Geography" position={1} totalVotes={1995} />
 
-            <VotingCandidate candidateName="English" position={4} totalVotes={1992} />
+                <VotingCandidate candidateName="History" position={2} totalVotes={1994} />
 
-            <VotingCandidate candidateName="Science" position={5} totalVotes={1991} />
+                <VotingCandidate candidateName="Mathematics" position={3} totalVotes={1993} />
+
+                <VotingCandidate candidateName="English" position={4} totalVotes={1992} />
+
+                <VotingCandidate candidateName="Science" position={5} totalVotes={1991} />
+            </div>
         </div>
-    </div>
-);
+    );
+
+    return dashboardPageView;
+};
 
 export default DashboardPage;

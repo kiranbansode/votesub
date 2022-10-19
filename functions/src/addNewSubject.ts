@@ -1,6 +1,6 @@
 /* eslint-disable import/extensions */
 import * as admin from 'firebase-admin';
-import clf from './index';
+import cloudFn from './index';
 
 interface ICandidate {
     id: string;
@@ -37,7 +37,7 @@ function saveCandidateDetails(candidates: ICandidate[]) {
     );
 }
 
-exports.addNewSubject = clf.https.onCall(async (data: IAddNewSubject, context) => {
+exports.addNewSubject = cloudFn.https.onCall(async (data: IAddNewSubject, context) => {
     console.log(data, context.auth);
 
     try {

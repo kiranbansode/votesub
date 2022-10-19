@@ -1,8 +1,8 @@
 /* eslint-disable import/extensions */
 import { HttpsError } from 'firebase-functions/v1/auth';
-import clf from './index';
+import cloudFn from './index';
 
-exports.createNewUser = clf.https.onCall(async (newUserData) => {
+exports.createNewUser = cloudFn.https.onCall(async (newUserData) => {
     const { auth, firestore } = await import('firebase-admin');
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password, confirmPassword, ...otherNewUserData } = newUserData;

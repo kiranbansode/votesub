@@ -1,11 +1,11 @@
-import { lazy, useEffect } from 'react';
+import { lazy, useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useForm, FieldValues } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import useAppDispatch from 'hooks/useAppDispatch';
 import useAppSelector from 'hooks/useAppSelector';
-import { SAVE_USER_ROLE } from 'store/registrationPage/saveUserRoleSlice';
+import { RESET_USER_ROLE, SAVE_USER_ROLE } from 'store/registrationPage/saveUserRoleSlice';
 
 import './RegistrationPage.styles.scss';
 
@@ -39,9 +39,10 @@ const RegistrationPage = () => {
         resolver: yupResolver(registrationFormValidation),
     });
     const navigate = useNavigate();
-    const location = useLocation();
     const dispatch = useAppDispatch();
-    const userRole = useAppSelector((state) => state.userRole.role);
+    const location = useLocation();
+    const { role: userRole } = useAppSelector((state) => state.userRole);
+    const [navigateUserToForm, setNavigateUserToForm] = useState(false);
 
     const REG_NESTED_ROUTES = {
         st: 'student',
@@ -51,14 +52,18 @@ const RegistrationPage = () => {
     };
 
     useEffect(() => {
-        if (userRole) {
+        dispatch(RESET_USER_ROLE());
+    }, []);
+
+    useEffect(() => {
+        if (navigateUserToForm) {
             navigate(
                 `${location.pathname}/${
                     REG_NESTED_ROUTES[userRole as keyof typeof REG_NESTED_ROUTES]
                 }`,
             );
         }
-    }, [userRole]);
+    }, [navigateUserToForm]);
 
     return (
         <div className="reg-form" id="registration-page">
@@ -69,6 +74,7 @@ const RegistrationPage = () => {
             <form
                 onSubmit={handleSubmit((data) => {
                     dispatch(SAVE_USER_ROLE(data));
+                    setNavigateUserToForm(true);
                 })}
             >
                 <h1 className="page-title">Register Now</h1>

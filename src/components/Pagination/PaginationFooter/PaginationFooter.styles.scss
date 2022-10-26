@@ -1,0 +1,31 @@
+.pagination-footer-container {
+    margin: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    & > div {
+        margin-bottom: 20px;
+        margin-left: 20px;
+        background-color: #fff;
+        padding: 10px;
+        height: 30px;
+        width: 30px;
+        border-radius: 8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+    }
+
+    & > div:first-child {
+        margin-right: auto;
+        .MuiSvgIcon-root {
+            padding-left: 10px;
+        }
+    }
+
+    & > div:last-child {
+        margin-left: auto;
+    }
+}

@@ -1,16 +1,18 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import { useEffect, lazy } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useForm, FieldValues } from 'react-hook-form';
+import { CircularProgress } from '@mui/material';
 import { yupResolver } from '@hookform/resolvers/yup';
 import useAppDispatch from 'hooks/useAppDispatch';
 import useAppSelector from 'hooks/useAppSelector';
-import { userLogIn } from 'store/loginPage/userLoginSlice';
-import { SHOW_SIGN_SUCCESS_POP_UP, HIDE_SIGN_SUCCESS_POP_UP } from 'store/ui';
+import { userLogIn, RESET_AUTH_DETAILS } from 'store/loginPage/userLoginSlice';
+import { SHOW_SIGN_IN_SUCCESS_POP_UP } from 'store/ui';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import BackdropMssg from 'components/BackdropMssg';
 import InputFieldWrapper from 'styled/InputFieldWrapper';
-import getCurrentLoggedUser from 'utils/helperFunctions/getCurrentLoggedUser';
 
 // @ts-ignore
 import loginPageFormValidation from './yupValidation.ts';
@@ -40,26 +42,41 @@ const LoginPage = () => {
     });
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
-    const userState = useAppSelector(({ user }) => user);
-    const ui = useAppSelector((state) => state.ui);
 
-    // without useEffect getCurrentLoggedUser does not work properly
+    const userState = useAppSelector(({ user }) => user);
+    const globalUI = useAppSelector((state) => state.ui);
+
+    /**
+     * Whenever user come back to Login page all auth states will reset.
+     * e.g. previously failed login attempts, error mssg
+     */
     useEffect(() => {
-        getCurrentLoggedUser();
+        dispatch(RESET_AUTH_DETAILS());
     }, []);
 
     useEffect(() => {
         if (userState.userDetails.uid) {
-            dispatch(SHOW_SIGN_SUCCESS_POP_UP());
+            dispatch(SHOW_SIGN_IN_SUCCESS_POP_UP());
+            setTimeout(() => navigate('/dashboard'), 2000);
         }
-
-        setTimeout(() => {
-            if (userState.userDetails.uid) {
-                navigate('/dashboard');
-                dispatch(HIDE_SIGN_SUCCESS_POP_UP());
-            }
-        }, 2000);
     }, [userState.userDetails.uid]);
+
+    const showErrorMssg = userState.error.code ? (
+        <InputFieldWrapper>
+            <Alert severity="error" variant="filled">
+                <AlertTitle>{userState.error.code.toUpperCase()}</AlertTitle>
+                {userState.error.message}
+            </Alert>
+        </InputFieldWrapper>
+    ) : null;
+
+    const showLoginSuccessMssg = globalUI.showSignSuccessPopUp ? (
+        <BackdropMssg
+            header="Login Successful."
+            mssg="Redirecting to Dashboard..."
+            open={globalUI.showSignSuccessPopUp}
+        />
+    ) : null;
 
     return (
         <div className="reg-form" id="login-page">
@@ -67,8 +84,7 @@ const LoginPage = () => {
 
             <Caption />
 
-            {/* @ts-ignore */}
-            <form onSubmit={handleSubmit((data: UserLoginFormTypes) => dispatch(userLogIn(data)))}>
+            <form onSubmit={handleSubmit((data) => dispatch(userLogIn(data)))}>
                 <TextInputField
                     autoFocus
                     separateLabel
@@ -84,14 +100,8 @@ const LoginPage = () => {
                     inputLabel="Password"
                 />
 
-                {userState.error.code ? (
-                    <InputFieldWrapper>
-                        <Alert severity="error" variant="filled">
-                            <AlertTitle>{userState.error.code.toUpperCase()}</AlertTitle>
-                            {userState.error.message}
-                        </Alert>
-                    </InputFieldWrapper>
-                ) : null}
+                {/* If there is any error mssg from auth, it should show here, right under password field */}
+                {showErrorMssg}
 
                 <Button className="login-button" loading={userState.loading} type="submit">
                     Login
@@ -100,27 +110,35 @@ const LoginPage = () => {
                 <Separator />
 
                 <p>
-                    Don&#39;t have an account ? Click on
-                    {/* TODO: Find alternative way to remove default link style like blue underline */}
-                    <Link style={{ textDecoration: 'none' }} to="/register">
-                        <span className="register-link"> Register </span>
-                    </Link>
-                    button below
+                    Don&#39;t have an account ? Click on &nbsp;
+                    <span className="register-link" onClick={() => navigate('/register')}>
+                        Register
+                    </span>
+                    &nbsp; button below
                 </p>
 
-                <Link style={{ textDecoration: 'none' }} to="/register">
-                    <Button color="success">Register</Button>
-                </Link>
+                <Button color="success" onClick={() => navigate('/register')}>
+                    Register
+                </Button>
             </form>
-            {ui.showSignSuccessPopUp ? (
-                <BackdropMssg
-                    header="Login Successful."
-                    mssg="Redirecting to Dashboard..."
-                    open={ui.showSignSuccessPopUp}
-                />
-            ) : null}
+
+            {/* if user is able to login, then a success type mssg will be shown */}
+            {showLoginSuccessMssg}
         </div>
     );
+
+    //  : (
+    //     <div
+    //         style={{
+    //             display: 'flex',
+    //             justifyContent: 'center',
+    //             alignItems: 'center',
+    //             height: '100vh',
+    //         }}
+    //     >
+    //         <CircularProgress color="warning" />
+    //     </div>
+    // );
 };
 
 export default LoginPage;

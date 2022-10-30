@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import { useState, MouseEvent } from 'react';
+import { useState, MouseEvent, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { nanoid } from 'nanoid';
 import { IconButton, Menu, MenuItem, Tooltip } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
@@ -10,6 +11,7 @@ import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 import './Profile.styles.scss';
 import { SIGNOUT_USER_AND_RESET_AUTH_DETAILS } from 'store/loginPage/userLoginSlice';
 import useAppDispatch from 'hooks/useAppDispatch';
+import useAppSelector from 'hooks/useAppSelector';
 
 const menuList = [
     {
@@ -35,9 +37,19 @@ const menuList = [
 const ProfileMenu = () => {
     const [showProfileMenu, setShowProfileMenu] = useState<null | HTMLElement>(null);
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+    const globalState = useAppSelector((state) => state);
+
     const openProfileMenuHandler = (e: MouseEvent<HTMLElement>) =>
         setShowProfileMenu(e.currentTarget);
+
     const closeProfileMenuHandler = () => setShowProfileMenu(null);
+
+    useEffect(() => {
+        if (!globalState.user.userDetails.uid) {
+            setTimeout(() => navigate('/'), 2000);
+        }
+    }, [globalState.user.userDetails.uid]);
 
     return (
         <div id="header-profile">
@@ -63,6 +75,8 @@ const ProfileMenu = () => {
                 onClose={closeProfileMenuHandler}
             >
                 {menuList.map(({ menu, id, icon, onClickFn }) => (
+                    // TODO: Instead using loop to display menu, create individual list item by hard coding them. It's getting harder to add more functionality
+
                     <MenuItem key={id} onClick={closeProfileMenuHandler}>
                         {/* TODO: move inline styles to Profile.styles.scss */}
                         <p

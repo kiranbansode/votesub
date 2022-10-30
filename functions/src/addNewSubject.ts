@@ -1,6 +1,6 @@
 /* eslint-disable import/extensions */
 import * as admin from 'firebase-admin';
-import clf from './index';
+import cloudFn from './index';
 
 interface ICandidate {
     id: string;
@@ -14,8 +14,8 @@ interface IAddNewSubject {
     candidates: ICandidate[];
 }
 
-function saveSubjectDetails({ id, candidates, subject, submittedBy, userId }: IAddNewSubject) {
-    return admin
+const saveSubjectDetails = ({ id, candidates, subject, submittedBy, userId }: IAddNewSubject) =>
+    admin
         .firestore()
         .collection('subjects')
         .doc(id)
@@ -26,18 +26,16 @@ function saveSubjectDetails({ id, candidates, subject, submittedBy, userId }: IA
             userId,
             candidates: candidates.map((candidate) => candidate.id),
         });
-}
 
-function saveCandidateDetails(candidates: ICandidate[]) {
-    return candidates.map(({ id, candidateName }) =>
+const saveCandidateDetails = (candidates: ICandidate[]) =>
+    candidates.map(({ id, candidateName }) =>
         admin.firestore().collection('candidates').doc(id).set({
             id,
             candidateName,
         }),
     );
-}
 
-exports.addNewSubject = clf.https.onCall(async (data: IAddNewSubject, context) => {
+exports.addNewSubject = cloudFn.https.onCall(async (data: IAddNewSubject, context) => {
     console.log(data, context.auth);
 
     try {

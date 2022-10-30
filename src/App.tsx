@@ -2,6 +2,7 @@ import { Suspense, useEffect } from 'react';
 import { CircularProgress } from '@mui/material';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { lazyWithPreload } from 'react-lazy-with-preload';
+import getCurrentLoggedUser from 'utils/helperFunctions/getCurrentLoggedUser';
 
 import './App.css';
 
@@ -24,6 +25,11 @@ const EmployerRegForm = lazyWithPreload(() => import('pages/RegistrationPage/Emp
 const DeveloperRegForm = lazyWithPreload(() => import('pages/RegistrationPage/DeveloperRegForm'));
 
 function App() {
+    // without useEffect getCurrentLoggedUser does not work properly, it enters in infinite loop
+    useEffect(() => {
+        getCurrentLoggedUser();
+    });
+
     useEffect(() => {
         LoginPage.preload();
         DashboardPage.preload();

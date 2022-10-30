@@ -25,7 +25,7 @@ export const functions = getFunctions(app, 'asia-south1');
 // automatically connect to Firebase Emulators in localhost
 if (window.location.hostname === 'localhost') {
     connectAuthEmulator(auth, 'http://localhost:9099');
-    connectFirestoreEmulator(firestore, 'localhost', 9000);
+    connectFirestoreEmulator(firestore, 'localhost', 8080);
     connectStorageEmulator(storage, 'localhost', 9199);
     connectFunctionsEmulator(functions, 'localhost', 5001);
 }
@@ -33,3 +33,4 @@ if (window.location.hostname === 'localhost') {
 /* ----------------------------- Cloud Functions ---------------------------- */
 export const createNewUserCLF = httpsCallable(functions, 'createNewUser');
 export const addNewSubjectCLF = httpsCallable(functions, 'addNewSubject');
+export const getSubjectsListCLF = httpsCallable(functions, 'getSubjectsList');

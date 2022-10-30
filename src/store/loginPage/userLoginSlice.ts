@@ -1,41 +1,39 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { UserLoginFormTypes } from 'pages/LoginPage';
 import { signInWithEmailAndPassword, UserInfo, UserCredential, signOut } from 'firebase/auth';
 import { auth } from 'config/firebase';
 import authErrorMessageFinder from 'utils/helperFunctions/authErrorMessageFinder';
 
-export const userLogIn = createAsyncThunk(
-    'user/LogIn',
-    async (data: UserLoginFormTypes, { rejectWithValue }) => {
-        try {
-            const userCredentials: UserCredential = await signInWithEmailAndPassword(
-                auth,
-                data.username,
-                data.password,
-            );
-            const { user } = userCredentials;
+export const userLogIn = createAsyncThunk('user/LogIn', async (data: any, { rejectWithValue }) => {
+    try {
+        const userCredentials: UserCredential = await signInWithEmailAndPassword(
+            auth,
+            data.username,
+            data.password,
+        );
+        const { user } = userCredentials;
 
-            return {
-                uid: user.uid,
-                email: user.email,
-                isEmailVerified: user.emailVerified,
-                displayName: user.displayName,
-                profilePhoto: user.photoURL,
-                role: (await auth.currentUser?.getIdTokenResult())?.claims.role,
-            };
-        } catch (error: any) {
-            const authErrorMessage = authErrorMessageFinder(error);
-            return rejectWithValue({
-                name: error.name,
-                code: error.code,
-                message: authErrorMessage,
-                customData: error.customData,
-            });
-        }
-    },
-);
+        return {
+            uid: user.uid,
+            email: user.email,
+            isEmailVerified: user.emailVerified,
+            displayName: user.displayName,
+            profilePhoto: user.photoURL,
+            role: (await auth.currentUser?.getIdTokenResult())?.claims.role,
+        };
+    } catch (error: any) {
+        const authErrorMessage = authErrorMessageFinder(error);
+        return rejectWithValue({
+            name: error.name,
+            code: error.code,
+            message: authErrorMessage,
+            customData: error.customData,
+        });
+    }
+});
 
-const signOutCurrentUser = async () => signOut(auth).then((mssg) => mssg);
+const signOutCurrentUser = () => {
+    signOut(auth).then((mssg) => mssg);
+};
 
 export interface IUserInfo {
     userDetails: UserInfo;
@@ -78,11 +76,17 @@ const userLoginSlice = createSlice({
             },
         },
 
-        SIGNOUT_USER_AND_RESET_AUTH_DETAILS: (state) => {
-            signOutCurrentUser();
+        RESET_AUTH_DETAILS: (state) => {
             state.userDetails = initialState.userDetails;
             state.error = initialState.error;
             state.loading = initialState.loading;
+        },
+
+        SIGNOUT_USER_AND_RESET_AUTH_DETAILS: (state) => {
+            state.userDetails = initialState.userDetails;
+            state.error = initialState.error;
+            state.loading = initialState.loading;
+            signOutCurrentUser();
         },
     },
     extraReducers: (builder) => {
@@ -111,6 +115,7 @@ const userLoginSlice = createSlice({
     },
 });
 
-export const { SAVE_USER_AUTH_DETAILS, SIGNOUT_USER_AND_RESET_AUTH_DETAILS } =
+export const { SAVE_USER_AUTH_DETAILS, RESET_AUTH_DETAILS, SIGNOUT_USER_AND_RESET_AUTH_DETAILS } =
     userLoginSlice.actions;
+
 export default userLoginSlice.reducer;

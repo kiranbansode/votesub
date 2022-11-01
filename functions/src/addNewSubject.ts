@@ -25,6 +25,7 @@ const saveSubjectDetails = ({ id, candidates, subject, submittedBy, userId }: IA
             submittedBy,
             userId,
             candidates: candidates.map((candidate) => candidate.id),
+            createdOn: admin.firestore.Timestamp.now().toMillis(),
         });
 
 const saveCandidateDetails = (candidates: ICandidate[]) =>

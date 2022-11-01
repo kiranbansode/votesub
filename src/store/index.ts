@@ -5,6 +5,7 @@ import createNewUserSlice from 'store/registrationPage/createNewUserSlice';
 import uiSlice from 'store/ui';
 import addNewTopicSlice from 'store/addNewTopic';
 import saveuserRoleSlice from 'store/registrationPage/saveUserRoleSlice';
+import subjectsListSlice from 'store/dashboard/subjectsListSlice';
 
 export const store = configureStore({
     reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
         userRole: saveuserRoleSlice,
         ui: uiSlice,
         addNewTopic: addNewTopicSlice,
+        subjectsList: subjectsListSlice,
     },
 });
 

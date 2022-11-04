@@ -14,8 +14,10 @@ admin.initializeApp();
 const addNewSubject = require('./addNewSubject');
 const createNewUser = require('./createNewUser');
 const getSubjectsList = require('./getSubjectsList');
+const getTotalVotes = require('./getTotalVotes');
 /* ----------------------------------- End ---------------------------------- */
 
 exports.addNewSubject = addNewSubject.addNewSubject;
 exports.createNewUser = createNewUser.createNewUser;
 exports.getSubjectsList = getSubjectsList.getSubjectsList;
+exports.getTotalVotes = getTotalVotes.getTotalVotes;

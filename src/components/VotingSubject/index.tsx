@@ -1,19 +1,41 @@
+import { IAddNewSubject } from 'types/addNewSubject';
+import convertUnixEpochToDate from 'utils/helperFunctions/convertUnixEpoch';
+import { getTotalVotesCLF } from 'config/firebase';
 import './VotingSubject.styles.scss';
+import { useEffect, useState } from 'react';
+
+interface ISubject extends IAddNewSubject {
+    createdOn: number;
+}
+interface IVotingSubjectC {
+    subject: ISubject;
+}
 
 // eslint-disable-next-line arrow-body-style
-const VotingSubject = () => {
+const VotingSubject = ({ subject }: IVotingSubjectC) => {
+    const [totalVotes, setTotalVotes] = useState(null);
+    const { subjectName, submittedBy, createdOn, candidates } = subject;
+    const { day, month, year } = convertUnixEpochToDate(createdOn);
+
+    useEffect(() => {
+        // @ts-ignore
+        getTotalVotesCLF(candidates).then(({ data }) => setTotalVotes(data));
+    }, []);
+
     return (
         <div className="voting-subject-container">
             <div className="sect-1">
-                <span>31/12</span>
-                <span>2022</span>
+                <span>
+                    {day}/{month}
+                </span>
+                <span>{year}</span>
             </div>
             <div className="sect-2">
-                <span>Who came first ? </span>
-                <span>By: Chicken and Egg</span>
+                <span>{subjectName}</span>
+                <span>By: {submittedBy}</span>
             </div>
             <div className="sect-3">
-                <span>198</span>
+                <span>{totalVotes}</span>
                 <span>Total Votes</span>
             </div>
         </div>

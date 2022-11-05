@@ -6,6 +6,35 @@
 
 const convertUnixEpochToDate = (unixEpoch: number) => {
     const dateObj = new Date(unixEpoch * 1000);
+    const fullMonths = [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December',
+    ];
+
+    const shortMonths = [
+        'Jan',
+        'Feb',
+        'Mar',
+        'Apr',
+        'May',
+        'Jun',
+        'Jul',
+        'Aug',
+        'Sep',
+        'Oct',
+        'Nov',
+        'Dec',
+    ];
 
     /**
      * Calendar Date as per month
@@ -13,9 +42,22 @@ const convertUnixEpochToDate = (unixEpoch: number) => {
     const day = dateObj.getDate();
 
     /**
-     * Calendar Month as per year
+     * Calendar Month as per year in number format
+     * e.g. 1
      */
     const month = dateObj.getMonth() + 1;
+
+    /**
+     * Calendar Month as per year in full format
+     * e.g. January
+     */
+    const fullMonth = fullMonths[dateObj.getMonth()];
+
+    /**
+     * Calendar Month as per year in short format
+     * e.g. Jan
+     */
+    const shortMonth = shortMonths[dateObj.getMonth()];
 
     /**
      * Calendar Year as per Birth of Christ
@@ -34,9 +76,20 @@ const convertUnixEpochToDate = (unixEpoch: number) => {
          */
         day,
         /**
-         * Calendar Month as per year
+         * Calendar Month as per year in number format
+         * e.g. 1
          */
         month,
+        /**
+         * Calendar Month as per year in full format
+         * e.g. January
+         */
+        fullMonth,
+        /**
+         * Calendar Month as per year in short format
+         * e.g. Jan
+         */
+        shortMonth,
         /**
          * Calendar Year since Birth of Christ
          */

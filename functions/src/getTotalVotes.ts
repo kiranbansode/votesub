@@ -8,17 +8,26 @@ exports.getTotalVotes = cloudFn.https.onCall(async (candidates: string[]) => {
     const getCandidateVotes = async (candidate: string) => {
         const candidateRef = await candidatesRef.doc(candidate).get();
         const candidateDetails = candidateRef.data();
-        return candidateDetails?.votes;
+
+        /**
+         * If some how votes property is not available or deleted, then it will return 0.
+         * It is necessary other wise it will return undefined and totalVotes will shown blank.
+         */
+        return candidateDetails?.votes || 0;
     };
 
-    const totalVotes =
-        /**
-         * You will find more info about Why it is necessary to use Promise.all() for map() ?
-         * here https://stackoverflow.com/a/61315261/12763301
-         */
-        (await Promise.all(candidates.map((candidate) => getCandidateVotes(candidate)))).reduce(
-            (prevVal, currVal) => prevVal + currVal,
-        );
+    try {
+        const totalVotes =
+            /**
+             * You will find more info about Why it is necessary to use Promise.all() for map() ?
+             * here https://stackoverflow.com/a/61315261/12763301
+             */
+            (await Promise.all(candidates.map((candidate) => getCandidateVotes(candidate)))).reduce(
+                (prevVal, currVal) => prevVal + currVal,
+            );
 
-    return totalVotes;
+        return totalVotes;
+    } catch (error) {
+        return error;
+    }
 });

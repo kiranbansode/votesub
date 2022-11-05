@@ -18,6 +18,9 @@ const AboutMePage = lazyWithPreload(() => import(`pages/AboutMePage`));
 const AdminPage = lazyWithPreload(() => import(`pages/AdminPage`));
 const SettingsPage = lazyWithPreload(() => import(`pages/SettingsPage`));
 
+// Dashboard Page Nested Routes
+const SubjectPage = lazyWithPreload(() => import(`pages/DashboardPage/SubjectPage`));
+
 // Registration Page Nested Routes
 const StudentRegForm = lazyWithPreload(() => import('pages/RegistrationPage/StudentRegForm'));
 const TeacherRegForm = lazyWithPreload(() => import('pages/RegistrationPage/TeacherRegForm'));
@@ -28,11 +31,12 @@ function App() {
     // without useEffect getCurrentLoggedUser does not work properly, it enters in infinite loop
     useEffect(() => {
         getCurrentLoggedUser();
-    });
+    }, []);
 
     useEffect(() => {
         LoginPage.preload();
         DashboardPage.preload();
+        SubjectPage.preload();
         AddNewTopicPage.preload();
         UserVotingHistory.preload();
         FeedbackPage.preload();
@@ -67,11 +71,12 @@ function App() {
                     <Routes>
                         <Route element={<LoginPage />} path="/" />
                         <Route element={<RegistrationPage />} path="/register/" />
-                        <Route element={<StudentRegForm />} path="/register/student" />
+                        <Route element={<StudentRegForm />} path="/register/student/" />
                         <Route element={<TeacherRegForm />} path="/register/teacher" />
                         <Route element={<EmployerRegForm />} path="/register/employer" />
                         <Route element={<DeveloperRegForm />} path="/register/developer" />
                         <Route element={<DashboardPage />} path="/dashboard" />
+                        <Route element={<SubjectPage />} path="/dashboard/:id" />
                         <Route element={<AddNewTopicPage />} path="/addNewTopic" />
                         <Route element={<UserVotingHistory />} path="/userVotingHistory" />
                         <Route element={<FeedbackPage />} path="/feedback" />

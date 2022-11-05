@@ -3,6 +3,7 @@ import convertUnixEpochToDate from 'utils/helperFunctions/convertUnixEpoch';
 import { getTotalVotesCLF } from 'config/firebase';
 import './VotingSubject.styles.scss';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface ISubject extends IAddNewSubject {
     createdOn: number;
@@ -13,8 +14,9 @@ interface IVotingSubjectC {
 
 // eslint-disable-next-line arrow-body-style
 const VotingSubject = ({ subject }: IVotingSubjectC) => {
+    const navigate = useNavigate();
     const [totalVotes, setTotalVotes] = useState(null);
-    const { subjectName, submittedBy, createdOn, candidates } = subject;
+    const { subjectName, submittedBy, createdOn, candidates, id } = subject;
     const { day, month, year } = convertUnixEpochToDate(createdOn);
 
     useEffect(() => {
@@ -23,7 +25,8 @@ const VotingSubject = ({ subject }: IVotingSubjectC) => {
     }, []);
 
     return (
-        <div className="voting-subject-container">
+        // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+        <div className="voting-subject-container" onClick={() => navigate(`/dashboard/${id}`)}>
             <div className="sect-1">
                 <span>
                     {day}/{month}

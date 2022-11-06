@@ -6,3 +6,6 @@ dist-ssr
 *.log
 .yarn/cache
 .yarn/install-state.gz
+
+# Firebase Emulators Data
+emulators_data

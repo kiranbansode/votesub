@@ -3,17 +3,14 @@ import { RootState } from 'store';
 import { nanoid } from 'nanoid';
 import { addNewSubjectCLF } from 'config/firebase';
 import toProperCase from 'utils/helperFunctions/toProperCase';
-
-interface ICandidate {
-    id: string;
-    candidateName: string;
-}
+import { ICandidate } from 'types/addNewSubject';
 
 interface IAddNewTopicSlice {
     subject: string;
     id: string;
     candidates: ICandidate[];
     loading: boolean;
+    error: boolean | null;
 }
 
 const initialState: IAddNewTopicSlice = {
@@ -21,11 +18,19 @@ const initialState: IAddNewTopicSlice = {
     id: '',
     candidates: [],
     loading: false,
+    error: null,
 };
 
 export const addNewTopicThunk = createAsyncThunk(
     'addNewTopic',
-    async (data: any, { getState, rejectWithValue }) => {
+    async (
+        /**
+         * `formDate` -  `Add New Topic` page's form data
+         *
+         */
+        formData: any,
+        { getState, rejectWithValue },
+    ) => {
         const {
             user: { userDetails },
             addNewTopic,
@@ -33,15 +38,17 @@ export const addNewTopicThunk = createAsyncThunk(
         const subjectId = nanoid();
 
         try {
-            const response = await addNewSubjectCLF({
+            const res = await addNewSubjectCLF({
                 id: subjectId,
-                subject: data.subject,
+                subjectName: formData.subject,
                 submittedBy: userDetails.displayName,
                 userId: userDetails.uid,
                 candidates: addNewTopic.candidates,
             });
+
+            return res;
         } catch (error) {
-            rejectWithValue(error);
+            return rejectWithValue(error);
         }
     },
 );
@@ -73,6 +80,7 @@ const addNewTopicSlice = createSlice({
             );
         },
     },
+
     extraReducers: (builder) => {
         builder.addCase(addNewTopicThunk.pending, (state) => {
             state.loading = true;
@@ -80,10 +88,12 @@ const addNewTopicSlice = createSlice({
 
         builder.addCase(addNewTopicThunk.fulfilled, (state, action: PayloadAction<any>) => {
             state.loading = false;
+            state.error = false;
         });
 
         builder.addCase(addNewTopicThunk.rejected, (state, action: PayloadAction<any>) => {
             state.loading = false;
+            state.error = action.payload;
         });
     },
 });

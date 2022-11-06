@@ -11,7 +11,7 @@
         justify-content: center;
         align-items: center;
         padding: 10px;
-        height: 30px;
+        height: 20px;
     }
 
     & > div {
@@ -22,6 +22,10 @@
         margin-right: auto;
         margin-bottom: 20px;
         width: fit-content;
+
+        .MuiSelect-select {
+            padding: 5px 20px;
+        }
     }
 
     & > div:nth-child(2),
@@ -32,6 +36,7 @@
     //  Select last 3 div
     & > div:nth-last-child(-n + 3) {
         cursor: pointer;
+        width: 20px;
     }
 
     .per-page-selector {

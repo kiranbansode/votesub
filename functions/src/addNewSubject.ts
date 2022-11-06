@@ -1,47 +1,48 @@
 /* eslint-disable import/extensions */
 import * as admin from 'firebase-admin';
+import { CallableContext, HttpsError } from 'firebase-functions/v1/https';
+import { IAddNewSubject, ICandidate } from '../../src/types/addNewSubject/index';
 import cloudFn from './index';
 
-interface ICandidate {
-    id: string;
-    candidateName: string;
-}
-interface IAddNewSubject {
-    id: string;
-    subject: string;
-    submittedBy: string;
-    userId: string;
-    candidates: ICandidate[];
-}
-
-const saveSubjectDetails = ({ id, candidates, subject, submittedBy, userId }: IAddNewSubject) =>
+const saveSubjectDetails = ({ id, candidates, subjectName, submittedBy, userId }: IAddNewSubject) =>
     admin
         .firestore()
         .collection('subjects')
         .doc(id)
         .set({
             id,
-            subject,
             submittedBy,
             userId,
-            candidates: candidates.map((candidate) => candidate.id),
+            subjectName,
+            candidates: candidates.map((candidate: ICandidate) => candidate.id),
+            createdOn: admin.firestore.Timestamp.now().seconds,
         });
 
 const saveCandidateDetails = (candidates: ICandidate[]) =>
-    candidates.map(({ id, candidateName }) =>
+    candidates.map(async ({ id, candidateName }) =>
         admin.firestore().collection('candidates').doc(id).set({
             id,
             candidateName,
+            votes: 0,
         }),
     );
 
-exports.addNewSubject = cloudFn.https.onCall(async (data: IAddNewSubject, context) => {
-    console.log(data, context.auth);
+exports.addNewSubject = cloudFn.https.onCall(
+    async (data: IAddNewSubject, context: CallableContext) => {
+        if (!context.auth?.uid) {
+            throw new HttpsError(
+                'unauthenticated',
+                'You are not authorized to submit a subject for voting.',
+            );
+        }
 
-    try {
-        await saveSubjectDetails(data);
-        await saveCandidateDetails(data.candidates);
-    } catch (error) {
-        console.log(error);
-    }
-});
+        try {
+            saveSubjectDetails(data);
+            saveCandidateDetails(data.candidates);
+
+            return { actor: 'ADD_NEW_SUBJECT_CLOUD_FN', mssg: 'Subject was added Successfully' };
+        } catch (error) {
+            return error;
+        }
+    },
+);

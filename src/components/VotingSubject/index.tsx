@@ -1,19 +1,24 @@
-import { IAddNewSubject } from 'types/addNewSubject';
 import convertUnixEpochToDate from 'utils/helperFunctions/convertUnixEpoch';
 import { getTotalVotesCLF } from 'config/firebase';
 import './VotingSubject.styles.scss';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ICandidate } from 'types/addNewSubject';
 
-interface ISubject extends IAddNewSubject {
+interface ISubject {
+    id: string;
     createdOn: number;
+    subjectName: string;
+    submittedBy: string;
+    candidates: ICandidate[];
 }
-interface IVotingSubjectC {
+
+interface IVotingSubject {
     subject: ISubject;
 }
 
 // eslint-disable-next-line arrow-body-style
-const VotingSubject = ({ subject }: IVotingSubjectC) => {
+const VotingSubject = ({ subject }: IVotingSubject) => {
     const navigate = useNavigate();
     const [totalVotes, setTotalVotes] = useState(null);
     const { subjectName, submittedBy, createdOn, candidates, id } = subject;

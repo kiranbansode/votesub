@@ -35,3 +35,4 @@ export const createNewUserCLF = httpsCallable(functions, 'createNewUser');
 export const addNewSubjectCLF = httpsCallable(functions, 'addNewSubject');
 export const getSubjectsListCLF = httpsCallable(functions, 'getSubjectsList');
 export const getTotalVotesCLF = httpsCallable(functions, 'getTotalVotes');
+export const voteNowCLF = httpsCallable(functions, 'voteNow');

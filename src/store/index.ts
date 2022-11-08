@@ -4,7 +4,7 @@ import userLoginSlice from 'store/loginPage/userLoginSlice';
 import createNewUserSlice from 'store/registrationPage/createNewUserSlice';
 import uiSlice from 'store/ui';
 import addNewTopicSlice from 'store/addNewTopic';
-import saveuserRoleSlice from 'store/registrationPage/saveUserRoleSlice';
+import saveUserRoleSlice from 'store/registrationPage/saveUserRoleSlice';
 import subjectsListSlice from 'store/dashboard/subjectsListSlice';
 
 export const store = configureStore({
@@ -12,7 +12,7 @@ export const store = configureStore({
         counter: counterSlice,
         user: userLoginSlice,
         registration: createNewUserSlice,
-        userRole: saveuserRoleSlice,
+        userRole: saveUserRoleSlice,
         ui: uiSlice,
         addNewTopic: addNewTopicSlice,
         subjectsList: subjectsListSlice,

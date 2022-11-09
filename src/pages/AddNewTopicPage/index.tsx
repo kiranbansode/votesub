@@ -55,7 +55,7 @@ const AddNewTopicPage = () => {
         if (!candidateName) {
             setError(
                 'candidateName',
-                { type: 'custom', message: 'Please enter a Candidate Name' },
+                { type: 'required', message: 'Please enter a Candidate Name' },
                 { shouldFocus: true },
             );
             return;
@@ -85,7 +85,7 @@ const AddNewTopicPage = () => {
                     formRegister={register('subject')}
                     inputHelperText="Try to submit small and expressive subject for voting"
                     inputLabel="Enter a subject for voting"
-                    inputPlaceholder="Favourite Fast Food ?"
+                    inputPlaceholder="Favorite Fast Food ?"
                 />
 
                 <TextInputField

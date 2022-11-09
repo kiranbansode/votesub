@@ -3,7 +3,6 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import { voteNowCLF, firestore } from 'config/firebase';
 import { doc, onSnapshot } from 'firebase/firestore';
 import './VotingCandidate.styles.scss';
-import unsubscribeToFirestore from 'utils/helperFunctions/unsubscribeToFirestore';
 
 interface ICandidate {
     id: string;
@@ -13,22 +12,24 @@ interface ICandidate {
 
 const VotingCandidate = ({ position = 0, candidateName, id }: ICandidate) => {
     const [votes, setVotes] = useState(null);
+    const unsubscribe = onSnapshot(doc(firestore, 'candidates', id), (candidate) => {
+        const data = candidate.data();
+        setVotes(() => data?.votes);
+    });
 
-    if (id) {
-        onSnapshot(doc(firestore, 'candidates', id), (candidate) => {
-            const data = candidate.data();
-            setVotes(() => data?.votes);
-        });
-    }
-
-    useEffect(() => () => unsubscribeToFirestore());
+    // eslint-disable-next-line arrow-body-style
+    useEffect(() => {
+        return () => unsubscribe();
+    }, []);
 
     return (
         <div className="voting-candidate">
             <p className="candidate-position">{position}</p>
             <p className="candidate-name">
                 {candidateName}
-                <span className="total-votes">Votes : {votes}</span>
+                <span className="total-votes">
+                    Votes : <span className="actual-votes">{votes}</span>
+                </span>
             </p>
             <p className="vote-now">
                 <ArrowUpwardIcon className="vote-icon" onClick={() => voteNowCLF(id)} />

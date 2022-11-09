@@ -4,12 +4,27 @@ import cloudFn from './index';
 
 exports.createNewUser = cloudFn.https.onCall(async (newUserData) => {
     const { auth, firestore } = await import('firebase-admin');
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { password, confirmPassword, ...otherNewUserData } = newUserData;
+    const {
+        /**
+         * password and confirmPassword will not be saved in firestore
+         */
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        password,
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        confirmPassword,
+        ...otherNewUserData
+    } = newUserData;
+    const {
+        name: { firstName, lastName },
+        mob1,
+    } = newUserData;
+
     try {
         const { uid } = await auth().createUser({
             email: newUserData.emailId,
             password: newUserData.password,
+            displayName: `${firstName} ${lastName}`,
+            phoneNumber: mob1,
         });
 
         auth().setCustomUserClaims(uid, { userRole: newUserData.role });

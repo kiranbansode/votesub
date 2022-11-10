@@ -5,18 +5,14 @@ import useAppDispatch from 'hooks/useAppDispatch';
 import './NewCandidate.styles.scss';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { ICandidate } from 'types/addNewSubject';
 import { DELETE_CANDIDATE } from 'store/addNewTopic';
-
-type Candidate = {
-    id: string;
-    candidateName: string;
-};
 
 interface INewCandidate {
     /**
-     *  `canidadate` object
+     *  `candidate` object
      */
-    newCandidate: Candidate;
+    newCandidate: ICandidate;
     /**
      * @type {number}
      * `index` from array method

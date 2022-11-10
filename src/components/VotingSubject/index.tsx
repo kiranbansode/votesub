@@ -44,7 +44,7 @@ const VotingSubject = ({ subject }: IVotingSubject) => {
             </div>
             <div className="sect-3">
                 <span>{totalVotes}</span>
-                <span>Total Votes</span>
+                <span className="total-votes-title">Total Votes</span>
             </div>
         </div>
     );

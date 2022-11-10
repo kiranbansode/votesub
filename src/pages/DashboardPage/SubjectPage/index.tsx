@@ -3,12 +3,12 @@ import { useParams } from 'react-router-dom';
 import { firestore } from 'config/firebase';
 import { onSnapshot, query, collection, where } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
-import getCandidatesDetails from 'utils/helperFunctions/getCandidatesDetails';
 import VotingCandidate from 'components/VotingCandidate';
 import Separator from 'components/Separator';
 import LoadingScreen from 'components/LoadingScreen';
 import convertUnixEpochToDate from 'utils/helperFunctions/convertUnixEpoch';
 import getSubjectDetails from 'utils/helperFunctions/getSubjectDetails';
+import sortCandidatesByVotes from 'utils/helperFunctions/sortCandidatesByVotes';
 
 import './SubjectPage.styles.scss';
 
@@ -30,48 +30,51 @@ interface ICandidate {
 
 const SubjectPage = () => {
     const [subject, setSubject] = useState<ISubject>();
-    const [candidatesDetails, setCandidatesDetails] = useState<ICandidate[]>();
     const [totalVotes, setTotalVotes] = useState<number>(0);
     const [showView, setShowView] = useState<boolean>(false);
+    const [candidates, setCandidates] = useState<ICandidate[]>();
 
     // Get subject's ID from url
     const { id: subjectId } = useParams();
-    const { day, shortMonth, year, time } = convertUnixEpochToDate(subject?.createdOn!);
-
-    // Get Realtime Votes
     const candidatesRef = query(
         collection(firestore, 'candidates'),
         where('subjectId', '==', `${subjectId}`),
     );
-    const unsubscribeToTotalVotes = onSnapshot(candidatesRef, (querySnapshot) => {
-        const cities: any[] = [];
-        querySnapshot.forEach((doc) => {
-            cities.push(doc.data().votes);
-        });
-        setTotalVotes(cities.reduce((a, b) => a + b));
-    });
+    const { day, shortMonth, year, time } = convertUnixEpochToDate(subject?.createdOn!);
 
     useEffect(() => {
         // Get subject details
         if (!subject?.id) {
             getSubjectDetails(subjectId!)
-                // TODO: Look into this. Types are matching
+                // TODO: Look into this later. Types are matching
                 // @ts-ignore
                 .then((data) => setSubject(data))
                 .catch((err) => err);
         }
 
-        // Get Candidates Details
-        if (subject?.id) {
-            getCandidatesDetails(subject.candidates).then((data: any) => {
-                setCandidatesDetails(data);
-                /**
-                 * Using hardcoded `true` as value for showView.
-                 * Because it is very hard to know that how much time useEffect will get invoked ?
-                 */
-                setShowView(true);
+        /*
+          Side-Effects must not be inside any render function. Other it will re-render component.
+          That is why onSnapshot listener is inside useEffect
+         */
+
+        // Get Realtime Votes
+        const unsubscribeToTotalVotes = onSnapshot(candidatesRef, (querySnapshot) => {
+            const candidatesVotes: any[] = [];
+            const candidatesLiveDetails: any[] = [];
+            querySnapshot.forEach((doc) => {
+                const candidateData = doc.data();
+                candidatesVotes.push(candidateData.votes);
+                candidatesLiveDetails.push(candidateData);
             });
-        }
+
+            const sort = sortCandidatesByVotes(candidatesLiveDetails);
+            setCandidates(sort);
+            setTotalVotes(candidatesVotes.reduce((a, b) => a + b));
+
+            if (showView === false) {
+                setShowView(true);
+            }
+        });
 
         // Remove Listener to stop realtime vote updates
         return () => {
@@ -99,12 +102,12 @@ const SubjectPage = () => {
                 </div>
 
                 <div className="candidates-container">
-                    {candidatesDetails?.map((candidate) => (
+                    {candidates?.map((candidate, idx) => (
                         <VotingCandidate
                             candidateName={candidate.candidateName}
                             id={candidate.id}
                             key={candidate.id}
-                            position={0}
+                            position={idx + 1}
                         />
                     ))}
                 </div>

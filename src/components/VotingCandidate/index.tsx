@@ -3,14 +3,26 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import { voteNowCLF, firestore } from 'config/firebase';
 import { doc, onSnapshot } from 'firebase/firestore';
 import './VotingCandidate.styles.scss';
+import CandidatePosition from 'styled/CandidatePosition';
 
 interface ICandidate {
     id: string;
+    /**
+     * Addition of `index` of candidate and `1`
+     * @example
+     * index + 1
+     */
     position: number;
     candidateName: string;
+    /**
+     * Depending on the number of candidates and total votes it
+     * will show normal position without any distinctive color or
+     * position with Gold, Silver and Bronze background color
+     */
+    showColored: boolean;
 }
 
-const VotingCandidate = ({ position = 0, candidateName, id }: ICandidate) => {
+const VotingCandidate = ({ position = 0, candidateName, id, showColored }: ICandidate) => {
     const [votes, setVotes] = useState(null);
     const unsubscribe = onSnapshot(doc(firestore, 'candidates', id), (candidate) => {
         const data = candidate.data();
@@ -24,7 +36,12 @@ const VotingCandidate = ({ position = 0, candidateName, id }: ICandidate) => {
 
     return (
         <div className="voting-candidate">
-            <p className="candidate-position">{position}</p>
+            {showColored ? (
+                <CandidatePosition position={position}>{position}</CandidatePosition>
+            ) : (
+                <p className="candidate-position">{position}</p>
+            )}
+
             <p className="candidate-name">
                 {candidateName}
                 <span className="total-votes">

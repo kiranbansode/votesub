@@ -67,6 +67,7 @@ const SubjectPage = () => {
                 candidatesLiveDetails.push(candidateData);
             });
 
+            // @ts-ignore
             const sort = sortCandidatesByVotes(candidatesLiveDetails);
             setCandidates(sort);
             setTotalVotes(candidatesVotes.reduce((a, b) => a + b));
@@ -107,7 +108,8 @@ const SubjectPage = () => {
                             candidateName={candidate.candidateName}
                             id={candidate.id}
                             key={candidate.id}
-                            position={idx + 1}
+                            position={totalVotes > 0 ? idx + 1 : 0}
+                            showColored={candidates.length > 3 && totalVotes > 0}
                         />
                     ))}
                 </div>

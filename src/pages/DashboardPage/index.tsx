@@ -23,13 +23,14 @@ const DashboardPage = () => {
     return (
         <div id="dashboard-page">
             <Header />
+            <div className="dashboard-page-view">
+                <RemainingVotes userId={userId} />
 
-            <RemainingVotes userId={userId} />
+                <p className="voting-topic"> -x- Most Favorite Subjects -x-</p>
 
-            <p className="voting-topic"> -x- Most Favorite Subjects -x-</p>
-
-            <div className="subject-list-container">
-                <Pagination data={subjectsList.list} />
+                <div className="subject-list-container">
+                    <Pagination data={subjectsList.list} />
+                </div>
             </div>
         </div>
     );

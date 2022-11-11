@@ -86,3 +86,7 @@
         align-self: center;
     }
 }
+
+.MuiList-root {
+    max-height: 350px;
+}

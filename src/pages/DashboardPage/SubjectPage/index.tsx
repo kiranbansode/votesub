@@ -11,6 +11,8 @@ import getSubjectDetails from 'utils/helperFunctions/getSubjectDetails';
 import sortCandidatesByVotes from 'utils/helperFunctions/sortCandidatesByVotes';
 
 import './SubjectPage.styles.scss';
+import RemainingVotes from 'components/RemainingVotes';
+import useAppSelector from 'hooks/useAppSelector';
 
 interface ISubject {
     id: string;
@@ -33,6 +35,7 @@ const SubjectPage = () => {
     const [totalVotes, setTotalVotes] = useState<number>(0);
     const [showView, setShowView] = useState<boolean>(false);
     const [candidates, setCandidates] = useState<ICandidate[]>();
+    const userId = useAppSelector(({ user }) => user.userDetails.uid);
 
     // Get subject's ID from url
     const { id: subjectId } = useParams();
@@ -89,6 +92,8 @@ const SubjectPage = () => {
         <div className="subject-page-container">
             <Header />
             <div className="page-content">
+                <RemainingVotes userId={userId} />
+
                 <h1 className="title">{subject?.subjectName}</h1>
                 <Separator />
                 <div className="about-container">

@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
-import { voteNowCLF, firestore } from 'config/firebase';
+import { voteNowCLF, firestore, reduceVotesCLF } from 'config/firebase';
 import { doc, onSnapshot } from 'firebase/firestore';
 import './VotingCandidate.styles.scss';
 import CandidatePosition from 'styled/CandidatePosition';
+import useAppSelector from 'hooks/useAppSelector';
 
 interface ICandidate {
     id: string;
@@ -24,6 +25,7 @@ interface ICandidate {
 
 const VotingCandidate = ({ position = 0, candidateName, id, showColored }: ICandidate) => {
     const [votes, setVotes] = useState(null);
+    const userId = useAppSelector(({ user }) => user.userDetails.uid);
     const unsubscribe = onSnapshot(doc(firestore, 'candidates', id), (candidate) => {
         const data = candidate.data();
         setVotes(() => data?.votes);
@@ -49,7 +51,13 @@ const VotingCandidate = ({ position = 0, candidateName, id, showColored }: ICand
                 </span>
             </p>
             <p className="vote-now">
-                <ArrowUpwardIcon className="vote-icon" onClick={() => voteNowCLF(id)} />
+                <ArrowUpwardIcon
+                    className="vote-icon"
+                    onClick={() => {
+                        voteNowCLF(id);
+                        reduceVotesCLF(userId);
+                    }}
+                />
                 <span className="vote-text">Vote</span>
             </p>
         </div>

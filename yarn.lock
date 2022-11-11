@@ -4178,6 +4178,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"country-list-with-dial-code-and-flag@npm:^3.0.2":
+  version: 3.0.2
+  resolution: "country-list-with-dial-code-and-flag@npm:3.0.2"
+  checksum: b9149cc5ac23632de541e1145ca7a9c37b69a64bb72b19dd3ee36aeea25dc4b3fd79476647b3a25acdeabc0be262e31a7592a4a692aa4480f8fae83956d9a854
+  languageName: node
+  linkType: hard
+
 "create-require@npm:^1.1.0":
   version: 1.1.1
   resolution: "create-require@npm:1.1.1"
@@ -9026,6 +9033,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^5.2.0
     "@typescript-eslint/parser": ^5.2.0
     "@vitejs/plugin-react": ^1.0.0
+    country-list-with-dial-code-and-flag: ^3.0.2
     dayjs: ^1.11.5
     eslint: ^7.32.0
     eslint-config-airbnb: ^18.2.1

@@ -3,7 +3,6 @@
 import { useEffect, lazy } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm, FieldValues } from 'react-hook-form';
-import { CircularProgress } from '@mui/material';
 import { yupResolver } from '@hookform/resolvers/yup';
 import useAppDispatch from 'hooks/useAppDispatch';
 import useAppSelector from 'hooks/useAppSelector';
@@ -126,19 +125,6 @@ const LoginPage = () => {
             {showLoginSuccessMssg}
         </div>
     );
-
-    //  : (
-    //     <div
-    //         style={{
-    //             display: 'flex',
-    //             justifyContent: 'center',
-    //             alignItems: 'center',
-    //             height: '100vh',
-    //         }}
-    //     >
-    //         <CircularProgress color="warning" />
-    //     </div>
-    // );
 };
 
 export default LoginPage;

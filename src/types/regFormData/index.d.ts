@@ -7,6 +7,7 @@ type UserName = {
 type BasicUserDetails = {
     name: UserName;
     gender: string;
+    countryCode: string;
     mob1: string;
     mob2: string;
     emailId: string;

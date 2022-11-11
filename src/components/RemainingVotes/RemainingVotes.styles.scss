@@ -1,0 +1,17 @@
+.remaining-votes-container {
+    & div:first-child {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+    .counter {
+        background-color: #fff;
+        padding: 10px;
+        border-radius: 10px;
+        font-size: 1.5rem;
+        min-width: 50px;
+        text-align: center;
+    }
+}

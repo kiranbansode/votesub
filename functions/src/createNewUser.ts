@@ -17,6 +17,7 @@ exports.createNewUser = cloudFn.https.onCall(async (newUserData) => {
     const {
         name: { firstName, lastName },
         mob1,
+        countryCode,
     } = newUserData;
 
     try {
@@ -24,7 +25,7 @@ exports.createNewUser = cloudFn.https.onCall(async (newUserData) => {
             email: newUserData.emailId,
             password: newUserData.password,
             displayName: `${firstName} ${lastName}`,
-            phoneNumber: mob1,
+            phoneNumber: `${countryCode}${mob1}`,
         });
 
         auth().setCustomUserClaims(uid, { userRole: newUserData.role });
@@ -36,6 +37,7 @@ exports.createNewUser = cloudFn.https.onCall(async (newUserData) => {
                 .set({
                     // it will save all details except password and confirmPassword
                     ...otherNewUserData,
+                    remainingVotes: 100,
                     uid,
                 });
         }

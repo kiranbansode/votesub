@@ -9,6 +9,8 @@ interface ILoadingScreen {
      * @default 'error'
      */
     color?: CircularProgressProps['color'];
+    size?: number;
+    fullScreen?: boolean;
 }
 
 /**
@@ -17,14 +19,19 @@ interface ILoadingScreen {
  * @return Circular Progress bar
  */
 
-const LoadingScreen = ({ color }: ILoadingScreen) => (
-    <div className="loading-screen-container">
-        <CircularProgress color={color} />
+const LoadingScreen = ({ color, size, fullScreen }: ILoadingScreen) => (
+    <div
+        className="loading-screen-container"
+        style={fullScreen ? { height: '100vh' } : { height: '100%' }}
+    >
+        <CircularProgress color={color} size={size} />
     </div>
 );
 
 LoadingScreen.defaultProps = {
-    color: 'error',
+    color: 'primary',
+    size: 40,
+    fullScreen: false,
 };
 
 export default LoadingScreen;

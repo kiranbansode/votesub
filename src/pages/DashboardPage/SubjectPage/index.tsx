@@ -61,24 +61,30 @@ const SubjectPage = () => {
          */
 
         // Get Realtime Votes
-        const unsubscribeToTotalVotes = onSnapshot(candidatesRef, (querySnapshot) => {
-            const candidatesVotes: any[] = [];
-            const candidatesLiveDetails: any[] = [];
-            querySnapshot.forEach((doc) => {
-                const candidateData = doc.data();
-                candidatesVotes.push(candidateData.votes);
-                candidatesLiveDetails.push(candidateData);
-            });
+        const unsubscribeToTotalVotes = subjectId
+            ? onSnapshot(
+                  candidatesRef,
+                  (querySnapshot) => {
+                      const candidatesVotes: number[] = [];
+                      const candidatesLiveDetails: any[] = [];
+                      querySnapshot.forEach((doc) => {
+                          const candidateData = doc.data();
+                          candidatesVotes.push(candidateData.votes);
+                          candidatesLiveDetails.push(candidateData);
+                      });
 
-            // @ts-ignore
-            const sort = sortCandidatesByVotes(candidatesLiveDetails);
-            setCandidates(sort);
-            setTotalVotes(candidatesVotes.reduce((a, b) => a + b));
+                      // @ts-ignore
+                      const sort = sortCandidatesByVotes(candidatesLiveDetails);
+                      setCandidates(sort);
+                      setTotalVotes(candidatesVotes.reduce((a, b) => a + b));
 
-            if (showView === false) {
-                setShowView(true);
-            }
-        });
+                      if (showView === false) {
+                          setShowView(true);
+                      }
+                  },
+                  () => {},
+              )
+            : () => {};
 
         // Remove Listener to stop realtime vote updates
         return () => {
@@ -98,16 +104,18 @@ const SubjectPage = () => {
                 <Separator />
                 <div className="about-container">
                     <p className="submitter">By : {subject?.submittedBy}</p>
-                    <p className="creation-date">
-                        Submitted On : {`${day} ${shortMonth} ${year} at ${time}`}
-                    </p>
+                    <p className="creation-date">Submitted On : {`${day} ${shortMonth} ${year}`}</p>
                     <p className="total-votes">
-                        Total Votes
                         <span className="votes-counter">{totalVotes}</span>
+                        <span className="votes-name">Total Votes</span>
                     </p>
                 </div>
 
                 <div className="candidates-container">
+                    <div>
+                        <p className="candidates-title">-x- Voting Candidates -x-</p>
+                    </div>
+
                     {candidates?.map((candidate, idx) => (
                         <VotingCandidate
                             candidateName={candidate.candidateName}

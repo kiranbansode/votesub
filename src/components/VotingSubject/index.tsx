@@ -1,10 +1,11 @@
 import convertUnixEpochToDate from 'utils/helperFunctions/convertUnixEpoch';
 import { getTotalVotesCLF } from 'config/firebase';
-import './VotingSubject.styles.scss';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LoadingScreen from 'components/LoadingScreen';
 import { ISubjectData } from 'types/subjectDetails';
+
+import './VotingSubject.styles.scss';
 
 interface IVotingSubject {
     subject: ISubjectData;
@@ -22,7 +23,7 @@ const VotingSubject = ({ subject }: IVotingSubject) => {
         getTotalVotesCLF(candidates).then(({ data }) => setTotalVotes(data));
     }, []);
 
-    return (
+    return totalVotes || totalVotes === 0 ? (
         // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
         <div className="voting-subject-container" onClick={() => navigate(`/dashboard/${id}`)}>
             <div className="sect-1">
@@ -46,6 +47,8 @@ const VotingSubject = ({ subject }: IVotingSubject) => {
                 )}
             </div>
         </div>
+    ) : (
+        <LoadingScreen color="success" size={25} />
     );
 };
 

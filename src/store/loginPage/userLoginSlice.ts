@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { signInWithEmailAndPassword, UserInfo, UserCredential, signOut } from 'firebase/auth';
+import { signInWithEmailAndPassword, UserInfo, UserCredential } from 'firebase/auth';
 import { auth } from 'config/firebase';
 import authErrorMessageFinder from 'utils/helperFunctions/authErrorMessageFinder';
 
@@ -30,10 +30,6 @@ export const userLogIn = createAsyncThunk('user/LogIn', async (data: any, { reje
         });
     }
 });
-
-const signOutCurrentUser = () => {
-    signOut(auth).then((mssg) => mssg);
-};
 
 export interface IUserInfo {
     userDetails: UserInfo;
@@ -86,7 +82,6 @@ const userLoginSlice = createSlice({
             state.userDetails = initialState.userDetails;
             state.error = initialState.error;
             state.loading = initialState.loading;
-            signOutCurrentUser();
         },
     },
     extraReducers: (builder) => {

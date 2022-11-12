@@ -6,7 +6,12 @@ import * as yup from 'yup';
 import TextInputField from 'components/TextInputField';
 import useAppSelector from 'hooks/useAppSelector';
 import useAppDispatch from 'hooks/useAppDispatch';
-import { addNewTopicThunk, ADD_CANDIDATE, DELETE_CANDIDATE } from 'store/addNewTopic';
+import {
+    addNewTopicThunk,
+    ADD_CANDIDATE,
+    DELETE_CANDIDATE,
+    RESET_SUBJECT,
+} from 'store/addNewTopic';
 import Header from 'components/Header';
 import Button from 'components/Button';
 import PageTitle from 'components/Title';
@@ -14,6 +19,7 @@ import Separator from 'components/Separator';
 import NewCandidate from 'components/NewCandidate';
 
 import './AddNewTopicPage.styles.scss';
+import { useEffect } from 'react';
 
 const yupValidation = yup.object({
     subject: yup.string().trim().strict().required('Subject is required'),
@@ -65,6 +71,10 @@ const AddNewTopicPage = () => {
         resetField('candidateName', { defaultValue: '' });
     };
 
+    useEffect(() => {
+        dispatch(RESET_SUBJECT());
+    }, []);
+
     return (
         <div id="add-new-topic-page">
             <Header />
@@ -79,6 +89,7 @@ const AddNewTopicPage = () => {
                     dispatch(addNewTopicThunk(data));
                 })}
             >
+                {/* First Child */}
                 <TextInputField
                     separateLabel
                     errors={formState.errors}
@@ -88,6 +99,7 @@ const AddNewTopicPage = () => {
                     inputPlaceholder="Favorite Fast Food ?"
                 />
 
+                {/* Second Child */}
                 <TextInputField
                     separateLabel
                     errors={formState.errors}
@@ -98,7 +110,13 @@ const AddNewTopicPage = () => {
                     inputLabel="Candidate Name"
                 />
 
+                {/* Third Child */}
                 <Button onClick={() => addCandidateBtnHandler()}>Add Candidate</Button>
+
+                <p className="add-new-subject__info">
+                    If you add more than 3 candidates you will get Metals Ranking System for your
+                    subject
+                </p>
 
                 {addNewTopicState.candidates.length > 0 ? (
                     <p className="candidates-list">-x- Candidates List -x-</p>
@@ -113,6 +131,20 @@ const AddNewTopicPage = () => {
                     />
                 ))}
 
+                {/* Fourth Child */}
+                <Button
+                    color="warning"
+                    type="button"
+                    onClick={() => {
+                        resetField('candidateName', { defaultValue: '' });
+                        resetField('subject', { defaultValue: '' });
+                        dispatch(RESET_SUBJECT());
+                    }}
+                >
+                    Reset
+                </Button>
+
+                {/* Fifth Child */}
                 <Button
                     color="success"
                     disabled={Boolean(!(addNewTopicState.candidates.length > 1))}

@@ -5,6 +5,7 @@ import Separator from 'components/Separator';
 import './RemainingVotes.styles.scss';
 import { doc, onSnapshot } from 'firebase/firestore';
 import ColoredRemainingVotes from 'styled/ColoredRemainingVotes';
+import LoadingScreen from 'components/LoadingScreen';
 
 interface IRemainingVotes {
     userId: string;
@@ -12,17 +13,26 @@ interface IRemainingVotes {
 
 const RemainingVotes = ({ userId }: IRemainingVotes) => {
     const [remainingVotes, setRemainingVotes] = useState<number>();
-    const unsubscribe = onSnapshot(doc(firestore, 'users', userId), (user) => {
-        const userData = user.data();
-        setRemainingVotes(() => userData?.remainingVotes);
-    });
 
     // eslint-disable-next-line arrow-body-style
     useEffect(() => {
-        return () => unsubscribe();
+        const unsubscribe = userId
+            ? onSnapshot(
+                  doc(firestore, 'users', userId),
+                  (user) => {
+                      const userData = user.data();
+                      setRemainingVotes(() => userData?.remainingVotes);
+                  },
+                  () => {},
+              )
+            : () => {};
+
+        return () => {
+            unsubscribe();
+        };
     });
 
-    return (
+    return remainingVotes || remainingVotes === 0 ? (
         <div className="remaining-votes-container">
             <div>
                 <span className="title">Your remaining votes : </span>
@@ -32,6 +42,8 @@ const RemainingVotes = ({ userId }: IRemainingVotes) => {
             </div>
             <Separator />
         </div>
+    ) : (
+        <LoadingScreen />
     );
 };
 

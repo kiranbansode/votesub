@@ -26,13 +26,19 @@ interface ICandidate {
 const VotingCandidate = ({ position = 0, candidateName, id, showColored }: ICandidate) => {
     const [votes, setVotes] = useState(null);
     const userId = useAppSelector(({ user }) => user.userDetails.uid);
-    const unsubscribe = onSnapshot(doc(firestore, 'candidates', id), (candidate) => {
-        const data = candidate.data();
-        setVotes(() => data?.votes);
-    });
 
-    // eslint-disable-next-line arrow-body-style
     useEffect(() => {
+        const unsubscribe = userId
+            ? onSnapshot(
+                  doc(firestore, 'candidates', id),
+                  (candidate) => {
+                      const data = candidate.data();
+                      setVotes(() => data?.votes);
+                  },
+                  () => {},
+              )
+            : () => {};
+
         return () => unsubscribe();
     }, []);
 

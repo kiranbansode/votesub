@@ -1,24 +1,23 @@
 import PaginationFooter from 'components/Pagination/PaginationFooter';
 import PaginationHeader from 'components/Pagination/PaginationHeader';
-import VotingSubject from 'components/VotingSubject';
+import PaginationContent from 'components/Pagination/PaginationContent/';
 
 import './Pagination.styles.scss';
 
 interface IPagination {
-    data: [];
+    sortedData: any[][];
+    unSortedData: any[];
 }
 
 // eslint-disable-next-line arrow-body-style
-const Pagination = ({ data }: IPagination) => {
+const Pagination = ({ sortedData, unSortedData }: IPagination) => {
     return (
         <div className="pagination">
-            <PaginationHeader />
+            <PaginationHeader unsortedData={unSortedData} />
 
-            {data.map((subject) => (
-                <VotingSubject subject={subject} />
-            ))}
+            <PaginationContent sortedData={sortedData} />
 
-            <PaginationFooter />
+            <PaginationFooter sortedData={sortedData} />
         </div>
     );
 };

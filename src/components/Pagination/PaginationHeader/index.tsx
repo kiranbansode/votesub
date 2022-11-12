@@ -1,11 +1,20 @@
 import { MenuItem, Select, FormControl } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
+// import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
 import SortIcon from '@mui/icons-material/Sort';
+import useAppDispatch from 'hooks/useAppDispatch';
+import { SHOW_ONLY_FIVE, SHOW_ONLY_TEN, SHOW_ONLY_TWENTY } from 'store/dashboard/sortedSubjectList';
+import { RESET_CURRENT_PAGE } from 'store/pagination/pageTracker';
 import './PaginationHeader.styles.scss';
 
+interface IPaginationHeader {
+    unsortedData: any[];
+}
+
 // eslint-disable-next-line arrow-body-style
-const PaginationHeader = () => {
+const PaginationHeader = ({ unsortedData }: IPaginationHeader) => {
+    const dispatch = useAppDispatch();
+
     return (
         <div className="pagination-header">
             <div className="func-wrapper">
@@ -13,9 +22,33 @@ const PaginationHeader = () => {
                 <span>
                     <FormControl>
                         <Select className="per-page-selector" defaultValue={5}>
-                            <MenuItem value={5}>5</MenuItem>
-                            <MenuItem value={10}>10</MenuItem>
-                            <MenuItem value={20}>20</MenuItem>
+                            <MenuItem
+                                value={5}
+                                onClick={() => {
+                                    dispatch(RESET_CURRENT_PAGE());
+                                    dispatch(SHOW_ONLY_FIVE(unsortedData));
+                                }}
+                            >
+                                5
+                            </MenuItem>
+                            <MenuItem
+                                value={10}
+                                onClick={() => {
+                                    dispatch(RESET_CURRENT_PAGE());
+                                    dispatch(SHOW_ONLY_TEN(unsortedData));
+                                }}
+                            >
+                                10
+                            </MenuItem>
+                            <MenuItem
+                                value={20}
+                                onClick={() => {
+                                    dispatch(RESET_CURRENT_PAGE());
+                                    dispatch(SHOW_ONLY_TWENTY(unsortedData));
+                                }}
+                            >
+                                20
+                            </MenuItem>
                         </Select>
                     </FormControl>
                 </span>
@@ -27,11 +60,12 @@ const PaginationHeader = () => {
                 </span>
             </div>
 
+            {/* 
             <div className="func-wrapper">
                 <span>
                     <FilterAltOutlinedIcon />
                 </span>
-            </div>
+            </div> */}
 
             <div className="func-wrapper">
                 <span>

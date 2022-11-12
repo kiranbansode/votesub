@@ -123,6 +123,12 @@ const LoginPage = () => {
 
             {/* if user is able to login, then a success type mssg will be shown */}
             {showLoginSuccessMssg}
+
+            <div className="footer">
+                <p className="message"> Made with ❤️ By </p>
+                <p className="name">Kiran A. Bansode</p>
+                <p className="version">-x- [22.10.4] -x-</p>
+            </div>
         </div>
     );
 };

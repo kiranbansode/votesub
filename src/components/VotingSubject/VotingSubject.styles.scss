@@ -22,7 +22,7 @@
     .sect-1 > span:first-child,
     .sect-2 > span:first-child,
     .sect-3 > span:first-child {
-        font-size: 1.3rem;
+        font-size: 1rem;
     }
 
     .sect-1 > span:last-child,
@@ -33,5 +33,16 @@
 
     .total-votes-title {
         text-align: center;
+    }
+
+    .sect-2 {
+        .name {
+            text-align: center;
+            padding: 0 8px;
+        }
+    }
+
+    .sect-3 {
+        min-width: 50px;
     }
 }

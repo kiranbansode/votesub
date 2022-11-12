@@ -6,6 +6,8 @@ import uiSlice from 'store/ui';
 import addNewTopicSlice from 'store/addNewTopic';
 import saveUserRoleSlice from 'store/registrationPage/saveUserRoleSlice';
 import subjectsListSlice from 'store/dashboard/subjectsListSlice';
+import sortedSubjectsList from 'store/dashboard/sortedSubjectList';
+import pageTracker from 'store/pagination/pageTracker';
 
 export const store = configureStore({
     reducer: {
@@ -16,6 +18,8 @@ export const store = configureStore({
         ui: uiSlice,
         addNewTopic: addNewTopicSlice,
         subjectsList: subjectsListSlice,
+        sortedSubjects: sortedSubjectsList,
+        currPaginationPage: pageTracker,
     },
 });
 

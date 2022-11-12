@@ -4,32 +4,49 @@ import useAppDispatch from 'hooks/useAppDispatch';
 import Pagination from 'components/Pagination';
 import { HIDE_SIGN_IN_SUCCESS_POP_UP } from 'store/ui';
 import { getSubjectsListFromFirestore } from 'store/dashboard/subjectsListSlice';
+import { RESET_SORTED_SUBJECTS_LIST, SHOW_ONLY_FIVE } from 'store/dashboard/sortedSubjectList';
 import useAppSelector from 'hooks/useAppSelector';
 
 import './Dashboard.styles.scss';
 import RemainingVotes from 'components/RemainingVotes';
+import LoadingScreen from 'components/LoadingScreen';
 
 const DashboardPage = () => {
     const dispatch = useAppDispatch();
-    const { subjectsList } = useAppSelector((state) => state);
+    const unSortedSubjectList = useAppSelector((state) => state.subjectsList.list);
+    const sortedSubjectList = useAppSelector(({ sortedSubjects }) => sortedSubjects.list);
     const userId = useAppSelector(({ user }) => user.userDetails.uid);
 
     useEffect(() => {
+        dispatch(RESET_SORTED_SUBJECTS_LIST());
         dispatch(HIDE_SIGN_IN_SUCCESS_POP_UP());
         // Get all subjects from firestore when component gets first rendered
         dispatch(getSubjectsListFromFirestore());
     }, []);
 
+    useEffect(() => {
+        if (unSortedSubjectList.length > 0) {
+            dispatch(SHOW_ONLY_FIVE(unSortedSubjectList));
+        }
+    }, [unSortedSubjectList.length]);
+
     return (
         <div id="dashboard-page">
             <Header />
             <div className="dashboard-page-view">
-                <RemainingVotes userId={userId} />
+                {userId && <RemainingVotes userId={userId} />}
 
                 <p className="voting-topic"> -x- Most Favorite Subjects -x-</p>
 
                 <div className="subject-list-container">
-                    <Pagination data={subjectsList.list} />
+                    {sortedSubjectList.length > 0 ? (
+                        <Pagination
+                            sortedData={sortedSubjectList}
+                            unSortedData={unSortedSubjectList}
+                        />
+                    ) : (
+                        <LoadingScreen />
+                    )}
                 </div>
             </div>
         </div>

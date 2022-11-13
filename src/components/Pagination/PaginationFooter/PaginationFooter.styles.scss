@@ -1,7 +1,6 @@
 .pagination-footer-container {
     margin: 20px;
     display: flex;
-    flex-wrap: wrap;
     justify-content: space-between;
 
     & > div:first-child,
@@ -18,20 +17,6 @@
         box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
     }
 
-    // & > div {
-    //     margin-bottom: 20px;
-    //     margin-left: 20px;
-    //     background-color: #fff;
-    //     padding: 10px;
-    //     height: 20px;
-    //     width: 20px;
-    //     border-radius: 8px;
-    //     display: flex;
-    //     justify-content: center;
-    //     align-items: center;
-    //     box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
-    // }
-
     & > div:first-child {
         margin-right: 20px;
         margin-left: 0;
@@ -42,27 +27,40 @@
     }
 
     & > div:nth-child(2) {
-        flex-grow: 2;
         display: flex;
-        flex-wrap: wrap;
+        overflow-x: auto;
 
         & > div {
+            box-sizing: border-box;
             cursor: pointer;
             background-color: #fff;
             margin-right: 20px;
             margin-bottom: 20px;
             padding: 10px;
-            height: 20px;
-            width: 20px;
+            min-height: 40px;
+            min-width: 40px;
             border-radius: 8px;
             display: flex;
             justify-content: center;
             align-items: center;
             box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+
+            &:hover {
+                border: 1px solid #37474f;
+            }
+        }
+
+        & > div:last-child {
+            margin-right: 0;
         }
     }
 
-    & & > div:last-child {
+    & > div:last-child {
         margin-left: 20px;
+    }
+
+    .active-page {
+        background-color: #ffeb3b !important;
+        border: 1px solid #37474f;
     }
 }

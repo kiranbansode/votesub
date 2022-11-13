@@ -18,10 +18,12 @@ const DashboardPage = () => {
     const userId = useAppSelector(({ user }) => user.userDetails.uid);
 
     useEffect(() => {
-        dispatch(RESET_SORTED_SUBJECTS_LIST());
         dispatch(HIDE_SIGN_IN_SUCCESS_POP_UP());
-        // Get all subjects from firestore when component gets first rendered
         dispatch(getSubjectsListFromFirestore());
+
+        return () => {
+            dispatch(RESET_SORTED_SUBJECTS_LIST());
+        };
     }, []);
 
     useEffect(() => {

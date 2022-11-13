@@ -3,7 +3,6 @@
 import { useEffect, lazy } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm, FieldValues } from 'react-hook-form';
-import { CircularProgress } from '@mui/material';
 import { yupResolver } from '@hookform/resolvers/yup';
 import useAppDispatch from 'hooks/useAppDispatch';
 import useAppSelector from 'hooks/useAppSelector';
@@ -124,21 +123,14 @@ const LoginPage = () => {
 
             {/* if user is able to login, then a success type mssg will be shown */}
             {showLoginSuccessMssg}
+
+            <div className="footer">
+                <p className="message"> Made with ❤️ By </p>
+                <p className="name">Kiran A. Bansode</p>
+                <p className="version">-x- [22.11.13] -x-</p>
+            </div>
         </div>
     );
-
-    //  : (
-    //     <div
-    //         style={{
-    //             display: 'flex',
-    //             justifyContent: 'center',
-    //             alignItems: 'center',
-    //             height: '100vh',
-    //         }}
-    //     >
-    //         <CircularProgress color="warning" />
-    //     </div>
-    // );
 };
 
 export default LoginPage;

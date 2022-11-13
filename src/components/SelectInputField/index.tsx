@@ -3,19 +3,15 @@ import SeparateLabel from 'components/SeparateLabel';
 import { Controller, FieldErrors, Control } from 'react-hook-form';
 import InputFieldWrapper from 'styled/InputFieldWrapper';
 import inputErrorMessageFinder from 'utils/helperFunctions/inputErrorMessageFinder';
+import { IOptions } from 'utils/menuOptions';
 
 import './SelectInputField.styles.scss';
-
-export interface Option {
-    value: string | number;
-    option: string;
-}
 
 export interface SelectInputFieldProps {
     inputErrors: FieldErrors;
     control: Control;
     inputLabel: string;
-    options: Option[];
+    options: IOptions[];
     fieldName: string;
     separateLabel?: boolean;
     required?: boolean;
@@ -44,8 +40,8 @@ const SelectInputField = ({
                     render={({ field }) => (
                         // eslint-disable-next-line react/jsx-props-no-spreading
                         <Select id={fieldName} label={inputLabel} labelId={fieldName} {...field}>
-                            {options.map(({ value, option }) => (
-                                <MenuItem key={value} value={value}>
+                            {options.map(({ value, option, id }) => (
+                                <MenuItem key={id} value={value}>
                                     {option}
                                 </MenuItem>
                             ))}

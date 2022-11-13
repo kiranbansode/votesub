@@ -24,10 +24,10 @@ export const functions = getFunctions(app, 'asia-south1');
 
 // automatically connect to Firebase Emulators in localhost
 if (window.location.hostname === 'localhost') {
-    connectAuthEmulator(auth, 'http://localhost:9099');
-    connectFirestoreEmulator(firestore, 'localhost', 8080);
-    connectStorageEmulator(storage, 'localhost', 9199);
-    connectFunctionsEmulator(functions, 'localhost', 5001);
+    connectAuthEmulator(auth, 'http://127.0.0.1:9099');
+    connectFirestoreEmulator(firestore, '127.0.0.1', 8080);
+    connectStorageEmulator(storage, '127.0.0.1', 9199);
+    connectFunctionsEmulator(functions, '127.0.0.1', 5001);
 }
 
 /* ----------------------------- Cloud Functions ---------------------------- */
@@ -35,3 +35,5 @@ export const createNewUserCLF = httpsCallable(functions, 'createNewUser');
 export const addNewSubjectCLF = httpsCallable(functions, 'addNewSubject');
 export const getSubjectsListCLF = httpsCallable(functions, 'getSubjectsList');
 export const getTotalVotesCLF = httpsCallable(functions, 'getTotalVotes');
+export const voteNowCLF = httpsCallable(functions, 'voteNow');
+export const reduceVotesCLF = httpsCallable(functions, 'reduceVotes');

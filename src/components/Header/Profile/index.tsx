@@ -2,7 +2,8 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { useState, MouseEvent, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { nanoid } from 'nanoid';
+import { auth } from 'config/firebase';
+import { signOut } from 'firebase/auth';
 import { IconButton, Menu, MenuItem, Tooltip } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
@@ -12,27 +13,6 @@ import './Profile.styles.scss';
 import { SIGNOUT_USER_AND_RESET_AUTH_DETAILS } from 'store/loginPage/userLoginSlice';
 import useAppDispatch from 'hooks/useAppDispatch';
 import useAppSelector from 'hooks/useAppSelector';
-
-const menuList = [
-    {
-        icon: <AccountBoxIcon />,
-        id: nanoid(),
-        menu: 'Profile',
-        onClickFn: () => {},
-    },
-    {
-        icon: <SettingsIcon />,
-        id: nanoid(),
-        menu: 'Settings',
-        onClickFn: () => {},
-    },
-    {
-        icon: <PowerSettingsNewIcon />,
-        id: nanoid(),
-        menu: 'Log Out',
-        onClickFn: SIGNOUT_USER_AND_RESET_AUTH_DETAILS,
-    },
-];
 
 const ProfileMenu = () => {
     const [showProfileMenu, setShowProfileMenu] = useState<null | HTMLElement>(null);
@@ -65,7 +45,6 @@ const ProfileMenu = () => {
                     vertical: 'top',
                     horizontal: 'right',
                 }}
-                id="menu-appbar"
                 open={Boolean(showProfileMenu)}
                 sx={{ mt: '45px' }}
                 transformOrigin={{
@@ -74,32 +53,36 @@ const ProfileMenu = () => {
                 }}
                 onClose={closeProfileMenuHandler}
             >
-                {menuList.map(({ menu, id, icon, onClickFn }) => (
-                    // TODO: Instead using loop to display menu, create individual list item by hard coding them. It's getting harder to add more functionality
-
-                    <MenuItem key={id} onClick={closeProfileMenuHandler}>
-                        {/* TODO: move inline styles to Profile.styles.scss */}
-                        <p
-                            style={{
-                                display: 'flex',
-                                justifyContent: 'space-between',
-                                alignItems: 'center',
-                                margin: '0',
-                            }}
-                            // @ts-ignore
-                            onClick={() => dispatch(onClickFn())}
-                        >
-                            {icon}
-                            <span
-                                style={{
-                                    marginLeft: '10px',
-                                }}
-                            >
-                                {menu}
-                            </span>
-                        </p>
-                    </MenuItem>
-                ))}
+                <MenuItem>
+                    <p>
+                        <span className="profile-menu-icon">
+                            <AccountBoxIcon />
+                        </span>
+                        <span className="profile-menu-name">Profile</span>
+                    </p>
+                </MenuItem>
+                <MenuItem>
+                    <p>
+                        <span className="profile-menu-icon">
+                            <SettingsIcon />
+                        </span>
+                        <span className="profile-menu-name">Settings</span>
+                    </p>
+                </MenuItem>
+                <MenuItem>
+                    <p
+                        onClick={() => {
+                            signOut(auth)
+                                .then(() => dispatch(SIGNOUT_USER_AND_RESET_AUTH_DETAILS()))
+                                .catch((error) => error);
+                        }}
+                    >
+                        <span className="profile-menu-icon">
+                            <PowerSettingsNewIcon />
+                        </span>
+                        <span className="profile-menu-name">Log Out</span>
+                    </p>
+                </MenuItem>
             </Menu>
         </div>
     );

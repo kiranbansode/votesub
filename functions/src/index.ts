@@ -15,9 +15,13 @@ const addNewSubject = require('./addNewSubject');
 const createNewUser = require('./createNewUser');
 const getSubjectsList = require('./getSubjectsList');
 const getTotalVotes = require('./getTotalVotes');
+const voteNow = require('./voteNow');
+const reduceVotes = require('./reduceVotes');
 /* ----------------------------------- End ---------------------------------- */
 
 exports.addNewSubject = addNewSubject.addNewSubject;
 exports.createNewUser = createNewUser.createNewUser;
 exports.getSubjectsList = getSubjectsList.getSubjectsList;
 exports.getTotalVotes = getTotalVotes.getTotalVotes;
+exports.voteNow = voteNow.voteNow;
+exports.reduceVotes = reduceVotes.reduceVotes;

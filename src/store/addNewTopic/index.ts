@@ -14,8 +14,8 @@ interface IAddNewTopicSlice {
 }
 
 const initialState: IAddNewTopicSlice = {
-    subject: '',
     id: '',
+    subject: '',
     candidates: [],
     loading: false,
     error: null,
@@ -79,6 +79,14 @@ const addNewTopicSlice = createSlice({
                 (candidate) => candidate.id !== action.payload,
             );
         },
+
+        RESET_SUBJECT: (state) => {
+            state.id = initialState.id;
+            state.subject = initialState.subject;
+            state.candidates = initialState.candidates;
+            state.loading = initialState.loading;
+            state.error = initialState.error;
+        },
     },
 
     extraReducers: (builder) => {
@@ -86,7 +94,7 @@ const addNewTopicSlice = createSlice({
             state.loading = true;
         });
 
-        builder.addCase(addNewTopicThunk.fulfilled, (state, action: PayloadAction<any>) => {
+        builder.addCase(addNewTopicThunk.fulfilled, (state) => {
             state.loading = false;
             state.error = false;
         });
@@ -98,6 +106,6 @@ const addNewTopicSlice = createSlice({
     },
 });
 
-export const { ADD_CANDIDATE, DELETE_CANDIDATE } = addNewTopicSlice.actions;
+export const { ADD_CANDIDATE, DELETE_CANDIDATE, RESET_SUBJECT } = addNewTopicSlice.actions;
 
 export default addNewTopicSlice.reducer;

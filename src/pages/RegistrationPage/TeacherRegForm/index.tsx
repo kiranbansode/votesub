@@ -3,12 +3,14 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import TextInputField from 'components/TextInputField';
 import RadioInputField from 'components/RadioInputField';
 import PasswordInputField from 'components/PasswordInputField';
+import SelectInputField from 'components/SelectInputField';
 import Button from 'components/Button';
 import Caption from 'components/Caption';
 import Logo from 'components/Logo';
 import useAppDispatch from 'hooks/useAppDispatch';
 import { createNewUserThunk } from 'store/registrationPage/createNewUserSlice';
 import { ITeacherRegForm } from 'types/regFormData';
+import countryCodeOptions from 'utils/menuOptions/countryCodes';
 
 // eslint-disable-next-line import/extensions
 import TeacherRegFormValidations from './yupValidations';
@@ -23,6 +25,7 @@ const defaultTeacherRegFormVal: ITeacherRegForm = {
     },
     gender: 'male',
     schoolName: '',
+    countryCode: '',
     mob1: '',
     mob2: '',
     emailId: '',
@@ -93,6 +96,15 @@ const TeacherRegForm = () => {
                     formRegister={register('schoolName')}
                     inputHelperText="Enter name of school where do you work."
                     inputLabel="School Name"
+                />
+
+                <SelectInputField
+                    separateLabel
+                    control={control}
+                    fieldName="countryCode"
+                    inputErrors={errors}
+                    inputLabel="Where are you from"
+                    options={countryCodeOptions}
                 />
 
                 <TextInputField

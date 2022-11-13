@@ -1,4 +1,6 @@
 .subject-page-container {
+    padding-bottom: 30px;
+
     .page-content {
         padding: 20px;
     }
@@ -8,51 +10,68 @@
         grid-template-areas:
             'submitter total-votes'
             'creation-date total-votes';
+        margin-top: 20px;
+        padding: 15px;
+        background-color: #fff;
+        border-radius: 15px;
+        box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
     }
 
     .submitter {
         grid-area: submitter;
         padding: 10px;
         margin-top: auto;
-        background-color: #fff;
         border-radius: 5px;
         width: fit-content;
-        box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
     }
+
     .creation-date {
         grid-area: creation-date;
         padding: 10px;
         border-radius: 5px;
         margin-top: auto;
-        background-color: #fff;
+        margin-bottom: 0;
         width: fit-content;
-        box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
     }
 
-    .total-votes {
+    .about-container .total-votes {
         grid-area: total-votes;
+        padding: 10px;
+        margin: 0;
         display: flex;
         flex-direction: column;
         justify-content: center;
-        align-items: flex-end;
-        text-align: center;
+        align-items: center;
+        border-radius: 15px;
+        border: 2px solid #c4c4c4;
 
         .votes-counter {
-            font-size: 3rem;
-            background-color: #fff;
-            padding: 10px;
-            border-radius: 15px;
-            box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+            font-size: 2.5rem;
+        }
+
+        .votes-name {
+            padding-top: 5px;
         }
     }
 
     .submitter,
     .creation-date,
-    .total-votes {
-        font-size: 12px;
+    .votes-name {
+        font-size: 14px;
     }
 
     .separator {
         margin: 0;
+    }
+
+    .candidates-container {
+        margin-top: 30px;
+
+        .candidates-title {
+            font-family: 'Bad Script';
+            text-align: center;
+            font-size: 1.5rem;
+            color: #ff3c3c;
+        }
     }
 }

@@ -86,3 +86,17 @@
         align-self: center;
     }
 }
+
+.MuiList-root {
+    max-height: 350px;
+}
+
+.MuiMenuItem-root p {
+    margin: 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+.MuiMenuItem-root p .profile-menu-icon {
+    margin-right: 10px;
+}

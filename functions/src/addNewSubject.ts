@@ -18,12 +18,13 @@ const saveSubjectDetails = ({ id, candidates, subjectName, submittedBy, userId }
             createdOn: admin.firestore.Timestamp.now().seconds,
         });
 
-const saveCandidateDetails = (candidates: ICandidate[]) =>
+const saveCandidateDetails = (candidates: ICandidate[], subjectId: string) =>
     candidates.map(async ({ id, candidateName }) =>
         admin.firestore().collection('candidates').doc(id).set({
             id,
             candidateName,
             votes: 0,
+            subjectId,
         }),
     );
 
@@ -38,7 +39,7 @@ exports.addNewSubject = cloudFn.https.onCall(
 
         try {
             saveSubjectDetails(data);
-            saveCandidateDetails(data.candidates);
+            saveCandidateDetails(data.candidates, data.id);
 
             return { actor: 'ADD_NEW_SUBJECT_CLOUD_FN', mssg: 'Subject was added Successfully' };
         } catch (error) {

@@ -1,20 +1,14 @@
 import convertUnixEpochToDate from 'utils/helperFunctions/convertUnixEpoch';
 import { getTotalVotesCLF } from 'config/firebase';
-import './VotingSubject.styles.scss';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ICandidate } from 'types/addNewSubject';
+import LoadingScreen from 'components/LoadingScreen';
+import { ISubjectData } from 'types/subjectDetails';
 
-interface ISubject {
-    id: string;
-    createdOn: number;
-    subjectName: string;
-    submittedBy: string;
-    candidates: ICandidate[];
-}
+import './VotingSubject.styles.scss';
 
 interface IVotingSubject {
-    subject: ISubject;
+    subject: ISubjectData;
 }
 
 // eslint-disable-next-line arrow-body-style
@@ -29,7 +23,7 @@ const VotingSubject = ({ subject }: IVotingSubject) => {
         getTotalVotesCLF(candidates).then(({ data }) => setTotalVotes(data));
     }, []);
 
-    return (
+    return totalVotes || totalVotes === 0 ? (
         // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
         <div className="voting-subject-container" onClick={() => navigate(`/dashboard/${id}`)}>
             <div className="sect-1">
@@ -39,14 +33,22 @@ const VotingSubject = ({ subject }: IVotingSubject) => {
                 <span>{year}</span>
             </div>
             <div className="sect-2">
-                <span>{subjectName}</span>
-                <span>By: {submittedBy}</span>
+                <span className="name">{subjectName}</span>
+                <span className="submitter">By: {submittedBy}</span>
             </div>
             <div className="sect-3">
-                <span>{totalVotes}</span>
-                <span>Total Votes</span>
+                {totalVotes || totalVotes === 0 ? (
+                    <>
+                        <span>{totalVotes}</span>
+                        <span className="total-votes-title">Total Votes</span>
+                    </>
+                ) : (
+                    <LoadingScreen size={25} />
+                )}
             </div>
         </div>
+    ) : (
+        <LoadingScreen color="success" size={25} />
     );
 };
 

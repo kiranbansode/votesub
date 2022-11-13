@@ -1,7 +1,18 @@
 #dashboard-page {
     background-color: #e0e0e0;
     height: 100%;
-    padding-bottom: 70px;
+
+    .dashboard-page-view {
+        margin-top: 20px;
+    }
+
+    .remaining-votes-container {
+        padding: 0 20px;
+
+        .separator {
+            margin: 0;
+        }
+    }
 
     #remaining-votes {
         display: flex;
@@ -23,11 +34,6 @@
             -moz-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
             box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
         }
-    }
-
-    .separator {
-        border-top: 1px solid #4a4a4a;
-        margin: 0 20px;
     }
 
     .voting-topic {

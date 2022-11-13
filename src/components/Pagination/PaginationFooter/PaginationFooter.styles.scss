@@ -4,9 +4,9 @@
     flex-wrap: wrap;
     justify-content: space-between;
 
-    & > div {
+    & > div:first-child,
+    & > div:last-child {
         margin-bottom: 20px;
-        margin-left: 20px;
         background-color: #fff;
         padding: 10px;
         height: 20px;
@@ -18,8 +18,22 @@
         box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
     }
 
+    // & > div {
+    //     margin-bottom: 20px;
+    //     margin-left: 20px;
+    //     background-color: #fff;
+    //     padding: 10px;
+    //     height: 20px;
+    //     width: 20px;
+    //     border-radius: 8px;
+    //     display: flex;
+    //     justify-content: center;
+    //     align-items: center;
+    //     box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+    // }
+
     & > div:first-child {
-        margin-right: auto;
+        margin-right: 20px;
         margin-left: 0;
 
         .MuiSvgIcon-root {
@@ -27,7 +41,28 @@
         }
     }
 
-    & > div:last-child {
-        margin-left: auto;
+    & > div:nth-child(2) {
+        flex-grow: 2;
+        display: flex;
+        flex-wrap: wrap;
+
+        & > div {
+            cursor: pointer;
+            background-color: #fff;
+            margin-right: 20px;
+            margin-bottom: 20px;
+            padding: 10px;
+            height: 20px;
+            width: 20px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+        }
+    }
+
+    & & > div:last-child {
+        margin-left: 20px;
     }
 }

@@ -1,64 +1,53 @@
 import { useEffect } from 'react';
 import Header from 'components/Header';
-import Separator from 'components/Separator';
-import { getSubjectsListCLF } from 'config/firebase';
 import useAppDispatch from 'hooks/useAppDispatch';
 import Pagination from 'components/Pagination';
-
 import { HIDE_SIGN_IN_SUCCESS_POP_UP } from 'store/ui';
+import { getSubjectsListFromFirestore } from 'store/dashboard/subjectsListSlice';
+import { RESET_SORTED_SUBJECTS_LIST, SHOW_ONLY_FIVE } from 'store/dashboard/sortedSubjectList';
+import useAppSelector from 'hooks/useAppSelector';
 
 import './Dashboard.styles.scss';
+import RemainingVotes from 'components/RemainingVotes';
+import LoadingScreen from 'components/LoadingScreen';
 
 const DashboardPage = () => {
     const dispatch = useAppDispatch();
+    const unSortedSubjectList = useAppSelector((state) => state.subjectsList.list);
+    const sortedSubjectList = useAppSelector(({ sortedSubjects }) => sortedSubjects.list);
+    const userId = useAppSelector(({ user }) => user.userDetails.uid);
 
     useEffect(() => {
-        console.log('Calling getVoting');
-        getSubjectsListCLF();
-    }, []);
-
-    useEffect(() => {
+        dispatch(RESET_SORTED_SUBJECTS_LIST());
         dispatch(HIDE_SIGN_IN_SUCCESS_POP_UP());
+        // Get all subjects from firestore when component gets first rendered
+        dispatch(getSubjectsListFromFirestore());
     }, []);
 
-    // const dashboardPageView = (
-    //     <div id="dashboard-page">
-    //         <Header />
-
-    //         <p id="remaining-votes">
-    //             Your Remaining Votes : <span>100</span>
-    //         </p>
-    //         <Separator />
-
-    //         <p className="voting-topic"> -x- Most Favorite Subject -x-</p>
-
-    //         <div id="candidate-list">
-    //             <VotingCandidate candidateName="Geography" position={1} totalVotes={1995} />
-
-    //             <VotingCandidate candidateName="History" position={2} totalVotes={1994} />
-
-    //             <VotingCandidate candidateName="Mathematics" position={3} totalVotes={1993} />
-
-    //             <VotingCandidate candidateName="English" position={4} totalVotes={1992} />
-
-    //             <VotingCandidate candidateName="Science" position={5} totalVotes={1991} />
-    //         </div>
-    //     </div>
-    // );
+    useEffect(() => {
+        if (unSortedSubjectList.length > 0) {
+            dispatch(SHOW_ONLY_FIVE(unSortedSubjectList));
+        }
+    }, [unSortedSubjectList.length]);
 
     return (
         <div id="dashboard-page">
             <Header />
+            <div className="dashboard-page-view">
+                {userId && <RemainingVotes userId={userId} />}
 
-            <p id="remaining-votes">
-                Your Remaining Votes : <span>100</span>
-            </p>
-            <Separator />
+                <p className="voting-topic"> -x- Most Favorite Subjects -x-</p>
 
-            <p className="voting-topic"> -x- Most Favorite Subjects -x-</p>
-
-            <div className="subject-list-container">
-                <Pagination />
+                <div className="subject-list-container">
+                    {sortedSubjectList.length > 0 ? (
+                        <Pagination
+                            sortedData={sortedSubjectList}
+                            unSortedData={unSortedSubjectList}
+                        />
+                    ) : (
+                        <LoadingScreen />
+                    )}
+                </div>
             </div>
         </div>
     );

@@ -26,6 +26,22 @@
         border-radius: 15px;
         padding: 10px;
     }
+
+    .footer {
+        padding-top: 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .name {
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 15px;
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+    }
 }
 
 @media (min-width: 600px) {

@@ -15,6 +15,7 @@ import PasswordInputField from 'components/PasswordInputField';
 import Button from 'components/Button';
 import Logo from 'components/Logo';
 import Caption from 'components/Caption';
+import countryCodeOptions from 'utils/menuOptions/countryCodes';
 
 /* ---------------------------------- Hooks --------------------------------- */
 import useAppDispatch from 'hooks/useAppDispatch';
@@ -44,6 +45,7 @@ const defaultStudentRegFormVal: IStudentRegForm = {
     schoolName: '',
     std: '',
     div: '',
+    countryCode: '',
     mob1: '',
     mob2: '',
     emailId: '',
@@ -150,6 +152,15 @@ const StudentRegForm = () => {
                     inputErrors={errors}
                     inputLabel="Division"
                     options={divisionOptions}
+                />
+
+                <SelectInputField
+                    separateLabel
+                    control={control}
+                    fieldName="countryCode"
+                    inputErrors={errors}
+                    inputLabel="Where are you from"
+                    options={countryCodeOptions}
                 />
 
                 <TextInputField

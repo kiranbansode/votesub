@@ -9,6 +9,7 @@ import Button from 'components/Button';
 import Logo from 'components/Logo';
 import Caption from 'components/Caption';
 import { IEmployerRegForm } from 'types/regFormData';
+import countryCodeOptions from 'utils/menuOptions/countryCodes';
 
 // eslint-disable-next-line import/extensions
 import EmployerRegFormValidations from './yupValidations';
@@ -24,6 +25,7 @@ const defaultEmployerRegFormVal: IEmployerRegForm = {
     gender: 'male',
     companyName: '',
     role: '',
+    countryCode: '',
     mob1: '',
     mob2: '',
     emailId: '',
@@ -106,6 +108,15 @@ const EmployerRegForm = () => {
                     inputErrors={errors}
                     inputLabel="Your role in Company"
                     options={hrOptions}
+                />
+
+                <SelectInputField
+                    separateLabel
+                    control={control}
+                    fieldName="countryCode"
+                    inputErrors={errors}
+                    inputLabel="Where are you from"
+                    options={countryCodeOptions}
                 />
 
                 <TextInputField

@@ -127,7 +127,7 @@ const LoginPage = () => {
             <div className="footer">
                 <p className="message"> Made with ❤️ By </p>
                 <p className="name">Kiran A. Bansode</p>
-                <p className="version">-x- [22.10.4] -x-</p>
+                <p className="version">-x- [22.11.13] -x-</p>
             </div>
         </div>
     );

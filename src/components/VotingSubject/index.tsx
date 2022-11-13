@@ -19,8 +19,10 @@ const VotingSubject = ({ subject }: IVotingSubject) => {
     const { day, month, year } = convertUnixEpochToDate(createdOn);
 
     useEffect(() => {
-        // @ts-ignore
-        getTotalVotesCLF(candidates).then(({ data }) => setTotalVotes(data));
+        if (candidates.length) {
+            // @ts-ignore
+            getTotalVotesCLF(candidates).then(({ data }) => setTotalVotes(data));
+        }
     }, []);
 
     return totalVotes || totalVotes === 0 ? (

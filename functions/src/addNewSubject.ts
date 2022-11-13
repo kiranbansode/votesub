@@ -29,7 +29,7 @@ const saveCandidateDetails = (candidates: ICandidate[], subjectId: string) =>
     );
 
 exports.addNewSubject = cloudFn.https.onCall(
-    async (data: IAddNewSubject, context: CallableContext) => {
+    async (subject: IAddNewSubject, context: CallableContext) => {
         if (!context.auth?.uid) {
             throw new HttpsError(
                 'unauthenticated',
@@ -38,10 +38,15 @@ exports.addNewSubject = cloudFn.https.onCall(
         }
 
         try {
-            saveSubjectDetails(data);
-            saveCandidateDetails(data.candidates, data.id);
+            saveSubjectDetails(subject);
+            saveCandidateDetails(subject.candidates, subject.id);
 
-            return { actor: 'ADD_NEW_SUBJECT_CLOUD_FN', mssg: 'Subject was added Successfully' };
+            return {
+                code: 201,
+                actor: 'ADD_NEW_SUBJECT_CLOUD_FN',
+                mssg: 'Subject was added Successfully',
+                subjectId: subject.id,
+            };
         } catch (error) {
             return error;
         }

@@ -5,6 +5,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import './PaginationFooter.styles.scss';
 import useAppDispatch from 'hooks/useAppDispatch';
 import { SAVE_CURRENT_PAGE, NEXT_PAGE, PREVIOUS_PAGE } from 'store/pagination/pageTracker';
+import useAppSelector from 'hooks/useAppSelector';
 
 interface IPaginationFooter {
     sortedData: any[][];
@@ -13,6 +14,7 @@ interface IPaginationFooter {
 // eslint-disable-next-line arrow-body-style
 const PaginationFooter = ({ sortedData }: IPaginationFooter) => {
     const dispatch = useAppDispatch();
+    const { currentPage } = useAppSelector(({ currPaginationPage }) => currPaginationPage);
     // const sortedSubjectList = useAppSelector(({ sortedSubjects }) => sortedSubjects.list);
 
     return (
@@ -23,8 +25,13 @@ const PaginationFooter = ({ sortedData }: IPaginationFooter) => {
 
             <div className="pagination-pages-container">
                 {sortedData.map((subject, idx) => (
-                    // eslint-disable-next-line react/no-array-index-key
-                    <div key={idx} onClick={() => dispatch(SAVE_CURRENT_PAGE(idx))}>
+                    <div
+                        className={currentPage === idx ? 'active-page' : ''}
+                        id={`page-no-${idx + 1}`}
+                        // eslint-disable-next-line react/no-array-index-key
+                        key={idx}
+                        onClick={() => dispatch(SAVE_CURRENT_PAGE(idx))}
+                    >
                         {idx + 1}
                     </div>
                 ))}

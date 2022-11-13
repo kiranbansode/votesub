@@ -11,16 +11,14 @@ const PaginationContent = ({ sortedData }: IPaginationContent) => {
     // const sortedList = useAppSelector(({ sortedSubjects }) => sortedSubjects.list);
     const { currentPage } = useAppSelector(({ currPaginationPage }) => currPaginationPage);
 
-    return (
+    return sortedData.length > 0 ? (
         <div>
-            {sortedData.length > 0 ? (
-                sortedData[currentPage].map((subject: ISubjectData) => (
-                    <VotingSubject key={subject.id} subject={subject} />
-                ))
-            ) : (
-                <LoadingScreen />
-            )}
+            {sortedData[currentPage].map((subject: ISubjectData) => (
+                <VotingSubject key={subject.id} subject={subject} />
+            ))}
         </div>
+    ) : (
+        <LoadingScreen />
     );
 };
 

@@ -43,7 +43,7 @@ const SubjectPage = () => {
         collection(firestore, 'candidates'),
         where('subjectId', '==', `${subjectId}`),
     );
-    const { day, shortMonth, year, time } = convertUnixEpochToDate(subject?.createdOn!);
+    const { day, shortMonth, year } = convertUnixEpochToDate(subject?.createdOn!);
 
     useEffect(() => {
         // Get subject details
@@ -76,7 +76,9 @@ const SubjectPage = () => {
                       // @ts-ignore
                       const sort = sortCandidatesByVotes(candidatesLiveDetails);
                       setCandidates(sort);
-                      setTotalVotes(candidatesVotes.reduce((a, b) => a + b));
+                      if (candidatesVotes.length > 0) {
+                          setTotalVotes(candidatesVotes.reduce((a, b) => a + b));
+                      }
 
                       if (showView === false) {
                           setShowView(true);

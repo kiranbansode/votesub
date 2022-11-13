@@ -35,8 +35,11 @@ const RemainingVotes = ({ userId }: IRemainingVotes) => {
     return remainingVotes || remainingVotes === 0 ? (
         <div className="remaining-votes-container">
             <div>
-                <span className="title">Your remaining votes : </span>
-                <ColoredRemainingVotes className="counter" remainingVotes={Number(remainingVotes)}>
+                <span className="remaining-votes__title">Your remaining votes : </span>
+                <ColoredRemainingVotes
+                    className="remaining-votes__counter"
+                    remainingVotes={Number(remainingVotes)}
+                >
                     {remainingVotes}
                 </ColoredRemainingVotes>
             </div>

@@ -10,7 +10,7 @@ import {
     addNewTopicThunk,
     ADD_CANDIDATE,
     DELETE_CANDIDATE,
-    RESET_SUBJECT,
+    RESET_ADD_NEW_SUBJECT_SLICE,
 } from 'store/addNewTopic';
 import Header from 'components/Header';
 import Button from 'components/Button';
@@ -20,6 +20,7 @@ import NewCandidate from 'components/NewCandidate';
 
 import './AddNewTopicPage.styles.scss';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const yupValidation = yup.object({
     subject: yup.string().trim().strict().required('Subject is required'),
@@ -32,20 +33,15 @@ const defaultValues = {
 };
 
 const AddNewTopicPage = () => {
-    const {
-        register,
-        watch,
-        resetField,
-        // setFocus,
-        setError,
-        formState,
-        handleSubmit,
-    } = useForm<FieldValues>({
-        defaultValues,
-        resolver: yupResolver(yupValidation),
-    });
+    const { register, watch, resetField, setFocus, setError, formState, handleSubmit } =
+        useForm<FieldValues>({
+            defaultValues,
+            resolver: yupResolver(yupValidation),
+        });
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
     const addNewTopicState = useAppSelector(({ addNewTopic }) => addNewTopic);
+    const addNewTopicRes = useAppSelector(({ addNewTopic }) => addNewTopic.res);
 
     const editBtnHandler = (id: string) => {
         const candidateToEdit = addNewTopicState.candidates.filter(
@@ -69,11 +65,22 @@ const AddNewTopicPage = () => {
 
         dispatch(ADD_CANDIDATE(candidateName));
         resetField('candidateName', { defaultValue: '' });
+        setFocus('candidateName', { shouldSelect: true });
     };
 
     useEffect(() => {
-        dispatch(RESET_SUBJECT());
+        dispatch(RESET_ADD_NEW_SUBJECT_SLICE());
     }, []);
+
+    useEffect(() => {
+        if (addNewTopicRes?.code) {
+            navigate(`/dashboard/${addNewTopicRes.subjectId}`);
+        }
+
+        return () => {
+            dispatch(RESET_ADD_NEW_SUBJECT_SLICE());
+        };
+    }, [addNewTopicRes?.code]);
 
     return (
         <div id="add-new-topic-page">
@@ -138,7 +145,7 @@ const AddNewTopicPage = () => {
                     onClick={() => {
                         resetField('candidateName', { defaultValue: '' });
                         resetField('subject', { defaultValue: '' });
-                        dispatch(RESET_SUBJECT());
+                        dispatch(RESET_ADD_NEW_SUBJECT_SLICE());
                     }}
                 >
                     Reset

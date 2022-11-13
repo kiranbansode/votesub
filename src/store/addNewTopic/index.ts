@@ -2,8 +2,14 @@ import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { RootState } from 'store';
 import { nanoid } from 'nanoid';
 import { addNewSubjectCLF } from 'config/firebase';
-import toProperCase from 'utils/helperFunctions/toProperCase';
 import { ICandidate } from 'types/addNewSubject';
+
+interface IResponseFromAddNewSubjectCLF {
+    code: number;
+    actor: string;
+    mssg: string;
+    subjectId: string;
+}
 
 interface IAddNewTopicSlice {
     subject: string;
@@ -11,6 +17,7 @@ interface IAddNewTopicSlice {
     candidates: ICandidate[];
     loading: boolean;
     error: boolean | null;
+    res: IResponseFromAddNewSubjectCLF | null;
 }
 
 const initialState: IAddNewTopicSlice = {
@@ -19,6 +26,7 @@ const initialState: IAddNewTopicSlice = {
     candidates: [],
     loading: false,
     error: null,
+    res: null,
 };
 
 export const addNewTopicThunk = createAsyncThunk(
@@ -46,7 +54,7 @@ export const addNewTopicThunk = createAsyncThunk(
                 candidates: addNewTopic.candidates,
             });
 
-            return res;
+            return res.data;
         } catch (error) {
             return rejectWithValue(error);
         }
@@ -63,7 +71,8 @@ const addNewTopicSlice = createSlice({
             },
             prepare: (candidate: ICandidate['candidateName']) => {
                 const id = nanoid();
-                const candidateName = toProperCase(candidate);
+                // const candidateName = toProperCase(candidate);
+                const candidateName = candidate;
 
                 return {
                     payload: {
@@ -80,12 +89,13 @@ const addNewTopicSlice = createSlice({
             );
         },
 
-        RESET_SUBJECT: (state) => {
+        RESET_ADD_NEW_SUBJECT_SLICE: (state) => {
             state.id = initialState.id;
             state.subject = initialState.subject;
             state.candidates = initialState.candidates;
             state.loading = initialState.loading;
             state.error = initialState.error;
+            state.res = initialState.res;
         },
     },
 
@@ -94,9 +104,10 @@ const addNewTopicSlice = createSlice({
             state.loading = true;
         });
 
-        builder.addCase(addNewTopicThunk.fulfilled, (state) => {
+        builder.addCase(addNewTopicThunk.fulfilled, (state, action: PayloadAction<any>) => {
             state.loading = false;
             state.error = false;
+            state.res = { ...action.payload };
         });
 
         builder.addCase(addNewTopicThunk.rejected, (state, action: PayloadAction<any>) => {
@@ -106,6 +117,7 @@ const addNewTopicSlice = createSlice({
     },
 });
 
-export const { ADD_CANDIDATE, DELETE_CANDIDATE, RESET_SUBJECT } = addNewTopicSlice.actions;
+export const { ADD_CANDIDATE, DELETE_CANDIDATE, RESET_ADD_NEW_SUBJECT_SLICE } =
+    addNewTopicSlice.actions;
 
 export default addNewTopicSlice.reducer;

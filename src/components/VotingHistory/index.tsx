@@ -3,7 +3,7 @@
 /* eslint-disable arrow-body-style */
 import Separator from 'components/Separator';
 import convertUnixEpochToDate from 'utils/helperFunctions/convertUnixEpochToDate';
-import SingleSubjectVotingHistory from 'components/VotingHistory/SingleDayVotingHistory';
+import SingleSubjectVotingHistory from 'components/VotingHistory/SingleSubjectVotingHistory';
 
 import './VotingHistory.styles.scss';
 

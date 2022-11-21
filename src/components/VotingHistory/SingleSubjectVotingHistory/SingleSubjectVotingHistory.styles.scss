@@ -1,0 +1,42 @@
+.single-subject-voting-history-container {
+    position: relative;
+    top: -30px;
+
+    .subject-info__container {
+        background-color: #fff;
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+    }
+
+    .subject-info__date,
+    .subject-info__name {
+        color: #2979ff;
+        font-weight: 600;
+    }
+
+    .subject-info {
+        margin-top: 0;
+    }
+
+    .candidate {
+        margin-bottom: 5px;
+    }
+
+    .candidates-list,
+    .candidate:last-child {
+        margin-bottom: 0;
+    }
+
+    .after-timeline {
+        height: 50px;
+        border-right: 2px solid rgba($color: #000000, $alpha: 0.25);
+        width: 50%;
+    }
+}
+
+.single-subject-voting-history-container:nth-last-child(2) {
+    .after-timeline {
+        display: none;
+    }
+}

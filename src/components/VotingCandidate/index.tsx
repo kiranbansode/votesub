@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
-import { voteNowCLF, firestore, reduceVotesCLF } from 'config/firebase';
+import { voteNowCLF, firestore, reduceVotesCLF, saveToHistoryCLF } from 'config/firebase';
 import { doc, onSnapshot } from 'firebase/firestore';
 import './VotingCandidate.styles.scss';
 import CandidatePosition from 'styled/CandidatePosition';
@@ -21,9 +21,17 @@ interface ICandidate {
      * position with Gold, Silver and Bronze background color
      */
     showColored: boolean;
+    subjectId: string;
 }
 
-const VotingCandidate = ({ position = 0, candidateName, id, showColored }: ICandidate) => {
+const VotingCandidate = ({
+    position = 0,
+    candidateName,
+    id,
+    showColored,
+    subjectId,
+}: ICandidate) => {
+    const candidateId = id;
     const [votes, setVotes] = useState(null);
     const userId = useAppSelector(({ user }) => user.userDetails.uid);
 
@@ -62,6 +70,7 @@ const VotingCandidate = ({ position = 0, candidateName, id, showColored }: ICand
                     onClick={() => {
                         voteNowCLF(id);
                         reduceVotesCLF(userId);
+                        saveToHistoryCLF({ subjectId, candidateId });
                     }}
                 />
                 <span className="vote-text">Vote</span>

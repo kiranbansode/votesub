@@ -37,3 +37,5 @@ export const getSubjectsListCLF = httpsCallable(functions, 'getSubjectsList');
 export const getTotalVotesCLF = httpsCallable(functions, 'getTotalVotes');
 export const voteNowCLF = httpsCallable(functions, 'voteNow');
 export const reduceVotesCLF = httpsCallable(functions, 'reduceVotes');
+export const saveToHistoryCLF = httpsCallable(functions, 'saveToHistory');
+export const getUserVotingHistoryCLF = httpsCallable(functions, 'getUserVotingHistory');

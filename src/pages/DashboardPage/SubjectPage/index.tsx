@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import VotingCandidate from 'components/VotingCandidate';
 import Separator from 'components/Separator';
 import LoadingScreen from 'components/LoadingScreen';
-import convertUnixEpochToDate from 'utils/helperFunctions/convertUnixEpoch';
+import convertUnixEpochToDate from 'utils/helperFunctions/convertUnixEpochToDate';
 import getSubjectDetails from 'utils/helperFunctions/getSubjectDetails';
 import sortCandidatesByVotes from 'utils/helperFunctions/sortCandidatesByVotes';
 
@@ -125,6 +125,7 @@ const SubjectPage = () => {
                             key={candidate.id}
                             position={totalVotes > 0 ? idx + 1 : 0}
                             showColored={candidates.length > 3 && totalVotes > 0}
+                            subjectId={subjectId!}
                         />
                     ))}
                 </div>

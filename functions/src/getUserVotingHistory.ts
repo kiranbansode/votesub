@@ -10,13 +10,22 @@ const getSubjectDetails = async (id: string) => {
 
 const getCandidateDetails = async (id: string) => {
     const { firestore } = await import('firebase-admin');
-    const subjectRef = await firestore().collection('candidates').doc(id).get();
+    const candidateRef = await firestore().collection('candidates').doc(id).get();
 
-    return subjectRef.data();
+    return candidateRef.data();
 };
 
 exports.getUserVotingHistory = cloudFn.https.onCall(async (_, context) => {
     const { firestore } = await import('firebase-admin');
+    const { HttpsError } = await import('firebase-functions/v1/https');
+
+    if (context.auth === null) {
+        throw new HttpsError(
+            'unauthenticated',
+            'You are not authenticated. Please first login and then try again',
+        );
+    }
+
     const userId = context.auth?.uid;
     const historyDataSnap = await firestore()
         .collection('users')
@@ -28,35 +37,40 @@ exports.getUserVotingHistory = cloudFn.https.onCall(async (_, context) => {
 
     try {
         return Promise.all(
-            rawHistoryData.map(async (dayHistory) => {
-                const rawSubjects = Object.entries(dayHistory?.history!);
-                const createdOn = dayHistory?.createdOn;
+            rawHistoryData
+                .map(async (dayHistory) => {
+                    const rawSubjects = Object.entries(dayHistory?.history!);
+                    const createdOn = dayHistory?.createdOn;
 
-                return Promise.all(
-                    rawSubjects.map(async ([subjectId, candidates]) => {
-                        const rawCandidates = Object.entries(candidates!);
-                        const subjectData = await getSubjectDetails(subjectId);
-                        const candidatesData = await Promise.all(
-                            rawCandidates.map(async ([candidateId, givenVotes]) => {
-                                const candidateData = await getCandidateDetails(candidateId);
+                    return Promise.all(
+                        rawSubjects.map(async ([subjectId, candidates]) => {
+                            const rawCandidates = Object.entries(candidates!);
+                            const subjectData = await getSubjectDetails(subjectId);
+                            const candidatesData = await Promise.all(
+                                rawCandidates.map(async ([candidateId, givenVotes]) => {
+                                    const candidateData = await getCandidateDetails(candidateId);
 
-                                return {
-                                    id: candidateData?.id,
-                                    candidateName: candidateData?.candidateName,
-                                    givenVotes,
-                                };
-                            }),
-                        );
+                                    return {
+                                        id: candidateData?.id,
+                                        candidateName: candidateData?.candidateName,
+                                        givenVotes,
+                                    };
+                                }),
+                            );
 
-                        return {
-                            id: subjectData?.id,
-                            createdOn,
-                            subjectName: subjectData?.subjectName,
-                            candidates: candidatesData,
-                        };
-                    }),
-                );
-            }),
+                            return {
+                                id: subjectData?.id,
+                                createdOn,
+                                subjectName: subjectData?.subjectName,
+                                candidates: candidatesData,
+                            };
+                        }),
+                    );
+                })
+                .sort((prevDay, currDay) =>
+                    // @ts-ignore
+                    prevDay[0]?.createdOn > currDay[0]?.createdOn ? 1 : -1,
+                ),
         );
     } catch (error) {
         return error;

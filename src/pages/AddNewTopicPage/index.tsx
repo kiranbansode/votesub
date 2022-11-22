@@ -73,14 +73,14 @@ const AddNewTopicPage = () => {
     }, []);
 
     useEffect(() => {
-        if (addNewTopicRes?.code) {
+        if (addNewTopicRes?.sub && addNewTopicRes.candidates.length > 0) {
             navigate(`/dashboard/${addNewTopicRes.subjectId}`);
         }
 
         return () => {
             dispatch(RESET_ADD_NEW_SUBJECT_SLICE());
         };
-    }, [addNewTopicRes?.code]);
+    }, [addNewTopicRes?.subjectId]);
 
     return (
         <div id="add-new-topic-page">

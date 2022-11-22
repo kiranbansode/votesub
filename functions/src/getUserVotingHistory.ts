@@ -33,10 +33,21 @@ exports.getUserVotingHistory = cloudFn.https.onCall(async (_, context) => {
         .collection('votingHistory')
         .get();
     const rawHistoryData: any[] = [];
-    historyDataSnap.forEach((dayHistory) => rawHistoryData.push(dayHistory.data()));
+
+    historyDataSnap.forEach((dayHistory) => {
+        rawHistoryData.push(dayHistory.data());
+    });
 
     try {
-        return Promise.all(
+        if (historyDataSnap.empty) {
+            throw new HttpsError(
+                'not-found',
+                "User's voting history not found.",
+                'Looks like you did not give any votes to any given Subjects or Candidates. First give votes to your favorite Subjects or Candidates, then come back here.',
+            );
+        }
+
+        const res = Promise.all(
             rawHistoryData
                 .map(async (dayHistory) => {
                     const rawSubjects = Object.entries(dayHistory?.history!);
@@ -72,6 +83,8 @@ exports.getUserVotingHistory = cloudFn.https.onCall(async (_, context) => {
                     prevDay[0]?.createdOn > currDay[0]?.createdOn ? 1 : -1,
                 ),
         );
+
+        return res;
     } catch (error) {
         return error;
     }

@@ -3,25 +3,41 @@ import { getUserVotingHistoryCLF } from 'config/firebase';
 
 export const getUserVotingHistoryThunk = createAsyncThunk(
     'user-voting-history',
-    async (_, thunkAPi) => {
+    async (_, thunkAPI) => {
         try {
             const res = await getUserVotingHistoryCLF();
-            return res.data;
+
+            // @ts-ignore
+            if (res.data?.code) {
+                return thunkAPI.rejectWithValue(res.data);
+            }
+
+            return thunkAPI.fulfillWithValue(res.data);
         } catch (error) {
-            return thunkAPi.rejectWithValue(error);
+            return thunkAPI.rejectWithValue(error);
         }
     },
 );
 
+interface IHttpsError {
+    code: string | null;
+    mssg: string | null;
+    status: number | null;
+}
+
 interface IUserVotingHistorySlice {
     history: any[];
-    error: null | boolean;
+    error: IHttpsError;
     loading: boolean;
 }
 
 const initialState: IUserVotingHistorySlice = {
     history: [],
-    error: null,
+    error: {
+        code: null,
+        mssg: null,
+        status: null,
+    },
     loading: false,
 };
 
@@ -31,6 +47,8 @@ const userVotingHistorySlice = createSlice({
     reducers: {
         RESET_USER_VOTING_HISTORY: (state) => {
             state.history = initialState.history;
+            state.error = initialState.error;
+            state.loading = initialState.loading;
         },
     },
     extraReducers: (builder) => {
@@ -41,13 +59,15 @@ const userVotingHistorySlice = createSlice({
             getUserVotingHistoryThunk.fulfilled,
             (state, action: PayloadAction<any>) => {
                 state.history = action.payload;
+                state.error = initialState.error;
                 state.loading = false;
-                state.error = false;
             },
         );
-        builder.addCase(getUserVotingHistoryThunk.rejected, (state) => {
+        builder.addCase(getUserVotingHistoryThunk.rejected, (state, action: PayloadAction<any>) => {
             state.loading = false;
-            state.error = true;
+            state.error.code = action.payload.code;
+            state.error.mssg = action.payload.details;
+            state.error.status = action.payload.httpErrorCode.status;
         });
     },
 });

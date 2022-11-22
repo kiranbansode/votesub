@@ -1,12 +1,17 @@
 /* eslint-disable import/extensions */
-import * as admin from 'firebase-admin';
-import { CallableContext, HttpsError } from 'firebase-functions/v1/https';
 import { IAddNewSubject, ICandidate } from '../../src/types/addNewSubject/index';
 import cloudFn from './index';
 
-const saveSubjectDetails = ({ id, candidates, subjectName, submittedBy, userId }: IAddNewSubject) =>
-    admin
-        .firestore()
+const saveSubjectDetails = async ({
+    id,
+    candidates,
+    subjectName,
+    submittedBy,
+    userId,
+}: IAddNewSubject) => {
+    const { firestore } = await import('firebase-admin');
+
+    return firestore()
         .collection('subjects')
         .doc(id)
         .set({
@@ -15,40 +20,46 @@ const saveSubjectDetails = ({ id, candidates, subjectName, submittedBy, userId }
             userId,
             subjectName,
             candidates: candidates.map((candidate: ICandidate) => candidate.id),
-            createdOn: admin.firestore.Timestamp.now().seconds,
+            createdOn: firestore.Timestamp.now().seconds,
         });
+};
 
-const saveCandidateDetails = (candidates: ICandidate[], subjectId: string) =>
-    candidates.map(async ({ id, candidateName }) =>
-        admin.firestore().collection('candidates').doc(id).set({
-            id,
-            candidateName,
-            votes: 0,
-            subjectId,
-        }),
+const saveCandidateDetails = async (candidates: ICandidate[], subjectId: string) => {
+    const { firestore } = await import('firebase-admin');
+
+    return Promise.all(
+        candidates.map(async ({ id, candidateName }) =>
+            firestore().collection('candidates').doc(id).set({
+                id,
+                candidateName,
+                votes: 0,
+                subjectId,
+            }),
+        ),
     );
+};
 
-exports.addNewSubject = cloudFn.https.onCall(
-    async (subject: IAddNewSubject, context: CallableContext) => {
-        if (!context.auth?.uid) {
-            throw new HttpsError(
-                'unauthenticated',
-                'You are not authorized to submit a subject for voting.',
-            );
-        }
+// eslint-disable-next-line consistent-return
+exports.addNewSubject = cloudFn.https.onCall(async (subject: IAddNewSubject, context) => {
+    const { HttpsError } = await import('firebase-functions/v1/https');
 
-        try {
-            saveSubjectDetails(subject);
-            saveCandidateDetails(subject.candidates, subject.id);
+    if (!context.auth?.uid) {
+        throw new HttpsError(
+            'unauthenticated',
+            'You are not authorized to submit a subject for voting.',
+        );
+    }
 
-            return {
-                code: 201,
-                actor: 'ADD_NEW_SUBJECT_CLOUD_FN',
-                mssg: 'Subject was added Successfully',
-                subjectId: subject.id,
-            };
-        } catch (error) {
-            return error;
-        }
-    },
-);
+    try {
+        const { writeTime: subjectWriteTime } = await saveSubjectDetails(subject);
+        const candidatesRes = await saveCandidateDetails(subject.candidates, subject.id);
+
+        return {
+            subjectId: subject.id,
+            sub: subjectWriteTime.seconds,
+            candidates: candidatesRes.map((candidate) => candidate.writeTime.seconds),
+        };
+    } catch (error) {
+        return error;
+    }
+});

@@ -1,7 +1,7 @@
 .subject-page-container {
     padding-bottom: 30px;
 
-    .page-content {
+    .page-view {
         padding: 20px;
     }
 
@@ -44,6 +44,8 @@
         align-items: center;
         border-radius: 15px;
         border: 2px solid #c4c4c4;
+        width: fit-content;
+        justify-self: end;
 
         .votes-counter {
             font-size: 2.5rem;
@@ -72,6 +74,18 @@
             text-align: center;
             font-size: 1.5rem;
             color: #ff3c3c;
+        }
+    }
+}
+
+@media screen and (min-width: 600px) {
+    .subject-page-container {
+        .page-view {
+            width: 60%;
+            max-width: 500px;
+            margin: 0 auto;
+            margin-top: 20px;
+            padding-top: 0;
         }
     }
 }

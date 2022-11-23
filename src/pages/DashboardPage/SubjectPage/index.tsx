@@ -99,7 +99,7 @@ const SubjectPage = () => {
     ) : (
         <div className="subject-page-container">
             <Header />
-            <div className="page-content">
+            <div className="page-view">
                 <RemainingVotes userId={userId} />
 
                 <h1 className="title">{subject?.subjectName}</h1>

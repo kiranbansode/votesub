@@ -48,36 +48,99 @@ exports.getUserVotingHistory = cloudFn.https.onCall(async (_, context) => {
         }
 
         const res = Promise.all(
+            /**
+             * All Documents which are available in user's votingHistory collection.
+             */
             rawHistoryData
-                .map(async (dayHistory) => {
-                    const rawSubjects = Object.entries(dayHistory?.history!);
-                    const createdOn = dayHistory?.createdOn;
+                .map(
+                    async (
+                        /**
+                         * actual history object from firestore whose key-value pair are nothing but subjectId
+                         * and an object respectively whose key-value pair are candidateId and givenVotes
+                         *
+                         * e.g.
+                         * history: {
+                         *  subjectId: {
+                         *      candidateId_1: givenVotes,
+                         *      candidateId_2: givenVotes,
+                         *     }
+                         * }
+                         *
+                         */
+                        dayHistory,
+                    ) => {
+                        const rawSubjects: [
+                            subjectId: string,
+                            candidates: { [x: string]: number },
+                        ][] = Object.entries(dayHistory?.history!);
 
-                    return Promise.all(
-                        rawSubjects.map(async ([subjectId, candidates]) => {
-                            const rawCandidates = Object.entries(candidates!);
-                            const subjectData = await getSubjectDetails(subjectId);
-                            const candidatesData = await Promise.all(
-                                rawCandidates.map(async ([candidateId, givenVotes]) => {
-                                    const candidateData = await getCandidateDetails(candidateId);
+                        const createdOn: number = dayHistory?.createdOn;
+                        let lastUpdatedOn: number;
+
+                        return Promise.all(
+                            rawSubjects
+                                .map(async ([subjectId, candidates]) => {
+                                    const rawCandidates: [
+                                        candidateId: string,
+                                        givenVotes: number,
+                                    ][] = Object.entries(candidates!);
+                                    const subjectData = await getSubjectDetails(subjectId);
+                                    const candidatesData = await Promise.all(
+                                        rawCandidates.map(async ([candidateId, givenVotes]) => {
+                                            if (candidateId === 'lastUpdatedOn') {
+                                                /**
+                                                 * Here `candidateId[key]` is going to be `lastUpdatedOn`, not and actual candidateId.
+                                                 * `givenVotes` will be `firestore timestamp` at which a particular subject's voting
+                                                 * history is changed.
+                                                 */
+                                                lastUpdatedOn = givenVotes;
+                                                return null;
+                                            }
+
+                                            const candidateData = await getCandidateDetails(
+                                                candidateId,
+                                            );
+
+                                            return {
+                                                id: candidateData?.id,
+                                                candidateName: candidateData?.candidateName,
+                                                givenVotes,
+                                            };
+                                        }),
+                                    );
 
                                     return {
-                                        id: candidateData?.id,
-                                        candidateName: candidateData?.candidateName,
-                                        givenVotes,
+                                        id: subjectData?.id,
+                                        createdOn,
+                                        lastUpdatedOn,
+                                        subjectName: subjectData?.subjectName,
+                                        candidates: candidatesData
+                                            /**
+                                             * It will filter out lastUpdateOn timestamp from candidates array.
+                                             * If we did not filtered it out, then front end will crash.
+                                             */
+                                            .filter((candidate) => candidate !== null)
+                                            /**
+                                             * Sort candidates bases on their total given votes from highest to lowest
+                                             */
+                                            // @ts-ignore
+                                            .sort((a, b) => (a.givenVotes > b.givenVotes ? -1 : 1)),
                                     };
-                                }),
-                            );
-
-                            return {
-                                id: subjectData?.id,
-                                createdOn,
-                                subjectName: subjectData?.subjectName,
-                                candidates: candidatesData,
-                            };
-                        }),
-                    );
-                })
+                                })
+                                .sort((prevSub, currSub) =>
+                                    /**
+                                     * Sort subjects bases on when user last voted on. Last one will be on top
+                                     */
+                                    // @ts-ignore
+                                    prevSub.lastUpdatedOn > currSub.lastUpdateOn ? 1 : -1,
+                                ),
+                        );
+                    },
+                )
+                /**
+                 * Sort user's voting history based on the day he votes.
+                 * Previous days will be shown at bottom
+                 */
                 .sort((prevDay, currDay) =>
                     // @ts-ignore
                     prevDay[0]?.createdOn > currDay[0]?.createdOn ? 1 : -1,

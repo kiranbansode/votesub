@@ -41,3 +41,14 @@
         color: #ff3c3c;
     }
 }
+
+@media screen and (min-width: 600px) {
+    #dashboard-page {
+        .dashboard-page-view {
+            width: 60%;
+            max-width: 540px;
+            margin: 0 auto;
+            margin-top: 20px;
+        }
+    }
+}

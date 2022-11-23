@@ -22,6 +22,7 @@ exports.saveToHistory = cloudFn.https.onCall(async (data, context) => {
                 history: {
                     [subjectId]: {
                         [candidateId]: firestore.FieldValue.increment(1),
+                        lastUpdatedOn: firestore.Timestamp.now().seconds,
                     },
                 },
             });
@@ -30,6 +31,7 @@ exports.saveToHistory = cloudFn.https.onCall(async (data, context) => {
 
         res = await historyRef.update({
             [`history.${subjectId}.${candidateId}`]: firestore.FieldValue.increment(1),
+            [`history.${subjectId}.lastUpdatedOn`]: firestore.Timestamp.now().seconds,
         });
         return res;
     } catch (error) {

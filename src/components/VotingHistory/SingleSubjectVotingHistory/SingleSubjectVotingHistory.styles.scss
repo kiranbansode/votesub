@@ -11,8 +11,20 @@
 
     .subject-info__date,
     .subject-info__name {
-        color: #2979ff;
         font-weight: 600;
+    }
+
+    .subject-info__date {
+        color: #e91e63;
+    }
+
+    .subject-info__name {
+        color: #2979ff;
+    }
+
+    .subject-info__name:hover {
+        text-decoration: underline;
+        cursor: pointer;
     }
 
     .subject-info {

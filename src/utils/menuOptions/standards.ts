@@ -11,6 +11,10 @@ export const standardOptions: IOptions[] = [
     { value: '8', option: 'VIII', id: 'bac9cc18-610f-11ed-9b6a-0242ac120002' },
     { value: '9', option: 'IX', id: 'bac9cd44-610f-11ed-9b6a-0242ac120002' },
     { value: '10', option: 'X', id: 'bac9ce7a-610f-11ed-9b6a-0242ac120002' },
+    { value: '11', option: 'XI', id: '490852d2-6c24-11ed-a1eb-0242ac120002' },
+    { value: '12', option: 'XII', id: '49085656-6c24-11ed-a1eb-0242ac120002' },
+    { value: 'UG', option: 'Under-Graduate', id: '49085854-6c24-11ed-a1eb-0242ac120002' },
+    { value: 'G', option: 'Graduate', id: '49085d40-6c24-11ed-a1eb-0242ac120002' },
 ];
 
 export default standardOptions;

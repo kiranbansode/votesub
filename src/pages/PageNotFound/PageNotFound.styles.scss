@@ -1,0 +1,40 @@
+.page-not-found {
+    .page-not-found-container {
+        padding: 20px;
+        padding-top: 50px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .smiley-sad {
+        position: relative;
+        top: 5px;
+    }
+
+    .status {
+        line-height: 1.5;
+        font-size: 8rem;
+        font-weight: 500;
+        margin: 0;
+        color: #e91e63;
+    }
+
+    .title {
+        font-size: 1.5rem;
+        margin: 10px;
+    }
+
+    .message {
+        text-align: justify;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 15px;
+    }
+
+    .votesub-logo-container {
+        margin: 0 auto;
+        aspect-ratio: 3/1;
+        height: 50px;
+    }
+}

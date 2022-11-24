@@ -17,6 +17,7 @@ const CreditsPage = lazyWithPreload(() => import(`pages/CreditsPage`));
 const AboutMePage = lazyWithPreload(() => import(`pages/AboutMePage`));
 const AdminPage = lazyWithPreload(() => import(`pages/AdminPage`));
 const SettingsPage = lazyWithPreload(() => import(`pages/SettingsPage`));
+const PageNotFound = lazyWithPreload(() => import(`pages/PageNotFound`));
 
 // Dashboard Page Nested Routes
 const SubjectPage = lazyWithPreload(() => import(`pages/DashboardPage/SubjectPage`));
@@ -49,6 +50,7 @@ function App() {
         TeacherRegForm.preload();
         EmployerRegForm.preload();
         DeveloperRegForm.preload();
+        PageNotFound.preload();
     }, []);
 
     return (
@@ -84,6 +86,7 @@ function App() {
                         <Route element={<AboutMePage />} path="/aboutMe" />
                         <Route element={<AdminPage />} path="/adminPanel" />
                         <Route element={<SettingsPage />} path="/settings" />
+                        <Route element={<PageNotFound />} path="*" />
                     </Routes>
                 </BrowserRouter>
             </Suspense>

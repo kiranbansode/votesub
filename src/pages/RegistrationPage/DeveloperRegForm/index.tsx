@@ -10,6 +10,8 @@ import Logo from 'components/Logo';
 import Caption from 'components/Caption';
 import { IDeveloperRegForm } from 'types/regFormData';
 import countryCodeOptions from 'utils/menuOptions/countryCodes';
+import { createNewUserThunk } from 'store/registrationPage/createNewUserSlice';
+import useAppDispatch from 'hooks/useAppDispatch';
 
 // eslint-disable-next-line import/extensions
 import DeveloperRegFormValidations from './yupValidations';
@@ -43,6 +45,7 @@ const DeveloperRegForm = () => {
         defaultValues: defaultDeveloperRegFormVal,
         resolver: yupResolver(DeveloperRegFormValidations),
     });
+    const dispatch = useAppDispatch();
 
     return (
         <div className="reg-form" id="developer-reg-form">
@@ -50,7 +53,11 @@ const DeveloperRegForm = () => {
 
             <Caption />
 
-            <form onSubmit={handleSubmit((formData) => console.log(formData))}>
+            <form
+                onSubmit={handleSubmit((formData) => {
+                    dispatch(createNewUserThunk(formData));
+                })}
+            >
                 <TextInputField
                     required
                     separateLabel
@@ -61,7 +68,6 @@ const DeveloperRegForm = () => {
                 />
 
                 <TextInputField
-                    required
                     separateLabel
                     errors={errors}
                     formRegister={register('name.middleName')}
@@ -101,7 +107,6 @@ const DeveloperRegForm = () => {
                 />
 
                 <SelectInputField
-                    required
                     separateLabel
                     control={control}
                     fieldName="role"
@@ -111,11 +116,13 @@ const DeveloperRegForm = () => {
                 />
 
                 <SelectInputField
+                    required
                     separateLabel
                     control={control}
                     fieldName="countryCode"
                     inputErrors={errors}
-                    inputLabel="Where are you from"
+                    inputHelperText="It is required by E.164 standards"
+                    inputLabel="Country Code"
                     options={countryCodeOptions}
                 />
 
@@ -124,6 +131,7 @@ const DeveloperRegForm = () => {
                     separateLabel
                     errors={errors}
                     formRegister={register('mob1')}
+                    inputHelperText="A valid phone number will help us and you to reset your password"
                     inputLabel="Mobile No."
                 />
 

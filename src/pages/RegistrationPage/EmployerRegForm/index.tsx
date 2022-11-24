@@ -10,6 +10,8 @@ import Logo from 'components/Logo';
 import Caption from 'components/Caption';
 import { IEmployerRegForm } from 'types/regFormData';
 import countryCodeOptions from 'utils/menuOptions/countryCodes';
+import useAppDispatch from 'hooks/useAppDispatch';
+import { createNewUserThunk } from 'store/registrationPage/createNewUserSlice';
 
 // eslint-disable-next-line import/extensions
 import EmployerRegFormValidations from './yupValidations';
@@ -43,6 +45,7 @@ const EmployerRegForm = () => {
         defaultValues: defaultEmployerRegFormVal,
         resolver: yupResolver(EmployerRegFormValidations),
     });
+    const dispatch = useAppDispatch();
 
     return (
         <div className="reg-form" id="employer-reg-form">
@@ -50,7 +53,7 @@ const EmployerRegForm = () => {
 
             <Caption />
 
-            <form onSubmit={handleSubmit((formData) => console.log(formData))}>
+            <form onSubmit={handleSubmit((formData) => dispatch(createNewUserThunk(formData)))}>
                 <TextInputField
                     required
                     separateLabel
@@ -61,7 +64,6 @@ const EmployerRegForm = () => {
                 />
 
                 <TextInputField
-                    required
                     separateLabel
                     errors={errors}
                     formRegister={register('name.middleName')}
@@ -101,7 +103,6 @@ const EmployerRegForm = () => {
                 />
 
                 <SelectInputField
-                    required
                     separateLabel
                     control={control}
                     fieldName="role"
@@ -111,11 +112,13 @@ const EmployerRegForm = () => {
                 />
 
                 <SelectInputField
+                    required
                     separateLabel
                     control={control}
                     fieldName="countryCode"
                     inputErrors={errors}
-                    inputLabel="Where are you from"
+                    inputHelperText="It is required by E.164 standards"
+                    inputLabel="Country Code"
                     options={countryCodeOptions}
                 />
 
@@ -124,6 +127,7 @@ const EmployerRegForm = () => {
                     separateLabel
                     errors={errors}
                     formRegister={register('mob1')}
+                    inputHelperText="A valid phone number will help us and you to reset your password"
                     inputLabel="Mobile No."
                 />
 

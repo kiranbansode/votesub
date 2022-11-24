@@ -53,6 +53,7 @@ const TeacherRegForm = () => {
 
             <form onSubmit={handleSubmit((formData) => dispatch(createNewUserThunk(formData)))}>
                 <TextInputField
+                    required
                     separateLabel
                     errors={errors}
                     formRegister={register('name.firstName')}
@@ -69,6 +70,7 @@ const TeacherRegForm = () => {
                 />
 
                 <TextInputField
+                    required
                     separateLabel
                     errors={errors}
                     formRegister={register('name.lastName')}
@@ -99,18 +101,22 @@ const TeacherRegForm = () => {
                 />
 
                 <SelectInputField
+                    required
                     separateLabel
                     control={control}
                     fieldName="countryCode"
                     inputErrors={errors}
-                    inputLabel="Where are you from"
+                    inputHelperText="It is required by E.164 standards"
+                    inputLabel="Country Code"
                     options={countryCodeOptions}
                 />
 
                 <TextInputField
+                    required
                     separateLabel
                     errors={errors}
                     formRegister={register('mob1')}
+                    inputHelperText="A valid phone number will help us and you to reset your password"
                     inputLabel="Mobile No."
                 />
 
@@ -122,6 +128,7 @@ const TeacherRegForm = () => {
                 />
 
                 <TextInputField
+                    required
                     separateLabel
                     errors={errors}
                     formRegister={register('emailId')}
@@ -129,6 +136,7 @@ const TeacherRegForm = () => {
                 />
 
                 <PasswordInputField
+                    required
                     separateLabel
                     errors={errors}
                     formRegister={register('password')}
@@ -136,6 +144,7 @@ const TeacherRegForm = () => {
                 />
 
                 <PasswordInputField
+                    required
                     separateLabel
                     errors={errors}
                     formRegister={register('confirmPassword')}

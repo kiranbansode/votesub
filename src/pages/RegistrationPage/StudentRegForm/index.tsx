@@ -3,22 +3,25 @@
  */
 
 /* -------------------------------- Libraries ------------------------------- */
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useForm, FieldValues } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 /* ------------------------------- Components ------------------------------- */
 import TextInputField from 'components/TextInputField';
 import SelectInputField from 'components/SelectInputField';
-import DateInputField from 'components/DateInputField';
+// import DateInputField from 'components/DateInputField';
 import RadioInputField from 'components/RadioInputField';
 import PasswordInputField from 'components/PasswordInputField';
 import Button from 'components/Button';
 import Logo from 'components/Logo';
 import Caption from 'components/Caption';
-import countryCodeOptions from 'utils/menuOptions/countryCodes';
+import ErrorView from 'components/Error';
 
 /* ---------------------------------- Hooks --------------------------------- */
 import useAppDispatch from 'hooks/useAppDispatch';
+import useAppSelector from 'hooks/useAppSelector';
 
 /* ---------------------------------- Redux --------------------------------- */
 import { createNewUserThunk } from 'store/registrationPage/createNewUserSlice';
@@ -26,6 +29,7 @@ import { createNewUserThunk } from 'store/registrationPage/createNewUserSlice';
 /* ---------------------------------- Utils --------------------------------- */
 import standardOptions from 'utils/menuOptions/standards';
 import divisionOptions from 'utils/menuOptions/divisions';
+import countryCodeOptions from 'utils/menuOptions/countryCodes';
 import { IStudentRegForm } from 'types/regFormData';
 
 // eslint-disable-next-line import/extensions
@@ -41,7 +45,6 @@ const defaultStudentRegFormVal: IStudentRegForm = {
         lastName: '',
     },
     gender: 'male',
-    dob: '',
     schoolName: '',
     std: '',
     div: '',
@@ -64,6 +67,15 @@ const StudentRegForm = () => {
         resolver: yupResolver(StudentRegFormValidations),
     });
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+    const registrationState = useAppSelector(({ registration }) => registration);
+    const userRole = useAppSelector((state) => state.userRole.role);
+
+    useEffect(() => {
+        if (!userRole) {
+            navigate('/register');
+        }
+    });
 
     const View = (
         <div className="reg-form" id="student-reg-form">
@@ -86,7 +98,6 @@ const StudentRegForm = () => {
                 />
 
                 <TextInputField
-                    required
                     separateLabel
                     errors={errors}
                     formRegister={register('name.middleName')}
@@ -118,18 +129,7 @@ const StudentRegForm = () => {
                     ]}
                 />
 
-                <DateInputField
-                    required
-                    separateLabel
-                    control={control}
-                    fieldName="dob"
-                    inputErrors={errors}
-                    inputHelperText="Enter your Birthday in format of DD/MM/YYYY"
-                    inputLabel="Date of Birth"
-                />
-
                 <TextInputField
-                    required
                     separateLabel
                     errors={errors}
                     formRegister={register('schoolName')}
@@ -155,11 +155,13 @@ const StudentRegForm = () => {
                 />
 
                 <SelectInputField
+                    required
                     separateLabel
                     control={control}
                     fieldName="countryCode"
                     inputErrors={errors}
-                    inputLabel="Where are you from"
+                    inputHelperText="It is required by E.164 standards"
+                    inputLabel="Country Code"
                     options={countryCodeOptions}
                 />
 
@@ -168,7 +170,8 @@ const StudentRegForm = () => {
                     separateLabel
                     errors={errors}
                     formRegister={register('mob1')}
-                    inputLabel="Mobile No. (WhatsApp)"
+                    inputHelperText="A valid phone number will help us and you to reset your password"
+                    inputLabel="Mobile No."
                 />
 
                 <TextInputField
@@ -202,7 +205,16 @@ const StudentRegForm = () => {
                     inputLabel="Confirm Password"
                 />
 
-                <Button type="submit">Submit</Button>
+                {registrationState.error.code ? (
+                    <ErrorView
+                        errorTitle={registrationState.error.code}
+                        mssg={registrationState.error.mssg!}
+                    />
+                ) : null}
+
+                <Button loading={registrationState.loading} type="submit">
+                    Submit
+                </Button>
             </form>
         </div>
     );

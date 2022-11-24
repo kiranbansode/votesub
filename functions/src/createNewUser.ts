@@ -1,9 +1,11 @@
+/* eslint-disable consistent-return */
 /* eslint-disable import/extensions */
-import { HttpsError } from 'firebase-functions/v1/auth';
 import cloudFn from './index';
 
 exports.createNewUser = cloudFn.https.onCall(async (newUserData) => {
     const { auth, firestore } = await import('firebase-admin');
+    // const { HttpsError } = await import('firebase-functions/v1/auth');
+
     const {
         /**
          * password and confirmPassword will not be saved in firestore
@@ -21,29 +23,28 @@ exports.createNewUser = cloudFn.https.onCall(async (newUserData) => {
     } = newUserData;
 
     try {
-        const { uid } = await auth().createUser({
+        const res = await auth().createUser({
             email: newUserData.emailId,
             password: newUserData.password,
             displayName: `${firstName} ${lastName}`,
             phoneNumber: `${countryCode}${mob1}`,
         });
 
-        auth().setCustomUserClaims(uid, { userRole: newUserData.role });
-
-        if (uid) {
+        if (res.uid) {
+            await auth().setCustomUserClaims(res.uid, { userRole: newUserData.role });
             await firestore()
                 .collection('users')
-                .doc(uid)
+                .doc(res.uid)
                 .set({
                     // it will save all details except password and confirmPassword
                     ...otherNewUserData,
                     remainingVotes: 100,
-                    uid,
+                    uid: res.uid,
                 });
         }
 
-        return { actor: 'auth', code: 201, message: 'User created successfully' };
+        return { actor: 'auth', code: 201, message: 'User created successfully', userAuth: res };
     } catch (error) {
-        throw new HttpsError('already-exists', 'Email ID is already exists. Try another Email ID');
+        return error;
     }
 });

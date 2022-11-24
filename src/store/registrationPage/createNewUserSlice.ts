@@ -19,19 +19,38 @@ export const createNewUserThunk = createAsyncThunk(
         const newUserData = { ...formData, ...userRole };
 
         try {
-            const userCredentials = await createNewUserCLF(newUserData);
+            const res = await createNewUserCLF(newUserData);
 
-            return userCredentials.data;
+            // @ts-ignore
+            if (res.data.errorInfo.code) return thunkAPI.rejectWithValue(res.data);
+
+            return res.data;
         } catch (error) {
             return thunkAPI.rejectWithValue(error);
         }
     },
 );
 
-const initialState = {
+interface IHttpsError {
+    code: string | null;
+    mssg: string | null;
+    //  status: number | null;
+}
+
+interface ICreateNewUser {
+    loading: boolean;
+    data: any;
+    error: IHttpsError;
+}
+
+const initialState: ICreateNewUser = {
     loading: false,
     data: {},
-    error: null,
+    error: {
+        code: null,
+        mssg: null,
+        // status: null,
+    },
 };
 
 const createNewUserSlice = createSlice({
@@ -43,16 +62,20 @@ const createNewUserSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(createNewUserThunk.pending, (state) => {
             state.loading = true;
+            state.error = initialState.error;
         });
 
         builder.addCase(createNewUserThunk.fulfilled, (state, action: PayloadAction<any>) => {
-            state.data = action.payload;
             state.loading = false;
+            state.data = action.payload;
+            state.error = initialState.error;
         });
 
         builder.addCase(createNewUserThunk.rejected, (state, action: PayloadAction<any>) => {
-            state.error = action.payload;
             state.loading = false;
+            state.error.code = action.payload.errorInfo.code;
+            state.error.mssg = action.payload.errorInfo.message;
+            //  state.error.status = action.payload.httpErrorCode.status;
         });
     },
 });

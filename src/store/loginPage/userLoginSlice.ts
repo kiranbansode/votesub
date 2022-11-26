@@ -4,10 +4,6 @@ import { signInWithEmailAndPassword, UserCredential } from 'firebase/auth';
 import { auth } from 'config/firebase';
 import authErrorMessageFinder from 'utils/helperFunctions/authErrorMessageFinder';
 
-interface INeedUserInfo extends INeededUserCredentials {
-    role: string;
-}
-
 export const userLogIn = createAsyncThunk('user/LogIn', async (data: any, { rejectWithValue }) => {
     try {
         const userCredentials: UserCredential = await signInWithEmailAndPassword(
@@ -26,7 +22,6 @@ export const userLogIn = createAsyncThunk('user/LogIn', async (data: any, { reje
             phoneNumber: user.phoneNumber,
             photoUrl: user.photoURL,
             providerId: user.providerId,
-            role: (await auth.currentUser?.getIdTokenResult())?.claims.role,
         };
     } catch (error: any) {
         const authErrorMessage = authErrorMessageFinder(error);
@@ -40,7 +35,7 @@ export const userLogIn = createAsyncThunk('user/LogIn', async (data: any, { reje
 });
 
 export interface IUserInfo {
-    userDetails: INeedUserInfo;
+    userDetails: INeededUserCredentials;
     loading: boolean;
     showSucMssg: boolean;
     shouldShowLoginPage: boolean;
@@ -56,7 +51,6 @@ const initialState: IUserInfo = {
         phoneNumber: '',
         photoURL: '',
         providerId: '',
-        role: '',
     },
     loading: false,
     showSucMssg: false,
@@ -83,7 +77,6 @@ const userLoginSlice = createSlice({
                     providerId,
                     uid,
                     emailVerified,
-                    role,
                 } = payload;
                 return {
                     payload: {
@@ -94,7 +87,6 @@ const userLoginSlice = createSlice({
                         providerId,
                         uid,
                         emailVerified,
-                        role,
                     },
                 };
             },

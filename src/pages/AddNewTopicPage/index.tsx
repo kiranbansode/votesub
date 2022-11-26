@@ -87,9 +87,7 @@ const AddNewTopicPage = () => {
             <Header />
 
             <div className="page-view">
-                <PageTitle title="Add New Topic" />
-
-                <Separator />
+                <PageTitle title="Add New Subject" />
 
                 <form
                     className="form"

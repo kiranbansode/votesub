@@ -86,118 +86,120 @@ const TeacherRegForm = () => {
 
     return (
         <div className="reg-form" id="teacher-reg-form">
-            <Logo goHere="/" />
+            <div className="page-view">
+                <Logo goHere="/" />
 
-            <Caption />
+                <Caption />
 
-            <form onSubmit={handleSubmit((formData) => dispatch(createNewUserThunk(formData)))}>
-                <TextInputField
-                    required
-                    separateLabel
-                    errors={errors}
-                    formRegister={register('name.firstName')}
-                    inputLabel="First Name"
-                    inputPlaceholder="Your Name"
-                />
+                <form onSubmit={handleSubmit((formData) => dispatch(createNewUserThunk(formData)))}>
+                    <TextInputField
+                        required
+                        separateLabel
+                        errors={errors}
+                        formRegister={register('name.firstName')}
+                        inputLabel="First Name"
+                        inputPlaceholder="Your Name"
+                    />
 
-                <TextInputField
-                    separateLabel
-                    errors={errors}
-                    formRegister={register('name.middleName')}
-                    inputLabel="Middle Name"
-                    inputPlaceholder="Father/Husband Name"
-                />
+                    <TextInputField
+                        separateLabel
+                        errors={errors}
+                        formRegister={register('name.middleName')}
+                        inputLabel="Middle Name"
+                        inputPlaceholder="Father/Husband Name"
+                    />
 
-                <TextInputField
-                    required
-                    separateLabel
-                    errors={errors}
-                    formRegister={register('name.lastName')}
-                    inputLabel="Last Name"
-                    inputPlaceholder="Surname"
-                />
+                    <TextInputField
+                        required
+                        separateLabel
+                        errors={errors}
+                        formRegister={register('name.lastName')}
+                        inputLabel="Last Name"
+                        inputPlaceholder="Surname"
+                    />
 
-                <RadioInputField
-                    alignCenter
-                    separateLabel
-                    showBorder
-                    control={control}
-                    fieldName="gender"
-                    inputErrors={errors}
-                    inputLabel="Gender"
-                    radioSelect={[
-                        { label: 'Male', value: 'male' },
-                        { label: 'Female', value: 'female' },
-                    ]}
-                />
+                    <RadioInputField
+                        alignCenter
+                        separateLabel
+                        showBorder
+                        control={control}
+                        fieldName="gender"
+                        inputErrors={errors}
+                        inputLabel="Gender"
+                        radioSelect={[
+                            { label: 'Male', value: 'male' },
+                            { label: 'Female', value: 'female' },
+                        ]}
+                    />
 
-                <TextInputField
-                    separateLabel
-                    errors={errors}
-                    formRegister={register('schoolName')}
-                    inputHelperText="Enter name of school where do you work."
-                    inputLabel="School Name"
-                />
+                    <TextInputField
+                        separateLabel
+                        errors={errors}
+                        formRegister={register('schoolName')}
+                        inputHelperText="Enter name of school where do you work."
+                        inputLabel="School Name"
+                    />
 
-                <SelectInputField
-                    required
-                    separateLabel
-                    control={control}
-                    fieldName="countryCode"
-                    inputErrors={errors}
-                    inputHelperText="It is required by E.164 standards"
-                    inputLabel="Country Code"
-                    options={countryCodeOptions}
-                />
+                    <SelectInputField
+                        required
+                        separateLabel
+                        control={control}
+                        fieldName="countryCode"
+                        inputErrors={errors}
+                        inputHelperText="It is required by E.164 standards"
+                        inputLabel="Country Code"
+                        options={countryCodeOptions}
+                    />
 
-                <TextInputField
-                    required
-                    separateLabel
-                    errors={errors}
-                    formRegister={register('mob1')}
-                    inputHelperText="A valid phone number will help us and you to reset your password"
-                    inputLabel="Mobile No."
-                />
+                    <TextInputField
+                        required
+                        separateLabel
+                        errors={errors}
+                        formRegister={register('mob1')}
+                        inputHelperText="A valid phone number will help us and you to reset your password"
+                        inputLabel="Mobile No."
+                    />
 
-                <TextInputField
-                    separateLabel
-                    errors={errors}
-                    formRegister={register('mob2')}
-                    inputLabel="Alternate Mobile No."
-                />
+                    <TextInputField
+                        separateLabel
+                        errors={errors}
+                        formRegister={register('mob2')}
+                        inputLabel="Alternate Mobile No."
+                    />
 
-                <TextInputField
-                    required
-                    separateLabel
-                    errors={errors}
-                    formRegister={register('emailId')}
-                    inputLabel="Email ID"
-                />
+                    <TextInputField
+                        required
+                        separateLabel
+                        errors={errors}
+                        formRegister={register('emailId')}
+                        inputLabel="Email ID"
+                    />
 
-                <PasswordInputField
-                    required
-                    separateLabel
-                    errors={errors}
-                    formRegister={register('password')}
-                    inputLabel="Password"
-                />
+                    <PasswordInputField
+                        required
+                        separateLabel
+                        errors={errors}
+                        formRegister={register('password')}
+                        inputLabel="Password"
+                    />
 
-                <PasswordInputField
-                    required
-                    separateLabel
-                    errors={errors}
-                    formRegister={register('confirmPassword')}
-                    inputLabel="Confirm Password"
-                />
+                    <PasswordInputField
+                        required
+                        separateLabel
+                        errors={errors}
+                        formRegister={register('confirmPassword')}
+                        inputLabel="Confirm Password"
+                    />
 
-                {showErrorMssg}
+                    {showErrorMssg}
 
-                <Button loading={registrationSlice.loading} type="submit">
-                    Submit
-                </Button>
+                    <Button loading={registrationSlice.loading} type="submit">
+                        Submit
+                    </Button>
 
-                {showLoginSuccessMssg}
-            </form>
+                    {showLoginSuccessMssg}
+                </form>
+            </div>
         </div>
     );
 };

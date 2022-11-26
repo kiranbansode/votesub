@@ -25,14 +25,14 @@ const SingleSubjectVotingHistory = ({
     candidates,
 }: ISingleSubjectVotingHistory) => {
     const navigate = useNavigate();
-    const { day, shortMonth, year } = convertUnixEpochToDate(Number(createdOn));
+    const { day, shortMonth } = convertUnixEpochToDate(Number(createdOn));
 
     return (
         <div className="single-subject-voting-history-container">
             <div className="subject-info__container">
                 <p className="subject-info">
                     On &nbsp;
-                    <span className="subject-info__date">{`${day} ${shortMonth} ${year} UTC`}</span>
+                    <span className="subject-info__date">{`${day} ${shortMonth} - UTC`}</span>
                     &nbsp; you voted on &nbsp;
                     <span
                         className="subject-info__name"

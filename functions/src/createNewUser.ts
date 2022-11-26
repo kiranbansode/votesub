@@ -43,7 +43,7 @@ exports.createNewUser = cloudFn.https.onCall(async (newUserData) => {
                 });
         }
 
-        return { actor: 'auth', code: 201, message: 'User created successfully', userAuth: res };
+        return res;
     } catch (error) {
         return error;
     }

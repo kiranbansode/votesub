@@ -25,11 +25,11 @@ interface IVotingHistory {
 }
 
 const VotingHistory = ({ dayHistory }: IVotingHistory) => {
-    const { day, year, month } = convertUnixEpochToDate(dayHistory[0]?.createdOn);
+    const { day, year, shortMonth } = convertUnixEpochToDate(dayHistory[0]?.createdOn);
 
     return day ? (
         <div className="voting-history-container">
-            <div className="date">{`${day}/${month}/${year}`}</div>
+            <div className="date">{`${day} ${shortMonth} ${year} - UTC`}</div>
             <div className="timeline-road__container">
                 <div className="timeline-road__1" />
                 <div className="timeline-road__2" />

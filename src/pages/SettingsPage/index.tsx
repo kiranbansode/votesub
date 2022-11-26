@@ -3,8 +3,8 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 
 import { FieldValues, useForm } from 'react-hook-form';
-import Header from 'components/Header';
-import SwitchInputField from 'components/SwitchInputField';
+// import Header from 'components/Header';
+// import SwitchInputField from 'components/SwitchInputField';
 import PageNotFound from 'pages/PageNotFound';
 import './SettingsPage.styles.scss';
 
@@ -16,6 +16,7 @@ const SettingsPage = () => {
     const { handleSubmit, control } = useForm<FieldValues>({
         defaultValues: settingPageDefaultValues,
     });
+
     return (
         <PageNotFound
             code={503}

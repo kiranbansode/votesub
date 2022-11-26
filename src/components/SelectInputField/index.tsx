@@ -13,6 +13,7 @@ export interface SelectInputFieldProps {
     inputLabel: string;
     options: IOptions[];
     fieldName: string;
+    inputHelperText?: string;
     separateLabel?: boolean;
     required?: boolean;
 }
@@ -21,6 +22,7 @@ const SelectInputField = ({
     inputErrors,
     control,
     inputLabel,
+    inputHelperText,
     separateLabel,
     options,
     fieldName,
@@ -48,7 +50,7 @@ const SelectInputField = ({
                         </Select>
                     )}
                 />
-                <FormHelperText>{error}</FormHelperText>
+                <FormHelperText>{error || inputHelperText}</FormHelperText>
             </FormControl>
         </InputFieldWrapper>
     );
@@ -57,6 +59,7 @@ const SelectInputField = ({
 SelectInputField.defaultProps = {
     separateLabel: false,
     required: false,
+    inputHelperText: '',
 };
 
 export default SelectInputField;

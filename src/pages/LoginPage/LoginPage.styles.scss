@@ -2,10 +2,6 @@
     height: 100vh;
     background-color: #e5e5e5;
 
-    #votesub-caption {
-        margin-top: 20px;
-    }
-
     p {
         font-size: 12px;
         margin-left: 10px;
@@ -20,14 +16,12 @@
         color: #2f7d32;
     }
 
-    form {
+    .login-page__form {
         background-color: #fff;
-        margin: 0 20px;
         border-radius: 15px;
-        padding: 10px;
     }
 
-    .footer {
+    .login-page__footer {
         padding-top: 50px;
         display: flex;
         flex-direction: column;

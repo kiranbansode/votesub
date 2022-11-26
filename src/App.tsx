@@ -1,7 +1,8 @@
 import { Suspense, useEffect } from 'react';
 import { CircularProgress } from '@mui/material';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import { lazyWithPreload } from 'react-lazy-with-preload';
+import useAppSelector from 'hooks/useAppSelector';
 import getCurrentLoggedUser from 'utils/helperFunctions/getCurrentLoggedUser';
 
 import './App.css';
@@ -17,6 +18,8 @@ const CreditsPage = lazyWithPreload(() => import(`pages/CreditsPage`));
 const AboutMePage = lazyWithPreload(() => import(`pages/AboutMePage`));
 const AdminPage = lazyWithPreload(() => import(`pages/AdminPage`));
 const SettingsPage = lazyWithPreload(() => import(`pages/SettingsPage`));
+const ProfilePage = lazyWithPreload(() => import(`pages/ProfilePage`));
+const PageNotFound = lazyWithPreload(() => import(`pages/PageNotFound`));
 
 // Dashboard Page Nested Routes
 const SubjectPage = lazyWithPreload(() => import(`pages/DashboardPage/SubjectPage`));
@@ -28,10 +31,16 @@ const EmployerRegForm = lazyWithPreload(() => import('pages/RegistrationPage/Emp
 const DeveloperRegForm = lazyWithPreload(() => import('pages/RegistrationPage/DeveloperRegForm'));
 
 function App() {
-    // without useEffect getCurrentLoggedUser does not work properly, it enters in infinite loop
+    const navigate = useNavigate();
+    const userDetails = useAppSelector(({ user }) => user.userDetails);
+
     useEffect(() => {
+        // without useEffect getCurrentLoggedUser does not work properly, it enters in infinite loop
         getCurrentLoggedUser();
-    }, []);
+        if (!userDetails.uid) {
+            navigate('/');
+        }
+    }, [userDetails.uid]);
 
     useEffect(() => {
         LoginPage.preload();
@@ -49,6 +58,8 @@ function App() {
         TeacherRegForm.preload();
         EmployerRegForm.preload();
         DeveloperRegForm.preload();
+        ProfilePage.preload();
+        PageNotFound.preload();
     }, []);
 
     return (
@@ -67,25 +78,25 @@ function App() {
                     </div>
                 }
             >
-                <BrowserRouter>
-                    <Routes>
-                        <Route element={<LoginPage />} path="/" />
-                        <Route element={<RegistrationPage />} path="/register/" />
-                        <Route element={<StudentRegForm />} path="/register/student/" />
-                        <Route element={<TeacherRegForm />} path="/register/teacher" />
-                        <Route element={<EmployerRegForm />} path="/register/employer" />
-                        <Route element={<DeveloperRegForm />} path="/register/developer" />
-                        <Route element={<DashboardPage />} path="/dashboard" />
-                        <Route element={<SubjectPage />} path="/dashboard/:id" />
-                        <Route element={<AddNewTopicPage />} path="/addNewTopic" />
-                        <Route element={<UserVotingHistory />} path="/userVotingHistory" />
-                        <Route element={<FeedbackPage />} path="/feedback" />
-                        <Route element={<CreditsPage />} path="/credits" />
-                        <Route element={<AboutMePage />} path="/aboutMe" />
-                        <Route element={<AdminPage />} path="/adminPanel" />
-                        <Route element={<SettingsPage />} path="/settings" />
-                    </Routes>
-                </BrowserRouter>
+                <Routes>
+                    <Route element={<LoginPage />} path="/" />
+                    <Route element={<RegistrationPage />} path="/register/" />
+                    <Route element={<StudentRegForm />} path="/register/student/" />
+                    <Route element={<TeacherRegForm />} path="/register/teacher" />
+                    <Route element={<EmployerRegForm />} path="/register/employer" />
+                    <Route element={<DeveloperRegForm />} path="/register/developer" />
+                    <Route element={<DashboardPage />} path="/dashboard" />
+                    <Route element={<SubjectPage />} path="/dashboard/:id" />
+                    <Route element={<AddNewTopicPage />} path="/addNewTopic" />
+                    <Route element={<UserVotingHistory />} path="/userVotingHistory" />
+                    <Route element={<FeedbackPage />} path="/feedback" />
+                    <Route element={<CreditsPage />} path="/credits" />
+                    <Route element={<AboutMePage />} path="/aboutMe" />
+                    <Route element={<AdminPage />} path="/adminPanel" />
+                    <Route element={<SettingsPage />} path="/settings" />
+                    <Route element={<ProfilePage />} path="/profile" />
+                    <Route element={<PageNotFound />} path="*" />
+                </Routes>
             </Suspense>
         </div>
     );

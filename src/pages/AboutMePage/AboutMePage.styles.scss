@@ -1,0 +1,74 @@
+.about-me-page {
+    .page-view {
+        padding: 20px;
+        padding-top: 50px;
+    }
+
+    .dev-image__container,
+    .dev-name__container,
+    .dev-email__container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .dev-image {
+        aspect-ratio: 1 / 1;
+        height: 250px;
+        border-radius: 50%;
+        box-shadow: 0px 6px 20px rgb(0 0 0 / 25%);
+    }
+
+    .dev-name__container {
+        margin-top: 30px;
+        margin-bottom: 10px;
+    }
+
+    .dev-name {
+        text-align: center;
+        //background-color: #fff;
+        border-radius: 2.5rem;
+        // padding: 10px 20px;
+        // box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+        font-weight: 400;
+        font-size: 3rem;
+        margin: 0;
+    }
+
+    .dev-email {
+        background-color: #fff;
+        border-radius: 2.5rem;
+        box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+        display: flex;
+        align-items: center;
+        font-size: 1.2rem;
+        font-weight: 400;
+        padding: 5px 15px;
+        color: #2979ff;
+    }
+
+    .gmail-icon {
+        aspect-ratio: 1/1;
+        height: 25px;
+        margin-top: 5px;
+        margin-right: 8px;
+    }
+
+    a {
+        all: unset;
+    }
+
+    .dev-intro__container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+        margin-top: 20px;
+    }
+
+    .dev-intro {
+        text-align: justify;
+        margin: 0;
+        font-size: 1rem;
+        line-height: 1.3;
+    }
+}

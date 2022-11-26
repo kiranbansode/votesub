@@ -1,26 +1,33 @@
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from 'config/firebase';
 import { store } from 'store';
-import { SAVE_USER_AUTH_DETAILS } from 'store/loginPage/userLoginSlice';
-import { ALLOW_USER_TO_SIGN_IN, HIDE_LOGIN_PAGE } from 'store/ui';
+import {
+    NOT_FOUND_EXISTING_LOGGED_USER,
+    SAVE_EXISTING_USER_AUTH_DETAILS,
+} from 'store/existingUserAuthStateSlice/existingUserAuthStateSlice';
 
-const hideLoginPage = () => {
-    const loginPage = document.querySelector('#login-page')! as HTMLElement;
+const getCurrentLoggedUser = () =>
+    onAuthStateChanged(auth, (user: any) => {
+        if (user === null) {
+            store.dispatch(NOT_FOUND_EXISTING_LOGGED_USER());
+            return;
+        }
 
-    document.addEventListener('DOMContentLoaded', () => {
-        loginPage.style.display = 'none';
-    });
-};
+        const { displayName, email, emailVerified, phoneNumber, photoURL, uid, providerId } = user;
 
-const getCurrentLoggedUser = () => {
-    const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
         if (user?.uid) {
-            hideLoginPage();
-            store.dispatch(SAVE_USER_AUTH_DETAILS(user));
-            store.dispatch(ALLOW_USER_TO_SIGN_IN());
-            store.dispatch(HIDE_LOGIN_PAGE());
+            store.dispatch(
+                SAVE_EXISTING_USER_AUTH_DETAILS({
+                    displayName,
+                    email,
+                    emailVerified,
+                    phoneNumber,
+                    photoURL,
+                    uid,
+                    providerId,
+                }),
+            );
         }
     });
-};
 
 export default getCurrentLoggedUser;

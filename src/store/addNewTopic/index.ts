@@ -5,10 +5,9 @@ import { addNewSubjectCLF } from 'config/firebase';
 import { ICandidate } from 'types/addNewSubject';
 
 interface IResponseFromAddNewSubjectCLF {
-    code: number;
-    actor: string;
-    mssg: string;
     subjectId: string;
+    sub: number;
+    candidates: number[];
 }
 
 interface IAddNewTopicSlice {
@@ -107,7 +106,7 @@ const addNewTopicSlice = createSlice({
         builder.addCase(addNewTopicThunk.fulfilled, (state, action: PayloadAction<any>) => {
             state.loading = false;
             state.error = false;
-            state.res = { ...action.payload };
+            state.res = action.payload;
         });
 
         builder.addCase(addNewTopicThunk.rejected, (state, action: PayloadAction<any>) => {

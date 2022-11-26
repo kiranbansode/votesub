@@ -1,4 +1,4 @@
-import convertUnixEpochToDate from 'utils/helperFunctions/convertUnixEpoch';
+import convertUnixEpochToDate from 'utils/helperFunctions/convertUnixEpochToDate';
 import { getTotalVotesCLF } from 'config/firebase';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';

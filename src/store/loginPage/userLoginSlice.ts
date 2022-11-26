@@ -1,5 +1,6 @@
+import { INeededUserCredentials } from 'types/userAuth/index';
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { signInWithEmailAndPassword, UserInfo, UserCredential } from 'firebase/auth';
+import { signInWithEmailAndPassword, UserCredential } from 'firebase/auth';
 import { auth } from 'config/firebase';
 import authErrorMessageFinder from 'utils/helperFunctions/authErrorMessageFinder';
 
@@ -10,15 +11,17 @@ export const userLogIn = createAsyncThunk('user/LogIn', async (data: any, { reje
             data.username,
             data.password,
         );
+
         const { user } = userCredentials;
 
         return {
             uid: user.uid,
             email: user.email,
-            isEmailVerified: user.emailVerified,
+            emailVerified: user.emailVerified,
             displayName: user.displayName,
-            profilePhoto: user.photoURL,
-            role: (await auth.currentUser?.getIdTokenResult())?.claims.role,
+            phoneNumber: user.phoneNumber,
+            photoUrl: user.photoURL,
+            providerId: user.providerId,
         };
     } catch (error: any) {
         const authErrorMessage = authErrorMessageFinder(error);
@@ -32,15 +35,10 @@ export const userLogIn = createAsyncThunk('user/LogIn', async (data: any, { reje
 });
 
 export interface IUserInfo {
-    userDetails: UserInfo;
-    // userDetails: {
-    //     uid: UserInfo['uid'];
-    //     email: UserInfo['email'];
-    //     isEmailVerified: boolean | null;
-    //     username: UserInfo['displayName'];
-    //     profilePhoto: UserInfo['photoURL'];
-    // };
+    userDetails: INeededUserCredentials;
     loading: boolean;
+    showSucMssg: boolean;
+    shouldShowLoginPage: boolean;
     error: any;
 }
 
@@ -49,11 +47,14 @@ const initialState: IUserInfo = {
         uid: '',
         displayName: '',
         email: '',
+        emailVerified: false,
         phoneNumber: '',
         photoURL: '',
         providerId: '',
     },
     loading: false,
+    showSucMssg: false,
+    shouldShowLoginPage: false,
     error: {},
 };
 
@@ -62,13 +63,32 @@ const userLoginSlice = createSlice({
     initialState,
     reducers: {
         SAVE_USER_AUTH_DETAILS: {
-            reducer: (state, action: PayloadAction<UserInfo>) => {
+            reducer: (state, action: PayloadAction<any>) => {
                 state.userDetails = action.payload;
+                state.showSucMssg = true;
             },
 
-            prepare: (payload: UserInfo) => {
-                const { displayName, email, phoneNumber, photoURL, providerId, uid } = payload;
-                return { payload: { displayName, email, phoneNumber, photoURL, providerId, uid } };
+            prepare: (payload: IUserInfo['userDetails']) => {
+                const {
+                    displayName,
+                    email,
+                    phoneNumber,
+                    photoURL,
+                    providerId,
+                    uid,
+                    emailVerified,
+                } = payload;
+                return {
+                    payload: {
+                        displayName,
+                        email,
+                        phoneNumber,
+                        photoURL,
+                        providerId,
+                        uid,
+                        emailVerified,
+                    },
+                };
             },
         },
 
@@ -78,10 +98,23 @@ const userLoginSlice = createSlice({
             state.loading = initialState.loading;
         },
 
+        RESET_AUTH_ERROR_STATE: (state) => {
+            state.error = initialState.error;
+            state.loading = initialState.loading;
+        },
+
         SIGNOUT_USER_AND_RESET_AUTH_DETAILS: (state) => {
             state.userDetails = initialState.userDetails;
             state.error = initialState.error;
             state.loading = initialState.loading;
+        },
+
+        SHOW_LOGIN_PAGE: (state) => {
+            state.shouldShowLoginPage = true;
+        },
+
+        HIDE_LOGIN_PAGE: (state) => {
+            state.shouldShowLoginPage = false;
         },
     },
     extraReducers: (builder) => {
@@ -110,7 +143,13 @@ const userLoginSlice = createSlice({
     },
 });
 
-export const { SAVE_USER_AUTH_DETAILS, RESET_AUTH_DETAILS, SIGNOUT_USER_AND_RESET_AUTH_DETAILS } =
-    userLoginSlice.actions;
+export const {
+    SAVE_USER_AUTH_DETAILS,
+    RESET_AUTH_DETAILS,
+    RESET_AUTH_ERROR_STATE,
+    SIGNOUT_USER_AND_RESET_AUTH_DETAILS,
+    SHOW_LOGIN_PAGE,
+    HIDE_LOGIN_PAGE,
+} = userLoginSlice.actions;
 
 export default userLoginSlice.reducer;

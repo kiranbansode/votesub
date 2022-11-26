@@ -1,19 +1,36 @@
-.backdrop-mssg {
+.backdrop-mssg-container {
+    padding: 20px;
     display: flex;
     flex-direction: column;
-    width: 70%;
+    align-items: center;
+    width: 65%;
     border-radius: 15px;
     background-color: #fff;
 
-    h2 {
+    .backdrop-header {
         text-align: center;
     }
 
-    // Creadit - Lee Porter (https://codepen.io/elevaunt/pen/JYRBzJ)
+    .backdrop-mssg {
+        margin: 0 20px;
+        text-align: justify;
+        font-size: 1rem;
+    }
+
+    .blink-it {
+        animation: blinker 1s linear infinite;
+    }
+
+    @keyframes blinker {
+        50% {
+            opacity: 0;
+        }
+    }
+
+    // Credit - Lee Porter (https://codepen.io/elevaunt/pen/JYRBzJ)
     svg {
         width: 100px;
         display: block;
-        margin: 20px auto 0;
     }
 
     .path {
@@ -86,7 +103,7 @@
 }
 
 @media (min-width: 600px) {
-    .backdrop-mssg {
-        max-width: 250px;
+    .backdrop-mssg-container {
+        max-width: 300px;
     }
 }

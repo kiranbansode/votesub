@@ -11,18 +11,17 @@ exports.reduceVotes = cloudFn.https.onCall(async (userId, context) => {
     const userRef = await user.get();
     const userData = userRef.data();
 
-    if (userData?.remainingVotes === 0) {
+    if (userData?.remainingVotes < 0 || userData?.remainingVotes === 0) {
         throw new HttpsError('resource-exhausted', 'You already gave your all votes');
     }
 
     try {
         let res;
-        if (userData?.remainingVotes !== 0) {
+        if (userData?.remainingVotes > 0) {
             res = await user.update({ remainingVotes: firestore.FieldValue.increment(-1) });
         }
         return res;
     } catch (error) {
-        console.log(error);
         return error;
     }
 });

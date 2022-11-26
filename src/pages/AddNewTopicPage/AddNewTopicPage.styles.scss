@@ -1,13 +1,7 @@
 #add-new-topic-page {
-    .separator {
-        margin: 0 20px;
-        margin-bottom: 30px;
-    }
-
     form {
-        margin: 0 10px;
-        padding: 10px;
         border-radius: 15px;
+        margin-top: 3rem;
 
         & > div:first-child {
             background-color: #fff;

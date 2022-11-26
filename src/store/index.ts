@@ -8,6 +8,8 @@ import saveUserRoleSlice from 'store/registrationPage/saveUserRoleSlice';
 import subjectsListSlice from 'store/dashboard/subjectsListSlice';
 import sortedSubjectsList from 'store/dashboard/sortedSubjectList';
 import pageTracker from 'store/pagination/pageTracker';
+import userVotingHistorySlice from 'store/votingHistory/userVotingHistorySlice';
+import existingUserAuthStateSlice from 'store/existingUserAuthStateSlice/existingUserAuthStateSlice';
 
 export const store = configureStore({
     reducer: {
@@ -20,6 +22,8 @@ export const store = configureStore({
         subjectsList: subjectsListSlice,
         sortedSubjects: sortedSubjectsList,
         currPaginationPage: pageTracker,
+        votingHistory: userVotingHistorySlice,
+        existingLoggedUserAuth: existingUserAuthStateSlice,
     },
 });
 

@@ -6,10 +6,10 @@ import { HIDE_SIGN_IN_SUCCESS_POP_UP } from 'store/ui';
 import { getSubjectsListFromFirestore } from 'store/dashboard/subjectsListSlice';
 import { RESET_SORTED_SUBJECTS_LIST, SHOW_ONLY_FIVE } from 'store/dashboard/sortedSubjectList';
 import useAppSelector from 'hooks/useAppSelector';
-
-import './Dashboard.styles.scss';
 import RemainingVotes from 'components/RemainingVotes';
 import LoadingScreen from 'components/LoadingScreen';
+
+import './Dashboard.styles.scss';
 
 const DashboardPage = () => {
     const dispatch = useAppDispatch();
@@ -35,7 +35,7 @@ const DashboardPage = () => {
     return (
         <div id="dashboard-page">
             <Header />
-            <div className="dashboard-page-view">
+            <div className="page-view">
                 {userId && <RemainingVotes userId={userId} />}
 
                 <p className="voting-topic"> -x- Most Favorite Subjects -x-</p>

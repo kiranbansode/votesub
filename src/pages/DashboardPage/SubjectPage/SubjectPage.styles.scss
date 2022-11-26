@@ -1,8 +1,8 @@
 .subject-page-container {
-    padding-bottom: 30px;
-
-    .page-content {
-        padding: 20px;
+    .subject-title {
+        margin: 2rem 0;
+        font-weight: 400;
+        text-align: center;
     }
 
     .about-container {
@@ -10,7 +10,7 @@
         grid-template-areas:
             'submitter total-votes'
             'creation-date total-votes';
-        margin-top: 20px;
+        margin: 2rem 0;
         padding: 15px;
         background-color: #fff;
         border-radius: 15px;
@@ -44,6 +44,8 @@
         align-items: center;
         border-radius: 15px;
         border: 2px solid #c4c4c4;
+        width: fit-content;
+        justify-self: end;
 
         .votes-counter {
             font-size: 2.5rem;

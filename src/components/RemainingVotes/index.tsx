@@ -43,6 +43,13 @@ const RemainingVotes = ({ userId }: IRemainingVotes) => {
                     {remainingVotes}
                 </ColoredRemainingVotes>
             </div>
+
+            {remainingVotes === 0 ? (
+                <p className="warning">
+                    No votes left. So you can&#39;t vote now. It will be refilled again.
+                </p>
+            ) : null}
+
             <Separator />
         </div>
     ) : (

@@ -1,6 +1,6 @@
 type UserName = {
     firstName: string;
-    middleName: string;
+    middleName?: string;
     lastName: string;
 };
 
@@ -9,29 +9,29 @@ type BasicUserDetails = {
     gender: string;
     countryCode: string;
     mob1: string;
-    mob2: string;
+    mob2?: string;
     emailId: string;
     password: string;
     confirmPassword: string;
 };
 
 export interface IStudentRegForm extends BasicUserDetails {
-    dob: string;
-    schoolName: string;
-    std: string;
-    div: string;
+    dob?: string;
+    schoolName?: string;
+    std?: string;
+    div?: string;
 }
 
 export interface ITeacherRegForm extends BasicUserDetails {
-    schoolName: string;
+    schoolName?: string;
 }
 
 export interface IEmployerRegForm extends BasicUserDetails {
-    companyName: string;
-    role: string;
+    companyName?: string;
+    role?: string;
 }
 
 export interface IDeveloperRegForm extends BasicUserDetails {
-    companyName: string;
-    role: string;
+    companyName?: string;
+    role?: string;
 }

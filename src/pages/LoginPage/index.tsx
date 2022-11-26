@@ -6,7 +6,11 @@ import { useForm, FieldValues } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import useAppDispatch from 'hooks/useAppDispatch';
 import useAppSelector from 'hooks/useAppSelector';
-import { userLogIn, RESET_AUTH_DETAILS } from 'store/loginPage/userLoginSlice';
+import {
+    userLogIn,
+    RESET_AUTH_DETAILS,
+    SAVE_USER_AUTH_DETAILS,
+} from 'store/loginPage/userLoginSlice';
 import { SHOW_SIGN_IN_SUCCESS_POP_UP } from 'store/ui';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
@@ -43,6 +47,7 @@ const LoginPage = () => {
     const navigate = useNavigate();
 
     const userState = useAppSelector(({ user }) => user);
+    const existingUser = useAppSelector(({ existingLoggedUserAuth }) => existingLoggedUserAuth);
     const globalUI = useAppSelector((state) => state.ui);
 
     /**
@@ -50,8 +55,15 @@ const LoginPage = () => {
      * e.g. previously failed login attempts, error mssg
      */
     useEffect(() => {
-        dispatch(RESET_AUTH_DETAILS());
+        if (!existingUser.allowUser) {
+            dispatch(RESET_AUTH_DETAILS());
+        }
     }, []);
+
+    useEffect(() => {
+        // @ts-ignore
+        dispatch(SAVE_USER_AUTH_DETAILS(existingUser.userDetails));
+    }, [existingUser.userDetails.uid]);
 
     useEffect(() => {
         if (userState.userDetails.uid) {
@@ -78,56 +90,61 @@ const LoginPage = () => {
     ) : null;
 
     return (
-        <div className="reg-form" id="login-page">
-            <Logo goHere="/" />
+        <div className="login-page" id="login-page">
+            <div className="page-view">
+                <Logo goHere="/" />
 
-            <Caption />
+                <Caption />
 
-            <form onSubmit={handleSubmit((data) => dispatch(userLogIn(data)))}>
-                <TextInputField
-                    autoFocus
-                    separateLabel
-                    errors={formState.errors}
-                    formRegister={register('username')}
-                    inputLabel="Username"
-                />
+                <form
+                    className="login-page__form"
+                    onSubmit={handleSubmit((data) => dispatch(userLogIn(data)))}
+                >
+                    <TextInputField
+                        autoFocus
+                        separateLabel
+                        errors={formState.errors}
+                        formRegister={register('username')}
+                        inputLabel="Username"
+                    />
 
-                <PasswordInputField
-                    separateLabel
-                    errors={formState.errors}
-                    formRegister={register('password')}
-                    inputLabel="Password"
-                />
+                    <PasswordInputField
+                        separateLabel
+                        errors={formState.errors}
+                        formRegister={register('password')}
+                        inputLabel="Password"
+                    />
 
-                {/* If there is any error mssg from auth, it should show here, right under password field */}
-                {showErrorMssg}
+                    {/* If there is any error mssg from auth, it should show here, right under password field */}
+                    {showErrorMssg}
 
-                <Button className="login-button" loading={userState.loading} type="submit">
-                    Login
-                </Button>
+                    <Button className="login-button" loading={userState.loading} type="submit">
+                        Login
+                    </Button>
 
-                <Separator />
+                    <Separator />
 
-                <p>
-                    Don&#39;t have an account ? Click on &nbsp;
-                    <span className="register-link" onClick={() => navigate('/register')}>
+                    <p>
+                        Don&#39;t have an account ? Click on &nbsp;
+                        <span className="register-link" onClick={() => navigate('/register')}>
+                            Register
+                        </span>
+                        &nbsp; button below
+                    </p>
+
+                    <Button color="success" onClick={() => navigate('/register')}>
                         Register
-                    </span>
-                    &nbsp; button below
-                </p>
+                    </Button>
+                </form>
 
-                <Button color="success" onClick={() => navigate('/register')}>
-                    Register
-                </Button>
-            </form>
+                {/* if user is able to login, then a success type mssg will be shown */}
+                {showLoginSuccessMssg}
 
-            {/* if user is able to login, then a success type mssg will be shown */}
-            {showLoginSuccessMssg}
-
-            <div className="footer">
-                <p className="message"> Made with ❤️ By </p>
-                <p className="name">Kiran A. Bansode</p>
-                <p className="version">-x- [22.11.13-1] -x-</p>
+                <div className="login-page__footer">
+                    <p className="message"> Made with ❤️ By </p>
+                    <p className="name">Kiran A. Bansode</p>
+                    <p className="version">-x- [22.11.27] -x-</p>
+                </div>
             </div>
         </div>
     );

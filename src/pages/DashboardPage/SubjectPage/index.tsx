@@ -6,13 +6,14 @@ import { useEffect, useState } from 'react';
 import VotingCandidate from 'components/VotingCandidate';
 import Separator from 'components/Separator';
 import LoadingScreen from 'components/LoadingScreen';
-import convertUnixEpochToDate from 'utils/helperFunctions/convertUnixEpoch';
+import convertUnixEpochToDate from 'utils/helperFunctions/convertUnixEpochToDate';
 import getSubjectDetails from 'utils/helperFunctions/getSubjectDetails';
 import sortCandidatesByVotes from 'utils/helperFunctions/sortCandidatesByVotes';
 
 import './SubjectPage.styles.scss';
 import RemainingVotes from 'components/RemainingVotes';
 import useAppSelector from 'hooks/useAppSelector';
+import PageNotFound from 'pages/PageNotFound';
 
 interface ISubject {
     id: string;
@@ -32,6 +33,7 @@ interface ICandidate {
 
 const SubjectPage = () => {
     const [subject, setSubject] = useState<ISubject>();
+    const [error, setError] = useState();
     const [totalVotes, setTotalVotes] = useState<number>(0);
     const [showView, setShowView] = useState<boolean>(false);
     const [candidates, setCandidates] = useState<ICandidate[]>();
@@ -51,7 +53,15 @@ const SubjectPage = () => {
             getSubjectDetails(subjectId!)
                 // TODO: Look into this later. Types are matching
                 // @ts-ignore
-                .then((data) => setSubject(data))
+                .then((data) => {
+                    if (data.status) {
+                        // @ts-ignore
+                        setError(data);
+                        return;
+                    }
+                    // @ts-ignore
+                    setSubject(data);
+                })
                 .catch((err) => err);
         }
 
@@ -94,15 +104,19 @@ const SubjectPage = () => {
         };
     }, [subject?.id]);
 
+    // eslint-disable-next-line no-nested-ternary
     return !showView ? (
         <LoadingScreen />
+    ) : // @ts-ignore
+    error?.status ? (
+        <PageNotFound mssg="Looks like the Subject you're looking for is not found or may be it got deleted." />
     ) : (
         <div className="subject-page-container">
             <Header />
-            <div className="page-content">
+            <div className="page-view">
                 <RemainingVotes userId={userId} />
 
-                <h1 className="title">{subject?.subjectName}</h1>
+                <h1 className="subject-title">{subject?.subjectName}</h1>
                 <Separator />
                 <div className="about-container">
                     <p className="submitter">By : {subject?.submittedBy}</p>
@@ -125,6 +139,7 @@ const SubjectPage = () => {
                             key={candidate.id}
                             position={totalVotes > 0 ? idx + 1 : 0}
                             showColored={candidates.length > 3 && totalVotes > 0}
+                            subjectId={subjectId!}
                         />
                     ))}
                 </div>

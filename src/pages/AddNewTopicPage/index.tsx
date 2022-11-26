@@ -73,94 +73,94 @@ const AddNewTopicPage = () => {
     }, []);
 
     useEffect(() => {
-        if (addNewTopicRes?.code) {
+        if (addNewTopicRes?.sub && addNewTopicRes.candidates.length > 0) {
             navigate(`/dashboard/${addNewTopicRes.subjectId}`);
         }
 
         return () => {
             dispatch(RESET_ADD_NEW_SUBJECT_SLICE());
         };
-    }, [addNewTopicRes?.code]);
+    }, [addNewTopicRes?.subjectId]);
 
     return (
         <div id="add-new-topic-page">
             <Header />
 
-            <PageTitle title="Add New Topic" />
+            <div className="page-view">
+                <PageTitle title="Add New Subject" />
 
-            <Separator />
-
-            <form
-                className="form"
-                onSubmit={handleSubmit((data) => {
-                    dispatch(addNewTopicThunk(data));
-                })}
-            >
-                {/* First Child */}
-                <TextInputField
-                    separateLabel
-                    errors={formState.errors}
-                    formRegister={register('subject')}
-                    inputHelperText="Try to submit small and expressive subject for voting"
-                    inputLabel="Enter a subject for voting"
-                    inputPlaceholder="Favorite Fast Food ?"
-                />
-
-                {/* Second Child */}
-                <TextInputField
-                    separateLabel
-                    errors={formState.errors}
-                    formRegister={register('candidateName', {
-                        required: addNewTopicState.candidates.length > 0,
+                <form
+                    className="form"
+                    onSubmit={handleSubmit((data) => {
+                        dispatch(addNewTopicThunk(data));
                     })}
-                    inputHelperText="Minimum 2 Candidates should be there for voting"
-                    inputLabel="Candidate Name"
-                />
-
-                {/* Third Child */}
-                <Button onClick={() => addCandidateBtnHandler()}>Add Candidate</Button>
-
-                <p className="add-new-subject__info">
-                    If you add more than 3 candidates you will get Metals Ranking System for your
-                    subject
-                </p>
-
-                {addNewTopicState.candidates.length > 0 ? (
-                    <p className="candidates-list">-x- Candidates List -x-</p>
-                ) : null}
-
-                {addNewTopicState.candidates.map((candidate, idx) => (
-                    <NewCandidate
-                        editBtnHandler={editBtnHandler}
-                        idx={idx}
-                        key={candidate.id}
-                        newCandidate={candidate}
+                >
+                    {/* First Child */}
+                    <TextInputField
+                        separateLabel
+                        errors={formState.errors}
+                        formRegister={register('subject')}
+                        inputHelperText="Try to submit small and expressive subject for voting"
+                        inputLabel="Enter a subject for voting"
+                        inputPlaceholder="Favorite Fast Food ?"
                     />
-                ))}
 
-                {/* Fourth Child */}
-                <Button
-                    color="warning"
-                    type="button"
-                    onClick={() => {
-                        resetField('candidateName', { defaultValue: '' });
-                        resetField('subject', { defaultValue: '' });
-                        dispatch(RESET_ADD_NEW_SUBJECT_SLICE());
-                    }}
-                >
-                    Reset
-                </Button>
+                    {/* Second Child */}
+                    <TextInputField
+                        separateLabel
+                        errors={formState.errors}
+                        formRegister={register('candidateName', {
+                            required: addNewTopicState.candidates.length > 0,
+                        })}
+                        inputHelperText="Minimum 2 Candidates should be there for voting"
+                        inputLabel="Candidate Name"
+                    />
 
-                {/* Fifth Child */}
-                <Button
-                    color="success"
-                    disabled={Boolean(!(addNewTopicState.candidates.length > 1))}
-                    loading={addNewTopicState.loading}
-                    type="submit"
-                >
-                    Submit
-                </Button>
-            </form>
+                    {/* Third Child */}
+                    <Button onClick={() => addCandidateBtnHandler()}>Add Candidate</Button>
+
+                    <p className="add-new-subject__info">
+                        If you add more than 3 candidates you will get Metals Ranking System for
+                        your subject
+                    </p>
+
+                    {addNewTopicState.candidates.length > 0 ? (
+                        <p className="candidates-list">-x- Candidates List -x-</p>
+                    ) : null}
+
+                    {addNewTopicState.candidates.map((candidate, idx) => (
+                        <NewCandidate
+                            editBtnHandler={editBtnHandler}
+                            idx={idx}
+                            key={candidate.id}
+                            newCandidate={candidate}
+                        />
+                    ))}
+
+                    {/* Fourth Child */}
+                    <Button
+                        color="warning"
+                        type="button"
+                        onClick={() => {
+                            resetField('candidateName', { defaultValue: '' });
+                            resetField('subject', { defaultValue: '' });
+                            dispatch(RESET_ADD_NEW_SUBJECT_SLICE());
+                        }}
+                    >
+                        Reset
+                    </Button>
+
+                    {/* Fifth Child */}
+                    <Button
+                        color="success"
+                        disabled={Boolean(!(addNewTopicState.candidates.length > 1))}
+                        loading={addNewTopicState.loading}
+                        type="submit"
+                    >
+                        Submit
+                    </Button>
+                </form>
+            </div>
         </div>
     );
 };

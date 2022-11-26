@@ -12,7 +12,10 @@ const getSubjectDetails = async (subjectId: string) => {
     const subjectSnap = await getDoc(subjectRef);
 
     if (!subjectSnap.exists()) {
-        return {};
+        return {
+            status: 404,
+            subjectId,
+        };
     }
     return subjectSnap.data();
 };

@@ -1,0 +1,21 @@
+.reg-form {
+    padding-bottom: 2rem;
+}
+
+.reg-form .votesub-caption-container {
+    width: 60%;
+    margin: 20px auto;
+}
+
+.reg-form form {
+    margin-top: 3rem;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 15px;
+}
+
+@media screen and (min-width: 576px) {
+    .reg-form {
+        padding: 0;
+    }
+}

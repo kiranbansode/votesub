@@ -1,11 +1,6 @@
 #registration-page {
     height: 100vh;
 
-    .separator {
-        margin-top: 10px;
-        margin-bottom: 20px;
-    }
-
     .role-container {
         display: flex;
         flex-direction: column;
@@ -23,14 +18,52 @@
     }
 }
 
-@media screen and (min-width: 600px) {
-    .votesub-logo {
-        aspect-ratio: 4/1;
-        height: 150px;
-    }
+@media screen and (min-width: 576px) {
+    #registration-page {
+        .page-view {
+            display: grid;
+            margin: 0;
+            padding: 0;
+            max-width: none;
+            height: 100vh;
+            grid-template-areas:
+                'logo form'
+                'caption form';
+        }
 
-    .votesub-caption {
-        aspect-ratio: 8/1;
-        height: 50px;
+        // .votesub-logo-container,
+        // .votesub-caption-container,
+        // .registration-page__form {
+        //     border: 1px solid red;
+        // }
+
+        .votesub-logo-container {
+            grid-area: logo;
+            aspect-ratio: 2.91 / 1;
+            justify-self: center;
+            align-self: flex-end;
+            max-width: 450px;
+            margin-left: 100px;
+            margin-right: 20px;
+        }
+
+        .votesub-caption-container {
+            grid-area: caption;
+            aspect-ratio: 7.98 / 1;
+            max-width: 250px;
+            justify-self: center;
+            margin: 0;
+            margin-top: 10px;
+            margin-left: 100px;
+            margin-right: 20px;
+        }
+
+        .registration-page__form {
+            grid-area: form;
+            max-width: 350px;
+            height: fit-content;
+            margin: auto 0;
+            margin-right: 20px;
+        }
     }
 }

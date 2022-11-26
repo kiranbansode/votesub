@@ -6,14 +6,6 @@ import {
     SAVE_EXISTING_USER_AUTH_DETAILS,
 } from 'store/existingUserAuthStateSlice/existingUserAuthStateSlice';
 
-const hideLoginPage = () => {
-    const loginPage = document.querySelector('#login-page')! as HTMLElement;
-
-    document.addEventListener('DOMContentLoaded', () => {
-        loginPage.style.display = 'none';
-    });
-};
-
 const getCurrentLoggedUser = () =>
     onAuthStateChanged(auth, (user: any) => {
         if (user === null) {

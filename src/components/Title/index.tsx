@@ -1,3 +1,4 @@
+import Separator from 'components/Separator';
 import './PageTitle.styles.scss';
 
 interface IPageTitle {
@@ -5,9 +6,10 @@ interface IPageTitle {
 }
 
 const PageTitle = ({ title }: IPageTitle) => (
-    <header>
-        <h2 className="page-title">{title}</h2>
-    </header>
+    <div>
+        <h1 className="page-title">~x {title} x~</h1>
+        <Separator />
+    </div>
 );
 
 PageTitle.defaultProps = {

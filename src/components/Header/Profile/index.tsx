@@ -11,8 +11,10 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 import './Profile.styles.scss';
 import { SIGNOUT_USER_AND_RESET_AUTH_DETAILS } from 'store/loginPage/userLoginSlice';
+
 import useAppDispatch from 'hooks/useAppDispatch';
 import useAppSelector from 'hooks/useAppSelector';
+import { RESET_EXISTING_USER_AUTH_DETAILS } from 'store/existingUserAuthStateSlice/existingUserAuthStateSlice';
 
 const ProfileMenu = () => {
     const [showProfileMenu, setShowProfileMenu] = useState<null | HTMLElement>(null);
@@ -54,7 +56,7 @@ const ProfileMenu = () => {
                 onClose={closeProfileMenuHandler}
             >
                 <MenuItem>
-                    <p>
+                    <p onClick={() => navigate('/profile')}>
                         <span className="profile-menu-icon">
                             <AccountBoxIcon />
                         </span>
@@ -62,7 +64,7 @@ const ProfileMenu = () => {
                     </p>
                 </MenuItem>
                 <MenuItem>
-                    <p>
+                    <p onClick={() => navigate('/settings')}>
                         <span className="profile-menu-icon">
                             <SettingsIcon />
                         </span>
@@ -73,7 +75,10 @@ const ProfileMenu = () => {
                     <p
                         onClick={() => {
                             signOut(auth)
-                                .then(() => dispatch(SIGNOUT_USER_AND_RESET_AUTH_DETAILS()))
+                                .then(() => {
+                                    dispatch(RESET_EXISTING_USER_AUTH_DETAILS());
+                                    dispatch(SIGNOUT_USER_AND_RESET_AUTH_DETAILS());
+                                })
                                 .catch((error) => error);
                         }}
                     >

@@ -5,7 +5,6 @@ import useAppSelector from 'hooks/useAppSelector';
 import Header from 'components/Header';
 
 import VotingHistory from 'components/VotingHistory';
-import Separator from 'components/Separator';
 import useAppDispatch from 'hooks/useAppDispatch';
 import {
     getUserVotingHistoryThunk,
@@ -14,6 +13,7 @@ import {
 import InputFieldWrapper from 'styled/InputFieldWrapper';
 
 import './UserVotingHistory.styles.scss';
+import PageTitle from 'components/Title';
 
 const UserVotingHistory = () => {
     const dispatch = useAppDispatch();
@@ -29,7 +29,7 @@ const UserVotingHistory = () => {
             </InputFieldWrapper>
 
             <div className="dashboard-link">
-                <Link to="/dashboard">Vote Now</Link>
+                <Link to="/dashboard">Go to Dashboard</Link>
             </div>
         </>
     ) : null;
@@ -47,9 +47,7 @@ const UserVotingHistory = () => {
             <Header />
 
             <div className="page-view">
-                <h2>Voting History</h2>
-                <Separator />
-
+                <PageTitle title="Voting History" />
                 {showErrorMssg}
 
                 {history.map((dayHistory: any) => (

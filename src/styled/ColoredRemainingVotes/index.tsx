@@ -13,7 +13,7 @@ const ColoredRemainingVotes = styled.span<{ remainingVotes: number }>`
         if (remainingVotes > 50) return colors[50];
         if (remainingVotes > 25) return colors[25];
         if (remainingVotes > 0) return colors[0];
-        return '#bdbdbd';
+        return '#e0e0e0';
     }};
 `;
 

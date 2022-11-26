@@ -22,3 +22,15 @@
         }
     }
 }
+
+@media screen and (min-width: 600px) {
+    .votesub-logo {
+        aspect-ratio: 4/1;
+        height: 150px;
+    }
+
+    .votesub-caption {
+        aspect-ratio: 8/1;
+        height: 50px;
+    }
+}

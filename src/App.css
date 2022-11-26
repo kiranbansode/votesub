@@ -6,11 +6,15 @@
     height: 100vh;
 }
 
-.page-title {
-    margin-left: 10px;
-    margin-bottom: 0;
-    font-family: 'Nunito Sans';
-    font-weight: 400;
+.page-view {
+    padding: 30px 20px;
+}
+
+@media screen and (min-width: 600px) {
+    .page-view {
+        max-width: 500px;
+        margin: 0 auto;
+    }
 }
 
 .reg-form {

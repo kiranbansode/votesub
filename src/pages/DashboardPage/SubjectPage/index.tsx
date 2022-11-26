@@ -116,7 +116,7 @@ const SubjectPage = () => {
             <div className="page-view">
                 <RemainingVotes userId={userId} />
 
-                <h1 className="title">{subject?.subjectName}</h1>
+                <h1 className="subject-title">{subject?.subjectName}</h1>
                 <Separator />
                 <div className="about-container">
                     <p className="submitter">By : {subject?.submittedBy}</p>

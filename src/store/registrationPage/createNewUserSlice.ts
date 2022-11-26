@@ -22,7 +22,9 @@ export const createNewUserThunk = createAsyncThunk(
             const res = await createNewUserCLF(newUserData);
 
             // @ts-ignore
-            if (res.data.errorInfo.code) return thunkAPI.rejectWithValue(res.data);
+            if (res.data?.errorInfo?.code) {
+                return thunkAPI.rejectWithValue(res.data);
+            }
 
             return res.data;
         } catch (error) {
@@ -34,7 +36,6 @@ export const createNewUserThunk = createAsyncThunk(
 interface IHttpsError {
     code: string | null;
     mssg: string | null;
-    //  status: number | null;
 }
 
 interface ICreateNewUser {
@@ -49,7 +50,6 @@ const initialState: ICreateNewUser = {
     error: {
         code: null,
         mssg: null,
-        // status: null,
     },
 };
 
@@ -57,11 +57,16 @@ const createNewUserSlice = createSlice({
     name: 'createNewUser',
     initialState,
     reducers: {
-        resetCreateNewUserSlice: () => initialState,
+        RESET_REGISTRATION_SLICE: (state) => {
+            state.loading = initialState.loading;
+            state.data = initialState.data;
+            state.error = initialState.error;
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(createNewUserThunk.pending, (state) => {
             state.loading = true;
+            state.data = initialState.data;
             state.error = initialState.error;
         });
 
@@ -73,12 +78,12 @@ const createNewUserSlice = createSlice({
 
         builder.addCase(createNewUserThunk.rejected, (state, action: PayloadAction<any>) => {
             state.loading = false;
+            state.data = initialState.data;
             state.error.code = action.payload.errorInfo.code;
             state.error.mssg = action.payload.errorInfo.message;
-            //  state.error.status = action.payload.httpErrorCode.status;
         });
     },
 });
 
-export const { resetCreateNewUserSlice } = createNewUserSlice.actions;
+export const { RESET_REGISTRATION_SLICE } = createNewUserSlice.actions;
 export default createNewUserSlice.reducer;

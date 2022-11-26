@@ -11,7 +11,6 @@ import './RegistrationPage.styles.scss';
 
 const Button = lazy(() => import('components/Button'));
 const RadioInputField = lazy(() => import('components/RadioInputField'));
-const Separator = lazy(() => import('components/Separator'));
 const Logo = lazy(() => import('components/Logo'));
 const Caption = lazy(() => import('components/Caption'));
 
@@ -73,6 +72,7 @@ const RegistrationPage = () => {
                 <Caption />
 
                 <form
+                    className="registration-page__form"
                     onSubmit={handleSubmit((data) => {
                         dispatch(SAVE_USER_ROLE(data));
                         setNavigateUserToForm(true);

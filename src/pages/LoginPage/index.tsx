@@ -90,7 +90,7 @@ const LoginPage = () => {
     ) : null;
 
     return (
-        <div className="login-page" id="login-page">
+        <div className="login-page reg-form" id="login-page">
             <div className="page-view">
                 <Logo goHere="/" />
 

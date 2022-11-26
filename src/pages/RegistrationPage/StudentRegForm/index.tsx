@@ -111,6 +111,7 @@ const StudentRegForm = () => {
                 <Caption />
 
                 <form
+                    className="student-reg__form"
                     onSubmit={handleSubmit((formData) => {
                         dispatch(createNewUserThunk(formData));
                     })}

@@ -6,6 +6,7 @@ import useAppSelector from 'hooks/useAppSelector';
 import getCurrentLoggedUser from 'utils/helperFunctions/getCurrentLoggedUser';
 
 import './App.css';
+import './regForm.css';
 
 // Main Page Routes
 const LoginPage = lazyWithPreload(() => import(`pages/LoginPage`));

@@ -7,16 +7,6 @@
         margin-left: 10px;
     }
 
-    .votesub-caption-container {
-        width: 60%;
-        margin: 0 auto;
-        margin-top: 1rem;
-
-        img {
-            width: 100%;
-        }
-    }
-
     .login-button {
         margin-top: 10px;
         margin-bottom: 15px;
@@ -50,50 +40,109 @@
     }
 }
 
-@media (min-width: 600px) {
+// @media (min-width: 600px) {
+//     #login-page {
+//         background-color: #e5e5e5;
+//         margin: 0 auto;
+//         padding: 50px 0;
+//         display: grid;
+//         grid-template-areas:
+//             'logo form'
+//             'caption form'
+//             'footer footer';
+
+//         .votesub-logo-container {
+//             padding-bottom: 10px;
+//             grid-area: logo;
+//             align-self: flex-end;
+//             justify-self: end;
+//             justify-content: end;
+//         }
+
+//         .votesub-caption-container {
+//             height: 4rem;
+//             grid-area: caption;
+//             justify-self: end;
+//             justify-content: end;
+//         }
+
+//         .footer {
+//             grid-area: footer;
+//         }
+
+//         // .votesub-caption {
+//         //     width: 75%;
+//         // }
+
+//         form {
+//             width: 350px;
+//             height: fit-content;
+//             margin-left: 100px;
+//             padding: 20px;
+//             background-color: #fff;
+//             border-radius: 30px;
+//             grid-area: form;
+//             justify-self: flex-start;
+//             align-self: center;
+//         }
+//     }
+// }
+
+@media screen and (min-width: 576px) {
     #login-page {
-        background-color: #e5e5e5;
-        margin: 0 auto;
-        padding: 50px 0;
-        display: grid;
-        grid-template-areas:
-            'logo form'
-            'caption form'
-            'footer footer';
+        margin-top: 80px;
+
+        .page-view {
+            display: grid;
+            margin: 0;
+            padding: 0;
+            max-width: none;
+            height: 100vh;
+            grid-template-areas:
+                'logo form'
+                'caption form'
+                'footer footer';
+        }
+
+        // .votesub-logo-container,
+        // .votesub-caption-container,
+        // .registration-page__form {
+        //     border: 1px solid red;
+        // }
 
         .votesub-logo-container {
-            padding-bottom: 10px;
             grid-area: logo;
+            aspect-ratio: 2.91 / 1;
+            justify-self: center;
             align-self: flex-end;
-            justify-self: end;
-            justify-content: end;
+            max-width: 450px;
+            margin-left: 100px;
+            margin-right: 20px;
         }
 
         .votesub-caption-container {
-            height: 4rem;
             grid-area: caption;
-            justify-self: end;
-            justify-content: end;
-        }
-
-        .footer {
-            grid-area: footer;
-        }
-
-        // .votesub-caption {
-        //     width: 75%;
-        // }
-
-        form {
-            width: 350px;
-            height: fit-content;
+            aspect-ratio: 7.98 / 1;
+            max-width: 250px;
+            justify-self: center;
+            margin: 0;
+            margin-top: 10px;
             margin-left: 100px;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 30px;
+            margin-right: 20px;
+        }
+
+        .login-page__form {
             grid-area: form;
-            justify-self: flex-start;
-            align-self: center;
+            max-width: 350px;
+            height: fit-content;
+            margin: auto 0;
+            margin-right: 20px;
+        }
+
+        .login-page__footer {
+            grid-area: footer;
+            padding: 0;
+            padding-bottom: 30px;
         }
     }
 }

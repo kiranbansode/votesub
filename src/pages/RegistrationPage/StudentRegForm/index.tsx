@@ -24,13 +24,17 @@ import useAppDispatch from 'hooks/useAppDispatch';
 import useAppSelector from 'hooks/useAppSelector';
 
 /* ---------------------------------- Redux --------------------------------- */
-import { createNewUserThunk } from 'store/registrationPage/createNewUserSlice';
+import {
+    createNewUserThunk,
+    RESET_REGISTRATION_SLICE,
+} from 'store/registrationPage/createNewUserSlice';
 
 /* ---------------------------------- Utils --------------------------------- */
 import standardOptions from 'utils/menuOptions/standards';
 import divisionOptions from 'utils/menuOptions/divisions';
 import countryCodeOptions from 'utils/menuOptions/countryCodes';
 import { IStudentRegForm } from 'types/regFormData';
+import BackdropMssg from 'components/BackdropMssg';
 
 // eslint-disable-next-line import/extensions
 import StudentRegFormValidations from './yupValidations';
@@ -68,16 +72,38 @@ const StudentRegForm = () => {
     });
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
-    const registrationState = useAppSelector(({ registration }) => registration);
+    const registrationSlice = useAppSelector(({ registration }) => registration);
     const userRole = useAppSelector((state) => state.userRole.role);
+
+    const showErrorMssg = registrationSlice.error.code ? (
+        <ErrorView errorTitle={registrationSlice.error.code} mssg={registrationSlice.error.mssg!} />
+    ) : null;
+
+    const showLoginSuccessMssg = registrationSlice.data?.uid ? (
+        <BackdropMssg
+            header="Registration Successful."
+            mssg="Redirecting to Login page"
+            open={!!registrationSlice.data?.uid}
+        />
+    ) : null;
 
     useEffect(() => {
         if (!userRole) {
             navigate('/register');
         }
-    });
+    }, []);
 
-    const View = (
+    useEffect(() => {
+        if (registrationSlice.data?.uid) {
+            setTimeout(() => navigate('/'), 2000);
+        }
+
+        return () => {
+            setTimeout(() => dispatch(RESET_REGISTRATION_SLICE()), 2000);
+        };
+    }, [registrationSlice.data?.uid]);
+
+    return (
         <div className="reg-form" id="student-reg-form">
             <Logo goHere="/" />
 
@@ -205,21 +231,16 @@ const StudentRegForm = () => {
                     inputLabel="Confirm Password"
                 />
 
-                {registrationState.error.code ? (
-                    <ErrorView
-                        errorTitle={registrationState.error.code}
-                        mssg={registrationState.error.mssg!}
-                    />
-                ) : null}
+                {showErrorMssg}
 
-                <Button loading={registrationState.loading} type="submit">
+                <Button loading={registrationSlice.loading} type="submit">
                     Submit
                 </Button>
+
+                {showLoginSuccessMssg}
             </form>
         </div>
     );
-
-    return View;
 };
 
 export default StudentRegForm;

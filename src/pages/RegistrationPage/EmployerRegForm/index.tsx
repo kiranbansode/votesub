@@ -11,7 +11,15 @@ import Caption from 'components/Caption';
 import { IEmployerRegForm } from 'types/regFormData';
 import countryCodeOptions from 'utils/menuOptions/countryCodes';
 import useAppDispatch from 'hooks/useAppDispatch';
-import { createNewUserThunk } from 'store/registrationPage/createNewUserSlice';
+import {
+    createNewUserThunk,
+    RESET_REGISTRATION_SLICE,
+} from 'store/registrationPage/createNewUserSlice';
+import { useNavigate } from 'react-router-dom';
+import useAppSelector from 'hooks/useAppSelector';
+import ErrorView from 'components/Error';
+import BackdropMssg from 'components/BackdropMssg';
+import { useEffect } from 'react';
 
 // eslint-disable-next-line import/extensions
 import EmployerRegFormValidations from './yupValidations';
@@ -46,6 +54,37 @@ const EmployerRegForm = () => {
         resolver: yupResolver(EmployerRegFormValidations),
     });
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+    const registrationSlice = useAppSelector(({ registration }) => registration);
+    const userRole = useAppSelector((state) => state.userRole.role);
+
+    const showErrorMssg = registrationSlice.error.code ? (
+        <ErrorView errorTitle={registrationSlice.error.code} mssg={registrationSlice.error.mssg!} />
+    ) : null;
+
+    const showLoginSuccessMssg = registrationSlice.data?.uid ? (
+        <BackdropMssg
+            header="Registration Successful."
+            mssg="Redirecting to Login page"
+            open={!!registrationSlice.data?.uid}
+        />
+    ) : null;
+
+    useEffect(() => {
+        if (!userRole) {
+            navigate('/register');
+        }
+    }, []);
+
+    useEffect(() => {
+        if (registrationSlice.data?.uid) {
+            setTimeout(() => navigate('/'), 2000);
+        }
+
+        return () => {
+            setTimeout(() => dispatch(RESET_REGISTRATION_SLICE()), 2000);
+        };
+    }, [registrationSlice.data?.uid]);
 
     return (
         <div className="reg-form" id="employer-reg-form">
@@ -162,7 +201,13 @@ const EmployerRegForm = () => {
                     inputLabel="Confirm Password"
                 />
 
-                <Button type="submit">Submit</Button>
+                {showErrorMssg}
+
+                <Button loading={registrationSlice.loading} type="submit">
+                    Submit
+                </Button>
+
+                {showLoginSuccessMssg}
             </form>
         </div>
     );

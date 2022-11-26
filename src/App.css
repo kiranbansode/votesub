@@ -17,7 +17,7 @@
     }
 }
 
-.reg-form {
+/* .reg-form {
     background-color: #e5e5e5;
     padding-bottom: 75px;
 }
@@ -39,11 +39,10 @@
 .reg-form form {
     background-color: #fff;
     padding: 10px;
-    margin: 0 20px;
     border-radius: 15px;
-}
+} */
 
-@media (min-width: 600px) {
+/* @media (min-width: 600px) {
     .reg-form {
         background-color: #e5e5e5;
         padding-bottom: 0;
@@ -89,7 +88,7 @@
         justify-self: flex-start;
         align-self: center;
     }
-}
+} */
 
 .MuiList-root {
     max-height: 350px;

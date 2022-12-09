@@ -1,7 +1,7 @@
 /**
  * `convertUnixEpochToDate` will convert unix epoch to normal date
  *
- * @param {number} unixEpoch unix epoch in number format
+ * @param {number} unixEpoch unix epoch in number format. `Seconds` only
  */
 
 const convertUnixEpochToDate = (unixEpoch: number) => {
@@ -46,6 +46,14 @@ const convertUnixEpochToDate = (unixEpoch: number) => {
      * e.g. 1
      */
     const month = dateObj.getMonth() + 1;
+    /**
+     * Calendar Month as per year in number format with leading zero
+     * e.g. 01
+     */
+    const monthWithZero =
+        `${dateObj.getMonth() + 1}`.length === 2
+            ? dateObj.getMonth() + 1
+            : `0${dateObj.getMonth() + 1}`;
 
     /**
      * Calendar Month as per year in full format
@@ -80,6 +88,11 @@ const convertUnixEpochToDate = (unixEpoch: number) => {
          * e.g. 1
          */
         month,
+        /**
+         * Calendar Month as per year in number format with leading zero
+         * e.g. 01
+         */
+        monthWithZero,
         /**
          * Calendar Month as per year in full format
          * e.g. January

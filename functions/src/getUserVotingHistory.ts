@@ -75,6 +75,7 @@ exports.getUserVotingHistory = cloudFn.https.onCall(async (_, context) => {
                         ][] = Object.entries(dayHistory?.history!);
 
                         const createdOn: number = dayHistory?.createdOn;
+                        const localeDate = dayHistory?.localeDate;
                         let lastUpdatedOn: number;
 
                         return Promise.all(
@@ -112,6 +113,7 @@ exports.getUserVotingHistory = cloudFn.https.onCall(async (_, context) => {
                                     return {
                                         id: subjectData?.id,
                                         createdOn,
+                                        localeDate,
                                         lastUpdatedOn,
                                         subjectName: subjectData?.subjectName,
                                         candidates: candidatesData

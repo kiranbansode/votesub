@@ -2,8 +2,16 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable arrow-body-style */
 import { useNavigate } from 'react-router-dom';
-import convertUnixEpochToDate from 'utils/helperFunctions/convertUnixEpochToDate';
 import './SingleSubjectVotingHistory.styles.scss';
+
+interface ILocaleDate {
+    date: number;
+    shortMonth: string;
+    month: number;
+    year: number;
+    monthWithZero: number | string;
+    fullMonth: string;
+}
 
 interface ICandidateVotingHistory {
     id: string;
@@ -15,6 +23,7 @@ interface ISingleSubjectVotingHistory {
     subjectId: string;
     subjectName: string;
     createdOn: number;
+    localeDate: ILocaleDate;
     candidates: ICandidateVotingHistory[];
 }
 
@@ -22,17 +31,18 @@ const SingleSubjectVotingHistory = ({
     subjectId,
     subjectName,
     createdOn,
+    localeDate,
     candidates,
 }: ISingleSubjectVotingHistory) => {
     const navigate = useNavigate();
-    const { day, shortMonth } = convertUnixEpochToDate(Number(createdOn));
+    const { date, shortMonth, year } = localeDate;
 
     return (
         <div className="single-subject-voting-history-container">
             <div className="subject-info__container">
                 <p className="subject-info">
                     On &nbsp;
-                    <span className="subject-info__date">{`${day} ${shortMonth} - UTC`}</span>
+                    <span className="subject-info__date">{`${date} ${shortMonth} ${year}`}</span>
                     &nbsp; you voted on &nbsp;
                     <span
                         className="subject-info__name"

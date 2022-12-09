@@ -2,15 +2,19 @@
 import cloudFn from './index';
 
 exports.saveToHistory = cloudFn.https.onCall(async (data, context) => {
-    const { subjectId, candidateId } = data;
-    const userId = context.auth?.uid!;
     const { firestore } = await import('firebase-admin');
+
+    const userId = context.auth?.uid!;
+    const { subjectId, candidateId, localeDate } = data;
+    const { date, monthWithZero, year } = localeDate;
+    const historyPath = `${date}${monthWithZero}${year}`;
     const daysSinceUnixEpoch = Math.floor(firestore.Timestamp.now().seconds / 86400);
+
     const historyRef = firestore()
         .collection('users')
         .doc(userId)
         .collection('votingHistory')
-        .doc(`${daysSinceUnixEpoch}`);
+        .doc(historyPath);
     const historyDoc = await historyRef.get();
 
     try {
@@ -18,7 +22,9 @@ exports.saveToHistory = cloudFn.https.onCall(async (data, context) => {
         if (!historyDoc.exists) {
             res = await historyRef.set({
                 createdOn: firestore.Timestamp.now().seconds,
+                historyPath,
                 id: daysSinceUnixEpoch,
+                localeDate,
                 history: {
                     [subjectId]: {
                         [candidateId]: firestore.FieldValue.increment(1),

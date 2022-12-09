@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import CloseIcon from '@mui/icons-material/Close';
-import { voteNowCLF, firestore, reduceVotesCLF, saveToHistoryCLF } from 'config/firebase';
+import { voteNowCLF, firestore, saveToHistoryCLF } from 'config/firebase';
 import { doc, onSnapshot } from 'firebase/firestore';
 import CandidatePosition from 'styled/CandidatePosition';
 import useAppSelector from 'hooks/useAppSelector';
 import './VotingCandidate.styles.scss';
+import getLocaleDate from 'utils/helperFunctions/getLocaleDate';
 
 interface ICandidate {
     id: string;
@@ -35,7 +36,6 @@ const VotingCandidate = ({
     const candidateId = id;
     const [votes, setVotes] = useState(null);
     const [remainingVotes, setRemainingVotes] = useState<number>();
-
     const userId = useAppSelector(({ user }) => user.userDetails.uid);
 
     useEffect(() => {
@@ -93,8 +93,11 @@ const VotingCandidate = ({
                             }
 
                             voteNowCLF(id);
-                            reduceVotesCLF(userId);
-                            saveToHistoryCLF({ subjectId, candidateId });
+                            saveToHistoryCLF({
+                                subjectId,
+                                candidateId,
+                                localeDate: getLocaleDate(),
+                            });
                         }}
                     />
                 )}

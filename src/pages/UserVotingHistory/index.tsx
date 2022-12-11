@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Alert, AlertTitle } from '@mui/material';
 import useAppSelector from 'hooks/useAppSelector';
 import Header from 'components/Header';
+import LoadingScreen from 'components/LoadingScreen';
 
 import VotingHistory from 'components/VotingHistory';
 import useAppDispatch from 'hooks/useAppDispatch';
@@ -12,12 +13,13 @@ import {
 } from 'store/votingHistory/userVotingHistorySlice';
 import InputFieldWrapper from 'styled/InputFieldWrapper';
 
-import './UserVotingHistory.styles.scss';
 import PageTitle from 'components/Title';
+
+import './UserVotingHistory.styles.scss';
 
 const UserVotingHistory = () => {
     const dispatch = useAppDispatch();
-    const { history, error } = useAppSelector(({ votingHistory }) => votingHistory);
+    const { history, error, loading } = useAppSelector(({ votingHistory }) => votingHistory);
 
     const showErrorMssg = error.code ? (
         <>
@@ -46,14 +48,18 @@ const UserVotingHistory = () => {
         <div className="user-voting-history-page">
             <Header />
 
-            <div className="page-view">
-                <PageTitle title="Voting History" />
-                {showErrorMssg}
+            {loading ? (
+                <LoadingScreen fullScreen />
+            ) : (
+                <div className="page-view">
+                    <PageTitle title="Voting History" />
+                    {showErrorMssg}
 
-                {history.map((dayHistory: any) => (
-                    <VotingHistory dayHistory={dayHistory} key={dayHistory[0]?.createdOn} />
-                ))}
-            </div>
+                    {history.map((dayHistory: any) => (
+                        <VotingHistory dayHistory={dayHistory} key={dayHistory[0]?.createdOn} />
+                    ))}
+                </div>
+            )}
         </div>
     );
 };

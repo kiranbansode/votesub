@@ -80,3 +80,12 @@
         align-items: center;
     }
 }
+
+@media only screen and (min-width: 600px) {
+    #sidebar {
+        ul {
+            width: fit-content;
+            min-width: 250px;
+        }
+    }
+}

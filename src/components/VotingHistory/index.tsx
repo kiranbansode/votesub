@@ -7,6 +7,15 @@ import SingleSubjectVotingHistory from 'components/VotingHistory/SingleSubjectVo
 
 import './VotingHistory.styles.scss';
 
+interface ILocaleDate {
+    date: number;
+    shortMonth: string;
+    month: number;
+    year: number;
+    monthWithZero: number | string;
+    fullMonth: string;
+}
+
 interface ICandidateVotingHistory {
     id: string;
     candidateName: string;
@@ -16,6 +25,7 @@ interface ICandidateVotingHistory {
 interface IDayHistory {
     subjectName: string;
     createdOn: number;
+    localeDate: ILocaleDate;
     candidates: ICandidateVotingHistory[];
     id: string;
 }
@@ -25,11 +35,11 @@ interface IVotingHistory {
 }
 
 const VotingHistory = ({ dayHistory }: IVotingHistory) => {
-    const { day, year, shortMonth } = convertUnixEpochToDate(dayHistory[0]?.createdOn);
+    const { date, year, shortMonth } = dayHistory[0].localeDate;
 
-    return day ? (
+    return date ? (
         <div className="voting-history-container">
-            <div className="date">{`${day} ${shortMonth} ${year} - UTC`}</div>
+            <div className="date">{`${date} ${shortMonth} ${year}`}</div>
             <div className="timeline-road__container">
                 <div className="timeline-road__1" />
                 <div className="timeline-road__2" />
@@ -40,6 +50,7 @@ const VotingHistory = ({ dayHistory }: IVotingHistory) => {
                     candidates={subject.candidates}
                     createdOn={subject.createdOn}
                     key={subject.id}
+                    localeDate={subject.localeDate}
                     subjectId={subject.id}
                     subjectName={subject.subjectName}
                 />

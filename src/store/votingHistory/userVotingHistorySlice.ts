@@ -54,6 +54,8 @@ const userVotingHistorySlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(getUserVotingHistoryThunk.pending, (state) => {
             state.loading = true;
+            state.history = initialState.history;
+            state.error = initialState.error;
         });
         builder.addCase(
             getUserVotingHistoryThunk.fulfilled,

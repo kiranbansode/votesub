@@ -9,10 +9,7 @@
     min-height: 80px;
     padding: 0 20px;
     box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
-
-    &:hover {
-        border: 1px solid #37474f;
-    }
+    cursor: pointer;
 
     .sect-1,
     .sect-2,
@@ -51,14 +48,6 @@
     }
 }
 
-.loading-screen-container {
-    // NOTE
-    /*  
-        I know, it is not good a practice to use !important. 
-        Always use CSS specificity rules. But they way I implement
-        my LoadingScreen component's logic, I think this is the best
-        way for now. 
-    */
-    height: 80px !important;
-    margin-bottom: 20px;
+.voting-subject__loading {
+    min-height: 80px;
 }

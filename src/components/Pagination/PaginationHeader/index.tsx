@@ -16,7 +16,7 @@ const PaginationHeader = ({ unsortedData }: IPaginationHeader) => {
     const dispatch = useAppDispatch();
 
     return (
-        <div className="pagination-header">
+        <div className="pagination-header__container">
             <div className="func-wrapper">
                 <span>Subjects: </span>
                 <span>

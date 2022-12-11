@@ -1,7 +1,8 @@
-.pagination-header {
+.pagination-header__container {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    margin-bottom: 20px;
 
     div {
         background-color: #fff;
@@ -19,7 +20,6 @@
 
     & > div:first-child {
         margin-right: auto;
-        margin-bottom: 20px;
         width: fit-content;
 
         .MuiSelect-select {

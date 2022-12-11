@@ -50,15 +50,3 @@
         min-width: 50px;
     }
 }
-
-.loading-screen-container {
-    // NOTE
-    /*  
-        I know, it is not good a practice to use !important. 
-        Always use CSS specificity rules. But they way I implement
-        my LoadingScreen component's logic, I think this is the best
-        way for now. 
-    */
-    height: 80px !important;
-    margin-bottom: 20px;
-}

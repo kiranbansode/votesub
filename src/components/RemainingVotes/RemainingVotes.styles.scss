@@ -3,7 +3,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 15px;
+        margin-bottom: 20px;
     }
 
     .remaining-votes__title {
@@ -32,4 +32,8 @@
             opacity: 0;
         }
     }
+}
+
+.remaining-votes__loading {
+    height: 72px !important;
 }

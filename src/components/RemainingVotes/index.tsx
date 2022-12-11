@@ -53,7 +53,7 @@ const RemainingVotes = ({ userId }: IRemainingVotes) => {
             <Separator />
         </div>
     ) : (
-        <LoadingScreen />
+        <LoadingScreen className="remaining-votes__loading" size={25} />
     );
 };
 

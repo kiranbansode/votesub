@@ -16,7 +16,6 @@ const createNewUser = require('./createNewUser');
 const getSubjectsList = require('./getSubjectsList');
 const getTotalVotes = require('./getTotalVotes');
 const voteNow = require('./voteNow');
-const reduceVotes = require('./reduceVotes');
 const saveToHistory = require('./saveToHistory');
 const getUserVotingHistory = require('./getUserVotingHistory');
 
@@ -27,6 +26,5 @@ exports.createNewUser = createNewUser.createNewUser;
 exports.getSubjectsList = getSubjectsList.getSubjectsList;
 exports.getTotalVotes = getTotalVotes.getTotalVotes;
 exports.voteNow = voteNow.voteNow;
-exports.reduceVotes = reduceVotes.reduceVotes;
 exports.saveToHistory = saveToHistory.saveToHistory;
 exports.getUserVotingHistory = getUserVotingHistory.getUserVotingHistory;

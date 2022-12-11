@@ -50,7 +50,7 @@ const VotingSubject = ({ subject }: IVotingSubject) => {
             </div>
         </div>
     ) : (
-        <LoadingScreen color="success" size={25} />
+        <LoadingScreen className="voting-subject__loading" color="success" size={25} />
     );
 };
 

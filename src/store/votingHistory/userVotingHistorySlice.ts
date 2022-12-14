@@ -1,18 +1,13 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
-import { getUserVotingHistoryCLF } from 'config/firebase';
+import getUserVotingHistory from 'utils/helperFunctions/getUserVotingHistory';
 
 export const getUserVotingHistoryThunk = createAsyncThunk(
     'user-voting-history',
     async (_, thunkAPI) => {
         try {
-            const res = await getUserVotingHistoryCLF();
+            const res = await getUserVotingHistory();
 
-            // @ts-ignore
-            if (res.data?.code) {
-                return thunkAPI.rejectWithValue(res.data);
-            }
-
-            return thunkAPI.fulfillWithValue(res.data);
+            return thunkAPI.fulfillWithValue(res);
         } catch (error) {
             return thunkAPI.rejectWithValue(error);
         }

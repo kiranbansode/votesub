@@ -25,6 +25,14 @@ export const store = configureStore({
         votingHistory: userVotingHistorySlice,
         existingLoggedUserAuth: existingUserAuthStateSlice,
     },
+
+    // @ts-ignore
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({
+            serializableCheck: {
+                ignoredActions: ['user-voting-history/rejected'],
+            },
+        }),
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

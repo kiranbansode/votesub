@@ -11,6 +11,10 @@ const getUserVotingHistory = async () => {
 
     historyDataSnap.forEach((day) => rawHistoryData.push(day.data()));
 
+    if (historyDataSnap.empty) {
+        throw new Error("User's voting history not found");
+    }
+
     return Promise.all(
         rawHistoryData
             .map(async (dayHistory) => {

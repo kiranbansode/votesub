@@ -6,7 +6,6 @@ export const getUserVotingHistoryThunk = createAsyncThunk(
     async (_, thunkAPI) => {
         try {
             const res = await getUserVotingHistory();
-
             return thunkAPI.fulfillWithValue(res);
         } catch (error) {
             return thunkAPI.rejectWithValue(error);
@@ -15,9 +14,9 @@ export const getUserVotingHistoryThunk = createAsyncThunk(
 );
 
 interface IHttpsError {
-    code: string | null;
-    mssg: string | null;
-    status: number | null;
+    code?: string | null;
+    message: string | null;
+    status?: number | null;
 }
 
 interface IUserVotingHistorySlice {
@@ -30,7 +29,7 @@ const initialState: IUserVotingHistorySlice = {
     history: [],
     error: {
         code: null,
-        mssg: null,
+        message: null,
         status: null,
     },
     loading: false,
@@ -61,10 +60,9 @@ const userVotingHistorySlice = createSlice({
             },
         );
         builder.addCase(getUserVotingHistoryThunk.rejected, (state, action: PayloadAction<any>) => {
+            const { message } = action.payload;
             state.loading = false;
-            state.error.code = action.payload.code;
-            state.error.mssg = action.payload.details;
-            state.error.status = action.payload.httpErrorCode.status;
+            state.error.message = message;
         });
     },
 });

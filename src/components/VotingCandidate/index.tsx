@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import CloseIcon from '@mui/icons-material/Close';
-import { voteNowCLF, firestore, saveToHistoryCLF } from 'config/firebase';
+import { firestore, saveToHistoryCLF } from 'config/firebase';
 import { doc, onSnapshot } from 'firebase/firestore';
 import CandidatePosition from 'styled/CandidatePosition';
 import useAppSelector from 'hooks/useAppSelector';
 import './VotingCandidate.styles.scss';
 import getLocaleDate from 'utils/helperFunctions/getLocaleDate';
+import voteNow from 'utils/helperFunctions/voteNow';
 
 interface ICandidate {
     id: string;
@@ -35,7 +36,7 @@ const VotingCandidate = ({
 }: ICandidate) => {
     const candidateId = id;
     const [votes, setVotes] = useState(null);
-    const [remainingVotes, setRemainingVotes] = useState<number>();
+    const [remainingVotes, setRemainingVotes] = useState<number>(0);
     const userId = useAppSelector(({ user }) => user.userDetails.uid);
 
     useEffect(() => {
@@ -82,7 +83,7 @@ const VotingCandidate = ({
                 </span>
             </p>
             <p className="vote-now">
-                {remainingVotes === 0 ? (
+                {remainingVotes < 0 || remainingVotes === 0 ? (
                     <CloseIcon className="close-icon" />
                 ) : (
                     <ArrowUpwardIcon
@@ -92,7 +93,8 @@ const VotingCandidate = ({
                                 return;
                             }
 
-                            voteNowCLF(id);
+                            // voteNowCLF(id);
+                            voteNow(id);
                             saveToHistoryCLF({
                                 subjectId,
                                 candidateId,
@@ -103,7 +105,7 @@ const VotingCandidate = ({
                 )}
 
                 <span className="vote-text">
-                    {remainingVotes === 0 ? 'No Votes Left' : 'Vote Now'}
+                    {remainingVotes < 0 || remainingVotes === 0 ? 'No Votes Left' : 'Vote Now'}
                 </span>
             </p>
         </div>

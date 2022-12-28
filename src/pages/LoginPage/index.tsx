@@ -143,7 +143,8 @@ const LoginPage = () => {
                 <div className="login-page__footer">
                     <p className="message"> Made with ❤️ By </p>
                     <p className="name">Kiran A. Bansode</p>
-                    <p className="version">-x- [22.11.27-2] -x-</p>
+                    <p className="version">-x- [22.12.28-1] -x-</p>
+
                 </div>
             </div>
         </div>

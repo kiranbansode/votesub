@@ -35,7 +35,7 @@ const getUserVotingHistory = async () => {
                                 rawCandidates.map(async ([candidateId, givenVotes]) => {
                                     if (candidateId === 'lastUpdatedOn') {
                                         /**
-                                         * Here `candidateId[key]` is going to be `lastUpdatedOn`, not and actual candidateId.
+                                         * Here `candidateId[key]` is going to be `lastUpdatedOn`, not an actual candidateId.
                                          * `givenVotes` will be `firestore timestamp` at which a particular subject's voting
                                          * history is changed.
                                          */
@@ -43,6 +43,7 @@ const getUserVotingHistory = async () => {
                                         return null;
                                     }
 
+                                    // @ts-ignore
                                     const candidateData = await getSingleCandidateDetails(
                                         candidateId,
                                     );
@@ -79,7 +80,7 @@ const getUserVotingHistory = async () => {
                              * Sort subjects bases on when user last voted on. Last one will be on top
                              */
                             // @ts-ignore
-                            prevSub.lastUpdatedOn > currSub.lastUpdateOn ? 1 : -1,
+                            prevSub.lastUpdatedOn > currSub.lastUpdateOn ? -1 : 1,
                         ),
                 );
             })

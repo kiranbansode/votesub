@@ -36,7 +36,7 @@ const DashboardPage = () => {
         <div id="dashboard-page">
             <Header />
             <div className="page-view">
-                {userId && <RemainingVotes userId={userId} />}
+                {userId && <RemainingVotes />}
 
                 <p className="voting-topic"> -x- Most Favorite Subjects -x-</p>
 

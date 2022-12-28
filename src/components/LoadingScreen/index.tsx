@@ -31,7 +31,7 @@ const LoadingScreen = ({ color, size, fullScreen, className }: ILoadingScreen) =
 
 LoadingScreen.defaultProps = {
     color: 'primary',
-    size: 40,
+    size: 25,
     fullScreen: false,
     className: '',
 };

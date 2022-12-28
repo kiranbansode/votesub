@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react';
+import { saveToHistoryCLF } from 'config/firebase';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import CloseIcon from '@mui/icons-material/Close';
-import { firestore, saveToHistoryCLF } from 'config/firebase';
-import { doc, onSnapshot } from 'firebase/firestore';
 import CandidatePosition from 'styled/CandidatePosition';
-import useAppSelector from 'hooks/useAppSelector';
-import './VotingCandidate.styles.scss';
 import getLocaleDate from 'utils/helperFunctions/getLocaleDate';
 import voteNow from 'utils/helperFunctions/voteNow';
+import useCandidateVotes from 'hooks/useCandidateVotes';
+import useUserRemainingVotes from 'hooks/useUserRemainingVotes';
+
+import './VotingCandidate.styles.scss';
 
 interface ICandidate {
     id: string;
@@ -35,38 +35,8 @@ const VotingCandidate = ({
     subjectId,
 }: ICandidate) => {
     const candidateId = id;
-    const [votes, setVotes] = useState(null);
-    const [remainingVotes, setRemainingVotes] = useState<number>(0);
-    const userId = useAppSelector(({ user }) => user.userDetails.uid);
-
-    useEffect(() => {
-        const unsubscribeCandidate = userId
-            ? onSnapshot(
-                  doc(firestore, 'candidates', id),
-                  (candidate) => {
-                      const data = candidate.data();
-                      setVotes(() => data?.votes);
-                  },
-                  () => {},
-              )
-            : () => {};
-
-        const unsubscribeUser = userId
-            ? onSnapshot(
-                  doc(firestore, 'users', userId),
-                  (user) => {
-                      const userData = user.data();
-                      setRemainingVotes(() => userData?.remainingVotes);
-                  },
-                  () => {},
-              )
-            : () => {};
-
-        return () => {
-            unsubscribeCandidate();
-            unsubscribeUser();
-        };
-    }, []);
+    const [votes] = useCandidateVotes(id);
+    const [remainingVotes] = useUserRemainingVotes();
 
     return (
         <div className="voting-candidate">

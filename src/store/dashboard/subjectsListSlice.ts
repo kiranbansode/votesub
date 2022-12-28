@@ -1,13 +1,13 @@
-import { getSubjectsListCLF } from 'config/firebase';
+import getSubjectsFromFirestore from 'utils/helperFunctions/getSubjectsFromFirestore';
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 
 export const getSubjectsListFromFirestore = createAsyncThunk(
     'subjectsList',
     async (data, thunkAPI) => {
         try {
-            const subjectsList = await getSubjectsListCLF();
+            const subjectsList = await getSubjectsFromFirestore();
 
-            return subjectsList.data;
+            return subjectsList;
         } catch (error) {
             return thunkAPI.rejectWithValue(error);
         }

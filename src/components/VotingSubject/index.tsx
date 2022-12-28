@@ -1,11 +1,11 @@
 import convertUnixEpochToDate from 'utils/helperFunctions/convertUnixEpochToDate';
-import { getTotalVotesCLF } from 'config/firebase';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LoadingScreen from 'components/LoadingScreen';
 import { ISubjectData } from 'types/subjectDetails';
 
 import './VotingSubject.styles.scss';
+import getTotalVotes from 'utils/helperFunctions/getTotalVotes';
 
 interface IVotingSubject {
     subject: ISubjectData;
@@ -14,15 +14,15 @@ interface IVotingSubject {
 // eslint-disable-next-line arrow-body-style
 const VotingSubject = ({ subject }: IVotingSubject) => {
     const navigate = useNavigate();
-    const [totalVotes, setTotalVotes] = useState(null);
-    const { subjectName, submittedBy, createdOn, candidates, id } = subject;
+    const [totalVotes, setTotalVotes] = useState<number | null>(null);
+    const { subjectName, submittedBy, createdOn, id } = subject;
     const { day, month, year } = convertUnixEpochToDate(createdOn);
 
     useEffect(() => {
-        if (candidates.length) {
-            // @ts-ignore
-            getTotalVotesCLF(candidates).then(({ data }) => setTotalVotes(data));
-        }
+        (async () => {
+            const res = await getTotalVotes(id);
+            setTotalVotes(res);
+        })();
     }, []);
 
     return totalVotes || totalVotes === 0 ? (

@@ -21,12 +21,12 @@ const UserVotingHistory = () => {
     const dispatch = useAppDispatch();
     const { history, error, loading } = useAppSelector(({ votingHistory }) => votingHistory);
 
-    const showErrorMssg = error.code ? (
+    const showErrorMssg = error.message ? (
         <>
             <InputFieldWrapper className="error-container">
                 <Alert severity="error" variant="filled">
-                    <AlertTitle>{error.code.toUpperCase()}</AlertTitle>
-                    {error.mssg}
+                    <AlertTitle>Error</AlertTitle>
+                    {error.message}
                 </Alert>
             </InputFieldWrapper>
 

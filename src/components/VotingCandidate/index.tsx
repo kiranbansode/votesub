@@ -1,12 +1,13 @@
-import { useEffect, useState } from 'react';
+import { saveToHistoryCLF } from 'config/firebase';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import CloseIcon from '@mui/icons-material/Close';
-import { voteNowCLF, firestore, saveToHistoryCLF } from 'config/firebase';
-import { doc, onSnapshot } from 'firebase/firestore';
 import CandidatePosition from 'styled/CandidatePosition';
-import useAppSelector from 'hooks/useAppSelector';
-import './VotingCandidate.styles.scss';
 import getLocaleDate from 'utils/helperFunctions/getLocaleDate';
+import voteNow from 'utils/helperFunctions/voteNow';
+import useCandidateVotes from 'hooks/useCandidateVotes';
+import useUserRemainingVotes from 'hooks/useUserRemainingVotes';
+
+import './VotingCandidate.styles.scss';
 
 interface ICandidate {
     id: string;
@@ -34,38 +35,8 @@ const VotingCandidate = ({
     subjectId,
 }: ICandidate) => {
     const candidateId = id;
-    const [votes, setVotes] = useState(null);
-    const [remainingVotes, setRemainingVotes] = useState<number>();
-    const userId = useAppSelector(({ user }) => user.userDetails.uid);
-
-    useEffect(() => {
-        const unsubscribeCandidate = userId
-            ? onSnapshot(
-                  doc(firestore, 'candidates', id),
-                  (candidate) => {
-                      const data = candidate.data();
-                      setVotes(() => data?.votes);
-                  },
-                  () => {},
-              )
-            : () => {};
-
-        const unsubscribeUser = userId
-            ? onSnapshot(
-                  doc(firestore, 'users', userId),
-                  (user) => {
-                      const userData = user.data();
-                      setRemainingVotes(() => userData?.remainingVotes);
-                  },
-                  () => {},
-              )
-            : () => {};
-
-        return () => {
-            unsubscribeCandidate();
-            unsubscribeUser();
-        };
-    }, []);
+    const [votes] = useCandidateVotes(id);
+    const [remainingVotes] = useUserRemainingVotes();
 
     return (
         <div className="voting-candidate">
@@ -82,7 +53,7 @@ const VotingCandidate = ({
                 </span>
             </p>
             <p className="vote-now">
-                {remainingVotes === 0 ? (
+                {remainingVotes < 0 || remainingVotes === 0 ? (
                     <CloseIcon className="close-icon" />
                 ) : (
                     <ArrowUpwardIcon
@@ -92,7 +63,8 @@ const VotingCandidate = ({
                                 return;
                             }
 
-                            voteNowCLF(id);
+                            // voteNowCLF(id);
+                            voteNow(id);
                             saveToHistoryCLF({
                                 subjectId,
                                 candidateId,
@@ -103,7 +75,7 @@ const VotingCandidate = ({
                 )}
 
                 <span className="vote-text">
-                    {remainingVotes === 0 ? 'No Votes Left' : 'Vote Now'}
+                    {remainingVotes < 0 || remainingVotes === 0 ? 'No Votes Left' : 'Vote Now'}
                 </span>
             </p>
         </div>

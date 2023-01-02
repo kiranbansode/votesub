@@ -1,4 +1,5 @@
 .voting-subject-container {
+    min-width: 310px;
     box-sizing: border-box;
     margin-bottom: 20px;
     display: flex;
@@ -36,10 +37,17 @@
         text-align: center;
     }
 
+    .sect-1 {
+        min-width: 40px;
+    }
+
     .sect-2 {
-        .name {
+        .voting-subject__name {
             text-align: center;
             padding: 0 8px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
     }
 

@@ -1,11 +1,12 @@
-import convertUnixEpochToDate from 'utils/helperFunctions/convertUnixEpochToDate';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LoadingScreen from 'components/LoadingScreen';
 import { ISubjectData } from 'types/subjectDetails';
+import useGetTotalVotes from 'hooks/useGetTotalVotes';
+import useWindowDimensions from 'hooks/useWindowDimensions';
+import convertUnixEpochToDate from 'utils/helperFunctions/convertUnixEpochToDate';
 
 import './VotingSubject.styles.scss';
-import getTotalVotes from 'utils/helperFunctions/getTotalVotes';
 
 interface IVotingSubject {
     subject: ISubjectData;
@@ -14,16 +15,30 @@ interface IVotingSubject {
 // eslint-disable-next-line arrow-body-style
 const VotingSubject = ({ subject }: IVotingSubject) => {
     const navigate = useNavigate();
-    const [totalVotes, setTotalVotes] = useState<number | null>(null);
     const { subjectName, submittedBy, createdOn, id } = subject;
+    const totalVotes = useGetTotalVotes(id);
     const { day, month, year } = convertUnixEpochToDate(createdOn);
+    const { width: windowWidth } = useWindowDimensions();
+
+    const changeSubjectNameWidth = () => {
+        const subjectsLabel = document.querySelectorAll('.voting-subject__name');
+
+        subjectsLabel.forEach((subjectLabel) => {
+            if (windowWidth! >= 600) {
+                // @ts-ignore
+                // eslint-disable-next-line no-param-reassign
+                subjectLabel.style.maxWidth = `350px`;
+                return;
+            }
+            // @ts-ignore
+            // eslint-disable-next-line no-param-reassign
+            subjectLabel.style.maxWidth = `${windowWidth - 195}px`;
+        });
+    };
 
     useEffect(() => {
-        (async () => {
-            const res = await getTotalVotes(id);
-            setTotalVotes(res);
-        })();
-    }, []);
+        changeSubjectNameWidth();
+    }, [windowWidth]);
 
     return totalVotes || totalVotes === 0 ? (
         // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
@@ -35,7 +50,7 @@ const VotingSubject = ({ subject }: IVotingSubject) => {
                 <span>{year}</span>
             </div>
             <div className="sect-2">
-                <span className="name">{subjectName}</span>
+                <span className="voting-subject__name">{subjectName}</span>
                 <span className="submitter">By: {submittedBy}</span>
             </div>
             <div className="sect-3">

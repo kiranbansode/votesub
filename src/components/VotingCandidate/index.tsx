@@ -53,7 +53,7 @@ const VotingCandidate = ({
                 </span>
             </p>
             <p className="vote-now">
-                {remainingVotes < 0 || remainingVotes === 0 ? (
+                {remainingVotes! < 0 || remainingVotes === 0 ? (
                     <CloseIcon className="close-icon" />
                 ) : (
                     <ArrowUpwardIcon
@@ -75,7 +75,7 @@ const VotingCandidate = ({
                 )}
 
                 <span className="vote-text">
-                    {remainingVotes < 0 || remainingVotes === 0 ? 'No Votes Left' : 'Vote Now'}
+                    {remainingVotes! < 0 || remainingVotes === 0 ? 'No Votes Left' : 'Vote Now'}
                 </span>
             </p>
         </div>

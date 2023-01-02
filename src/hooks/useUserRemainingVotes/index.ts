@@ -3,7 +3,7 @@ import { firestore, auth } from 'config/firebase';
 import { useEffect, useState } from 'react';
 
 const useUserRemainingVotes = () => {
-    const [remainingVotes, setRemainingVotes] = useState(0);
+    const [remainingVotes, setRemainingVotes] = useState<number | null>(null);
     const userId = auth.currentUser?.uid;
 
     useEffect(() => {

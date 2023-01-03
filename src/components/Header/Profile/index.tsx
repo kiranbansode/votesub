@@ -36,7 +36,7 @@ const ProfileMenu = () => {
     return (
         <div id="header-profile">
             <Tooltip title="Open Profile Menu">
-                <IconButton sx={{ p: 0 }} onClick={openProfileMenuHandler}>
+                <IconButton disableRipple sx={{ p: 0 }} onClick={openProfileMenuHandler}>
                     <PersonIcon className="header-icons" />
                 </IconButton>
             </Tooltip>

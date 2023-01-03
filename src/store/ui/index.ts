@@ -22,8 +22,16 @@ const uiSlice = createSlice({
     reducers: {
         SHOW_SIDEBAR: (state) => {
             const sidebar = document.querySelector('#sidebar')! as HTMLElement;
-            sidebar.style.display = 'block';
+            const navLinks = document.querySelector('.nav-links')! as HTMLElement;
+
+            navLinks.classList.remove('animate__slideOutLeft');
+            navLinks.classList.add('animate__slideInLeft');
+
+            sidebar.classList.remove('animate__fadeOut');
+            sidebar.classList.add('animate__fadeIn');
+
             state.showSidebar = !state.showSidebar;
+            sidebar.style.display = 'block';
         },
 
         SHOW_LOGIN_PAGE: (state) => {
@@ -36,8 +44,19 @@ const uiSlice = createSlice({
 
         HIDE_SIDEBAR: (state) => {
             const sidebar = document.querySelector('#sidebar')! as HTMLElement;
-            sidebar.style.display = 'none';
+            const navLinks = document.querySelector('.nav-links')! as HTMLElement;
+
+            navLinks.classList.remove('animate__slideInLeft');
+            navLinks.classList.add('animate__slideOutLeft');
+
+            sidebar.classList.add('animate__fadeOut');
+            sidebar.classList.remove('animate__fadeIn');
+
             state.showSidebar = !state.showSidebar;
+
+            setTimeout(() => {
+                sidebar.style.display = 'none';
+            }, 400);
         },
 
         SHOW_REGISTRATION_SUCCESS_POP_UP: (state) => {

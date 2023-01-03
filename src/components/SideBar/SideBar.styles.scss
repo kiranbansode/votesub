@@ -7,6 +7,7 @@
     height: 100vh;
     width: 100%;
     background-color: rgba(0, 0, 0, 0.5);
+    animation-duration: 0.5s;
 
     ul {
         width: 60%;
@@ -20,6 +21,7 @@
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
+        animation-duration: 0.5s;
 
         .close-sidebar-icon {
             display: flex;
@@ -61,23 +63,22 @@
                 border-bottom: solid 2px rgba(0, 0, 0, 0.25);
                 margin-bottom: 15px;
             }
+
+            .nav-link {
+                display: flex;
+                align-items: center;
+            }
         }
     }
 
-    // Reset styles for a tag
-    a,
-    a:hover,
-    a:focus,
-    a:active {
+    .nav-link {
         text-decoration: none;
         color: inherit;
         font-size: 1.2rem;
     }
 
-    a {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
+    .nav-link:hover {
+        cursor: pointer;
     }
 }
 

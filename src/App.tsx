@@ -5,6 +5,8 @@ import { lazyWithPreload } from 'react-lazy-with-preload';
 import useAppSelector from 'hooks/useAppSelector';
 import getCurrentLoggedUser from 'utils/helperFunctions/getCurrentLoggedUser';
 
+import 'animate.css';
+
 import './App.css';
 import './regForm.css';
 

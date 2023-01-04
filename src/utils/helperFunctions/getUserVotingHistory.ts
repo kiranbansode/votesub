@@ -30,7 +30,7 @@ const getUserVotingHistory = async () => {
                         .map(async ([subjectId, candidates]) => {
                             const rawCandidates: [candidateId: string, givenVotes: number][] =
                                 Object.entries(candidates!);
-                            const subjectData = await getSubjectDetails(subjectId);
+                            const subjectData: any = await getSubjectDetails(subjectId);
                             const candidatesData = await Promise.all(
                                 rawCandidates.map(async ([candidateId, givenVotes]) => {
                                     if (candidateId === 'lastUpdatedOn') {
@@ -80,7 +80,7 @@ const getUserVotingHistory = async () => {
                              * Sort subjects bases on when user last voted on. Last one will be on top
                              */
                             // @ts-ignore
-                            prevSub.lastUpdatedOn > currSub.lastUpdateOn ? -1 : 1,
+                            prevSub.lastUpdatedOn > currSub.lastUpdatedOn ? 1 : -1,
                         ),
                 );
             })

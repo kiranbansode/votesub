@@ -1,7 +1,7 @@
 import { firestore, auth } from 'config/firebase';
 import { getDocs, collection } from 'firebase/firestore';
-import getSubjectDetails from 'utils/helperFunctions/getSubjectDetails';
-import getSingleCandidateDetails from 'utils/helperFunctions/getSingleCandidateDetails';
+import getSubjectDetails from 'features/getSubjectDetails';
+import getSingleCandidateDetails from 'features/getSingleCandidateDetails';
 
 const getUserVotingHistory = async () => {
     const userId = auth.currentUser?.uid!;

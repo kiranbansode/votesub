@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
-import getUserVotingHistory from 'utils/helperFunctions/getUserVotingHistory';
+import getUserVotingHistory from 'features/getUserVotingHistory';
 
 export const getUserVotingHistoryThunk = createAsyncThunk(
     'user-voting-history',

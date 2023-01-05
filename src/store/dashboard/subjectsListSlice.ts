@@ -1,5 +1,5 @@
-import getSubjectsFromFirestore from 'utils/helperFunctions/getSubjectsFromFirestore';
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import getSubjectsFromFirestore from 'features/getSubjectsFromFirestore';
 
 export const getSubjectsListFromFirestore = createAsyncThunk(
     'subjectsList',

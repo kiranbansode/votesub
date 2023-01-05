@@ -21,6 +21,7 @@ export default defineConfig(() => ({
             { find: 'styled', replacement: '/src/styled' },
             { find: 'utils', replacement: '/src/utils' },
             { find: 'types', replacement: '/src/types' },
+            { find: 'features', replacement: '/src/features' },
         ],
     },
 }));

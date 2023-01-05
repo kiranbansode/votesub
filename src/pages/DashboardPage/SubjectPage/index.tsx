@@ -8,7 +8,7 @@ import Separator from 'components/Separator';
 import LoadingScreen from 'components/LoadingScreen';
 import RemainingVotes from 'components/RemainingVotes';
 import convertUnixEpochToDate from 'utils/helperFunctions/convertUnixEpochToDate';
-import getSubjectDetails from 'utils/helperFunctions/getSubjectDetails';
+import getSubjectDetails from 'features/getSubjectDetails';
 
 import './SubjectPage.styles.scss';
 

@@ -16,7 +16,7 @@ import {
     SAVE_UNSORTED_SUBJECTS_LIST,
 } from 'store/dashboard/subjectsListSlice';
 import { RESET_CURRENT_PAGE } from 'store/pagination/pageTracker';
-import getSubjectsFromFirestore from 'utils/helperFunctions/getSubjectsFromFirestore';
+import getSubjectsFromFirestore from 'features/getSubjectsFromFirestore';
 
 import './PaginationHeader.styles.scss';
 

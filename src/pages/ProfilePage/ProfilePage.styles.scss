@@ -1,0 +1,133 @@
+.profile-page {
+    padding-bottom: 50px;
+
+    .profile-basic {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .profile-username {
+        font-size: 3rem;
+        text-align: center;
+        margin: 0;
+        margin-bottom: 10px;
+    }
+
+    .profile-email__container {
+        background-color: #fff;
+        box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+        text-align: center;
+        padding: 5px 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 10px auto;
+        border-radius: 15px;
+
+        .profile-email__email-id {
+            color: #1266f1;
+            margin-left: 10px;
+        }
+    }
+
+    .profile-user-role {
+        text-align: center;
+        color: #ff3c3c;
+        background-color: #fff;
+        box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+        text-align: center;
+        border-radius: 15px;
+        padding: 5px 10px;
+        margin: 10px auto;
+        display: inline-block;
+    }
+
+    .profile-details__container {
+        background-color: #fff;
+        box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+        border-radius: 25px;
+        padding: 20px;
+
+        // & div:first-child {
+        //     p {
+        //         margin-top: 0;
+        //     }
+        // }
+
+        & .detail {
+            background-color: #fff;
+            border: 1px solid #212121;
+            padding: 10px;
+            border-radius: 15px;
+
+            &:hover {
+                border-color: #1266f1;
+                color: #1266f1;
+            }
+        }
+    }
+
+    .profile-deep__header {
+        margin: 30px 0;
+        text-align: center;
+    }
+
+    .detail-with-icon {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        &::after {
+            content: '';
+            width: 20px;
+        }
+
+        &:nth-child(2) {
+            font-size: 1rem;
+        }
+    }
+
+    .contact-icon {
+        aspect-ratio: 1;
+        width: 25px;
+    }
+
+    .contact-icon__container {
+        display: grid;
+        place-items: center;
+    }
+
+    .single-detail {
+        display: grid;
+        place-items: center;
+
+        &:hover {
+            border-color: #1266f1;
+            color: #1266f1;
+        }
+    }
+
+    // .small-details {
+    //     display: flex;
+    //     justify-content: space-between;
+    //     align-items: center;
+
+    //     & div {
+    //         flex-grow: 1;
+    //         flex-basis: 50%;
+
+    //         &:first-child {
+    //             margin-right: 10px;
+    //         }
+
+    //         &:last-child {
+    //             margin-left: 10px;
+    //         }
+    //     }
+    // }
+
+    .capitalize {
+        text-transform: capitalize;
+    }
+}

@@ -19,6 +19,7 @@ import countryCodeOptions from 'utils/menuOptions/countryCodes';
 import useAppSelector from 'hooks/useAppSelector';
 import ErrorView from 'components/Error';
 import BackdropMssg from 'components/BackdropMssg';
+import trOptions from 'utils/menuOptions/tr';
 
 // eslint-disable-next-line import/extensions
 import TeacherRegFormValidations from './yupValidations';
@@ -33,6 +34,7 @@ const defaultTeacherRegFormVal: ITeacherRegForm = {
     },
     gender: 'male',
     schoolName: '',
+    role: '',
     countryCode: '',
     mob1: '',
     mob2: '',
@@ -54,7 +56,7 @@ const TeacherRegForm = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const registrationSlice = useAppSelector(({ registration }) => registration);
-    const userRole = useAppSelector((state) => state.userRole.role);
+    const userCategory = useAppSelector((state) => state.userCategory.category);
 
     const showErrorMssg = registrationSlice.error.code ? (
         <ErrorView errorTitle={registrationSlice.error.code} mssg={registrationSlice.error.mssg!} />
@@ -69,7 +71,7 @@ const TeacherRegForm = () => {
     ) : null;
 
     useEffect(() => {
-        if (!userRole) {
+        if (!userCategory) {
             navigate('/register');
         }
     }, []);
@@ -138,6 +140,17 @@ const TeacherRegForm = () => {
                         formRegister={register('schoolName')}
                         inputHelperText="Enter name of school where do you work."
                         inputLabel="School Name"
+                    />
+
+                    <SelectInputField
+                        required
+                        separateLabel
+                        control={control}
+                        fieldName="role"
+                        inputErrors={errors}
+                        inputHelperText="It is required to generate role for Profile"
+                        inputLabel="Your Role in School"
+                        options={trOptions}
                     />
 
                     <SelectInputField

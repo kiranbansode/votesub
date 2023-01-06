@@ -16,10 +16,12 @@ exports.createNewUser = cloudFn.https.onCall(async (newUserData) => {
         confirmPassword,
         ...otherNewUserData
     } = newUserData;
+
     const {
         name: { firstName, lastName },
         mob1,
         countryCode,
+        userCategory,
     } = newUserData;
 
     try {
@@ -31,7 +33,7 @@ exports.createNewUser = cloudFn.https.onCall(async (newUserData) => {
         });
 
         if (res.uid) {
-            await auth().setCustomUserClaims(res.uid, { userRole: newUserData.role });
+            await auth().setCustomUserClaims(res.uid, { userCategory });
             await firestore()
                 .collection('users')
                 .doc(res.uid)

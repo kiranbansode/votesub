@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface IUserRole {
-    role: string;
+    category: string;
 }
 
 const initialState: IUserRole = {
-    role: '',
+    category: '',
 };
 
 const saveUserRoleSlice = createSlice({
@@ -13,11 +13,11 @@ const saveUserRoleSlice = createSlice({
     initialState,
     reducers: {
         SAVE_USER_ROLE: (state, action: PayloadAction<any>) => {
-            state.role = action.payload.role;
+            state.category = action.payload.category;
         },
 
         RESET_USER_ROLE: (state) => {
-            state.role = '';
+            state.category = '';
         },
     },
 });

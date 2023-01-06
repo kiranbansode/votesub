@@ -56,7 +56,7 @@ const EmployerRegForm = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const registrationSlice = useAppSelector(({ registration }) => registration);
-    const userRole = useAppSelector((state) => state.userRole.role);
+    const userCategory = useAppSelector((state) => state.userCategory.category);
 
     const showErrorMssg = registrationSlice.error.code ? (
         <ErrorView errorTitle={registrationSlice.error.code} mssg={registrationSlice.error.mssg!} />
@@ -71,7 +71,7 @@ const EmployerRegForm = () => {
     ) : null;
 
     useEffect(() => {
-        if (!userRole) {
+        if (!userCategory) {
             navigate('/register');
         }
     }, []);
@@ -143,6 +143,7 @@ const EmployerRegForm = () => {
                     />
 
                     <SelectInputField
+                        required
                         separateLabel
                         control={control}
                         fieldName="role"

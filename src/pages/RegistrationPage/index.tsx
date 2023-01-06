@@ -15,17 +15,17 @@ const Logo = lazy(() => import('components/Logo'));
 const Caption = lazy(() => import('components/Caption'));
 
 const registrationFormValidation = yup.object({
-    role: yup
+    category: yup
         .string()
         .strict()
         .trim()
         .required(
-            'Please choose your role so we can navigate you to appropriate Registration Form',
+            'Please choose your category so we can navigate you to appropriate Registration Form',
         ),
 });
 
 const REGISTRATION_FORM_DEFAULT_VALUE = {
-    role: '',
+    category: '',
 };
 
 const RegistrationPage = () => {
@@ -40,7 +40,7 @@ const RegistrationPage = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const location = useLocation();
-    const { role: userRole } = useAppSelector((state) => state.userRole);
+    const userCategory = useAppSelector((state) => state.userCategory.category);
     const [navigateUserToForm, setNavigateUserToForm] = useState(false);
 
     const REG_NESTED_ROUTES = {
@@ -58,7 +58,7 @@ const RegistrationPage = () => {
         if (navigateUserToForm) {
             navigate(
                 `${location.pathname}/${
-                    REG_NESTED_ROUTES[userRole as keyof typeof REG_NESTED_ROUTES]
+                    REG_NESTED_ROUTES[userCategory as keyof typeof REG_NESTED_ROUTES]
                 }`,
             );
         }
@@ -82,7 +82,7 @@ const RegistrationPage = () => {
                         required
                         showBorder
                         control={control}
-                        fieldName="role"
+                        fieldName="category"
                         inputErrors={errors}
                         inputHelperText="We need to know who you are, so we can navigate you to appropriate Registration Form."
                         inputLabel="Who are you ?"

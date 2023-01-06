@@ -56,7 +56,7 @@ const DeveloperRegForm = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const registrationSlice = useAppSelector(({ registration }) => registration);
-    const userRole = useAppSelector((state) => state.userRole.role);
+    const userCategory = useAppSelector((state) => state.userCategory.category);
 
     const showErrorMssg = registrationSlice.error.code ? (
         <ErrorView errorTitle={registrationSlice.error.code} mssg={registrationSlice.error.mssg!} />
@@ -71,7 +71,7 @@ const DeveloperRegForm = () => {
     ) : null;
 
     useEffect(() => {
-        if (!userRole) {
+        if (!userCategory) {
             navigate('/register');
         }
     }, []);
@@ -147,6 +147,7 @@ const DeveloperRegForm = () => {
                     />
 
                     <SelectInputField
+                        required
                         separateLabel
                         control={control}
                         fieldName="role"

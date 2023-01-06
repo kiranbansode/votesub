@@ -16,7 +16,7 @@ export const store = configureStore({
         counter: counterSlice,
         user: userLoginSlice,
         registration: createNewUserSlice,
-        userRole: saveUserRoleSlice,
+        userCategory: saveUserRoleSlice,
         ui: uiSlice,
         addNewTopic: addNewTopicSlice,
         subjectsList: subjectsListSlice,

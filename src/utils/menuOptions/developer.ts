@@ -8,6 +8,8 @@ const devOptions: IOptions[] = [
     { value: 'stf', option: 'Staff Engineer', id: '2671340c-610f-11ed-9b6a-0242ac120002' },
     { value: 'pr', option: 'Principal Engineer', id: '267135ba-610f-11ed-9b6a-0242ac120002' },
     { value: 'tf', option: 'Technical Fellow', id: '84347dec-610f-11ed-9b6a-0242ac120002' },
+    { value: 'ui', option: 'UI Developer', id: '0e9d7300-8de1-11ed-a1eb-0242ac120002' },
+    { value: 'ux', option: 'UX Engineer', id: '0e9d75d0-8de1-11ed-a1eb-0242ac120002' },
 ];
 
 export default devOptions;

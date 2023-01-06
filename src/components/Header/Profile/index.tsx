@@ -56,7 +56,12 @@ const ProfileMenu = () => {
                 onClose={closeProfileMenuHandler}
             >
                 <MenuItem>
-                    <p onClick={() => navigate('/profile')}>
+                    <p
+                        onClick={() => {
+                            closeProfileMenuHandler();
+                            navigate('/profile');
+                        }}
+                    >
                         <span className="profile-menu-icon">
                             <AccountBoxIcon />
                         </span>
@@ -64,7 +69,12 @@ const ProfileMenu = () => {
                     </p>
                 </MenuItem>
                 <MenuItem>
-                    <p onClick={() => navigate('/settings')}>
+                    <p
+                        onClick={() => {
+                            closeProfileMenuHandler();
+                            navigate('/settings');
+                        }}
+                    >
                         <span className="profile-menu-icon">
                             <SettingsIcon />
                         </span>
@@ -74,6 +84,7 @@ const ProfileMenu = () => {
                 <MenuItem>
                     <p
                         onClick={() => {
+                            closeProfileMenuHandler();
                             signOut(auth)
                                 .then(() => {
                                     dispatch(RESET_EXISTING_USER_AUTH_DETAILS());

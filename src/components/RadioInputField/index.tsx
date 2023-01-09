@@ -23,6 +23,7 @@ interface RadioInputFieldTypes {
     alignCenter?: boolean;
     radioSelect: IRadioSelect[];
     required?: boolean;
+    showVertically?: boolean;
 }
 
 const RadioInputField = ({
@@ -37,12 +38,14 @@ const RadioInputField = ({
     alignCenter,
     radioSelect,
     required,
+    showVertically,
 }: RadioInputFieldTypes) => {
     const error = inputErrorMessageFinder(fieldName, inputErrors);
 
     // eslint-disable-next-line no-nested-ternary
     const showBorderClass = showBorder ? 'show-border' : '';
     const alignCenterClass = alignCenter ? 'align-center' : '';
+    const showRadioVertically = showVertically ? 'show-vertical' : '';
 
     return (
         <>
@@ -58,7 +61,7 @@ const RadioInputField = ({
                         render={({ field }) => (
                             <RadioGroup
                                 row
-                                className={`${className} ${showBorderClass} ${alignCenterClass}`}
+                                className={`${className} ${showRadioVertically} ${showBorderClass} ${alignCenterClass}`}
                                 name={field.name}
                                 value={field.value}
                                 onBlur={field.onBlur}
@@ -91,6 +94,7 @@ RadioInputField.defaultProps = {
     showBorder: false,
     alignCenter: false,
     required: false,
+    showVertically: false,
 };
 
 export default RadioInputField;

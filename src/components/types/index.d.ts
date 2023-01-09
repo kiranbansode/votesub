@@ -42,7 +42,7 @@ export type BaseInputField = {
      */
     inputPlaceholder?: string;
     /**
-     * If true will show red asteric
+     * If true will show red asterisk
      */
     required?: boolean;
 };
@@ -52,4 +52,8 @@ export interface ITextInputFieldProps extends BaseInputField {
      * register() from useForm().[register](https://react-hook-form.com/api/useform/register)
      */
     formRegister: UseFormRegisterReturn;
+    /**
+     * changeToTextArea will change TextInputField to textarea(multiline) component
+     */
+    changeToTextArea?: boolean;
 }

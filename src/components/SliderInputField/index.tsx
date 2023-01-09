@@ -1,8 +1,18 @@
-import { Slider, FormControl, FormHelperText, SliderProps } from '@mui/material';
+import { Slider, FormControl, FormHelperText, SliderProps, ThemeProvider } from '@mui/material';
+import { createTheme } from '@mui/material/styles';
+import { green } from '@mui/material/colors';
 import SeparateLabel from 'components/SeparateLabel';
 import { Control, Controller } from 'react-hook-form';
 import InputFieldWrapper from 'styled/InputFieldWrapper';
 import './SliderInputField.styles.scss';
+
+const sliderColorTheme = createTheme({
+    palette: {
+        primary: {
+            main: green[500],
+        },
+    },
+});
 
 interface ISliderInputField {
     defaultValue?: number;
@@ -48,18 +58,20 @@ ISliderInputField) => {
                     control={control}
                     name={fieldName}
                     render={({ field }) => (
-                        <Slider
-                            color={color}
-                            defaultValue={defaultValue}
-                            id={fieldName}
-                            marks={marks}
-                            max={max}
-                            min={min}
-                            size={size}
-                            step={step}
-                            // eslint-disable-next-line react/jsx-props-no-spreading
-                            {...field}
-                        />
+                        <ThemeProvider theme={sliderColorTheme}>
+                            <Slider
+                                color={color}
+                                defaultValue={defaultValue}
+                                id={fieldName}
+                                marks={marks}
+                                max={max}
+                                min={min}
+                                size={size}
+                                step={step}
+                                // eslint-disable-next-line react/jsx-props-no-spreading
+                                {...field}
+                            />{' '}
+                        </ThemeProvider>
                     )}
                 />
                 <FormHelperText>{inputFieldHelperText}</FormHelperText>

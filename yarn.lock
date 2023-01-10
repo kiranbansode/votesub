@@ -4608,6 +4608,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"es-module-lexer@npm:^1.0.3":
+  version: 1.1.0
+  resolution: "es-module-lexer@npm:1.1.0"
+  checksum: 3e9f5019b69c6b2f04eb8478c4fdb4ed72cb8b4c97511b5dd39c1f498386ed8f5083c32067c15efcfabc7e8460cb65ed4627dd32405475715a898009922f41fa
+  languageName: node
+  linkType: hard
+
 "es-shim-unscopables@npm:^1.0.0":
   version: 1.0.0
   resolution: "es-shim-unscopables@npm:1.0.0"
@@ -5598,7 +5605,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"glob@npm:^8.0.1, glob@npm:^8.0.3":
+"glob@npm:^8.0.1":
   version: 8.0.3
   resolution: "glob@npm:8.0.3"
   dependencies:
@@ -6575,6 +6582,15 @@ __metadata:
   dependencies:
     sourcemap-codec: ^1.4.8
   checksum: 9a0e55a15c7303fc360f9572a71cffba1f61451bc92c5602b1206c9d17f492403bf96f946dfce7483e66822d6b74607262e24392e87b0ac27b786e69a40e9b1a
+  languageName: node
+  linkType: hard
+
+"magic-string@npm:^0.26.3":
+  version: 0.26.7
+  resolution: "magic-string@npm:0.26.7"
+  dependencies:
+    sourcemap-codec: ^1.4.8
+  checksum: 89b0d60cbb32bbf3d1e23c46ea93db082d18a8230b972027aecb10a40bba51be519ecce0674f995571e3affe917b76b09f59d8dbc9a1b2c9c4102a2b6e8a2b01
   languageName: node
   linkType: hard
 
@@ -8944,6 +8960,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"vite-plugin-chunk-split@npm:^0.4.7":
+  version: 0.4.7
+  resolution: "vite-plugin-chunk-split@npm:0.4.7"
+  dependencies:
+    es-module-lexer: ^1.0.3
+    magic-string: ^0.26.3
+  peerDependencies:
+    vite: ^3.1.0
+  checksum: 6e8a7775b20981ca57b98f854369d1b23215de6b78422454264b21bd7bff4a48c9cef55bb2f204693d1caee60cbe6e65ea52b5b26195c8a5a8c2f66b2c9c7687
+  languageName: node
+  linkType: hard
+
 "vite-plugin-linter@npm:^1.0.1":
   version: 1.2.0
   resolution: "vite-plugin-linter@npm:1.2.0"
@@ -8956,17 +8984,6 @@ __metadata:
   bin:
     vite-plugin-linter: dist/lintCommand.js
   checksum: a8444b79a1728480a2501fabb5b5bc6d4df7d1175af23c148b443c8574aa447a940e11c135065a35c6d698a5661acfdb577b43b3d607558a3063b8ecb67e337e
-  languageName: node
-  linkType: hard
-
-"vite-plugin-mp@npm:^2.2.3":
-  version: 2.2.3
-  resolution: "vite-plugin-mp@npm:2.2.3"
-  dependencies:
-    glob: ^8.0.3
-  peerDependencies:
-    vite: "*"
-  checksum: 6590c5aaf777c4628b3c20f00321d04c7c6ad0c487a29d83a1f7a9d723758a678cf36ce56cc0988009c2ca3af38467ab297efb63b16a098d884a9626284779fe
   languageName: node
   linkType: hard
 
@@ -9076,8 +9093,8 @@ __metadata:
     styled-components: ^5.3.3
     typescript: ^4.3.2
     vite: ^2.6.4
+    vite-plugin-chunk-split: ^0.4.7
     vite-plugin-linter: ^1.0.1
-    vite-plugin-mp: ^2.2.3
     vite-plugin-pwa: ^0.11.3
     vite-plugin-react-svg: ^0.2.0
     yup: ^0.32.11

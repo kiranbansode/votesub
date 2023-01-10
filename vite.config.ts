@@ -1,12 +1,13 @@
-import { defineConfig } from 'vite';
+import { defineConfig, splitVendorChunkPlugin } from 'vite';
 import react from '@vitejs/plugin-react';
+import { ViteMpPlugin } from 'vite-plugin-mp';
 import { VitePWA as vitePWA } from 'vite-plugin-pwa';
 
 const reactSvgPlugin = require('vite-plugin-react-svg');
 
 // https://vitejs.dev/config/
 export default defineConfig(() => ({
-    plugins: [react(), vitePWA(), reactSvgPlugin()],
+    plugins: [react(), vitePWA(), reactSvgPlugin(), ViteMpPlugin(), splitVendorChunkPlugin()],
 
     // Absolute imports (aliases)
     resolve: {

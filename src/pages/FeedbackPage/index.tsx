@@ -49,7 +49,7 @@ const FeedbackPage = () => {
     return (
         <div className="page" id="feedback-page">
             <Header />
-            <div className="feedback-page__view">
+            <div className="feedback-page__view page-view">
                 <PageTitle title="Feedback" />
 
                 <form onSubmit={handleSubmit((data) => console.log(data))}>
@@ -78,7 +78,7 @@ const FeedbackPage = () => {
                         control={control}
                         fieldName="ui"
                         inputErrors={formState.errors}
-                        inputLabel="2. How's the website look ? (User-Interface)"
+                        inputLabel="2. How's the VoteSub look ? (User-Interface)"
                         radioSelect={[
                             { label: 'Very Bad', value: 'd' },
                             { label: 'Bad', value: 'c' },
@@ -95,7 +95,7 @@ const FeedbackPage = () => {
                         control={control}
                         fieldName="performance"
                         inputErrors={formState.errors}
-                        inputLabel="3. How's website feel ? (Performance)"
+                        inputLabel="3. How's VoteSub feel ? (Performance)"
                         radioSelect={[
                             { label: 'Very Slow', value: 'd' },
                             { label: 'Slow', value: 'c' },
@@ -107,9 +107,10 @@ const FeedbackPage = () => {
                     <SliderInputField
                         required
                         separateLabel
+                        showBorder
                         control={control}
                         fieldName="rating"
-                        inputLabel="4. Based on your experience, how much you will rate the website ?"
+                        inputLabel="4. Based on your experience, how much you will rate the VoteSub ?"
                         marks={marksForFeedbackPage[1]}
                         max={10}
                         min={0}

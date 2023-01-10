@@ -15,8 +15,8 @@ export const createNewUserThunk = createAsyncThunk(
         /**
          * ! Always use thunkAPI.getState() to get latest snapshot of redux store
          */
-        const { userRole } = thunkAPI.getState() as RootState;
-        const newUserData = { ...formData, ...userRole };
+        const { userCategory } = thunkAPI.getState() as RootState;
+        const newUserData = { ...formData, ...userCategory };
 
         try {
             const res = await createNewUserCLF(newUserData);

@@ -24,6 +24,7 @@ export interface IStudentRegForm extends BasicUserDetails {
 
 export interface ITeacherRegForm extends BasicUserDetails {
     schoolName?: string;
+    role?: string;
 }
 
 export interface IEmployerRegForm extends BasicUserDetails {

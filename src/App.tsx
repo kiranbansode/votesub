@@ -3,7 +3,9 @@ import { CircularProgress } from '@mui/material';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { lazyWithPreload } from 'react-lazy-with-preload';
 import useAppSelector from 'hooks/useAppSelector';
-import getCurrentLoggedUser from 'utils/helperFunctions/getCurrentLoggedUser';
+import getCurrentLoggedUser from 'features/getCurrentLoggedUser';
+
+import 'animate.css';
 
 import './App.css';
 import './regForm.css';

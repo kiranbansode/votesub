@@ -9,12 +9,13 @@ import PersonIcon from '@mui/icons-material/Person';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import SettingsIcon from '@mui/icons-material/Settings';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
-import './Profile.styles.scss';
 import { SIGNOUT_USER_AND_RESET_AUTH_DETAILS } from 'store/loginPage/userLoginSlice';
 
 import useAppDispatch from 'hooks/useAppDispatch';
 import useAppSelector from 'hooks/useAppSelector';
 import { RESET_EXISTING_USER_AUTH_DETAILS } from 'store/existingUserAuthStateSlice/existingUserAuthStateSlice';
+
+import './Profile.styles.scss';
 
 const ProfileMenu = () => {
     const [showProfileMenu, setShowProfileMenu] = useState<null | HTMLElement>(null);
@@ -36,7 +37,7 @@ const ProfileMenu = () => {
     return (
         <div id="header-profile">
             <Tooltip title="Open Profile Menu">
-                <IconButton sx={{ p: 0 }} onClick={openProfileMenuHandler}>
+                <IconButton disableRipple sx={{ p: 0 }} onClick={openProfileMenuHandler}>
                     <PersonIcon className="header-icons" />
                 </IconButton>
             </Tooltip>
@@ -56,7 +57,12 @@ const ProfileMenu = () => {
                 onClose={closeProfileMenuHandler}
             >
                 <MenuItem>
-                    <p onClick={() => navigate('/profile')}>
+                    <p
+                        onClick={() => {
+                            closeProfileMenuHandler();
+                            navigate('/profile');
+                        }}
+                    >
                         <span className="profile-menu-icon">
                             <AccountBoxIcon />
                         </span>
@@ -64,7 +70,12 @@ const ProfileMenu = () => {
                     </p>
                 </MenuItem>
                 <MenuItem>
-                    <p onClick={() => navigate('/settings')}>
+                    <p
+                        onClick={() => {
+                            closeProfileMenuHandler();
+                            navigate('/settings');
+                        }}
+                    >
                         <span className="profile-menu-icon">
                             <SettingsIcon />
                         </span>
@@ -74,6 +85,7 @@ const ProfileMenu = () => {
                 <MenuItem>
                     <p
                         onClick={() => {
+                            closeProfileMenuHandler();
                             signOut(auth)
                                 .then(() => {
                                     dispatch(RESET_EXISTING_USER_AUTH_DETAILS());

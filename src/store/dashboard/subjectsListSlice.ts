@@ -1,9 +1,9 @@
-import getSubjectsFromFirestore from 'utils/helperFunctions/getSubjectsFromFirestore';
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import getSubjectsFromFirestore from 'features/getSubjectsFromFirestore';
 
 export const getSubjectsListFromFirestore = createAsyncThunk(
     'subjectsList',
-    async (data, thunkAPI) => {
+    async (_, thunkAPI) => {
         try {
             const subjectsList = await getSubjectsFromFirestore();
 
@@ -29,7 +29,17 @@ const initialState: ISubjectsList = {
 const subjectsListSlice = createSlice({
     name: 'subjectsList',
     initialState,
-    reducers: {},
+    reducers: {
+        SAVE_UNSORTED_SUBJECTS_LIST: (state, action) => {
+            state.list = action.payload;
+        },
+
+        RESET_UNSORTED_SUBJECTS_LIST: (state) => {
+            state.list = initialState.list;
+            state.error = initialState.error;
+            state.loading = initialState.loading;
+        },
+    },
     extraReducers: (builder) => {
         builder.addCase(getSubjectsListFromFirestore.pending, (state) => {
             state.loading = true;
@@ -52,5 +62,8 @@ const subjectsListSlice = createSlice({
         );
     },
 });
+
+export const { RESET_UNSORTED_SUBJECTS_LIST, SAVE_UNSORTED_SUBJECTS_LIST } =
+    subjectsListSlice.actions;
 
 export default subjectsListSlice.reducer;

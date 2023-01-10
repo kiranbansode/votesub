@@ -1,11 +1,11 @@
-import { saveToHistoryCLF } from 'config/firebase';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import CloseIcon from '@mui/icons-material/Close';
 import CandidatePosition from 'styled/CandidatePosition';
 import getLocaleDate from 'utils/helperFunctions/getLocaleDate';
-import voteNow from 'utils/helperFunctions/voteNow';
+import voteNow from 'features/voteNow';
 import useCandidateVotes from 'hooks/useCandidateVotes';
 import useUserRemainingVotes from 'hooks/useUserRemainingVotes';
+import saveToHistory from 'features/saveToHistory';
 
 import './VotingCandidate.styles.scss';
 
@@ -53,7 +53,7 @@ const VotingCandidate = ({
                 </span>
             </p>
             <p className="vote-now">
-                {remainingVotes < 0 || remainingVotes === 0 ? (
+                {remainingVotes! < 0 || remainingVotes === 0 ? (
                     <CloseIcon className="close-icon" />
                 ) : (
                     <ArrowUpwardIcon
@@ -65,7 +65,12 @@ const VotingCandidate = ({
 
                             // voteNowCLF(id);
                             voteNow(id);
-                            saveToHistoryCLF({
+                            // saveToHistoryCLF({
+                            //     subjectId,
+                            //     candidateId,
+                            //     localeDate: getLocaleDate(),
+                            // });
+                            saveToHistory({
                                 subjectId,
                                 candidateId,
                                 localeDate: getLocaleDate(),
@@ -75,7 +80,7 @@ const VotingCandidate = ({
                 )}
 
                 <span className="vote-text">
-                    {remainingVotes < 0 || remainingVotes === 0 ? 'No Votes Left' : 'Vote Now'}
+                    {remainingVotes! < 0 || remainingVotes === 0 ? 'No Votes Left' : 'Vote Now'}
                 </span>
             </p>
         </div>

@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import AddIcon from '@mui/icons-material/Add';
 import HistoryIcon from '@mui/icons-material/History';
@@ -76,15 +76,38 @@ const linksToPages = [
 
 const SideBar = () => {
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+
+    const closeSideBar = (e: any) => {
+        const { localName } = e.target as Element;
+        if (localName === 'svg' || localName === 'path') {
+            dispatch(HIDE_SIDEBAR());
+            return;
+        }
+
+        const isNavLink = (e.target as Element).className.split(' ').includes('nav-links');
+        const isNavLinkContainer = (e.target as Element).className === 'nav-link__container';
+
+        if (isNavLink || isNavLinkContainer) return;
+
+        dispatch(HIDE_SIDEBAR());
+    };
+
     return (
-        <div id="sidebar">
-            <ul>
+        <div className="animate__animated" id="sidebar" onClick={(e) => closeSideBar(e)}>
+            <ul className="animate__animated animate__slideInLeft nav-links">
                 {linksToPages.map((page) => (
-                    <li key={page.id} onClick={() => dispatch(HIDE_SIDEBAR())}>
-                        <Link to={page.link}>
+                    <li className="nav-link__container" key={page.id}>
+                        <div
+                            className="nav-link"
+                            onClick={(e) => {
+                                setTimeout(() => navigate(page.link), 300);
+                                closeSideBar(e);
+                            }}
+                        >
                             {page.linkIcon}
                             <span>{page.linkName}</span>
-                        </Link>
+                        </div>
                     </li>
                 ))}
             </ul>

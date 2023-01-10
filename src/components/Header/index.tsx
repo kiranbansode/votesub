@@ -15,9 +15,9 @@ const Header = () => {
     return (
         <div id="header">
             <SideBar />
-            <div onClick={() => dispatch(SHOW_SIDEBAR())}>
-                <MenuIcon className="header-icons" />
-            </div>
+
+            {/* This will be shown on Header Component */}
+            <MenuIcon className="header-icons" onClick={() => dispatch(SHOW_SIDEBAR())} />
             <Logo goHere="/dashboard" />
             <ProfileMenu />
         </div>

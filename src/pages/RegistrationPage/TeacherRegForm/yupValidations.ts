@@ -8,6 +8,7 @@ const TeacherRegFormValidations = yup.object({
     }),
     gender: yup.string().strict().trim().required(),
     schoolName: yup.string().strict().trim(),
+    role: yup.string().strict().trim().required(),
     countryCode: yup.string().strict().trim().required('We require your country code'),
     mob1: yup.string().strict().trim().required('We require a valid phone number'),
     mob2: yup.string().strict().trim(),

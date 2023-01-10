@@ -13,6 +13,11 @@
     justify-content: center;
 }
 
+.show-vertical {
+    display: flex;
+    flex-direction: column;
+}
+
 .MuiFormControlLabel-root {
     margin-right: 2rem;
 }

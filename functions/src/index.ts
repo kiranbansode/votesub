@@ -13,18 +13,18 @@ admin.initializeApp();
 /* -------------------- Import Individual Cloud Functions ------------------- */
 const addNewSubject = require('./addNewSubject');
 const createNewUser = require('./createNewUser');
-const getSubjectsList = require('./getSubjectsList');
-const getTotalVotes = require('./getTotalVotes');
-const voteNow = require('./voteNow');
-const saveToHistory = require('./saveToHistory');
-const getUserVotingHistory = require('./getUserVotingHistory');
+// const getSubjectsList = require('./getSubjectsList');
+// const getTotalVotes = require('./getTotalVotes');
+// const voteNow = require('./voteNow');
+// const saveToHistory = require('./saveToHistory');
+// const getUserVotingHistory = require('./getUserVotingHistory');
 
 /* ----------------------------------- End ---------------------------------- */
 
 exports.addNewSubject = addNewSubject.addNewSubject;
 exports.createNewUser = createNewUser.createNewUser;
-exports.getSubjectsList = getSubjectsList.getSubjectsList;
-exports.getTotalVotes = getTotalVotes.getTotalVotes;
-exports.voteNow = voteNow.voteNow;
-exports.saveToHistory = saveToHistory.saveToHistory;
-exports.getUserVotingHistory = getUserVotingHistory.getUserVotingHistory;
+// exports.getSubjectsList = getSubjectsList.getSubjectsList;
+// exports.getTotalVotes = getTotalVotes.getTotalVotes;
+// exports.voteNow = voteNow.voteNow;
+// exports.saveToHistory = saveToHistory.saveToHistory;
+// exports.getUserVotingHistory = getUserVotingHistory.getUserVotingHistory;

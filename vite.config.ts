@@ -1,14 +1,45 @@
-import { defineConfig, splitVendorChunkPlugin } from 'vite';
+import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import { ViteMpPlugin } from 'vite-plugin-mp';
 import { VitePWA as vitePWA } from 'vite-plugin-pwa';
+import { chunkSplitPlugin } from 'vite-plugin-chunk-split';
 
 const reactSvgPlugin = require('vite-plugin-react-svg');
 
 // https://vitejs.dev/config/
 export default defineConfig(() => ({
-    base: '/vite-plugin-mp/',
-    plugins: [react(), vitePWA(), reactSvgPlugin(), ViteMpPlugin(), splitVendorChunkPlugin()],
+    plugins: [
+        react(),
+        vitePWA(),
+        reactSvgPlugin(),
+
+        // Manual Chunking - Divided big vendor file into sub small vendor files
+        chunkSplitPlugin({
+            strategy: 'single-vendor',
+            customSplitting: {
+                'react-vendor': ['react', 'react-dom'],
+                'react-eco': ['react-router-dom', 'react-lazy-with-preload'],
+                utils: ['nanoid', 'dayjs', 'country-list-with-dial-code-and-flag'],
+                mui: [
+                    '@emotion/react',
+                    '@emotion/styled',
+                    '@mui/icons-material',
+                    '@mui/lab',
+                    '@mui/material',
+                    '@mui/x-date-pickers',
+                ],
+                form: ['@hookform/resolvers', 'react-hook-form', 'yup'],
+                redux: ['@reduxjs/toolkit', 'react-redux'],
+                firebase: [
+                    'firebase/app',
+                    'firebase/auth',
+                    'firebase/firestore',
+                    'firebase/storage',
+                    'firebase/functions',
+                ],
+                styles: ['animate.css', 'sass', 'styled-components'],
+            },
+        }),
+    ],
 
     // Absolute imports (aliases)
     resolve: {

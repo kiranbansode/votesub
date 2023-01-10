@@ -1,4 +1,3 @@
-import { saveToHistoryCLF } from 'config/firebase';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import CloseIcon from '@mui/icons-material/Close';
 import CandidatePosition from 'styled/CandidatePosition';
@@ -6,6 +5,7 @@ import getLocaleDate from 'utils/helperFunctions/getLocaleDate';
 import voteNow from 'features/voteNow';
 import useCandidateVotes from 'hooks/useCandidateVotes';
 import useUserRemainingVotes from 'hooks/useUserRemainingVotes';
+import saveToHistory from 'features/saveToHistory';
 
 import './VotingCandidate.styles.scss';
 
@@ -65,7 +65,12 @@ const VotingCandidate = ({
 
                             // voteNowCLF(id);
                             voteNow(id);
-                            saveToHistoryCLF({
+                            // saveToHistoryCLF({
+                            //     subjectId,
+                            //     candidateId,
+                            //     localeDate: getLocaleDate(),
+                            // });
+                            saveToHistory({
                                 subjectId,
                                 candidateId,
                                 localeDate: getLocaleDate(),

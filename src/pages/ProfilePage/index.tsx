@@ -6,6 +6,7 @@ import LinkedInColor from 'assets/svg/linkedIn_color.svg';
 import PhoneBlack from 'assets/svg/phone_black.svg';
 
 import './ProfilePage.styles.scss';
+import RemainingVotes from 'components/RemainingVotes';
 
 const ProfilePage = () => {
     const { userDetails, userRole } = useGetUserDetails();
@@ -16,7 +17,10 @@ const ProfilePage = () => {
         <div className="profile-page">
             <Header />
             <div className="page-view">
+                <RemainingVotes />
                 <div className="profile-basic">
+                    <img alt="" className="profile-picture" src="src/assets/dev_image.png" />
+
                     <p className="profile-username">{`${userDetails.name.firstName} ${userDetails.name.lastName}`}</p>
 
                     <p className="profile-email__container">

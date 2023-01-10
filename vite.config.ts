@@ -7,6 +7,7 @@ const reactSvgPlugin = require('vite-plugin-react-svg');
 
 // https://vitejs.dev/config/
 export default defineConfig(() => ({
+    base: '/vite-plugin-mp/',
     plugins: [react(), vitePWA(), reactSvgPlugin(), ViteMpPlugin(), splitVendorChunkPlugin()],
 
     // Absolute imports (aliases)

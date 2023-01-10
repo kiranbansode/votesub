@@ -7,7 +7,6 @@ import { getSubjectsListFromFirestore } from 'store/dashboard/subjectsListSlice'
 import { RESET_SORTED_SUBJECTS_LIST, SHOW_ONLY_FIVE } from 'store/dashboard/sortedSubjectList';
 import useAppSelector from 'hooks/useAppSelector';
 import RemainingVotes from 'components/RemainingVotes';
-import LoadingScreen from 'components/LoadingScreen';
 
 import './Dashboard.styles.scss';
 
@@ -41,14 +40,7 @@ const DashboardPage = () => {
                 <p className="voting-topic"> -x- Most Favorite Subjects -x-</p>
 
                 <div className="subject-list-container">
-                    {sortedSubjectList.length > 0 ? (
-                        <Pagination
-                            sortedData={sortedSubjectList}
-                            unSortedData={unSortedSubjectList}
-                        />
-                    ) : (
-                        <LoadingScreen />
-                    )}
+                    <Pagination sortedData={sortedSubjectList} unSortedData={unSortedSubjectList} />
                 </div>
             </div>
         </div>

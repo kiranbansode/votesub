@@ -36,7 +36,9 @@ const saveToHistory = async ({ subjectId, candidateId, localeDate }: ISaveToHist
                     },
                 },
             });
+            return res;
         }
+
         res = await updateDoc(historyRef, {
             [`history.${subjectId}.${candidateId}`]: increment(1),
             [`history.${subjectId}.lastUpdatedOn`]: secondsSinceUnixEpoch,

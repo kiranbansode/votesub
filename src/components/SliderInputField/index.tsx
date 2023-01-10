@@ -28,6 +28,7 @@ interface ISliderInputField {
     min?: SliderProps['min'];
     max?: SliderProps['max'];
     marks: SliderProps['marks'];
+    showBorder?: boolean;
 }
 
 // eslint-disable-next-line arrow-body-style
@@ -45,8 +46,11 @@ const SliderInputField = ({
     max,
     min,
     size,
+    showBorder,
 }: // eslint-disable-next-line arrow-body-style
 ISliderInputField) => {
+    const showBorderAround = showBorder ? 'show-border' : '';
+
     return (
         <InputFieldWrapper className="slider-input-field">
             <FormControl fullWidth>
@@ -54,34 +58,36 @@ ISliderInputField) => {
                     <SeparateLabel htmlFor={fieldName} label={inputLabel} required={required} />
                 ) : null}
 
-                <Controller
-                    control={control}
-                    name={fieldName}
-                    render={({ field }) => (
-                        <ThemeProvider theme={sliderColorTheme}>
-                            <Slider
-                                color={color}
-                                defaultValue={defaultValue}
-                                id={fieldName}
-                                marks={marks}
-                                max={max}
-                                min={min}
-                                size={size}
-                                step={step}
-                                // eslint-disable-next-line react/jsx-props-no-spreading
-                                {...field}
-                            />{' '}
-                        </ThemeProvider>
-                    )}
-                />
-                <FormHelperText>{inputFieldHelperText}</FormHelperText>
+                <div className={`slider-input-container ${showBorderAround}`}>
+                    <Controller
+                        control={control}
+                        name={fieldName}
+                        render={({ field }) => (
+                            <ThemeProvider theme={sliderColorTheme}>
+                                <Slider
+                                    color={color}
+                                    defaultValue={defaultValue}
+                                    id={fieldName}
+                                    marks={marks}
+                                    max={max}
+                                    min={min}
+                                    size={size}
+                                    step={step}
+                                    // eslint-disable-next-line react/jsx-props-no-spreading
+                                    {...field}
+                                />
+                            </ThemeProvider>
+                        )}
+                    />
+                    <FormHelperText>{inputFieldHelperText}</FormHelperText>
+                </div>
             </FormControl>
         </InputFieldWrapper>
     );
 };
 
 SliderInputField.defaultProps = {
-    color: 'secondary',
+    color: 'primary',
     defaultValue: 0,
     inputFieldHelperText: '',
     max: 100,
@@ -91,6 +97,7 @@ SliderInputField.defaultProps = {
     required: false,
     inputLabel: 'Slider Input Field',
     separateLabel: false,
+    showBorder: false,
 };
 
 export default SliderInputField;

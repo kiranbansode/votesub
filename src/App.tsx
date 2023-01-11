@@ -1,5 +1,4 @@
 import { Suspense, useEffect } from 'react';
-import { CircularProgress } from '@mui/material';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { lazyWithPreload } from 'react-lazy-with-preload';
 import useAppSelector from 'hooks/useAppSelector';
@@ -9,6 +8,7 @@ import 'animate.css';
 
 import './App.css';
 import './regForm.css';
+import LoadingScreen from 'components/LoadingScreen';
 
 // Main Page Routes
 const LoginPage = lazyWithPreload(() => import(`pages/LoginPage`));
@@ -67,20 +67,7 @@ function App() {
 
     return (
         <div className="app">
-            <Suspense
-                fallback={
-                    <div
-                        style={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            height: '100vh',
-                        }}
-                    >
-                        <CircularProgress color="warning" />
-                    </div>
-                }
-            >
+            <Suspense fallback={<LoadingScreen />}>
                 <Routes>
                     <Route element={<LoginPage />} path="/" />
                     <Route element={<RegistrationPage />} path="/register/" />
@@ -98,6 +85,7 @@ function App() {
                     <Route element={<AdminPage />} path="/adminPanel" />
                     <Route element={<SettingsPage />} path="/settings" />
                     <Route element={<ProfilePage />} path="/profile" />
+                    <Route element={<PageNotFound />} path="/error" />
                     <Route element={<PageNotFound />} path="*" />
                 </Routes>
             </Suspense>

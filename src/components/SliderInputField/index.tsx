@@ -73,6 +73,7 @@ ISliderInputField) => {
                                     min={min}
                                     size={size}
                                     step={step}
+                                    valueLabelDisplay="auto"
                                     // eslint-disable-next-line react/jsx-props-no-spreading
                                     {...field}
                                 />

@@ -43,7 +43,7 @@ const PageNotFound = ({ code, mssg, title }: IPageNotFound) => {
 PageNotFound.defaultProps = {
     code: 404,
     title: 'Page Not Found',
-    mssg: 'Looks like the page you are looking for is not found or it might be deleted.',
+    mssg: 'Looks like the page or subject that you are looking for is not found or it might be deleted.',
 };
 
 export default PageNotFound;

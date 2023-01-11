@@ -2,12 +2,17 @@ import Header from 'components/Header';
 import SliderInputField from 'components/SliderInputField';
 import Button from 'components/Button';
 import { FieldValues, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 import PageTitle from 'components/Title';
 // import PageNotFound from 'pages/PageNotFound';
 import TextInputField from 'components/TextInputField';
 import RadioInputField from 'components/RadioInputField';
 
 import './FeedbackPage.styles.scss';
+import { addNewFeedbackThunk } from 'store/addNewFeedback';
+import useAppSelector from 'hooks/useAppSelector';
+import useAppDispatch from 'hooks/useAppDispatch';
 
 interface IFeedbackPageForm {
     ux: 'a' | 'b' | 'c' | 'd' | '';
@@ -33,18 +38,40 @@ const marksForFeedbackPage = {
         { value: 3, label: '3' },
         { value: 4, label: '4' },
         { value: 5, label: '5' },
-        { value: 6, label: '6' },
-        { value: 7, label: '7' },
-        { value: 8, label: '8' },
-        { value: 9, label: '9' },
-        { value: 10, label: '10' },
     ],
 };
+
+const FeedbackPageValidations = yup.object({
+    ux: yup
+        .string()
+        .required(
+            'Please! Choose a option as per your VoteSub experience. Your feedback is really important for me 😥',
+        ),
+    ui: yup
+        .string()
+        .required(
+            'Please! Choose a option as per your VoteSub experience. Your feedback is really important for me 😥',
+        ),
+    performance: yup
+        .string()
+        .required(
+            'Please! Choose a option as per your VoteSub experience. Your feedback is really important for me 😥',
+        ),
+    rating: yup
+        .number()
+        .required(
+            'Please! Choose a option as per your VoteSub experience. Your feedback is really important for me 😥',
+        ),
+    mssg: yup.string(),
+});
 
 const FeedbackPage = () => {
     const { control, register, handleSubmit, formState } = useForm<FieldValues>({
         defaultValues: feedbackPageFormDefaultValues,
+        resolver: yupResolver(FeedbackPageValidations),
     });
+    const dispatch = useAppDispatch();
+    const addNewFeedbackState = useAppSelector((state) => state.addNewFeedback);
 
     return (
         <div className="page" id="feedback-page">
@@ -52,7 +79,8 @@ const FeedbackPage = () => {
             <div className="feedback-page__view page-view">
                 <PageTitle title="Feedback" />
 
-                <form onSubmit={handleSubmit((data) => console.log(data))}>
+                {/* @ts-ignore */}
+                <form onSubmit={handleSubmit((data) => dispatch(addNewFeedbackThunk(data)))}>
                     <RadioInputField
                         required
                         separateLabel
@@ -112,9 +140,9 @@ const FeedbackPage = () => {
                         fieldName="rating"
                         inputLabel="4. Based on your experience, how much you will rate the VoteSub ?"
                         marks={marksForFeedbackPage[1]}
-                        max={10}
+                        max={5}
                         min={0}
-                        step={1}
+                        step={0.5}
                     />
 
                     <TextInputField
@@ -126,7 +154,9 @@ const FeedbackPage = () => {
                         inputPlaceholder="Please enter your message or feedback here"
                     />
 
-                    <Button type="submit">Submit</Button>
+                    <Button loading={addNewFeedbackState.loading} type="submit">
+                        Submit
+                    </Button>
                 </form>
             </div>
         </div>

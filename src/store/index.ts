@@ -10,6 +10,7 @@ import sortedSubjectsList from 'store/dashboard/sortedSubjectList';
 import pageTracker from 'store/pagination/pageTracker';
 import userVotingHistorySlice from 'store/votingHistory/userVotingHistorySlice';
 import existingUserAuthStateSlice from 'store/existingUserAuthStateSlice/existingUserAuthStateSlice';
+import addNewFeedbackSlice from 'store/addNewFeedback';
 
 export const store = configureStore({
     reducer: {
@@ -24,6 +25,7 @@ export const store = configureStore({
         currPaginationPage: pageTracker,
         votingHistory: userVotingHistorySlice,
         existingLoggedUserAuth: existingUserAuthStateSlice,
+        addNewFeedback: addNewFeedbackSlice,
     },
 
     // @ts-ignore

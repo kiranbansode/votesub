@@ -8,16 +8,21 @@ import './Logo.styles.scss';
 
 interface ILogo {
     goHere: string;
+    className?: string;
 }
 
-const Logo = ({ goHere }: ILogo) => {
+const Logo = ({ goHere, className }: ILogo) => {
     const navigate = useNavigate();
 
     return (
-        <div className="votesub-logo-container" onClick={() => navigate(goHere)}>
+        <div className={`votesub-logo-container ${className}`} onClick={() => navigate(goHere)}>
             <img alt="votesub-logo" className="votesub-logo" src={VoteSubLogoDarker} />
         </div>
     );
+};
+
+Logo.defaultProps = {
+    className: '',
 };
 
 export default Logo;

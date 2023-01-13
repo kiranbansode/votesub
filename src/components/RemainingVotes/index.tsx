@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import Separator from 'components/Separator';
 import ColoredRemainingVotes from 'styled/ColoredRemainingVotes';
 import LoadingScreen from 'components/LoadingScreen';
@@ -5,10 +6,28 @@ import useUserRemainingVotes from 'hooks/useUserRemainingVotes';
 
 import './RemainingVotes.styles.scss';
 
-const RemainingVotes = () => {
+interface IRemainingVotes {
+    showImmediately?: boolean;
+}
+
+const RemainingVotes = ({ showImmediately }: IRemainingVotes) => {
+    const [showView, setShowView] = useState(false);
     const [remainingVotes] = useUserRemainingVotes();
 
-    return remainingVotes || remainingVotes === 0 ? (
+    useEffect(() => {
+        let clearShowViewTimeout: any;
+        if (remainingVotes || remainingVotes === 0) {
+            clearShowViewTimeout = setTimeout(
+                () => {
+                    setShowView(true);
+                },
+                showImmediately ? 0 : 700,
+            );
+        }
+        return () => clearTimeout(clearShowViewTimeout);
+    }, [remainingVotes]);
+
+    return showView ? (
         <div className="remaining-votes-container">
             <div>
                 <span className="remaining-votes__title">Your remaining votes : </span>
@@ -29,8 +48,12 @@ const RemainingVotes = () => {
             <Separator />
         </div>
     ) : (
-        <LoadingScreen className="remaining-votes__loading" size={25} />
+        <LoadingScreen className="remaining-votes__loading" />
     );
+};
+
+RemainingVotes.defaultProps = {
+    showImmediately: false,
 };
 
 export default RemainingVotes;

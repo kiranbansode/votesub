@@ -92,7 +92,7 @@ const LoginPage = () => {
     return (
         <div className="login-page reg-form" id="login-page">
             <div className="page-view">
-                <Logo goHere="/" />
+                <Logo className="loginpage__logo" goHere="/" />
 
                 <Caption />
 

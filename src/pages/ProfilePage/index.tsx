@@ -8,6 +8,7 @@ import PhoneBlack from 'assets/svg/phone_black.svg';
 import RemainingVotes from 'components/RemainingVotes';
 
 import './ProfilePage.styles.scss';
+import findStudentStandard from 'utils/helperFunctions/findStudentStandard';
 
 const ProfilePage = () => {
     const [showView, setShowView] = useState(false);
@@ -116,8 +117,10 @@ const ProfilePage = () => {
                                         <div>
                                             <p>Standard</p>
                                             <p className="detail single-detail capitalize">
-                                                {/* @ts-ignore */}
-                                                {userDetails.std}
+                                                {userDetails.uid
+                                                    ? // @ts-ignore
+                                                      findStudentStandard(userDetails.std)
+                                                    : null}
                                             </p>
                                         </div>
                                         <div>

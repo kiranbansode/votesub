@@ -41,6 +41,7 @@ export type BaseInputField = {
      * @default ''
      */
     inputPlaceholder?: string;
+
     /**
      * If true will show red asterisk
      */
@@ -53,7 +54,7 @@ export interface ITextInputFieldProps extends BaseInputField {
      */
     formRegister: UseFormRegisterReturn;
     /**
-     * changeToTextArea will change TextInputField to textarea(multiline) component
+     * `makeItTextArea` will change TextInputField to textarea(multiline) component
      */
-    changeToTextArea?: boolean;
+    makeItTextArea?: boolean;
 }

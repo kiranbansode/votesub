@@ -24,7 +24,7 @@ function TextInputField({
     inputLabel,
     inputPlaceholder,
     required,
-    changeToTextArea,
+    makeItTextArea,
 }: ITextInputFieldProps) {
     const errorMessage = inputErrorMessageFinder(formRegister.name, errors);
 
@@ -60,8 +60,8 @@ function TextInputField({
                         id={formRegister.name}
                         inputRef={formRegister.ref}
                         label={labelToShow}
-                        minRows={changeToTextArea ? 3 : 0}
-                        multiline={changeToTextArea}
+                        minRows={makeItTextArea ? 3 : 0}
+                        multiline={makeItTextArea}
                         name={formRegister.name}
                         placeholder={inputPlaceholder}
                         onBlur={formRegister.onBlur}
@@ -84,7 +84,7 @@ TextInputField.defaultProps = {
     inputHelperText: '',
     inputLabel: 'TextField',
     inputPlaceholder: '',
-    changeToTextArea: false,
+    makeItTextArea: false,
 };
 
 export default TextInputField;

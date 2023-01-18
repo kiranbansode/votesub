@@ -39,7 +39,7 @@ const loginPageFormDefaultValues: UserLoginFormTypes = {
 };
 
 const LoginPage = () => {
-    const { register, handleSubmit, formState } = useForm<FieldValues>({
+    const { control, formState, handleSubmit } = useForm<FieldValues>({
         defaultValues: loginPageFormDefaultValues,
         resolver: yupResolver(loginPageFormValidation),
     });
@@ -103,15 +103,17 @@ const LoginPage = () => {
                     <TextInputField
                         autoFocus
                         separateLabel
+                        control={control}
                         errors={formState.errors}
-                        formRegister={register('username')}
+                        fieldName="username"
                         inputLabel="Username"
                     />
 
                     <PasswordInputField
                         separateLabel
+                        control={control}
                         errors={formState.errors}
-                        formRegister={register('password')}
+                        fieldName="password"
                         inputLabel="Password"
                     />
 

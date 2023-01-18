@@ -3,7 +3,7 @@
 */
 
 import { useState, MouseEvent } from 'react';
-import { UseFormRegisterReturn, FieldErrors } from 'react-hook-form';
+import { UseFormRegisterReturn, FieldErrors, Controller } from 'react-hook-form';
 import {
     FormControl,
     OutlinedInput,
@@ -18,35 +18,26 @@ import InputFieldWrapper from 'styled/InputFieldWrapper';
 import inputErrorMessageFinder from 'utils/helperFunctions/inputErrorMessageFinder';
 
 import './PasswordInputField.styles.scss';
-
-interface IPasswordInputFieldProps {
-    formRegister: UseFormRegisterReturn;
-    inputLabel?: string;
-    inputHelperText?: string;
-    separateLabel?: boolean;
-    noLabel?: boolean;
-    inputPlaceHolder?: string;
-    errors: FieldErrors;
-    required?: boolean;
-}
+import { IPasswordInputFieldProps } from 'components/types';
 
 const PasswordInputField = ({
     separateLabel,
     noLabel,
     inputHelperText,
     inputLabel,
-    inputPlaceHolder,
-    formRegister,
+    inputPlaceholder,
+    control,
+    fieldName,
     errors,
     required,
 }: IPasswordInputFieldProps) => {
     const [showPassword, setShowPassword] = useState(false);
-    const errorMessage = inputErrorMessageFinder(formRegister.name, errors);
+    const errorMessage = inputErrorMessageFinder(fieldName, errors);
 
-    let labelToShow;
+    let labelToShow: any;
 
     if (!noLabel) {
-        /* Depending on passed conditon it will do one of follwing
+        /* Depending on passed condition it will do one of following
           1. Separate Label - Detached from TextInputField
           2. No Label - Label will not be showed
           3. Default - Label will be shown in top border of TextInputField
@@ -66,40 +57,39 @@ const PasswordInputField = ({
         <InputFieldWrapper id="password-input-field">
             <FormControl error={!!errorMessage} variant="outlined">
                 {separateLabel ? (
-                    <SeparateLabel
-                        htmlFor={formRegister.name}
-                        label={inputLabel}
-                        required={required}
-                    />
+                    <SeparateLabel htmlFor={fieldName} label={inputLabel} required={required} />
                 ) : null}
 
-                <OutlinedInput
-                    fullWidth
-                    endAdornment={
-                        <InputAdornment position="end">
-                            <IconButton
-                                edge="end"
-                                onClick={handleClickShowPassword}
-                                onMouseDown={handleMouseDownPassword}
-                            >
-                                {showPassword ? <VisibilityOff /> : <Visibility />}
-                            </IconButton>
-                        </InputAdornment>
-                    }
-                    error={!!errorMessage}
-                    id={formRegister.name}
-                    inputRef={formRegister.ref}
-                    label={labelToShow}
-                    name={formRegister.name}
-                    placeholder={inputPlaceHolder}
-                    type={showPassword ? 'text' : 'password'}
-                    onBlur={formRegister.onBlur}
-                    onChange={formRegister.onChange}
+                <Controller
+                    control={control}
+                    name={fieldName}
+                    render={({ field }) => (
+                        <OutlinedInput
+                            fullWidth
+                            endAdornment={
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        edge="end"
+                                        onClick={handleClickShowPassword}
+                                        onMouseDown={handleMouseDownPassword}
+                                    >
+                                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                                    </IconButton>
+                                </InputAdornment>
+                            }
+                            error={!!errorMessage}
+                            id={fieldName}
+                            inputRef={field.ref}
+                            label={labelToShow}
+                            placeholder={inputPlaceholder}
+                            type={showPassword ? 'text' : 'password'}
+                            // eslint-disable-next-line react/jsx-props-no-spreading
+                            {...field}
+                        />
+                    )}
                 />
 
-                <FormHelperText id={formRegister.name}>
-                    {errorMessage || inputHelperText}
-                </FormHelperText>
+                <FormHelperText id={fieldName}>{errorMessage || inputHelperText}</FormHelperText>
             </FormControl>
         </InputFieldWrapper>
     );
@@ -110,7 +100,7 @@ PasswordInputField.defaultProps = {
     noLabel: false,
     inputHelperText: '',
     inputLabel: 'PasswordInputField',
-    inputPlaceHolder: '',
+    inputPlaceholder: '',
     required: false,
 };
 

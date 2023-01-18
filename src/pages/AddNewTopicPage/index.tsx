@@ -15,7 +15,6 @@ import {
 import Header from 'components/Header';
 import Button from 'components/Button';
 import PageTitle from 'components/Title';
-import Separator from 'components/Separator';
 import NewCandidate from 'components/NewCandidate';
 
 import './AddNewTopicPage.styles.scss';
@@ -139,6 +138,16 @@ const AddNewTopicPage = () => {
 
                     {/* Fourth Child */}
                     <Button
+                        color="success"
+                        disabled={Boolean(!(addNewTopicState.candidates.length > 1))}
+                        loading={addNewTopicState.loading}
+                        type="submit"
+                    >
+                        Submit
+                    </Button>
+
+                    {/* Fifth Child */}
+                    <Button
                         color="warning"
                         type="button"
                         onClick={() => {
@@ -148,16 +157,6 @@ const AddNewTopicPage = () => {
                         }}
                     >
                         Reset
-                    </Button>
-
-                    {/* Fifth Child */}
-                    <Button
-                        color="success"
-                        disabled={Boolean(!(addNewTopicState.candidates.length > 1))}
-                        loading={addNewTopicState.loading}
-                        type="submit"
-                    >
-                        Submit
                     </Button>
                 </form>
             </div>

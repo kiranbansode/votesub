@@ -1,6 +1,17 @@
-import { UseFormRegisterReturn, FieldErrors } from 'react-hook-form';
+import { FieldErrors, Control } from 'react-hook-form';
 
 export type BaseInputField = {
+    /**
+     * `control` object from [useForm()](https://react-hook-form.com/api/useform/control/) hook
+     */
+    control: Control;
+
+    /**
+     * `fieldName` is same as like `name` attribute of HTML `<input/>` elements.
+     * `fieldName` must be unique for every component.
+     */
+    fieldName: string;
+
     /**
      * If `true`, will bring user's attention to this field on first rendering
      * @default false
@@ -50,11 +61,9 @@ export type BaseInputField = {
 
 export interface ITextInputFieldProps extends BaseInputField {
     /**
-     * register() from useForm().[register](https://react-hook-form.com/api/useform/register)
-     */
-    formRegister: UseFormRegisterReturn;
-    /**
      * `makeItTextArea` will change TextInputField to textarea(multiline) component
      */
     makeItTextArea?: boolean;
 }
+
+export interface IPasswordInputFieldProps extends BaseInputField {}

@@ -66,7 +66,7 @@ const FeedbackPageValidations = yup.object({
 });
 
 const FeedbackPage = () => {
-    const { control, register, handleSubmit, formState } = useForm<FieldValues>({
+    const { control, handleSubmit, formState } = useForm<FieldValues>({
         defaultValues: feedbackPageFormDefaultValues,
         resolver: yupResolver(FeedbackPageValidations),
     });
@@ -146,10 +146,11 @@ const FeedbackPage = () => {
                     />
 
                     <TextInputField
-                        changeToTextArea
+                        makeItTextArea
                         separateLabel
+                        control={control}
                         errors={formState.errors}
-                        formRegister={register('mssg')}
+                        fieldName="mssg"
                         inputLabel="5. Any Message or Feedback to Developer ?"
                         inputPlaceholder="Please enter your message or feedback here"
                     />

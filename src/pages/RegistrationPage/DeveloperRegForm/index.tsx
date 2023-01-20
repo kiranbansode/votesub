@@ -48,7 +48,6 @@ const DeveloperRegForm = () => {
         control,
         formState: { errors },
         handleSubmit,
-        register,
     } = useForm<FieldValues>({
         defaultValues: defaultDeveloperRegFormVal,
         resolver: yupResolver(DeveloperRegFormValidations),
@@ -101,16 +100,18 @@ const DeveloperRegForm = () => {
                     <TextInputField
                         required
                         separateLabel
+                        control={control}
                         errors={errors}
-                        formRegister={register('name.firstName')}
+                        fieldName="name.firstName"
                         inputLabel="First Name"
                         inputPlaceholder="Your Name"
                     />
 
                     <TextInputField
                         separateLabel
+                        control={control}
                         errors={errors}
-                        formRegister={register('name.middleName')}
+                        fieldName="name.middleName"
                         inputLabel="Middle Name"
                         inputPlaceholder="Father/Husband Name"
                     />
@@ -118,8 +119,9 @@ const DeveloperRegForm = () => {
                     <TextInputField
                         required
                         separateLabel
+                        control={control}
                         errors={errors}
-                        formRegister={register('name.lastName')}
+                        fieldName="name.lastName"
                         inputLabel="Last Name"
                         inputPlaceholder="Surname"
                     />
@@ -141,8 +143,9 @@ const DeveloperRegForm = () => {
 
                     <TextInputField
                         separateLabel
+                        control={control}
                         errors={errors}
-                        formRegister={register('companyName')}
+                        fieldName="companyName"
                         inputLabel="Company Name"
                     />
 
@@ -170,40 +173,45 @@ const DeveloperRegForm = () => {
                     <TextInputField
                         required
                         separateLabel
+                        control={control}
                         errors={errors}
-                        formRegister={register('mob1')}
+                        fieldName="mob1"
                         inputHelperText="A valid phone number will help us and you to reset your password"
                         inputLabel="Mobile No."
                     />
 
                     <TextInputField
                         separateLabel
+                        control={control}
                         errors={errors}
-                        formRegister={register('mob2')}
+                        fieldName="mob2"
                         inputLabel="Alternate Mobile No."
                     />
 
                     <TextInputField
                         required
                         separateLabel
+                        control={control}
                         errors={errors}
-                        formRegister={register('emailId')}
+                        fieldName="emailId"
                         inputLabel="Email ID"
                     />
 
                     <PasswordInputField
                         required
                         separateLabel
+                        control={control}
                         errors={errors}
-                        formRegister={register('password')}
+                        fieldName="password"
                         inputLabel="Password"
                     />
 
                     <PasswordInputField
                         required
                         separateLabel
+                        control={control}
                         errors={errors}
-                        formRegister={register('confirmPassword')}
+                        fieldName="confirmPassword"
                         inputLabel="Confirm Password"
                     />
 

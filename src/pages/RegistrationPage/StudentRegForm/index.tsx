@@ -11,7 +11,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 /* ------------------------------- Components ------------------------------- */
 import TextInputField from 'components/TextInputField';
 import SelectInputField from 'components/SelectInputField';
-// import DateInputField from 'components/DateInputField';
 import RadioInputField from 'components/RadioInputField';
 import PasswordInputField from 'components/PasswordInputField';
 import Button from 'components/Button';
@@ -65,7 +64,6 @@ const StudentRegForm = () => {
         control,
         formState: { errors },
         handleSubmit,
-        register,
     } = useForm<FieldValues>({
         defaultValues: defaultStudentRegFormVal,
         resolver: yupResolver(StudentRegFormValidations),
@@ -119,16 +117,18 @@ const StudentRegForm = () => {
                     <TextInputField
                         required
                         separateLabel
+                        control={control}
                         errors={errors}
-                        formRegister={register('name.firstName')}
+                        fieldName="name.firstName"
                         inputLabel="First Name"
                         inputPlaceholder="Your Name"
                     />
 
                     <TextInputField
                         separateLabel
+                        control={control}
                         errors={errors}
-                        formRegister={register('name.middleName')}
+                        fieldName="name.middleName"
                         inputLabel="Middle Name"
                         inputPlaceholder="Father/Husband Name"
                     />
@@ -136,8 +136,9 @@ const StudentRegForm = () => {
                     <TextInputField
                         required
                         separateLabel
+                        control={control}
                         errors={errors}
-                        formRegister={register('name.lastName')}
+                        fieldName="name.lastName"
                         inputLabel="Last Name"
                         inputPlaceholder="Surname"
                     />
@@ -159,8 +160,9 @@ const StudentRegForm = () => {
 
                     <TextInputField
                         separateLabel
+                        control={control}
                         errors={errors}
-                        formRegister={register('schoolName')}
+                        fieldName="schoolName"
                         inputLabel="School Name"
                     />
 
@@ -196,40 +198,45 @@ const StudentRegForm = () => {
                     <TextInputField
                         required
                         separateLabel
+                        control={control}
                         errors={errors}
-                        formRegister={register('mob1')}
+                        fieldName="mob1"
                         inputHelperText="A valid phone number will help us and you to reset your password"
                         inputLabel="Mobile No."
                     />
 
                     <TextInputField
                         separateLabel
+                        control={control}
                         errors={errors}
-                        formRegister={register('mob2')}
+                        fieldName="mob2"
                         inputLabel="Alternate Mobile No."
                     />
 
                     <TextInputField
                         required
                         separateLabel
+                        control={control}
                         errors={errors}
-                        formRegister={register('emailId')}
+                        fieldName="emailId"
                         inputLabel="Email ID"
                     />
 
                     <PasswordInputField
                         required
                         separateLabel
+                        control={control}
                         errors={errors}
-                        formRegister={register('password')}
+                        fieldName="password"
                         inputLabel="Password"
                     />
 
                     <PasswordInputField
                         required
                         separateLabel
+                        control={control}
                         errors={errors}
-                        formRegister={register('confirmPassword')}
+                        fieldName="confirmPassword"
                         inputLabel="Confirm Password"
                     />
 

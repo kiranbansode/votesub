@@ -32,7 +32,7 @@ const defaultValues = {
 };
 
 const AddNewTopicPage = () => {
-    const { register, watch, resetField, setFocus, setError, formState, handleSubmit } =
+    const { control, watch, resetField, setFocus, setError, formState, handleSubmit } =
         useForm<FieldValues>({
             defaultValues,
             resolver: yupResolver(yupValidation),
@@ -90,15 +90,16 @@ const AddNewTopicPage = () => {
 
                 <form
                     className="form"
-                    onSubmit={handleSubmit((data) => {
-                        dispatch(addNewTopicThunk(data));
+                    onSubmit={handleSubmit((formData) => {
+                        dispatch(addNewTopicThunk(formData));
                     })}
                 >
                     {/* First Child */}
                     <TextInputField
                         separateLabel
+                        control={control}
                         errors={formState.errors}
-                        formRegister={register('subject')}
+                        fieldName="subject"
                         inputHelperText="Try to submit small and expressive subject for voting"
                         inputLabel="Enter a subject for voting"
                         inputPlaceholder="Favorite Fast Food ?"
@@ -107,10 +108,9 @@ const AddNewTopicPage = () => {
                     {/* Second Child */}
                     <TextInputField
                         separateLabel
+                        control={control}
                         errors={formState.errors}
-                        formRegister={register('candidateName', {
-                            required: addNewTopicState.candidates.length > 0,
-                        })}
+                        fieldName="candidateName"
                         inputHelperText="Minimum 2 Candidates should be there for voting"
                         inputLabel="Candidate Name"
                     />

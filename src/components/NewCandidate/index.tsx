@@ -17,20 +17,20 @@ interface INewCandidate {
      * @type {number}
      * `index` from array method
      */
-    idx: number;
+    indexNumber: number;
     /**
      * `edit` button handler function
      */
     editBtnHandler: (id: string) => void;
 }
 
-const NewCandidate = ({ newCandidate, idx, editBtnHandler }: INewCandidate) => {
+const NewCandidate = ({ newCandidate, indexNumber, editBtnHandler }: INewCandidate) => {
     const dispatch = useAppDispatch();
     const { candidateName, id } = newCandidate;
 
     return (
         <div className="candidate-container" key={id}>
-            <span className="candidate-position">{idx + 1}</span>
+            <span className="candidate-position">{indexNumber + 1}</span>
             <p className="candidate-name">{candidateName}</p>
             <span className="edit-button" title="Edit" onClick={() => editBtnHandler(id)}>
                 <EditIcon fontSize="small" />

@@ -64,7 +64,7 @@ const AddNewTopicPage = () => {
 
         dispatch(ADD_CANDIDATE(candidateName));
         resetField('candidateName', { defaultValue: '' });
-        setFocus('candidateName', { shouldSelect: true });
+        // setFocus('candidateName', { shouldSelect: true });
     };
 
     useEffect(() => {
@@ -130,13 +130,20 @@ const AddNewTopicPage = () => {
                     {addNewTopicState.candidates.map((candidate, idx) => (
                         <NewCandidate
                             editBtnHandler={editBtnHandler}
-                            idx={idx}
+                            indexNumber={idx}
                             key={candidate.id}
                             newCandidate={candidate}
                         />
                     ))}
 
-                    {/* Fourth Child */}
+                    {addNewTopicState.candidates.length > 0 &&
+                    addNewTopicState.candidates.length < 2 ? (
+                        <p className="add-new-subject__info">
+                            Add one more candidate to active Submit button
+                        </p>
+                    ) : null}
+
+                    {/* 2nd Last Child */}
                     <Button
                         color="success"
                         disabled={Boolean(!(addNewTopicState.candidates.length > 1))}
@@ -146,7 +153,7 @@ const AddNewTopicPage = () => {
                         Submit
                     </Button>
 
-                    {/* Fifth Child */}
+                    {/* Last Child */}
                     <Button
                         color="warning"
                         type="button"

@@ -50,8 +50,45 @@ const LoginPage = () => {
     const existingUser = useAppSelector(({ existingLoggedUserAuth }) => existingLoggedUserAuth);
     const globalUI = useAppSelector((state) => state.ui);
 
+    const showErrorMssg = userState.error.code ? (
+        <InputFieldWrapper>
+            <Alert severity="error" variant="filled">
+                <AlertTitle>{userState.error.code.toUpperCase()}</AlertTitle>
+                {userState.error.message}
+            </Alert>
+        </InputFieldWrapper>
+    ) : null;
+
+    const showLoginSuccessMssg = globalUI.showSignSuccessPopUp ? (
+        <BackdropMssg
+            header="Login Successful."
+            mssg="Redirecting to Dashboard..."
+            open={globalUI.showSignSuccessPopUp}
+        />
+    ) : null;
+
+    const forgotPasswordText = <p className="login-page__forgot">Forgot Password?</p>;
+
+    const registerText = (
+        <p>
+            Don&#39;t have an account ? Click on &nbsp;
+            <span className="register-link" onClick={() => navigate('/register')}>
+                Register
+            </span>
+            &nbsp; button below
+        </p>
+    );
+
+    const footer = (
+        <div className="login-page__footer">
+            <p className="message"> Made with ❤️ By </p>
+            <p className="name default_shadow">Kiran A. Bansode</p>
+            <p className="version">-x- [23.01.10-2] -x-</p>
+        </div>
+    );
+
     /**
-     * Whenever user come back to Login page all auth states will reset.
+     * if user come back to Login page all auth states will reset.
      * e.g. previously failed login attempts, error mssg
      */
     useEffect(() => {
@@ -71,23 +108,6 @@ const LoginPage = () => {
             setTimeout(() => navigate('/dashboard'), 2000);
         }
     }, [userState.userDetails.uid]);
-
-    const showErrorMssg = userState.error.code ? (
-        <InputFieldWrapper>
-            <Alert severity="error" variant="filled">
-                <AlertTitle>{userState.error.code.toUpperCase()}</AlertTitle>
-                {userState.error.message}
-            </Alert>
-        </InputFieldWrapper>
-    ) : null;
-
-    const showLoginSuccessMssg = globalUI.showSignSuccessPopUp ? (
-        <BackdropMssg
-            header="Login Successful."
-            mssg="Redirecting to Dashboard..."
-            open={globalUI.showSignSuccessPopUp}
-        />
-    ) : null;
 
     return (
         <div className="login-page reg-form" id="login-page">
@@ -124,15 +144,11 @@ const LoginPage = () => {
                         Login
                     </Button>
 
+                    {forgotPasswordText}
+
                     <Separator />
 
-                    <p>
-                        Don&#39;t have an account ? Click on &nbsp;
-                        <span className="register-link" onClick={() => navigate('/register')}>
-                            Register
-                        </span>
-                        &nbsp; button below
-                    </p>
+                    {registerText}
 
                     <Button color="success" onClick={() => navigate('/register')}>
                         Register
@@ -142,11 +158,7 @@ const LoginPage = () => {
                 {/* if user is able to login, then a success type mssg will be shown */}
                 {showLoginSuccessMssg}
 
-                <div className="login-page__footer">
-                    <p className="message"> Made with ❤️ By </p>
-                    <p className="name">Kiran A. Bansode</p>
-                    <p className="version">-x- [23.01.10-3] -x-</p>
-                </div>
+                {footer}
             </div>
         </div>
     );

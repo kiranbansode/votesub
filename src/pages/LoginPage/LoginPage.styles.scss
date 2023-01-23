@@ -1,6 +1,5 @@
 #login-page {
     height: 100vh;
-    background-color: #e5e5e5;
 
     p {
         font-size: 12px;
@@ -9,11 +8,6 @@
 
     .login-button {
         margin-top: 10px;
-        margin-bottom: 15px;
-    }
-
-    .register-link {
-        color: #2f7d32;
     }
 
     .login-page__form {
@@ -21,6 +15,30 @@
         margin-top: 3rem;
         background-color: #fff;
         border-radius: 15px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
+    }
+
+    .login-page__forgot,
+    .register-link {
+        cursor: pointer;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    .login-page__forgot {
+        font-size: 14px;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        color: #1976d2;
+    }
+
+    .register-link {
+        color: #2f7d32;
+    }
+
+    .separator {
+        margin: 0 9px;
     }
 
     .login-page__footer {
@@ -32,6 +50,7 @@
 
         .name {
             background-color: #fff;
+            font-size: 14px;
             padding: 10px;
             border-radius: 15px;
             margin-top: 0;

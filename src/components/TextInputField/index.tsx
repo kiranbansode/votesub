@@ -16,6 +16,7 @@ import { Controller } from 'react-hook-form';
  */
 
 function TextInputField({
+    className,
     autoFocus,
     noLabel,
     separateLabel,
@@ -60,6 +61,7 @@ function TextInputField({
                         <TextField
                             fullWidth
                             autoFocus={autoFocus}
+                            className={className}
                             error={Boolean(errorMessage)}
                             id={fieldName}
                             inputRef={field.ref}
@@ -80,6 +82,7 @@ function TextInputField({
 
 TextInputField.defaultProps = {
     autoFocus: false,
+    className: '',
     separateLabel: false,
     noLabel: false,
     inputHelperText: '',

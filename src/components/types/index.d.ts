@@ -2,6 +2,11 @@ import { FieldErrors, Control } from 'react-hook-form';
 
 export type BaseInputField = {
     /**
+     * `className` is same as `class` attribute to html elements
+     */
+    className?: string;
+
+    /**
      * `control` object from [useForm()](https://react-hook-form.com/api/useform/control/) hook
      */
     control: Control;

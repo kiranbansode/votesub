@@ -2,7 +2,6 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable arrow-body-style */
 import Separator from 'components/Separator';
-import convertUnixEpochToDate from 'utils/helperFunctions/convertUnixEpochToDate';
 import SingleSubjectVotingHistory from 'components/VotingHistory/SingleSubjectVotingHistory';
 
 import './VotingHistory.styles.scss';

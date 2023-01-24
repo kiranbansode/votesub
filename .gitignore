@@ -10,3 +10,4 @@ dist-ssr
 # Firebase Emulators Data
 emulators_data
 firebase-export-*
+.firebase

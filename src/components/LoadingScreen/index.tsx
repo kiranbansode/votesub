@@ -15,7 +15,7 @@ interface ILoadingScreen {
 }
 
 /**
- * `LoadingScreen` component will return a circular progress bar right in the middle of screen
+ * `LoadingScreen` component will return a circular progress bar right in the middle of parent div
  * @param  {string} color  set color to progress bar
  * @return Circular Progress bar
  */

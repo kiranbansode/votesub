@@ -26,6 +26,7 @@ const PageNotFound = lazyWithPreload(() => import(`pages/PageNotFound`));
 
 // Dashboard Page Nested Routes
 const SubjectPage = lazyWithPreload(() => import(`pages/DashboardPage/SubjectPage`));
+const SearchQueryPage = lazyWithPreload(() => import(`pages/DashboardPage/SearchQueryPage`));
 
 // Registration Page Nested Routes
 const StudentRegForm = lazyWithPreload(() => import('pages/RegistrationPage/StudentRegForm'));
@@ -49,6 +50,7 @@ function App() {
         LoginPage.preload();
         DashboardPage.preload();
         SubjectPage.preload();
+        SearchQueryPage.preload();
         AddNewTopicPage.preload();
         UserVotingHistory.preload();
         FeedbackPage.preload();
@@ -77,6 +79,7 @@ function App() {
                     <Route element={<DeveloperRegForm />} path="/register/developer" />
                     <Route element={<DashboardPage />} path="/dashboard" />
                     <Route element={<SubjectPage />} path="/dashboard/:id" />
+                    <Route element={<SearchQueryPage />} path="/dashboard/search" />
                     <Route element={<AddNewTopicPage />} path="/addNewTopic" />
                     <Route element={<UserVotingHistory />} path="/userVotingHistory" />
                     <Route element={<FeedbackPage />} path="/feedback" />

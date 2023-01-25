@@ -5,6 +5,9 @@ import SearchIcon from '@mui/icons-material/Search';
 import RefreshIcon from '@mui/icons-material/Refresh';
 // import SortIcon from '@mui/icons-material/Sort';
 import useAppDispatch from 'hooks/useAppDispatch';
+import getSubjectsFromFirestore from 'features/getSubjectsFromFirestore';
+import './PaginationHeader.styles.scss';
+
 import {
     RESET_SORTED_SUBJECTS_LIST,
     SHOW_ONLY_FIVE,
@@ -16,9 +19,7 @@ import {
     SAVE_UNSORTED_SUBJECTS_LIST,
 } from 'store/dashboard/subjectsListSlice';
 import { RESET_CURRENT_PAGE } from 'store/pagination/pageTracker';
-import getSubjectsFromFirestore from 'features/getSubjectsFromFirestore';
-
-import './PaginationHeader.styles.scss';
+import { useNavigate } from 'react-router-dom';
 
 interface IPaginationHeader {
     unsortedData: any[];
@@ -27,6 +28,7 @@ interface IPaginationHeader {
 // eslint-disable-next-line arrow-body-style
 const PaginationHeader = ({ unsortedData }: IPaginationHeader) => {
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
 
     return (
         <div className="pagination-header__container">
@@ -67,7 +69,12 @@ const PaginationHeader = ({ unsortedData }: IPaginationHeader) => {
                 </span>
             </div>
 
-            <div className="func-wrapper">
+            <div
+                className="func-wrapper"
+                onClick={() => {
+                    navigate('/dashboard/search');
+                }}
+            >
                 <span>
                     <Tooltip title="Search a Subject">
                         <SearchIcon />

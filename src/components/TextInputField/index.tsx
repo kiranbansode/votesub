@@ -1,10 +1,11 @@
-import { TextField, FormControl, FormHelperText } from '@mui/material';
+import { TextField, FormControl, FormHelperText, InputAdornment, IconButton } from '@mui/material';
 import { ITextInputFieldProps } from 'components/types';
 import SeparateLabel from 'components/SeparateLabel';
 import InputFieldWrapper from 'styled/InputFieldWrapper';
 import inputErrorMessageFinder from 'utils/helperFunctions/inputErrorMessageFinder';
 import './TextInputField.styles.scss';
 import { Controller } from 'react-hook-form';
+import BackspaceIcon from '@mui/icons-material/Backspace';
 
 /**
  * TextInputField is a wrapper component around Material-UI's TextField.
@@ -15,19 +16,27 @@ import { Controller } from 'react-hook-form';
  * @return TextField Component
  */
 
+const MUI_ADORNMENT_POSITIONS = {
+    start: 'startAdornment',
+    end: 'endAdornment',
+};
+
 function TextInputField({
-    className,
-    autoFocus,
-    noLabel,
-    separateLabel,
+    autoFocus = false,
+    noLabel = false,
+    separateLabel = false,
+    required = false,
+    makeItTextArea = false,
+    showAdornment = false,
+    className = '',
+    inputHelperText = '',
+    inputPlaceholder = '',
+    adornmentPosition = 'end',
+    inputLabel = 'TextField',
     errors,
-    inputHelperText,
-    inputLabel,
-    inputPlaceholder,
-    required,
-    makeItTextArea,
     control,
     fieldName,
+    adornmentButtonHandler,
 }: ITextInputFieldProps) {
     // TODO: Find better way to handle empty string
     if (fieldName === '') {
@@ -60,6 +69,19 @@ function TextInputField({
                     render={({ field }) => (
                         <TextField
                             fullWidth
+                            InputProps={
+                                showAdornment
+                                    ? {
+                                          [MUI_ADORNMENT_POSITIONS[adornmentPosition]]: (
+                                              <InputAdornment position={adornmentPosition}>
+                                                  <IconButton onClick={adornmentButtonHandler}>
+                                                      <BackspaceIcon />
+                                                  </IconButton>
+                                              </InputAdornment>
+                                          ),
+                                      }
+                                    : {}
+                            }
                             autoFocus={autoFocus}
                             className={className}
                             error={Boolean(errorMessage)}
@@ -80,15 +102,14 @@ function TextInputField({
     );
 }
 
-TextInputField.defaultProps = {
-    autoFocus: false,
-    className: '',
-    separateLabel: false,
-    noLabel: false,
-    inputHelperText: '',
-    inputLabel: 'TextField',
-    inputPlaceholder: '',
-    makeItTextArea: false,
-};
+// TextInputField.defaultProps = {
+//     autoFocus: false,
+//     className: '',
+//     separateLabel: false,
+//     noLabel: false,
+//     inputHelperText: '',
+//     inputLabel: 'TextField',
+//     inputPlaceholder: '',
+// };
 
 export default TextInputField;

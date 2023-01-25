@@ -3,13 +3,14 @@ import { FieldErrors, Control } from 'react-hook-form';
 export type BaseInputField = {
     /**
      * `className` is same as `class` attribute to html elements
+     * @default ''
      */
     className?: string;
 
     /**
      * `control` object from [useForm()](https://react-hook-form.com/api/useform/control/) hook
      */
-    control: Control;
+    control: Control<any>;
 
     /**
      * `fieldName` is same as like `name` attribute of HTML `<input/>` elements.
@@ -60,6 +61,7 @@ export type BaseInputField = {
 
     /**
      * If true will show red asterisk
+     * @default `false`
      */
     required?: boolean;
 };
@@ -69,6 +71,21 @@ export interface ITextInputFieldProps extends BaseInputField {
      * `makeItTextArea` will change TextInputField to textarea(multiline) component
      */
     makeItTextArea?: boolean;
+
+    /**
+     * @default `false`
+     */
+    showAdornment?: boolean;
+
+    /**
+     *@default `end`
+     */
+    adornmentPosition?: 'start' | 'end';
+
+    /**
+     *
+     */
+    adornmentButtonHandler?: () => void;
 }
 
 export interface IPasswordInputFieldProps extends BaseInputField {}

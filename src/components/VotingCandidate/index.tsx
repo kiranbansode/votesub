@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import CloseIcon from '@mui/icons-material/Close';
 import CandidatePosition from 'styled/CandidatePosition';
@@ -38,8 +40,24 @@ const VotingCandidate = ({
     const [votes] = useCandidateVotes(id);
     const [remainingVotes] = useUserRemainingVotes();
 
+    // const candidateClickHandler = () => {
+    //     if (remainingVotes === 0 || remainingVotes! < 0) {
+    //         return;
+    //     }
+
+    //     voteNow(id);
+    //     saveToHistory({
+    //         subjectId,
+    //         candidateId,
+    //         localeDate: getLocaleDate(),
+    //     });
+    // };
+
     return (
-        <div className="voting-candidate">
+        <div
+            className="voting-candidate"
+            // onClick={candidateClickHandler}
+        >
             {showColored ? (
                 <CandidatePosition position={position}>{position}</CandidatePosition>
             ) : (
@@ -59,7 +77,7 @@ const VotingCandidate = ({
                     <ArrowUpwardIcon
                         className="vote-icon"
                         onClick={() => {
-                            if (remainingVotes === 0) {
+                            if (remainingVotes === 0 || remainingVotes! < 0) {
                                 return;
                             }
 

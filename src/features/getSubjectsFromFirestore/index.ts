@@ -7,7 +7,15 @@ const getSubjectsFromFirestore = async () => {
 
     subjectsSnapShot.forEach((subject) => subjects.push(subject.data()));
 
-    return subjects;
+    const sortedSubjects = subjects.sort((prevSub, currSub) =>
+        prevSub.createdOn > currSub.createdOn ? -1 : 1,
+    );
+
+    if (sortedSubjects.length > 0) {
+        return sortedSubjects;
+    }
+
+    return [];
 };
 
 export default getSubjectsFromFirestore;

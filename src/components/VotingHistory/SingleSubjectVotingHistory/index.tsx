@@ -43,14 +43,13 @@ const SingleSubjectVotingHistory = ({
                 <p className="subject-info">
                     On &nbsp;
                     <span className="subject-info__date">{`${date} ${shortMonth} ${year}`}</span>
-                    &nbsp; you voted on &nbsp;
+                    &nbsp; you voted on subject &nbsp;
                     <span
                         className="subject-info__name"
                         onClick={() => navigate(`/dashboard/${subjectId}`)}
                     >
                         {`${subjectName} `}
                     </span>
-                    &nbsp; subject.
                 </p>
                 <p className="candidates-info"> You gave your votes to following candidates :</p>
 

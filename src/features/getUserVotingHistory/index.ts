@@ -80,7 +80,7 @@ const getUserVotingHistory = async () => {
                              * Sort subjects bases on when user last voted on. Last one will be on top
                              */
                             // @ts-ignore
-                            prevSub.lastUpdatedOn > currSub.lastUpdatedOn ? 1 : -1,
+                            prevSub.lastUpdatedOn > currSub.lastUpdatedOn ? -1 : 1,
                         ),
                 );
             })

@@ -18,7 +18,7 @@ interface IFeedbackPageForm {
     ux: 'a' | 'b' | 'c' | 'd' | '';
     ui: 'a' | 'b' | 'c' | 'd' | '';
     performance: 'a' | 'b' | 'c' | 'd' | '';
-    rating: number;
+    ratings: number;
     mssg: string;
 }
 
@@ -26,7 +26,7 @@ const feedbackPageFormDefaultValues: IFeedbackPageForm = {
     ux: '',
     ui: '',
     performance: '',
-    rating: 0,
+    ratings: 0,
     mssg: '',
 };
 
@@ -57,10 +57,15 @@ const FeedbackPageValidations = yup.object({
         .required(
             'Please! Choose a option as per your VoteSub experience. Your feedback is really important for me 😥',
         ),
-    rating: yup
+    ratings: yup
         .number()
+        .min(
+            0.5,
+            'Please! Give us a rating as per your VoteSub experience. Your feedback is really important for me 😥. Minimum allowed rating is 0.5',
+        )
+        .max(5, 'Maximum allowed rating is 5')
         .required(
-            'Please! Choose a option as per your VoteSub experience. Your feedback is really important for me 😥',
+            'Please! Give us a rating as per your VoteSub experience. Your feedback is really important for me 😥',
         ),
     mssg: yup.string(),
 });
@@ -79,8 +84,13 @@ const FeedbackPage = () => {
             <div className="feedback-page__view page-view">
                 <PageTitle title="Feedback" />
 
-                {/* @ts-ignore */}
-                <form onSubmit={handleSubmit((data) => dispatch(addNewFeedbackThunk(data)))}>
+                <form
+                    className="default_shadow"
+                    onSubmit={handleSubmit((data) => {
+                        /* @ts-ignore */
+                        dispatch(addNewFeedbackThunk(data));
+                    })}
+                >
                     <RadioInputField
                         required
                         separateLabel
@@ -89,7 +99,7 @@ const FeedbackPage = () => {
                         control={control}
                         fieldName="ux"
                         inputErrors={formState.errors}
-                        inputLabel="1. Do you find it easy or difficult to navigate ? (User-Experience)"
+                        inputLabel="1. Do you find it easy or difficult to navigate within VoteSub app ? (User-Experience)"
                         radioSelect={[
                             { label: 'Very Difficult', value: 'd' },
                             { label: 'Difficult', value: 'c' },
@@ -106,7 +116,7 @@ const FeedbackPage = () => {
                         control={control}
                         fieldName="ui"
                         inputErrors={formState.errors}
-                        inputLabel="2. How's the VoteSub look ? (User-Interface)"
+                        inputLabel="2. How does VoteSub app look ? (User-Interface)"
                         radioSelect={[
                             { label: 'Very Bad', value: 'd' },
                             { label: 'Bad', value: 'c' },
@@ -123,7 +133,7 @@ const FeedbackPage = () => {
                         control={control}
                         fieldName="performance"
                         inputErrors={formState.errors}
-                        inputLabel="3. How's VoteSub feel ? (Performance)"
+                        inputLabel="3. How does VoteSub app feel ? (Performance)"
                         radioSelect={[
                             { label: 'Very Slow', value: 'd' },
                             { label: 'Slow', value: 'c' },
@@ -137,8 +147,9 @@ const FeedbackPage = () => {
                         separateLabel
                         showBorder
                         control={control}
-                        fieldName="rating"
-                        inputLabel="4. Based on your experience, how much you will rate the VoteSub ?"
+                        fieldName="ratings"
+                        inputErrors={formState.errors}
+                        inputLabel="4. Based on your experience, How much you will rate the VoteSub app ?"
                         marks={marksForFeedbackPage[1]}
                         max={5}
                         min={0}
@@ -151,7 +162,7 @@ const FeedbackPage = () => {
                         control={control}
                         errors={formState.errors}
                         fieldName="mssg"
-                        inputLabel="5. Any Message or Feedback to Developer ?"
+                        inputLabel="5. Any Message or Feedback to Developer regarding VoteSub app ?"
                         inputPlaceholder="Please enter your message or feedback here"
                     />
 

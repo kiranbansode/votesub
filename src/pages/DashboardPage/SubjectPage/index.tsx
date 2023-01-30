@@ -29,7 +29,7 @@ const SubjectPage = () => {
     }>();
     const [showView, setShowView] = useState<boolean>(false);
     const { candidates, subjectTotalVotes } = useSubjectTotalVotes(subjectId!);
-    const { day, shortMonth, year } = convertUnixEpochToDate(subject?.createdOn!);
+    const { day, fullMonth, year } = convertUnixEpochToDate(subject?.createdOn!);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -71,9 +71,9 @@ const SubjectPage = () => {
                     <h1 className="subject-title">{subject?.subjectName}</h1>
                     <Separator />
                     <div className="about-container">
-                        <p className="submitter">By : {subject?.submittedBy}</p>
+                        <p className="submitter">Owner : {subject?.submittedBy}</p>
                         <p className="creation-date">
-                            Submitted On : {`${day} ${shortMonth} ${year}`}
+                            Created On : {`${fullMonth} ${day}, ${year}`}
                         </p>
                         <p className="total-votes">
                             <span className="votes-counter">{subjectTotalVotes}</span>

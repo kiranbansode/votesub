@@ -16,6 +16,14 @@ const voteNow = async (candidateId: string) => {
         throw new Error('You already gave all of your votes');
     }
 
+    if (userData?.remainingVotes < 0) {
+        // sometimes due to latency user's remaining votes goes below 0
+        // if that happen, this will update user's remaining votes back to 0
+        await updateDoc(candidateRef, {
+            votes: 0,
+        });
+    }
+
     if (userData?.remainingVotes > 0) {
         /* This will increment candidate votes by 1 */
         await updateDoc(candidateRef, {

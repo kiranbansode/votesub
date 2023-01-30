@@ -14,7 +14,8 @@ interface ISaveToHistory {
 const saveToHistory = async ({ subjectId, candidateId, localeDate }: ISaveToHistory) => {
     const userId = auth.currentUser?.uid;
     const { date, monthWithZero, year } = localeDate;
-    const historyPath = `${date}${monthWithZero}${year}`;
+    // const historyPath = `${date}${monthWithZero}${year}`;
+    const historyPath = `${year}${monthWithZero}${date}`;
     const daysSinceUnixEpoch = Math.trunc(new Date().getTime() / 1000 / 86400);
     const secondsSinceUnixEpoch = Math.trunc(new Date().getTime() / 1000);
 

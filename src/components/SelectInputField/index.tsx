@@ -9,7 +9,7 @@ import './SelectInputField.styles.scss';
 
 export interface SelectInputFieldProps {
     inputErrors: FieldErrors;
-    control: Control;
+    control: Control<any>;
     inputLabel: string;
     options: IOptions[];
     fieldName: string;

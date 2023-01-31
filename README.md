@@ -1,14 +1,29 @@
+<div style="display:flex; justify-content: center">
+<img src="https://kiranbansode-votesub--testing-g9jafog5.web.app/assets/logo.votesub.darker.1ea0de26.svg">
+</div>
+
+<div style="display:flex; justify-content: center; margin-top: 2rem;">
+<img style="" width="40%" src="https://kiranbansode-votesub--testing-g9jafog5.web.app/assets/caption.votesub.cbb508d7.svg">
+</div>
+
 # Hi! Welcome to VoteSub's GitHub Repository
 
 ## So, What is VoteSub ?
 
-VoteSub is a webapp(Saas) where users can create new subjects and respective candidates or/and vote to their favorite candidates of particular subject all in realtime.
+VoteSub is a webapp(SaaS) where users can create new subjects and add respective candidates or/and vote to their favorite candidates of particular subject all in realtime.
 
-## Yes! the project is live
+## Yes! the project is LIVE 🔴
 
-Click on the following link to visit live hosted version of VoteSub
-<br/>
-https://kiranbansode-votesub.web.app
+### `Preview Channel` (Testing Ver.)
+
+Click on the following link to visit Preview Channel(Testing Ver.) of VoteSub project <br/>
+https://kiranbansode-votesub--testing-g9jafog5.web.app/
+
+> Disclaimer: The `Preview Channel` contain some code or functionality which you will might or might not find on GitHub's `testing` branch. Once underlying code reach it's maturity level, I will slowly `push` it to `testing` branch.
+
+### `Live Channel` (Production Ver.)
+
+Soon you will have access to Live Channel(Production Ver.) of VoteSub project. Project's is near completion
 
 ## VoteSub project's resources
 

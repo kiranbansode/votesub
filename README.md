@@ -1,6 +1,6 @@
 <img src="https://kiranbansode-votesub--testing-g9jafog5.web.app/assets/logo.votesub.darker.1ea0de26.svg">
 
-# Hi! Welcome to VoteSub's GitHub Repository
+# Hi... Welcome to VoteSub's GitHub Repository
 
 ## So, What is VoteSub ?
 

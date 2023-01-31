@@ -1,10 +1,4 @@
-<div style="display:flex; justify-content: center">
 <img src="https://kiranbansode-votesub--testing-g9jafog5.web.app/assets/logo.votesub.darker.1ea0de26.svg">
-</div>
-
-<div style="display:flex; justify-content: center; margin-top: 2rem;">
-<img style="" width="40%" src="https://kiranbansode-votesub--testing-g9jafog5.web.app/assets/caption.votesub.cbb508d7.svg">
-</div>
 
 # Hi! Welcome to VoteSub's GitHub Repository
 

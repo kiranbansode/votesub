@@ -14,7 +14,7 @@ import LoadingScreen from 'components/LoadingScreen';
 const LoginPage = lazyWithPreload(() => import(`pages/LoginPage`));
 const DashboardPage = lazyWithPreload(() => import(`pages/DashboardPage`));
 const RegistrationPage = lazyWithPreload(() => import(`pages/RegistrationPage`));
-const AddNewTopicPage = lazyWithPreload(() => import(`pages/AddNewTopicPage`));
+const AddNewSubjectPage = lazyWithPreload(() => import(`pages/AddNewSubjectPage`));
 const UserVotingHistory = lazyWithPreload(() => import(`pages/UserVotingHistory`));
 const FeedbackPage = lazyWithPreload(() => import(`pages/FeedbackPage`));
 const CreditsPage = lazyWithPreload(() => import(`pages/CreditsPage`));
@@ -51,7 +51,7 @@ function App() {
         DashboardPage.preload();
         SubjectPage.preload();
         SearchQueryPage.preload();
-        AddNewTopicPage.preload();
+        AddNewSubjectPage.preload();
         UserVotingHistory.preload();
         FeedbackPage.preload();
         CreditsPage.preload();
@@ -80,7 +80,7 @@ function App() {
                     <Route element={<DashboardPage />} path="/dashboard" />
                     <Route element={<SubjectPage />} path="/dashboard/:id" />
                     <Route element={<SearchQueryPage />} path="/dashboard/search" />
-                    <Route element={<AddNewTopicPage />} path="/addNewTopic" />
+                    <Route element={<AddNewSubjectPage />} path="/addNewSubject" />
                     <Route element={<UserVotingHistory />} path="/userVotingHistory" />
                     <Route element={<FeedbackPage />} path="/feedback" />
                     <Route element={<CreditsPage />} path="/credits" />

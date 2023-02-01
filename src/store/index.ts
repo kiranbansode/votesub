@@ -3,7 +3,7 @@ import counterSlice from 'store/counterSlice';
 import userLoginSlice from 'store/loginPage/userLoginSlice';
 import createNewUserSlice from 'store/registrationPage/createNewUserSlice';
 import uiSlice from 'store/ui';
-import addNewTopicSlice from 'store/addNewTopic';
+import addNewSubjectSlice from 'store/addNewSubject';
 import saveUserRoleSlice from 'store/registrationPage/saveUserRoleSlice';
 import subjectsListSlice from 'store/dashboard/subjectsListSlice';
 import sortedSubjectsList from 'store/dashboard/sortedSubjectList';
@@ -19,7 +19,7 @@ export const store = configureStore({
         registration: createNewUserSlice,
         userCategory: saveUserRoleSlice,
         ui: uiSlice,
-        addNewTopic: addNewTopicSlice,
+        addNewSubject: addNewSubjectSlice,
         subjectsList: subjectsListSlice,
         sortedSubjects: sortedSubjectsList,
         currPaginationPage: pageTracker,

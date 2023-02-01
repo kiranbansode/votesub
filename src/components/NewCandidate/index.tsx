@@ -6,7 +6,7 @@ import './NewCandidate.styles.scss';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { ICandidate } from 'types/addNewSubject';
-import { DELETE_CANDIDATE } from 'store/addNewTopic';
+import { DELETE_CANDIDATE } from 'store/addNewSubject';
 
 interface INewCandidate {
     /**

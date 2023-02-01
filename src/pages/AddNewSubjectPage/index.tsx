@@ -7,19 +7,20 @@ import TextInputField from 'components/TextInputField';
 import useAppSelector from 'hooks/useAppSelector';
 import useAppDispatch from 'hooks/useAppDispatch';
 import {
-    addNewTopicThunk,
+    addNewSubjectThunk,
     ADD_CANDIDATE,
     DELETE_CANDIDATE,
     RESET_ADD_NEW_SUBJECT_SLICE,
-} from 'store/addNewTopic';
+} from 'store/addNewSubject';
 import Header from 'components/Header';
 import Button from 'components/Button';
 import PageTitle from 'components/Title';
 import NewCandidate from 'components/NewCandidate';
 
-import './AddNewTopicPage.styles.scss';
+import './AddNewSubjectPage.styles.scss';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import setInputFocusOn from 'utils/helperFunctions/setInputFocusOn';
 
 const yupValidation = yup.object({
     subject: yup.string().trim().strict().required('Subject is required'),
@@ -31,19 +32,30 @@ const defaultValues = {
     candidateName: '',
 };
 
-const AddNewTopicPage = () => {
-    const { control, watch, resetField, setFocus, setError, formState, handleSubmit } =
-        useForm<FieldValues>({
-            defaultValues,
-            resolver: yupResolver(yupValidation),
-        });
+const AddNewSubjectPage = () => {
+    const { control, watch, resetField, setError, formState, handleSubmit } = useForm<FieldValues>({
+        defaultValues,
+        resolver: yupResolver(yupValidation),
+    });
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
-    const addNewTopicState = useAppSelector(({ addNewTopic }) => addNewTopic);
-    const addNewTopicRes = useAppSelector(({ addNewTopic }) => addNewTopic.res);
+    const addNewSubjectState = useAppSelector(({ addNewSubject }) => addNewSubject);
+    const addNewSubjectRes = useAppSelector(({ addNewSubject }) => addNewSubject.res);
+
+    const ShowCandidateListText = () =>
+        addNewSubjectState.candidates.length > 0 ? (
+            <p className="candidates-list">-x- Candidates List -x-</p>
+        ) : null;
+
+    const AddSubjectInfoText = () =>
+        addNewSubjectState.candidates.length > 0 && addNewSubjectState.candidates.length < 2 ? (
+            <p className="add-new-subject__info">
+                Add one more candidate to activate Submit button
+            </p>
+        ) : null;
 
     const editBtnHandler = (id: string) => {
-        const candidateToEdit = addNewTopicState.candidates.filter(
+        const candidateToEdit = addNewSubjectState.candidates.filter(
             (candidate) => candidate.id === id,
         );
 
@@ -61,10 +73,10 @@ const AddNewTopicPage = () => {
             );
             return;
         }
-
         dispatch(ADD_CANDIDATE(candidateName));
         resetField('candidateName', { defaultValue: '' });
         // setFocus('candidateName', { shouldSelect: true });
+        setInputFocusOn('candidateName');
     };
 
     useEffect(() => {
@@ -72,17 +84,17 @@ const AddNewTopicPage = () => {
     }, []);
 
     useEffect(() => {
-        if (addNewTopicRes?.sub && addNewTopicRes.candidates.length > 0) {
-            navigate(`/dashboard/${addNewTopicRes.subjectId}`);
+        if (addNewSubjectRes?.sub && addNewSubjectRes.candidates.length > 0) {
+            navigate(`/dashboard/${addNewSubjectRes.subjectId}`);
         }
 
         return () => {
             dispatch(RESET_ADD_NEW_SUBJECT_SLICE());
         };
-    }, [addNewTopicRes?.subjectId]);
+    }, [addNewSubjectRes?.subjectId]);
 
     return (
-        <div id="add-new-topic-page">
+        <div id="add-new-subject-page">
             <Header />
 
             <div className="page-view">
@@ -91,7 +103,7 @@ const AddNewTopicPage = () => {
                 <form
                     className="form"
                     onSubmit={handleSubmit((formData) => {
-                        dispatch(addNewTopicThunk(formData));
+                        dispatch(addNewSubjectThunk(formData));
                     })}
                 >
                     {/* First Child */}
@@ -100,7 +112,7 @@ const AddNewTopicPage = () => {
                         control={control}
                         errors={formState.errors}
                         fieldName="subject"
-                        inputHelperText="Try to submit small and expressive subject for voting"
+                        inputHelperText="Try to use small and expressive name or question for Subject"
                         inputLabel="Enter a subject for voting"
                         inputPlaceholder="Favorite Fast Food ?"
                     />
@@ -108,26 +120,26 @@ const AddNewTopicPage = () => {
                     {/* Second Child */}
                     <TextInputField
                         separateLabel
+                        className="textInput-candidateName"
                         control={control}
                         errors={formState.errors}
                         fieldName="candidateName"
-                        inputHelperText="Minimum 2 Candidates should be there for voting"
+                        inputHelperText="Minimum 2 Candidates should be added so users can vote"
                         inputLabel="Candidate Name"
+                        inputPlaceholder="Pizza 🍕"
                     />
 
                     {/* Third Child */}
                     <Button onClick={() => addCandidateBtnHandler()}>Add Candidate</Button>
 
                     <p className="add-new-subject__info">
-                        If you add more than 3 candidates you will get Metals Ranking System for
-                        your subject
+                        If you add more than 3 candidates you will get Metal Ranking 🥇🥈🥉 system
+                        for your voting subject
                     </p>
 
-                    {addNewTopicState.candidates.length > 0 ? (
-                        <p className="candidates-list">-x- Candidates List -x-</p>
-                    ) : null}
+                    <ShowCandidateListText />
 
-                    {addNewTopicState.candidates.map((candidate, idx) => (
+                    {addNewSubjectState.candidates.map((candidate, idx) => (
                         <NewCandidate
                             editBtnHandler={editBtnHandler}
                             indexNumber={idx}
@@ -136,18 +148,13 @@ const AddNewTopicPage = () => {
                         />
                     ))}
 
-                    {addNewTopicState.candidates.length > 0 &&
-                    addNewTopicState.candidates.length < 2 ? (
-                        <p className="add-new-subject__info">
-                            Add one more candidate to active Submit button
-                        </p>
-                    ) : null}
+                    <AddSubjectInfoText />
 
                     {/* 2nd Last Child */}
                     <Button
                         color="success"
-                        disabled={Boolean(!(addNewTopicState.candidates.length > 1))}
-                        loading={addNewTopicState.loading}
+                        disabled={Boolean(!(addNewSubjectState.candidates.length > 1))}
+                        loading={addNewSubjectState.loading}
                         type="submit"
                     >
                         Submit
@@ -171,4 +178,4 @@ const AddNewTopicPage = () => {
     );
 };
 
-export default AddNewTopicPage;
+export default AddNewSubjectPage;

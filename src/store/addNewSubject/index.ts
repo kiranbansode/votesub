@@ -10,7 +10,7 @@ interface IResponseFromAddNewSubjectCLF {
     candidates: number[];
 }
 
-interface IAddNewTopicSlice {
+interface IAddNewSubjectSlice {
     subject: string;
     id: string;
     candidates: ICandidate[];
@@ -19,7 +19,7 @@ interface IAddNewTopicSlice {
     res: IResponseFromAddNewSubjectCLF | null;
 }
 
-const initialState: IAddNewTopicSlice = {
+const initialState: IAddNewSubjectSlice = {
     id: '',
     subject: '',
     candidates: [],
@@ -28,8 +28,8 @@ const initialState: IAddNewTopicSlice = {
     res: null,
 };
 
-export const addNewTopicThunk = createAsyncThunk(
-    'addNewTopic',
+export const addNewSubjectThunk = createAsyncThunk(
+    'addNewSubject',
     async (
         /**
          * `formDate` -  `Add New Topic` page's form data
@@ -40,7 +40,7 @@ export const addNewTopicThunk = createAsyncThunk(
     ) => {
         const {
             user: { userDetails },
-            addNewTopic,
+            addNewSubject,
         } = getState() as RootState;
         const subjectId = nanoid();
 
@@ -50,7 +50,7 @@ export const addNewTopicThunk = createAsyncThunk(
                 subjectName: formData.subject,
                 submittedBy: userDetails.displayName,
                 userId: userDetails.uid,
-                candidates: addNewTopic.candidates,
+                candidates: addNewSubject.candidates,
             });
 
             return res.data;
@@ -60,8 +60,8 @@ export const addNewTopicThunk = createAsyncThunk(
     },
 );
 
-const addNewTopicSlice = createSlice({
-    name: 'addNewTopic',
+const addNewSubjectSlice = createSlice({
+    name: 'addNewSubject',
     initialState,
     reducers: {
         ADD_CANDIDATE: {
@@ -99,17 +99,17 @@ const addNewTopicSlice = createSlice({
     },
 
     extraReducers: (builder) => {
-        builder.addCase(addNewTopicThunk.pending, (state) => {
+        builder.addCase(addNewSubjectThunk.pending, (state) => {
             state.loading = true;
         });
 
-        builder.addCase(addNewTopicThunk.fulfilled, (state, action: PayloadAction<any>) => {
+        builder.addCase(addNewSubjectThunk.fulfilled, (state, action: PayloadAction<any>) => {
             state.loading = false;
             state.error = false;
             state.res = action.payload;
         });
 
-        builder.addCase(addNewTopicThunk.rejected, (state, action: PayloadAction<any>) => {
+        builder.addCase(addNewSubjectThunk.rejected, (state, action: PayloadAction<any>) => {
             state.loading = false;
             state.error = action.payload;
         });
@@ -117,6 +117,6 @@ const addNewTopicSlice = createSlice({
 });
 
 export const { ADD_CANDIDATE, DELETE_CANDIDATE, RESET_ADD_NEW_SUBJECT_SLICE } =
-    addNewTopicSlice.actions;
+    addNewSubjectSlice.actions;
 
-export default addNewTopicSlice.reducer;
+export default addNewSubjectSlice.reducer;

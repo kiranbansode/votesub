@@ -17,7 +17,7 @@ import {
 import { ITeacherRegForm } from 'types/regFormData';
 import countryCodeOptions from 'utils/menuOptions/countryCodes';
 import useAppSelector from 'hooks/useAppSelector';
-import ErrorView from 'components/Error';
+import ErrorView from 'components/ErrorView';
 import BackdropMssg from 'components/BackdropMssg';
 import trOptions from 'utils/menuOptions/tr';
 

@@ -16,7 +16,7 @@ import PasswordInputField from 'components/PasswordInputField';
 import Button from 'components/Button';
 import Logo from 'components/Logo';
 import Caption from 'components/Caption';
-import ErrorView from 'components/Error';
+import ErrorView from 'components/ErrorView';
 
 /* ---------------------------------- Hooks --------------------------------- */
 import useAppDispatch from 'hooks/useAppDispatch';

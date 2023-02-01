@@ -9,7 +9,7 @@ interface IErrorView {
 }
 
 const ErrorView = ({ errorTitle, mssg }: IErrorView) => (
-    <InputFieldWrapper>
+    <InputFieldWrapper className="error-view__container">
         <Alert severity="error" variant="filled">
             <AlertTitle>{errorTitle.toUpperCase()}</AlertTitle>
             {mssg}

@@ -17,7 +17,7 @@ import {
 } from 'store/registrationPage/createNewUserSlice';
 import { useNavigate } from 'react-router-dom';
 import useAppSelector from 'hooks/useAppSelector';
-import ErrorView from 'components/Error';
+import ErrorView from 'components/ErrorView';
 import BackdropMssg from 'components/BackdropMssg';
 import { useEffect } from 'react';
 

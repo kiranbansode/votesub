@@ -4,14 +4,24 @@ import LoadingScreen from 'components/LoadingScreen';
 import { ISubjectData } from 'types/subjectDetails';
 
 import './PaginationContent.styles.scss';
+import ErrorView from 'components/ErrorView';
 
 interface IPaginationContent {
     sortedData: any[];
 }
 
 const PaginationContent = ({ sortedData }: IPaginationContent) => {
-    // const sortedList = useAppSelector(({ sortedSubjects }) => sortedSubjects.list);
+    const subjectList = useAppSelector(({ subjectsList }) => subjectsList);
+    const { error: subjectsError, loading: subjectsLoading } = subjectList;
     const { currentPage } = useAppSelector(({ currPaginationPage }) => currPaginationPage);
+
+    if (subjectsLoading === false && subjectsError === true && sortedData.length === 0)
+        return (
+            <ErrorView
+                errorTitle="Error"
+                mssg="No Subjects Found!. You can add your own new subjects in Add New Subject page"
+            />
+        );
 
     return sortedData.length > 0 ? (
         <div className="pagination-content__container">

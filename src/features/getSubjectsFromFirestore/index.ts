@@ -15,7 +15,7 @@ const getSubjectsFromFirestore = async () => {
         return sortedSubjects;
     }
 
-    return [];
+    throw new Error('No Subjects Found');
 };
 
 export default getSubjectsFromFirestore;

@@ -46,6 +46,7 @@ const RadioInputField = ({
     const showBorderClass = showBorder ? 'show-border' : '';
     const alignCenterClass = alignCenter ? 'align-center' : '';
     const showRadioVertically = showVertically ? 'show-vertical' : '';
+    const showBorderInErrorState = error ? 'error-border' : '';
 
     return (
         <>
@@ -61,7 +62,7 @@ const RadioInputField = ({
                         render={({ field }) => (
                             <RadioGroup
                                 row
-                                className={`${className} ${showRadioVertically} ${showBorderClass} ${alignCenterClass}`}
+                                className={`${className} ${showRadioVertically} ${showBorderClass} ${alignCenterClass} ${showBorderInErrorState}`}
                                 name={field.name}
                                 value={field.value}
                                 onBlur={field.onBlur}

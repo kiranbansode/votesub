@@ -60,8 +60,8 @@ const FeedbackPageValidations = yup.object({
     ratings: yup
         .number()
         .min(
-            0.5,
-            'Please! Give us a rating as per your VoteSub experience. Your feedback is really important for me 😥. Minimum allowed rating is 0.5',
+            1,
+            'Please! Give VoteSub a rating as per your experience. Your feedback is really important for me 😥.',
         )
         .max(5, 'Maximum allowed rating is 5')
         .required(
@@ -85,7 +85,6 @@ const FeedbackPage = () => {
                 <PageTitle title="Feedback" />
 
                 <form
-                    className="default_shadow"
                     onSubmit={handleSubmit((data) => {
                         /* @ts-ignore */
                         dispatch(addNewFeedbackThunk(data));
@@ -153,7 +152,7 @@ const FeedbackPage = () => {
                         marks={marksForFeedbackPage[1]}
                         max={5}
                         min={0}
-                        step={0.5}
+                        step={1}
                     />
 
                     <TextInputField

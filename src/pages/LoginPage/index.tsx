@@ -67,7 +67,7 @@ const LoginPage = () => {
         />
     ) : null;
 
-    const forgotPasswordText = <p className="login-page__forgot">Forgot Password?</p>;
+    // const ForgotPasswordText = () => <p className="login-page__forgot">Forgot Password?</p>;
 
     const registerText = (
         <p>
@@ -144,7 +144,7 @@ const LoginPage = () => {
                         Login
                     </Button>
 
-                    {forgotPasswordText}
+                    {/* <ForgotPasswordText/> */}
 
                     <Separator />
 

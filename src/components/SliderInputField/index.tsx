@@ -2,9 +2,10 @@ import { Slider, FormControl, FormHelperText, SliderProps, ThemeProvider } from 
 import { createTheme } from '@mui/material/styles';
 import { green } from '@mui/material/colors';
 import SeparateLabel from 'components/SeparateLabel';
-import { Control, Controller } from 'react-hook-form';
+import { Control, Controller, FieldErrors } from 'react-hook-form';
 import InputFieldWrapper from 'styled/InputFieldWrapper';
 import './SliderInputField.styles.scss';
+import inputErrorMessageFinder from 'utils/helperFunctions/inputErrorMessageFinder';
 
 const sliderColorTheme = createTheme({
     palette: {
@@ -19,6 +20,7 @@ interface ISliderInputField {
     control: Control;
     color?: SliderProps['color'];
     fieldName: string;
+    inputErrors: FieldErrors;
     inputFieldHelperText?: string;
     required?: boolean;
     separateLabel?: boolean;
@@ -37,6 +39,7 @@ const SliderInputField = ({
     color,
     control,
     fieldName,
+    inputErrors,
     inputFieldHelperText,
     required,
     inputLabel,
@@ -50,10 +53,12 @@ const SliderInputField = ({
 }: // eslint-disable-next-line arrow-body-style
 ISliderInputField) => {
     const showBorderAround = showBorder ? 'show-border' : '';
+    const errorMessage = inputErrorMessageFinder(fieldName, inputErrors);
+    // console.log(errorMessage, inputErrors);
 
     return (
         <InputFieldWrapper className="slider-input-field">
-            <FormControl fullWidth>
+            <FormControl fullWidth error={Boolean(errorMessage)}>
                 {separateLabel ? (
                     <SeparateLabel htmlFor={fieldName} label={inputLabel} required={required} />
                 ) : null}
@@ -80,8 +85,8 @@ ISliderInputField) => {
                             </ThemeProvider>
                         )}
                     />
-                    <FormHelperText>{inputFieldHelperText}</FormHelperText>
                 </div>
+                <FormHelperText>{errorMessage || inputFieldHelperText}</FormHelperText>
             </FormControl>
         </InputFieldWrapper>
     );

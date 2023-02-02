@@ -52,9 +52,10 @@ const SliderInputField = ({
     showBorder,
 }: // eslint-disable-next-line arrow-body-style
 ISliderInputField) => {
-    const showBorderAround = showBorder ? 'show-border' : '';
     const errorMessage = inputErrorMessageFinder(fieldName, inputErrors);
-    // console.log(errorMessage, inputErrors);
+
+    const showBorderAround = showBorder ? 'show-border' : '';
+    const showBorderInErrorState = errorMessage ? 'error-border' : '';
 
     return (
         <InputFieldWrapper className="slider-input-field">
@@ -63,7 +64,9 @@ ISliderInputField) => {
                     <SeparateLabel htmlFor={fieldName} label={inputLabel} required={required} />
                 ) : null}
 
-                <div className={`slider-input-container ${showBorderAround}`}>
+                <div
+                    className={`slider-input-container ${showBorderAround} ${showBorderInErrorState}`}
+                >
                     <Controller
                         control={control}
                         name={fieldName}

@@ -17,6 +17,7 @@ import {
 import {
     RESET_UNSORTED_SUBJECTS_LIST,
     SAVE_UNSORTED_SUBJECTS_LIST,
+    ERROR_SAVE_UNSORTED_SUBJECTS_LIST,
 } from 'store/dashboard/subjectsListSlice';
 import { RESET_CURRENT_PAGE } from 'store/pagination/pageTracker';
 import { useNavigate } from 'react-router-dom';
@@ -95,9 +96,9 @@ const PaginationHeader = ({ unsortedData }: IPaginationHeader) => {
                 onClick={() => {
                     dispatch(RESET_UNSORTED_SUBJECTS_LIST());
                     dispatch(RESET_SORTED_SUBJECTS_LIST());
-                    getSubjectsFromFirestore().then((data) =>
-                        dispatch(SAVE_UNSORTED_SUBJECTS_LIST(data)),
-                    );
+                    getSubjectsFromFirestore()
+                        .then((data) => dispatch(SAVE_UNSORTED_SUBJECTS_LIST(data)))
+                        .catch((err) => dispatch(ERROR_SAVE_UNSORTED_SUBJECTS_LIST(err)));
                 }}
             >
                 <span>

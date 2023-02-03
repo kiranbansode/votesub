@@ -7,6 +7,7 @@ import useAppDispatch from 'hooks/useAppDispatch';
 import { SAVE_CURRENT_PAGE, NEXT_PAGE, PREVIOUS_PAGE } from 'store/pagination/pageTracker';
 import { nanoid } from 'nanoid';
 import useAppSelector from 'hooks/useAppSelector';
+import { useEffect } from 'react';
 
 interface IPaginationFooter {
     sortedData: any[][];
@@ -16,7 +17,7 @@ interface IPaginationFooter {
 const PaginationFooter = ({ sortedData }: IPaginationFooter) => {
     const dispatch = useAppDispatch();
     const { currentPage } = useAppSelector(({ currPaginationPage }) => currPaginationPage);
-    // const sortedSubjectList = useAppSelector(({ sortedSubjects }) => sortedSubjects.list);
+    const sortedSubjectList = useAppSelector(({ sortedSubjects }) => sortedSubjects.list);
 
     /**
      * `scrollActivePageInView` function will move active page into parent
@@ -26,6 +27,20 @@ const PaginationFooter = ({ sortedData }: IPaginationFooter) => {
         const pageNo = document.getElementById(`page-no-${currentPage + 1}`);
         pageNo?.scrollIntoView({ behavior: 'smooth', inline: 'center' });
     };
+
+    const showPaginationFooter = () => {
+        const paginationFooter = document.querySelector(
+            '.pagination-footer-container',
+        )! as HTMLElement;
+
+        if (paginationFooter && sortedSubjectList.length > 1) {
+            paginationFooter.style.display = 'flex';
+        }
+    };
+
+    useEffect(() => {
+        showPaginationFooter();
+    }, [sortedSubjectList]);
 
     return (
         <div className="pagination-footer-container">

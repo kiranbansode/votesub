@@ -1,12 +1,7 @@
 import { FieldErrors, Control } from 'react-hook-form';
+import { SliderProps } from '@mui/material';
 
-export type BaseInputField = {
-    /**
-     * `className` is same as `class` attribute to html elements
-     * @default ''
-     */
-    className?: string;
-
+type BaseInputField = {
     /**
      * `control` object from [useForm()](https://react-hook-form.com/api/useform/control/) hook
      */
@@ -17,12 +12,6 @@ export type BaseInputField = {
      * `fieldName` must be unique for every component.
      */
     fieldName: string;
-
-    /**
-     * If `true`, will bring user's attention to this field on first rendering
-     * @default false
-     */
-    autoFocus?: boolean;
 
     /**
      * If `true` , all Labels will not be shown
@@ -39,7 +28,7 @@ export type BaseInputField = {
     /**
      * error object from useForm().[formState](https://react-hook-form.com/api/useform/formstate)
      */
-    errors: FieldErrors;
+    inputErrors: FieldErrors;
 
     /**
      * Helper message for this input field
@@ -66,7 +55,20 @@ export type BaseInputField = {
     required?: boolean;
 };
 
-export interface ITextInputFieldProps extends BaseInputField {
+export type AdditionalBaseInputField = {
+    /**
+     * `className` is same as `class` attribute to html elements
+     * @default ''
+     */
+    className?: string;
+    /**
+     * If `true`, will bring user's attention to this field on first rendering
+     * @default false
+     */
+    autoFocus?: boolean;
+};
+
+export interface ITextInputFieldProps extends BaseInputField, AdditionalBaseInputField {
     /**
      * `makeItTextArea` will change TextInputField to textarea(multiline) component
      */
@@ -88,4 +90,88 @@ export interface ITextInputFieldProps extends BaseInputField {
     adornmentButtonHandler?: () => void;
 }
 
-export interface IPasswordInputFieldProps extends BaseInputField {}
+export interface IPasswordInputFieldProps extends BaseInputField, AdditionalBaseInputField {}
+
+export interface IDateInputField extends Omit<BaseInputField, 'inputPlaceholder'> {}
+
+export interface ISwitchInputField extends BaseInputField {}
+
+interface IRadioSelect {
+    label: string;
+    value: string;
+}
+
+export interface IRadioInputField extends Omit<BaseInputField, 'inputPlaceholder' | 'noLabel'> {
+    /**
+     *
+     */
+    showBorder?: boolean;
+    /**
+     *
+     */
+    className?: string;
+    /**
+     *
+     */
+    alignCenter?: boolean;
+    /**
+     *
+     */
+    radioSelect: IRadioSelect[];
+    /**
+     *
+     */
+    showVertically?: boolean;
+}
+
+export interface ISliderInputField extends Omit<BaseInputField, 'inputPlaceholder' | 'noLabel'> {
+    /**
+     *
+     */
+    defaultValue?: number;
+
+    /**
+     *
+     */
+    color?: SliderProps['color'];
+
+    /**
+     *
+     */
+    step?: number;
+
+    /**
+     *
+     */
+    size?: SliderProps['size'];
+
+    /**
+     *
+     */
+    min?: SliderProps['min'];
+
+    /**
+     *
+     */
+    max?: SliderProps['max'];
+
+    /**
+     *
+     */
+    marks: SliderProps['marks'];
+
+    /**
+     *
+     */
+    showBorder?: boolean;
+}
+
+export interface IOptions {
+    value: string | number;
+    option: string;
+    id: string;
+}
+
+export interface ISelectInputField extends Omit<BaseInputField, 'inputPlaceholder' | 'noLabel'> {
+    options: IOptions[];
+}

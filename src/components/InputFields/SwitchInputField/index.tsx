@@ -4,6 +4,7 @@ import { Switch, FormControl, FormHelperText, SwitchProps } from '@mui/material'
 
 import './SwitchInputField.styles.scss';
 
+// TODO: Move below mentioned interfaces to InputFields/types
 interface ISwitchInputField {
     control: Control;
     fieldName: string;

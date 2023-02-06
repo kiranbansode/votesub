@@ -1,10 +1,10 @@
 import { useForm, FieldValues } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import TextInputField from 'components/TextInputField';
-import SelectInputField from 'components/SelectInputField';
+import TextInputField from 'components/InputFields/TextInputField';
+import SelectInputField from 'components/InputFields/SelectInputField';
 import hrOptions from 'utils/menuOptions/hr';
-import RadioInputField from 'components/RadioInputField';
-import PasswordInputField from 'components/PasswordInputField';
+import RadioInputField from 'components/InputFields/RadioInputField';
+import PasswordInputField from 'components/InputFields/PasswordInputField';
 import Button from 'components/Button';
 import Logo from 'components/Logo';
 import Caption from 'components/Caption';
@@ -44,11 +44,7 @@ const defaultEmployerRegFormVal: IEmployerRegForm = {
 };
 
 const EmployerRegForm = () => {
-    const {
-        control,
-        formState: { errors },
-        handleSubmit,
-    } = useForm<FieldValues>({
+    const { control, formState, handleSubmit } = useForm<FieldValues>({
         defaultValues: defaultEmployerRegFormVal,
         resolver: yupResolver(EmployerRegFormValidations),
     });
@@ -101,7 +97,7 @@ const EmployerRegForm = () => {
                         required
                         separateLabel
                         control={control}
-                        errors={errors}
+                        inputErrors={formState.errors}
                         fieldName="name.firstName"
                         inputLabel="First Name"
                         inputPlaceholder="Your Name"
@@ -110,7 +106,7 @@ const EmployerRegForm = () => {
                     <TextInputField
                         separateLabel
                         control={control}
-                        errors={errors}
+                        inputErrors={formState.errors}
                         fieldName="name.middleName"
                         inputLabel="Middle Name"
                         inputPlaceholder="Father/Husband Name"
@@ -120,7 +116,7 @@ const EmployerRegForm = () => {
                         required
                         separateLabel
                         control={control}
-                        errors={errors}
+                        inputErrors={formState.errors}
                         fieldName="name.lastName"
                         inputLabel="Last Name"
                         inputPlaceholder="Surname"
@@ -133,7 +129,7 @@ const EmployerRegForm = () => {
                         showBorder
                         control={control}
                         fieldName="gender"
-                        inputErrors={errors}
+                        inputErrors={formState.errors}
                         inputLabel="Gender"
                         radioSelect={[
                             { label: 'Male', value: 'male' },
@@ -144,7 +140,7 @@ const EmployerRegForm = () => {
                     <TextInputField
                         separateLabel
                         control={control}
-                        errors={errors}
+                        inputErrors={formState.errors}
                         fieldName="companyName"
                         inputLabel="Company Name"
                     />
@@ -154,7 +150,7 @@ const EmployerRegForm = () => {
                         separateLabel
                         control={control}
                         fieldName="role"
-                        inputErrors={errors}
+                        inputErrors={formState.errors}
                         inputLabel="Your role in Company"
                         options={hrOptions}
                     />
@@ -164,7 +160,7 @@ const EmployerRegForm = () => {
                         separateLabel
                         control={control}
                         fieldName="countryCode"
-                        inputErrors={errors}
+                        inputErrors={formState.errors}
                         inputHelperText="It is required by E.164 standards"
                         inputLabel="Country Code"
                         options={countryCodeOptions}
@@ -174,7 +170,7 @@ const EmployerRegForm = () => {
                         required
                         separateLabel
                         control={control}
-                        errors={errors}
+                        inputErrors={formState.errors}
                         fieldName="mob1"
                         inputHelperText="A valid phone number will help us and you to reset your password"
                         inputLabel="Mobile No."
@@ -183,7 +179,7 @@ const EmployerRegForm = () => {
                     <TextInputField
                         separateLabel
                         control={control}
-                        errors={errors}
+                        inputErrors={formState.errors}
                         fieldName="mob2"
                         inputLabel="Alternate Mobile No."
                     />
@@ -192,7 +188,7 @@ const EmployerRegForm = () => {
                         required
                         separateLabel
                         control={control}
-                        errors={errors}
+                        inputErrors={formState.errors}
                         fieldName="emailId"
                         inputLabel="Email ID"
                     />
@@ -201,7 +197,7 @@ const EmployerRegForm = () => {
                         required
                         separateLabel
                         control={control}
-                        errors={errors}
+                        inputErrors={formState.errors}
                         fieldName="password"
                         inputLabel="Password"
                     />
@@ -210,7 +206,7 @@ const EmployerRegForm = () => {
                         required
                         separateLabel
                         control={control}
-                        errors={errors}
+                        inputErrors={formState.errors}
                         fieldName="confirmPassword"
                         inputLabel="Confirm Password"
                     />

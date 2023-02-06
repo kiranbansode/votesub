@@ -1,13 +1,13 @@
 import Header from 'components/Header';
-import SliderInputField from 'components/SliderInputField';
+import SliderInputField from 'components/InputFields/SliderInputField';
 import Button from 'components/Button';
 import { FieldValues, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import PageTitle from 'components/Title';
 // import PageNotFound from 'pages/PageNotFound';
-import TextInputField from 'components/TextInputField';
-import RadioInputField from 'components/RadioInputField';
+import TextInputField from 'components/InputFields/TextInputField';
+import RadioInputField from 'components/InputFields/RadioInputField';
 
 import './FeedbackPage.styles.scss';
 import { addNewFeedbackThunk } from 'store/addNewFeedback';
@@ -159,7 +159,7 @@ const FeedbackPage = () => {
                         makeItTextArea
                         separateLabel
                         control={control}
-                        errors={formState.errors}
+                        inputErrors={formState.errors}
                         fieldName="mssg"
                         inputLabel="5. Any Message or Feedback to Developer regarding VoteSub app ?"
                         inputPlaceholder="Please enter your message or feedback here"

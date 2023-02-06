@@ -33,7 +33,7 @@ function TextInputField({
     inputPlaceholder = '',
     adornmentPosition = 'end',
     inputLabel = 'TextField',
-    errors,
+    inputErrors,
     control,
     fieldName,
     adornmentButtonHandler,
@@ -43,7 +43,7 @@ function TextInputField({
         throw Error('fieldName can not be an empty string');
     }
 
-    const errorMessage = inputErrorMessageFinder(fieldName, errors);
+    const errorMessage = inputErrorMessageFinder(fieldName, inputErrors);
 
     let labelToShow: any;
     /*

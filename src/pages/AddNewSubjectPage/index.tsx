@@ -3,7 +3,7 @@
 import { FieldValues, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import TextInputField from 'components/TextInputField';
+import TextInputField from 'components/InputFields/TextInputField';
 import useAppSelector from 'hooks/useAppSelector';
 import useAppDispatch from 'hooks/useAppDispatch';
 import {
@@ -110,7 +110,7 @@ const AddNewSubjectPage = () => {
                     <TextInputField
                         separateLabel
                         control={control}
-                        errors={formState.errors}
+                        inputErrors={formState.errors}
                         fieldName="subject"
                         inputHelperText="Try to use small and expressive name or question for Subject"
                         inputLabel="Enter a subject for voting"
@@ -122,7 +122,7 @@ const AddNewSubjectPage = () => {
                         separateLabel
                         className="textInput-candidateName"
                         control={control}
-                        errors={formState.errors}
+                        inputErrors={formState.errors}
                         fieldName="candidateName"
                         inputHelperText="Minimum 2 Candidates should be added so users can vote"
                         inputLabel="Candidate Name"

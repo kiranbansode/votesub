@@ -21,8 +21,8 @@ import InputFieldWrapper from 'styled/InputFieldWrapper';
 import loginPageFormValidation from './yupValidation.ts';
 import './LoginPage.styles.scss';
 
-const TextInputField = lazy(() => import('components/TextInputField'));
-const PasswordInputField = lazy(() => import('components/PasswordInputField'));
+const TextInputField = lazy(() => import('components/InputFields/TextInputField'));
+const PasswordInputField = lazy(() => import('components/InputFields/PasswordInputField'));
 const Button = lazy(() => import('components/Button'));
 const Separator = lazy(() => import('components/Separator'));
 const Logo = lazy(() => import('components/Logo'));
@@ -124,7 +124,7 @@ const LoginPage = () => {
                         autoFocus
                         separateLabel
                         control={control}
-                        errors={formState.errors}
+                        inputErrors={formState.errors}
                         fieldName="username"
                         inputLabel="Username"
                     />
@@ -132,7 +132,7 @@ const LoginPage = () => {
                     <PasswordInputField
                         separateLabel
                         control={control}
-                        errors={formState.errors}
+                        inputErrors={formState.errors}
                         fieldName="password"
                         inputLabel="Password"
                     />

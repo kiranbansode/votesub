@@ -1,9 +1,9 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { useForm, SubmitHandler } from 'react-hook-form';
-import SelectInputField from 'components/SelectInputField';
+import SelectInputField from 'components/InputFields/SelectInputField';
 import './SearchQuery.styles.scss';
-import TextInputField from 'components/TextInputField';
+import TextInputField from 'components/InputFields/TextInputField';
 import Button from 'components/Button';
 import useAppSelector from 'hooks/useAppSelector';
 import { useState } from 'react';
@@ -105,7 +105,7 @@ const SearchQueryPage = () => {
                         showAdornment
                         adornmentButtonHandler={() => resetField('query', { defaultValue: '' })}
                         control={control}
-                        errors={formState.errors}
+                        inputErrors={formState.errors}
                         fieldName="query"
                         inputHelperText="Enter a query like name of Subject or Submitter name"
                         inputLabel="Search"

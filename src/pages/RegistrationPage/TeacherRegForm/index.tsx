@@ -2,10 +2,10 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm, FieldValues } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import TextInputField from 'components/TextInputField';
-import RadioInputField from 'components/RadioInputField';
-import PasswordInputField from 'components/PasswordInputField';
-import SelectInputField from 'components/SelectInputField';
+import TextInputField from 'components/InputFields/TextInputField';
+import RadioInputField from 'components/InputFields/RadioInputField';
+import PasswordInputField from 'components/InputFields/PasswordInputField';
+import SelectInputField from 'components/InputFields/SelectInputField';
 import Button from 'components/Button';
 import Caption from 'components/Caption';
 import Logo from 'components/Logo';
@@ -44,11 +44,7 @@ const defaultTeacherRegFormVal: ITeacherRegForm = {
 };
 
 const TeacherRegForm = () => {
-    const {
-        control,
-        formState: { errors },
-        handleSubmit,
-    } = useForm<FieldValues>({
+    const { control, formState, handleSubmit } = useForm<FieldValues>({
         defaultValues: defaultTeacherRegFormVal,
         resolver: yupResolver(TeacherRegFormValidations),
     });
@@ -101,7 +97,7 @@ const TeacherRegForm = () => {
                         required
                         separateLabel
                         control={control}
-                        errors={errors}
+                        inputErrors={formState.errors}
                         fieldName="name.firstName"
                         inputLabel="First Name"
                         inputPlaceholder="Your Name"
@@ -110,7 +106,7 @@ const TeacherRegForm = () => {
                     <TextInputField
                         separateLabel
                         control={control}
-                        errors={errors}
+                        inputErrors={formState.errors}
                         fieldName="name.middleName"
                         inputLabel="Middle Name"
                         inputPlaceholder="Father/Husband Name"
@@ -120,7 +116,7 @@ const TeacherRegForm = () => {
                         required
                         separateLabel
                         control={control}
-                        errors={errors}
+                        inputErrors={formState.errors}
                         fieldName="name.lastName"
                         inputLabel="Last Name"
                         inputPlaceholder="Surname"
@@ -132,7 +128,7 @@ const TeacherRegForm = () => {
                         showBorder
                         control={control}
                         fieldName="gender"
-                        inputErrors={errors}
+                        inputErrors={formState.errors}
                         inputLabel="Gender"
                         radioSelect={[
                             { label: 'Male', value: 'male' },
@@ -143,7 +139,7 @@ const TeacherRegForm = () => {
                     <TextInputField
                         separateLabel
                         control={control}
-                        errors={errors}
+                        inputErrors={formState.errors}
                         fieldName="schoolName"
                         inputHelperText="Enter name of school where do you work."
                         inputLabel="School Name"
@@ -154,7 +150,7 @@ const TeacherRegForm = () => {
                         separateLabel
                         control={control}
                         fieldName="role"
-                        inputErrors={errors}
+                        inputErrors={formState.errors}
                         inputHelperText="It is required to generate role for Profile"
                         inputLabel="Your Role in School"
                         options={trOptions}
@@ -165,7 +161,7 @@ const TeacherRegForm = () => {
                         separateLabel
                         control={control}
                         fieldName="countryCode"
-                        inputErrors={errors}
+                        inputErrors={formState.errors}
                         inputHelperText="It is required by E.164 standards"
                         inputLabel="Country Code"
                         options={countryCodeOptions}
@@ -175,7 +171,7 @@ const TeacherRegForm = () => {
                         required
                         separateLabel
                         control={control}
-                        errors={errors}
+                        inputErrors={formState.errors}
                         fieldName="mob1"
                         inputHelperText="A valid phone number will help us and you to reset your password"
                         inputLabel="Mobile No."
@@ -184,7 +180,7 @@ const TeacherRegForm = () => {
                     <TextInputField
                         separateLabel
                         control={control}
-                        errors={errors}
+                        inputErrors={formState.errors}
                         fieldName="mob2"
                         inputLabel="Alternate Mobile No."
                     />
@@ -193,7 +189,7 @@ const TeacherRegForm = () => {
                         required
                         separateLabel
                         control={control}
-                        errors={errors}
+                        inputErrors={formState.errors}
                         fieldName="emailId"
                         inputLabel="Email ID"
                     />
@@ -202,7 +198,7 @@ const TeacherRegForm = () => {
                         required
                         separateLabel
                         control={control}
-                        errors={errors}
+                        inputErrors={formState.errors}
                         fieldName="password"
                         inputLabel="Password"
                     />
@@ -211,7 +207,7 @@ const TeacherRegForm = () => {
                         required
                         separateLabel
                         control={control}
-                        errors={errors}
+                        inputErrors={formState.errors}
                         fieldName="confirmPassword"
                         inputLabel="Confirm Password"
                     />

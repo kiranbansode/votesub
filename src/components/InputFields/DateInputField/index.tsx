@@ -1,4 +1,4 @@
-import { Control, Controller, FieldErrors } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
 import dayjs from 'dayjs';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { TextField, FormControl, FormHelperText } from '@mui/material';
@@ -7,26 +7,29 @@ import InputFieldWrapper from 'styled/InputFieldWrapper';
 import SeparateLabel from 'components/SeparateLabel';
 import inputErrorMessageFinder from 'utils/helperFunctions/inputErrorMessageFinder';
 
-interface IDateInputField {
-    inputErrors: FieldErrors;
-    fieldName: string;
-    control: Control;
-    inputLabel: string;
-    inputHelperText?: string;
-    separateLabel?: boolean;
-    noLabel?: boolean;
-    required?: boolean;
-}
+// eslint-disable-next-line import/extensions
+import { IDateInputField } from '../types';
+
+// interface IDateInputField {
+//     inputErrors: FieldErrors;
+//     fieldName: string;
+//     control: Control;
+//     inputLabel: string;
+//     inputHelperText?: string;
+//     separateLabel?: boolean;
+//     noLabel?: boolean;
+//     required?: boolean;
+// }
 
 const DateInputField = ({
+    separateLabel = false,
+    noLabel = false,
+    required = false,
+    inputHelperText = '',
     inputErrors,
-    separateLabel,
-    noLabel,
     fieldName,
-    inputHelperText,
     inputLabel,
     control,
-    required,
 }: IDateInputField) => {
     const error = inputErrorMessageFinder(fieldName, inputErrors);
     const now = dayjs();
@@ -38,6 +41,7 @@ const DateInputField = ({
             2. No Label - Label will not be showed
             3. Default - Label will be shown in top border of TextInputField
         */
+        // @ts-ignore
         labelToShow = !separateLabel ? inputLabel : null;
     }
 
@@ -82,11 +86,11 @@ const DateInputField = ({
     );
 };
 
-DateInputField.defaultProps = {
-    separateLabel: false,
-    noLabel: false,
-    inputHelperText: '',
-    required: false,
-};
+// DateInputField.defaultProps = {
+//     separateLabel: false,
+//     noLabel: false,
+//     inputHelperText: '',
+//     required: false,
+// };
 
 export default DateInputField;

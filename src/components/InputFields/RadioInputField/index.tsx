@@ -1,4 +1,4 @@
-import { Controller, Control, FieldErrors } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
 import { Radio, RadioGroup, FormControlLabel, FormControl, FormHelperText } from '@mui/material';
 import SeparateLabel from 'components/SeparateLabel';
 import InputFieldWrapper from 'styled/InputFieldWrapper';
@@ -6,40 +6,43 @@ import InputFieldWrapper from 'styled/InputFieldWrapper';
 import './RadioInputField.styles.scss';
 import inputErrorMessageFinder from 'utils/helperFunctions/inputErrorMessageFinder';
 
-interface IRadioSelect {
-    label: string;
-    value: string;
-}
+// eslint-disable-next-line import/extensions
+import { IRadioInputField } from '../types';
 
-interface RadioInputFieldTypes {
-    control: Control;
-    fieldName: string;
-    inputErrors: FieldErrors;
-    inputLabel: string;
-    showBorder?: boolean;
-    inputHelperText?: string;
-    separateLabel?: boolean;
-    className?: string;
-    alignCenter?: boolean;
-    radioSelect: IRadioSelect[];
-    required?: boolean;
-    showVertically?: boolean;
-}
+// interface IRadioSelect {
+//     label: string;
+//     value: string;
+// }
+
+// interface RadioInputFieldTypes {
+//     control: Control;
+//     fieldName: string;
+//     inputErrors: FieldErrors;
+//     inputLabel: string;
+//     showBorder?: boolean;
+//     inputHelperText?: string;
+//     separateLabel?: boolean;
+//     className?: string;
+//     alignCenter?: boolean;
+//     radioSelect: IRadioSelect[];
+//     required?: boolean;
+//     showVertically?: boolean;
+// }
 
 const RadioInputField = ({
+    inputHelperText = '',
+    showBorder = false,
+    separateLabel = true,
+    className = 'radio-buttons-container',
+    alignCenter = false,
+    required = false,
+    showVertically = false,
+    radioSelect,
     control,
     fieldName,
     inputErrors,
     inputLabel,
-    inputHelperText,
-    showBorder,
-    separateLabel,
-    className,
-    alignCenter,
-    radioSelect,
-    required,
-    showVertically,
-}: RadioInputFieldTypes) => {
+}: IRadioInputField) => {
     const error = inputErrorMessageFinder(fieldName, inputErrors);
 
     // eslint-disable-next-line no-nested-ternary
@@ -88,14 +91,14 @@ const RadioInputField = ({
     );
 };
 
-RadioInputField.defaultProps = {
-    className: 'radio-buttons-container',
-    inputHelperText: '',
-    separateLabel: true,
-    showBorder: false,
-    alignCenter: false,
-    required: false,
-    showVertically: false,
-};
+// RadioInputField.defaultProps = {
+//     className: 'radio-buttons-container',
+//     inputHelperText: '',
+//     separateLabel: true,
+//     showBorder: false,
+//     alignCenter: false,
+//     required: false,
+//     showVertically: false,
+// };
 
 export default RadioInputField;

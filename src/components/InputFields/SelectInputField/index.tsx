@@ -1,33 +1,35 @@
 import { FormHelperText, MenuItem, FormControl, Select } from '@mui/material';
 import SeparateLabel from 'components/SeparateLabel';
-import { Controller, FieldErrors, Control } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
 import InputFieldWrapper from 'styled/InputFieldWrapper';
 import inputErrorMessageFinder from 'utils/helperFunctions/inputErrorMessageFinder';
-import { IOptions } from 'utils/menuOptions';
+
+// eslint-disable-next-line import/extensions
+import { ISelectInputField } from '../types';
 
 import './SelectInputField.styles.scss';
 
-export interface SelectInputFieldProps {
-    inputErrors: FieldErrors;
-    control: Control<any>;
-    inputLabel: string;
-    options: IOptions[];
-    fieldName: string;
-    inputHelperText?: string;
-    separateLabel?: boolean;
-    required?: boolean;
-}
+// export interface SelectInputFieldProps {
+//     inputErrors: FieldErrors;
+//     control: Control<any>;
+//     inputLabel: string;
+//     options: IOptions[];
+//     fieldName: string;
+//     inputHelperText?: string;
+//     separateLabel?: boolean;
+//     required?: boolean;
+// }
 
 const SelectInputField = ({
+    inputHelperText = '',
+    separateLabel = false,
+    required = false,
+    options,
+    fieldName,
     inputErrors,
     control,
     inputLabel,
-    inputHelperText,
-    separateLabel,
-    options,
-    fieldName,
-    required,
-}: SelectInputFieldProps) => {
+}: ISelectInputField) => {
     const error = inputErrorMessageFinder(fieldName, inputErrors);
 
     return (
@@ -56,10 +58,10 @@ const SelectInputField = ({
     );
 };
 
-SelectInputField.defaultProps = {
-    separateLabel: false,
-    required: false,
-    inputHelperText: '',
-};
+// SelectInputField.defaultProps = {
+//     separateLabel: false,
+//     required: false,
+//     inputHelperText: '',
+// };
 
 export default SelectInputField;

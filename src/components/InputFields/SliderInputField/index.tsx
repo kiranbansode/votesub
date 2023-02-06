@@ -1,11 +1,14 @@
-import { Slider, FormControl, FormHelperText, SliderProps, ThemeProvider } from '@mui/material';
+import { Slider, FormControl, FormHelperText, ThemeProvider } from '@mui/material';
+import { Controller } from 'react-hook-form';
 import { createTheme } from '@mui/material/styles';
 import { green } from '@mui/material/colors';
 import SeparateLabel from 'components/SeparateLabel';
-import { Control, Controller, FieldErrors } from 'react-hook-form';
 import InputFieldWrapper from 'styled/InputFieldWrapper';
 import './SliderInputField.styles.scss';
 import inputErrorMessageFinder from 'utils/helperFunctions/inputErrorMessageFinder';
+
+// eslint-disable-next-line import/extensions
+import { ISliderInputField } from '../types';
 
 const sliderColorTheme = createTheme({
     palette: {
@@ -15,41 +18,41 @@ const sliderColorTheme = createTheme({
     },
 });
 
-interface ISliderInputField {
-    defaultValue?: number;
-    control: Control;
-    color?: SliderProps['color'];
-    fieldName: string;
-    inputErrors: FieldErrors;
-    inputFieldHelperText?: string;
-    required?: boolean;
-    separateLabel?: boolean;
-    inputLabel?: string;
-    step?: number;
-    size?: SliderProps['size'];
-    min?: SliderProps['min'];
-    max?: SliderProps['max'];
-    marks: SliderProps['marks'];
-    showBorder?: boolean;
-}
+// interface ISliderInputField {
+//     defaultValue?: number;
+//     control: Control;
+//     color?: SliderProps['color'];
+//     fieldName: string;
+//     inputErrors: FieldErrors;
+//     inputHelperText?: string;
+//     required?: boolean;
+//     separateLabel?: boolean;
+//     inputLabel?: string;
+//     step?: number;
+//     size?: SliderProps['size'];
+//     min?: SliderProps['min'];
+//     max?: SliderProps['max'];
+//     marks: SliderProps['marks'];
+//     showBorder?: boolean;
+// }
 
 // eslint-disable-next-line arrow-body-style
 const SliderInputField = ({
-    defaultValue,
-    color,
+    defaultValue = 0,
+    color = 'primary',
+    inputHelperText = '',
+    required = false,
+    inputLabel = 'SliderInputField',
+    separateLabel = false,
+    step = 5,
+    max = 100,
+    min = 0,
+    size = 'medium',
+    showBorder = false,
     control,
     fieldName,
     inputErrors,
-    inputFieldHelperText,
-    required,
-    inputLabel,
-    separateLabel,
-    step,
     marks,
-    max,
-    min,
-    size,
-    showBorder,
 }: // eslint-disable-next-line arrow-body-style
 ISliderInputField) => {
     const errorMessage = inputErrorMessageFinder(fieldName, inputErrors);
@@ -89,24 +92,24 @@ ISliderInputField) => {
                         )}
                     />
                 </div>
-                <FormHelperText>{errorMessage || inputFieldHelperText}</FormHelperText>
+                <FormHelperText>{errorMessage || inputHelperText}</FormHelperText>
             </FormControl>
         </InputFieldWrapper>
     );
 };
 
-SliderInputField.defaultProps = {
-    color: 'primary',
-    defaultValue: 0,
-    inputFieldHelperText: '',
-    max: 100,
-    min: 0,
-    size: 'medium',
-    step: 5,
-    required: false,
-    inputLabel: 'Slider Input Field',
-    separateLabel: false,
-    showBorder: false,
-};
+// SliderInputField.defaultProps = {
+//     color: 'primary',
+//     defaultValue: 0,
+//     inputHelperText: '',
+//     max: 100,
+//     min: 0,
+//     size: 'medium',
+//     step: 5,
+//     required: false,
+//     inputLabel: 'Slider Input Field',
+//     separateLabel: false,
+//     showBorder: false,
+// };
 
 export default SliderInputField;

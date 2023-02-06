@@ -3,7 +3,7 @@
 */
 
 import { useState, MouseEvent } from 'react';
-import { UseFormRegisterReturn, FieldErrors, Controller } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
 import {
     FormControl,
     OutlinedInput,
@@ -21,18 +21,19 @@ import './PasswordInputField.styles.scss';
 import { IPasswordInputFieldProps } from 'components/InputFields/types';
 
 const PasswordInputField = ({
-    separateLabel,
-    noLabel,
-    inputHelperText,
-    inputLabel,
-    inputPlaceholder,
+    separateLabel = false,
+    noLabel = false,
+    inputHelperText = '',
+    inputLabel = 'PasswordInputField',
+    inputPlaceholder = '',
+    required = false,
+    autoFocus = false,
     control,
     fieldName,
-    errors,
-    required,
+    inputErrors,
 }: IPasswordInputFieldProps) => {
     const [showPassword, setShowPassword] = useState(false);
-    const errorMessage = inputErrorMessageFinder(fieldName, errors);
+    const errorMessage = inputErrorMessageFinder(fieldName, inputErrors);
 
     let labelToShow: any;
 
@@ -66,6 +67,7 @@ const PasswordInputField = ({
                     render={({ field }) => (
                         <OutlinedInput
                             fullWidth
+                            autoFocus={autoFocus}
                             endAdornment={
                                 <InputAdornment position="end">
                                     <IconButton
@@ -95,13 +97,14 @@ const PasswordInputField = ({
     );
 };
 
-PasswordInputField.defaultProps = {
-    separateLabel: false,
-    noLabel: false,
-    inputHelperText: '',
-    inputLabel: 'PasswordInputField',
-    inputPlaceholder: '',
-    required: false,
-};
+// PasswordInputField.defaultProps = {
+//     separateLabel: false,
+//     noLabel: false,
+//     inputHelperText: '',
+//     inputLabel: 'PasswordInputField',
+//     inputPlaceholder: '',
+//     required: false,
+//     autoFocus: false,
+// };
 
 export default PasswordInputField;

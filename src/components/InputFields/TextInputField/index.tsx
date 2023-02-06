@@ -1,5 +1,5 @@
 import { TextField, FormControl, FormHelperText, InputAdornment, IconButton } from '@mui/material';
-import { ITextInputFieldProps } from 'components/types';
+import { ITextInputFieldProps } from 'components/InputFields/types';
 import SeparateLabel from 'components/SeparateLabel';
 import InputFieldWrapper from 'styled/InputFieldWrapper';
 import inputErrorMessageFinder from 'utils/helperFunctions/inputErrorMessageFinder';

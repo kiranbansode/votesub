@@ -18,7 +18,7 @@ import InputFieldWrapper from 'styled/InputFieldWrapper';
 import inputErrorMessageFinder from 'utils/helperFunctions/inputErrorMessageFinder';
 
 import './PasswordInputField.styles.scss';
-import { IPasswordInputFieldProps } from 'components/types';
+import { IPasswordInputFieldProps } from 'components/InputFields/types';
 
 const PasswordInputField = ({
     separateLabel,

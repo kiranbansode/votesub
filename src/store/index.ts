@@ -11,6 +11,7 @@ import pageTracker from 'store/pagination/pageTracker';
 import userVotingHistorySlice from 'store/votingHistory/userVotingHistorySlice';
 import existingUserAuthStateSlice from 'store/existingUserAuthStateSlice/existingUserAuthStateSlice';
 import addNewFeedbackSlice from 'store/addNewFeedback';
+import saveFilteredSubjects from 'store/saveFilteredSubjects';
 
 export const store = configureStore({
     reducer: {
@@ -26,6 +27,7 @@ export const store = configureStore({
         votingHistory: userVotingHistorySlice,
         existingLoggedUserAuth: existingUserAuthStateSlice,
         addNewFeedback: addNewFeedbackSlice,
+        filteredSubjects: saveFilteredSubjects,
     },
 
     // @ts-ignore

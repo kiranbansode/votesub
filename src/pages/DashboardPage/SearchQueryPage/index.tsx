@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { useForm, SubmitHandler } from 'react-hook-form';
@@ -6,12 +7,18 @@ import './SearchQuery.styles.scss';
 import TextInputField from 'components/InputFields/TextInputField';
 import Button from 'components/Button';
 import useAppSelector from 'hooks/useAppSelector';
-import { useState } from 'react';
+import useAppDispatch from 'hooks/useAppDispatch';
 import { ISubjectData } from 'types/subjectDetails';
 import Header from 'components/Header';
 import Separator from 'components/Separator';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import VotingSubject from 'components/VotingSubject';
+import {
+    RESET_FILTERED_SUBJECTS,
+    SAVE_FILTERED_SUBJECTS,
+    SAVE_ERROR_FILTERED_SUBJECTS,
+} from 'store/saveFilteredSubjects';
+import ErrorView from 'components/ErrorView';
 
 interface ISearchForm {
     queryType: string;
@@ -28,7 +35,8 @@ const SearchQueryPage = () => {
         defaultValues: searchFormDefaultValues,
     });
     const subjects: ISubjectData[] | [] = useAppSelector(({ subjectsList }) => subjectsList.list);
-    const [filteredSubjects, setFilteredSubjects] = useState<ISubjectData[]>([]);
+    const filteredSubjects = useAppSelector((state) => state.filteredSubjects);
+    const dispatch = useAppDispatch();
 
     const searchQueryOnSubmit: SubmitHandler<ISearchForm> = ({ query, queryType }) => {
         if (query === '') return;
@@ -47,11 +55,15 @@ const SearchQueryPage = () => {
             /**
              * we can return null here safely but just a fallback logic
              */
-            return queryTypeResult.toLowerCase() === query.toLowerCase();
+            return null;
         });
 
-        // @ts-ignore
-        setFilteredSubjects(filteredArray);
+        if (filteredArray.length === 0) {
+            dispatch(SAVE_ERROR_FILTERED_SUBJECTS(filteredArray));
+            return;
+        }
+
+        dispatch(SAVE_FILTERED_SUBJECTS(filteredArray));
     };
 
     return (
@@ -103,10 +115,13 @@ const SearchQueryPage = () => {
                         required
                         separateLabel
                         showAdornment
-                        adornmentButtonHandler={() => resetField('query', { defaultValue: '' })}
+                        adornmentButtonHandler={() => {
+                            resetField('query', { defaultValue: '' });
+                            dispatch(RESET_FILTERED_SUBJECTS());
+                        }}
                         control={control}
-                        inputErrors={formState.errors}
                         fieldName="query"
+                        inputErrors={formState.errors}
                         inputHelperText="Enter a query like name of Subject or Submitter name"
                         inputLabel="Search"
                         inputPlaceholder="Chicken and Egg? or Elon Musk"
@@ -116,19 +131,24 @@ const SearchQueryPage = () => {
                 </form>
 
                 <div className="filtered-subjects__container">
-                    {filteredSubjects.length > 0 ? (
+                    {filteredSubjects.list !== null && filteredSubjects.list.length > 0 ? (
                         <>
                             <p className="subject-text">-x Subjects List x-</p>
                             <div className="filtered-subjects__header">
-                                <div>Found Subjects : {filteredSubjects.length}</div>
-                                <div onClick={() => setFilteredSubjects([])}>
+                                <div>Found Subjects : {filteredSubjects.list.length}</div>
+                                <div onClick={() => dispatch(RESET_FILTERED_SUBJECTS())}>
                                     <DeleteForeverIcon />
                                 </div>
                             </div>
-                            {filteredSubjects.map((subject: ISubjectData) => (
+                            {filteredSubjects.list.map((subject: ISubjectData) => (
                                 <VotingSubject key={subject.id} subject={subject} />
                             ))}
                         </>
+                    ) : filteredSubjects.error ? (
+                        <ErrorView
+                            errorTitle="Error"
+                            mssg="No Subjects found that matches your search query."
+                        />
                     ) : null}
                 </div>
             </div>

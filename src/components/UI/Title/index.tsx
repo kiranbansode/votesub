@@ -1,4 +1,4 @@
-import Separator from 'components/Separator';
+import Separator from 'components/UI/Separator';
 import './PageTitle.styles.scss';
 
 interface IPageTitle {

@@ -12,6 +12,11 @@
     box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
     cursor: pointer;
 
+    &:hover,
+    &:active {
+        outline: 1px solid #1266f1;
+    }
+
     .sect-1,
     .sect-2,
     .sect-3 {
@@ -25,6 +30,7 @@
     .sect-2 > span:first-child,
     .sect-3 > span:first-child {
         font-size: 1rem;
+        line-height: 2;
     }
 
     .sect-1 > span:last-child,

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import LoadingScreen from 'components/LoadingScreen';
+import LoadingScreen from 'components/UI/LoadingScreen';
 import { ISubjectData } from 'types/subjectDetails';
 import useGetTotalVotes from 'hooks/useGetTotalVotes';
 import useWindowDimensions from 'hooks/useWindowDimensions';

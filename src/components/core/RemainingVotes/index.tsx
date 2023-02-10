@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import Separator from 'components/Separator';
+import Separator from 'components/UI/Separator';
 import ColoredRemainingVotes from 'styled/ColoredRemainingVotes';
-import LoadingScreen from 'components/LoadingScreen';
+import LoadingScreen from 'components/UI/LoadingScreen';
 import useUserRemainingVotes from 'hooks/useUserRemainingVotes';
 
 import './RemainingVotes.styles.scss';

@@ -3,9 +3,10 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import MenuIcon from '@mui/icons-material/Menu';
 import useAppDispatch from 'hooks/useAppDispatch';
-import Logo from 'components/Logo';
-import SideBar from 'components/SideBar';
+import Logo from 'components/UI/Logo';
+import SideBar from 'components/layouts/SideBar';
 import { SHOW_SIDEBAR } from 'store/ui';
+import { RESET_CURRENT_PAGE } from 'store/pagination/pageTracker';
 import ProfileMenu from './Profile';
 import './Header.style.scss';
 
@@ -18,7 +19,7 @@ const Header = () => {
 
             {/* This will be shown on Header Component */}
             <MenuIcon className="header-icons" onClick={() => dispatch(SHOW_SIDEBAR())} />
-            <Logo goHere="/dashboard" />
+            <Logo goHere="/dashboard" onClick={() => dispatch(RESET_CURRENT_PAGE())} />
             <ProfileMenu />
         </div>
     );

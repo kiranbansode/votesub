@@ -1,6 +1,6 @@
-import PaginationFooter from 'components/Pagination/PaginationFooter';
-import PaginationHeader from 'components/Pagination/PaginationHeader';
-import PaginationContent from 'components/Pagination/PaginationContent/';
+import PaginationFooter from 'components/layouts/Pagination/PaginationFooter';
+import PaginationHeader from 'components/layouts/Pagination/PaginationHeader';
+import PaginationContent from 'components/layouts/Pagination/PaginationContent/';
 
 import './Pagination.styles.scss';
 

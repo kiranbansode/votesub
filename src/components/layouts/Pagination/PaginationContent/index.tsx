@@ -1,10 +1,10 @@
-import VotingSubject from 'components/VotingSubject';
+import VotingSubject from 'components/core/VotingSubject';
 import useAppSelector from 'hooks/useAppSelector';
-import LoadingScreen from 'components/LoadingScreen';
+import LoadingScreen from 'components/UI/LoadingScreen';
+import ErrorView from 'components/UI/ErrorView';
 import { ISubjectData } from 'types/subjectDetails';
 
 import './PaginationContent.styles.scss';
-import ErrorView from 'components/ErrorView';
 
 interface IPaginationContent {
     sortedData: any[];

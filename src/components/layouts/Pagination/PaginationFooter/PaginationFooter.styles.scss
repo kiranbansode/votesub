@@ -15,6 +15,10 @@
         justify-content: center;
         align-items: center;
         box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+
+        &:hover {
+            outline: solid 1px #1266f1;
+        }
     }
 
     & > div:first-child {
@@ -55,7 +59,7 @@
             box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
 
             &:hover {
-                border: 1px solid #37474f;
+                border: 1px solid #1266f1;
             }
         }
 
@@ -71,5 +75,9 @@
     .active-page {
         background-color: #ffeb3b !important;
         border: 1px solid #37474f;
+
+        &:hover {
+            border: 1px solid #37474f !important;
+        }
     }
 }

@@ -37,35 +37,37 @@ const PaginationHeader = ({ unsortedData }: IPaginationHeader) => {
                 <span>Subjects: </span>
                 <span>
                     <FormControl>
-                        <Select className="per-page-selector" defaultValue={5}>
-                            <MenuItem
-                                value={5}
-                                onClick={() => {
-                                    dispatch(RESET_CURRENT_PAGE());
-                                    dispatch(SHOW_ONLY_FIVE(unsortedData));
-                                }}
-                            >
-                                5
-                            </MenuItem>
-                            <MenuItem
-                                value={10}
-                                onClick={() => {
-                                    dispatch(RESET_CURRENT_PAGE());
-                                    dispatch(SHOW_ONLY_TEN(unsortedData));
-                                }}
-                            >
-                                10
-                            </MenuItem>
-                            <MenuItem
-                                value={20}
-                                onClick={() => {
-                                    dispatch(RESET_CURRENT_PAGE());
-                                    dispatch(SHOW_ONLY_TWENTY(unsortedData));
-                                }}
-                            >
-                                20
-                            </MenuItem>
-                        </Select>
+                        <Tooltip title="No. of subjects should be shown">
+                            <Select className="per-page-selector" defaultValue={5}>
+                                <MenuItem
+                                    value={5}
+                                    onClick={() => {
+                                        dispatch(RESET_CURRENT_PAGE());
+                                        dispatch(SHOW_ONLY_FIVE(unsortedData));
+                                    }}
+                                >
+                                    5
+                                </MenuItem>
+                                <MenuItem
+                                    value={10}
+                                    onClick={() => {
+                                        dispatch(RESET_CURRENT_PAGE());
+                                        dispatch(SHOW_ONLY_TEN(unsortedData));
+                                    }}
+                                >
+                                    10
+                                </MenuItem>
+                                <MenuItem
+                                    value={20}
+                                    onClick={() => {
+                                        dispatch(RESET_CURRENT_PAGE());
+                                        dispatch(SHOW_ONLY_TWENTY(unsortedData));
+                                    }}
+                                >
+                                    20
+                                </MenuItem>
+                            </Select>
+                        </Tooltip>
                     </FormControl>
                 </span>
             </div>
@@ -82,14 +84,6 @@ const PaginationHeader = ({ unsortedData }: IPaginationHeader) => {
                     </Tooltip>
                 </span>
             </div>
-
-            {/* <div className="func-wrapper">
-                <span>
-                    <Tooltip title="Sort Subjects">
-                        <SortIcon />
-                    </Tooltip>
-                </span>
-            </div> */}
 
             <div
                 className="func-wrapper"

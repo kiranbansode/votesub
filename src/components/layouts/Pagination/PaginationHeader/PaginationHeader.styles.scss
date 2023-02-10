@@ -39,6 +39,14 @@
         width: 20px;
     }
 
+    & > div:first-child,
+    & > div:nth-child(2),
+    & > div:nth-last-child(-n + 2) {
+        &:hover {
+            outline: 1px solid #1266f1;
+        }
+    }
+
     .per-page-selector {
         margin-left: 10px;
 

@@ -4,10 +4,11 @@ interface SeparateLabelBaseProps {
     htmlFor: string;
     label?: string;
     required?: boolean;
+    error?: boolean;
 }
 
-const SeparateLabel = ({ htmlFor, label, required }: SeparateLabelBaseProps) => (
-    <label className="separate-label" htmlFor={htmlFor}>
+const SeparateLabel = ({ htmlFor, label, error, required }: SeparateLabelBaseProps) => (
+    <label className={`${error && 'show-error'} separate-label`} htmlFor={htmlFor}>
         {label}
         {required ? <span className="required-star">*</span> : null}
     </label>
@@ -16,6 +17,7 @@ const SeparateLabel = ({ htmlFor, label, required }: SeparateLabelBaseProps) => 
 SeparateLabel.defaultProps = {
     label: 'Separate Label',
     required: false,
+    error: false,
 };
 
 export default SeparateLabel;

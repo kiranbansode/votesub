@@ -9,10 +9,10 @@ import { RESET_USER_ROLE, SAVE_USER_ROLE } from 'store/registrationPage/saveUser
 
 import './RegistrationPage.styles.scss';
 
-const Button = lazy(() => import('components/Button'));
+const Button = lazy(() => import('components/UI/Button'));
 const RadioInputField = lazy(() => import('components/InputFields/RadioInputField'));
-const Logo = lazy(() => import('components/Logo'));
-const Caption = lazy(() => import('components/Caption'));
+const Logo = lazy(() => import('components/UI/Logo'));
+const Caption = lazy(() => import('components/UI/Caption'));
 
 const registrationFormValidation = yup.object({
     category: yup

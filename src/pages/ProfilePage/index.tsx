@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import Header from 'components/Header';
-import LoadingScreen from 'components/LoadingScreen';
+import Header from 'components/layouts/Header';
+import LoadingScreen from 'components/UI/LoadingScreen';
 import useGetUserDetails from 'hooks/useGetUserDetails';
 import GmailColor from 'assets/svg/gmail_color.svg';
 import LinkedInColor from 'assets/svg/linkedIn_color.svg';
 import PhoneBlack from 'assets/svg/phone_black.svg';
-import RemainingVotes from 'components/RemainingVotes';
+import RemainingVotes from 'components/core/RemainingVotes';
 
 import './ProfilePage.styles.scss';
 import findStudentStandard from 'utils/helperFunctions/findStudentStandard';

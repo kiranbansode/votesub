@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import useSubjectTotalVotes from 'hooks/useSubjectTotalVotes';
-import Header from 'components/Header';
-import VotingCandidate from 'components/VotingCandidate';
-import Separator from 'components/Separator';
-import LoadingScreen from 'components/LoadingScreen';
-import RemainingVotes from 'components/RemainingVotes';
+import Header from 'components/layouts/Header';
+import VotingCandidate from 'components/core/VotingCandidate';
+import Separator from 'components/UI/Separator';
+import LoadingScreen from 'components/UI/LoadingScreen';
+import RemainingVotes from 'components/core/RemainingVotes';
 import convertUnixEpochToDate from 'utils/helperFunctions/convertUnixEpochToDate';
 import getSubjectDetails from 'features/getSubjectDetails';
 

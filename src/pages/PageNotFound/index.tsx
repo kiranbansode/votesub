@@ -1,4 +1,4 @@
-import Header from 'components/Header';
+import Header from 'components/layouts/Header';
 import useAppSelector from 'hooks/useAppSelector';
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 import ConstructionIcon from '@mui/icons-material/Construction';

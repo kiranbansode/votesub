@@ -1,10 +1,10 @@
-import Header from 'components/Header';
+import Header from 'components/layouts/Header';
 import SliderInputField from 'components/InputFields/SliderInputField';
-import Button from 'components/Button';
+import Button from 'components/UI/Button';
 import { FieldValues, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import PageTitle from 'components/Title';
+import PageTitle from 'components/UI/Title';
 // import PageNotFound from 'pages/PageNotFound';
 import TextInputField from 'components/InputFields/TextInputField';
 import RadioInputField from 'components/InputFields/RadioInputField';

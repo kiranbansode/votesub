@@ -13,10 +13,11 @@ import TextInputField from 'components/InputFields/TextInputField';
 import SelectInputField from 'components/InputFields/SelectInputField';
 import RadioInputField from 'components/InputFields/RadioInputField';
 import PasswordInputField from 'components/InputFields/PasswordInputField';
-import Button from 'components/Button';
-import Logo from 'components/Logo';
-import Caption from 'components/Caption';
-import ErrorView from 'components/ErrorView';
+import NumberInputField from 'components/InputFields/NumberInputField';
+import Button from 'components/UI/Button';
+import Logo from 'components/UI/Logo';
+import Caption from 'components/UI/Caption';
+import ErrorView from 'components/UI/ErrorView';
 
 /* ---------------------------------- Hooks --------------------------------- */
 import useAppDispatch from 'hooks/useAppDispatch';
@@ -33,7 +34,7 @@ import standardOptions from 'utils/menuOptions/standards';
 import divisionOptions from 'utils/menuOptions/divisions';
 import countryCodeOptions from 'utils/menuOptions/countryCodes';
 import { IStudentRegForm } from 'types/regFormData';
-import BackdropMssg from 'components/BackdropMssg';
+import BackdropMssg from 'components/UI/BackdropMssg';
 
 // eslint-disable-next-line import/extensions
 import StudentRegFormValidations from './yupValidations';
@@ -200,6 +201,16 @@ const StudentRegForm = () => {
                         inputHelperText="A valid phone number will help us and you to reset your password"
                         inputLabel="Mobile No."
                     />
+                    {/* 
+                    <NumberInputField
+                        required
+                        separateLabel
+                        control={control}
+                        fieldName="mob1"
+                        inputErrors={formState.errors}
+                        inputHelperText="A valid phone number will help us and you to reset your password"
+                        inputLabel="Mobile No."
+                    /> */}
 
                     <TextInputField
                         separateLabel

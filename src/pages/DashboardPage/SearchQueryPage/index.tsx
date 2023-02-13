@@ -5,20 +5,20 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import SelectInputField from 'components/InputFields/SelectInputField';
 import './SearchQuery.styles.scss';
 import TextInputField from 'components/InputFields/TextInputField';
-import Button from 'components/Button';
+import Button from 'components/UI/Button';
 import useAppSelector from 'hooks/useAppSelector';
 import useAppDispatch from 'hooks/useAppDispatch';
 import { ISubjectData } from 'types/subjectDetails';
-import Header from 'components/Header';
-import Separator from 'components/Separator';
+import Header from 'components/layouts/Header';
+import Separator from 'components/UI/Separator';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import VotingSubject from 'components/VotingSubject';
+import VotingSubject from 'components/core/VotingSubject';
+import ErrorView from 'components/UI/ErrorView';
 import {
     RESET_FILTERED_SUBJECTS,
     SAVE_FILTERED_SUBJECTS,
     SAVE_ERROR_FILTERED_SUBJECTS,
 } from 'store/saveFilteredSubjects';
-import ErrorView from 'components/ErrorView';
 
 interface ISearchForm {
     queryType: string;

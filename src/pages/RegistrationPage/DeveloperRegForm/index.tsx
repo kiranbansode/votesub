@@ -7,10 +7,10 @@ import SelectInputField from 'components/InputFields/SelectInputField';
 import devOptions from 'utils/menuOptions/developer';
 import RadioInputField from 'components/InputFields/RadioInputField';
 import PasswordInputField from 'components/InputFields/PasswordInputField';
-import Button from 'components/Button';
-import Logo from 'components/Logo';
-import Caption from 'components/Caption';
-import ErrorView from 'components/ErrorView';
+import Button from 'components/UI/Button';
+import Logo from 'components/UI/Logo';
+import Caption from 'components/UI/Caption';
+import ErrorView from 'components/UI/ErrorView';
 import { IDeveloperRegForm } from 'types/regFormData';
 import countryCodeOptions from 'utils/menuOptions/countryCodes';
 import {
@@ -19,7 +19,7 @@ import {
 } from 'store/registrationPage/createNewUserSlice';
 import useAppDispatch from 'hooks/useAppDispatch';
 import useAppSelector from 'hooks/useAppSelector';
-import BackdropMssg from 'components/BackdropMssg';
+import BackdropMssg from 'components/UI/BackdropMssg';
 
 // eslint-disable-next-line import/extensions
 import DeveloperRegFormValidations from './yupValidations';

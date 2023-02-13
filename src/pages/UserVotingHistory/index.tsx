@@ -2,18 +2,17 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Alert, AlertTitle } from '@mui/material';
 import useAppSelector from 'hooks/useAppSelector';
-import Header from 'components/Header';
-import LoadingScreen from 'components/LoadingScreen';
+import Header from 'components/layouts/Header';
+import LoadingScreen from 'components/UI/LoadingScreen';
+import PageTitle from 'components/UI/Title';
 
-import VotingHistory from 'components/VotingHistory';
+import VotingHistory from 'components/core/VotingHistory';
 import useAppDispatch from 'hooks/useAppDispatch';
 import {
     getUserVotingHistoryThunk,
     RESET_USER_VOTING_HISTORY,
 } from 'store/votingHistory/userVotingHistorySlice';
 import InputFieldWrapper from 'styled/InputFieldWrapper';
-
-import PageTitle from 'components/Title';
 
 import './UserVotingHistory.styles.scss';
 

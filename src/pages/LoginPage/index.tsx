@@ -14,7 +14,7 @@ import {
 import { SHOW_SIGN_IN_SUCCESS_POP_UP } from 'store/ui';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
-import BackdropMssg from 'components/BackdropMssg';
+import BackdropMssg from 'components/UI/BackdropMssg';
 import InputFieldWrapper from 'styled/InputFieldWrapper';
 
 // @ts-ignore
@@ -23,10 +23,10 @@ import './LoginPage.styles.scss';
 
 const TextInputField = lazy(() => import('components/InputFields/TextInputField'));
 const PasswordInputField = lazy(() => import('components/InputFields/PasswordInputField'));
-const Button = lazy(() => import('components/Button'));
-const Separator = lazy(() => import('components/Separator'));
-const Logo = lazy(() => import('components/Logo'));
-const Caption = lazy(() => import('components/Caption'));
+const Button = lazy(() => import('components/UI/Button'));
+const Separator = lazy(() => import('components/UI/Separator'));
+const Logo = lazy(() => import('components/UI/Logo'));
+const Caption = lazy(() => import('components/UI/Caption'));
 
 export type UserLoginFormTypes = {
     username: string;
@@ -67,7 +67,12 @@ const LoginPage = () => {
         />
     ) : null;
 
-    // const ForgotPasswordText = () => <p className="login-page__forgot">Forgot Password?</p>;
+    const ForgotPasswordText = () => (
+        // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
+        <p className="login-page__forgot" onClick={() => navigate('/forgotPassword')}>
+            Forgot Password?
+        </p>
+    );
 
     const registerText = (
         <p>
@@ -122,18 +127,20 @@ const LoginPage = () => {
                 >
                     <TextInputField
                         autoFocus
+                        required
                         separateLabel
                         control={control}
-                        inputErrors={formState.errors}
                         fieldName="username"
+                        inputErrors={formState.errors}
                         inputLabel="Username"
                     />
 
                     <PasswordInputField
+                        required
                         separateLabel
                         control={control}
-                        inputErrors={formState.errors}
                         fieldName="password"
+                        inputErrors={formState.errors}
                         inputLabel="Password"
                     />
 
@@ -144,7 +151,7 @@ const LoginPage = () => {
                         Login
                     </Button>
 
-                    {/* <ForgotPasswordText/> */}
+                    <ForgotPasswordText />
 
                     <Separator />
 

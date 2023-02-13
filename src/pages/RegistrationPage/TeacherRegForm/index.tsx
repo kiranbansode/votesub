@@ -6,9 +6,9 @@ import TextInputField from 'components/InputFields/TextInputField';
 import RadioInputField from 'components/InputFields/RadioInputField';
 import PasswordInputField from 'components/InputFields/PasswordInputField';
 import SelectInputField from 'components/InputFields/SelectInputField';
-import Button from 'components/Button';
-import Caption from 'components/Caption';
-import Logo from 'components/Logo';
+import Button from 'components/UI/Button';
+import Caption from 'components/UI/Caption';
+import Logo from 'components/UI/Logo';
 import useAppDispatch from 'hooks/useAppDispatch';
 import {
     createNewUserThunk,
@@ -17,8 +17,8 @@ import {
 import { ITeacherRegForm } from 'types/regFormData';
 import countryCodeOptions from 'utils/menuOptions/countryCodes';
 import useAppSelector from 'hooks/useAppSelector';
-import ErrorView from 'components/ErrorView';
-import BackdropMssg from 'components/BackdropMssg';
+import ErrorView from 'components/UI/ErrorView';
+import BackdropMssg from 'components/UI/BackdropMssg';
 import trOptions from 'utils/menuOptions/tr';
 
 // eslint-disable-next-line import/extensions

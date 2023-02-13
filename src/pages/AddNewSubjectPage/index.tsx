@@ -12,10 +12,10 @@ import {
     DELETE_CANDIDATE,
     RESET_ADD_NEW_SUBJECT_SLICE,
 } from 'store/addNewSubject';
-import Header from 'components/Header';
-import Button from 'components/Button';
-import PageTitle from 'components/Title';
-import NewCandidate from 'components/NewCandidate';
+import Header from 'components/layouts/Header';
+import Button from 'components/UI/Button';
+import PageTitle from 'components/UI/Title';
+import NewCandidate from 'components/core/NewCandidate';
 
 import './AddNewSubjectPage.styles.scss';
 import { useEffect } from 'react';
@@ -110,8 +110,8 @@ const AddNewSubjectPage = () => {
                     <TextInputField
                         separateLabel
                         control={control}
-                        inputErrors={formState.errors}
                         fieldName="subject"
+                        inputErrors={formState.errors}
                         inputHelperText="Try to use small and expressive name or question for Subject"
                         inputLabel="Enter a subject for voting"
                         inputPlaceholder="Favorite Fast Food ?"
@@ -122,8 +122,8 @@ const AddNewSubjectPage = () => {
                         separateLabel
                         className="textInput-candidateName"
                         control={control}
-                        inputErrors={formState.errors}
                         fieldName="candidateName"
+                        inputErrors={formState.errors}
                         inputHelperText="Minimum 2 Candidates should be added so users can vote"
                         inputLabel="Candidate Name"
                         inputPlaceholder="Pizza 🍕"

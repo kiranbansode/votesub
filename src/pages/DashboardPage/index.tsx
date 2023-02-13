@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
-import Header from 'components/Header';
+import Header from 'components/layouts/Header';
 import useAppDispatch from 'hooks/useAppDispatch';
-import Pagination from 'components/Pagination';
+import Pagination from 'components/layouts/Pagination';
 import { HIDE_SIGN_IN_SUCCESS_POP_UP } from 'store/ui';
 import { getSubjectsListFromFirestore } from 'store/dashboard/subjectsListSlice';
 import { RESET_SORTED_SUBJECTS_LIST, SHOW_ONLY_FIVE } from 'store/dashboard/sortedSubjectList';
 import { RESET_FILTERED_SUBJECTS } from 'store/saveFilteredSubjects';
 import useAppSelector from 'hooks/useAppSelector';
-import RemainingVotes from 'components/RemainingVotes';
+import RemainingVotes from 'components/core/RemainingVotes';
 
 import './Dashboard.styles.scss';
 

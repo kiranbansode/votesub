@@ -5,9 +5,9 @@ import SelectInputField from 'components/InputFields/SelectInputField';
 import hrOptions from 'utils/menuOptions/hr';
 import RadioInputField from 'components/InputFields/RadioInputField';
 import PasswordInputField from 'components/InputFields/PasswordInputField';
-import Button from 'components/Button';
-import Logo from 'components/Logo';
-import Caption from 'components/Caption';
+import Button from 'components/UI/Button';
+import Logo from 'components/UI/Logo';
+import Caption from 'components/UI/Caption';
 import { IEmployerRegForm } from 'types/regFormData';
 import countryCodeOptions from 'utils/menuOptions/countryCodes';
 import useAppDispatch from 'hooks/useAppDispatch';
@@ -17,8 +17,8 @@ import {
 } from 'store/registrationPage/createNewUserSlice';
 import { useNavigate } from 'react-router-dom';
 import useAppSelector from 'hooks/useAppSelector';
-import ErrorView from 'components/ErrorView';
-import BackdropMssg from 'components/BackdropMssg';
+import ErrorView from 'components/UI/ErrorView';
+import BackdropMssg from 'components/UI/BackdropMssg';
 import { useEffect } from 'react';
 
 // eslint-disable-next-line import/extensions

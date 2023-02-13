@@ -11,7 +11,7 @@ import {
     IconButton,
     FormHelperText,
 } from '@mui/material';
-import SeparateLabel from 'components/SeparateLabel';
+import SeparateLabel from 'components/InputFields/SeparateLabel';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import InputFieldWrapper from 'styled/InputFieldWrapper';

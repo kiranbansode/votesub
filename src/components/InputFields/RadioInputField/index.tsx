@@ -1,6 +1,6 @@
 import { Controller } from 'react-hook-form';
 import { Radio, RadioGroup, FormControlLabel, FormControl, FormHelperText } from '@mui/material';
-import SeparateLabel from 'components/SeparateLabel';
+import SeparateLabel from 'components/InputFields/SeparateLabel';
 import InputFieldWrapper from 'styled/InputFieldWrapper';
 
 import './RadioInputField.styles.scss';

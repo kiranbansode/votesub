@@ -4,7 +4,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { TextField, FormControl, FormHelperText } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import InputFieldWrapper from 'styled/InputFieldWrapper';
-import SeparateLabel from 'components/SeparateLabel';
+import SeparateLabel from 'components/InputFields/SeparateLabel';
 import inputErrorMessageFinder from 'utils/helperFunctions/inputErrorMessageFinder';
 
 // eslint-disable-next-line import/extensions

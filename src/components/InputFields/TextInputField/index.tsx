@@ -1,6 +1,6 @@
 import { TextField, FormControl, FormHelperText, InputAdornment, IconButton } from '@mui/material';
 import { ITextInputFieldProps } from 'components/InputFields/types';
-import SeparateLabel from 'components/SeparateLabel';
+import SeparateLabel from 'components/InputFields/SeparateLabel';
 import InputFieldWrapper from 'styled/InputFieldWrapper';
 import inputErrorMessageFinder from 'utils/helperFunctions/inputErrorMessageFinder';
 import './TextInputField.styles.scss';
@@ -60,7 +60,12 @@ function TextInputField({
         <InputFieldWrapper>
             <FormControl error={Boolean(errorMessage)}>
                 {separateLabel ? (
-                    <SeparateLabel htmlFor={fieldName} label={inputLabel} required={required} />
+                    <SeparateLabel
+                        error={Boolean(errorMessage)}
+                        htmlFor={fieldName}
+                        label={inputLabel}
+                        required={required}
+                    />
                 ) : null}
 
                 <Controller

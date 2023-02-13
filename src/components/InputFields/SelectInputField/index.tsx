@@ -1,5 +1,5 @@
 import { FormHelperText, MenuItem, FormControl, Select } from '@mui/material';
-import SeparateLabel from 'components/SeparateLabel';
+import SeparateLabel from 'components/InputFields/SeparateLabel';
 import { Controller } from 'react-hook-form';
 import InputFieldWrapper from 'styled/InputFieldWrapper';
 import inputErrorMessageFinder from 'utils/helperFunctions/inputErrorMessageFinder';

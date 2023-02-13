@@ -2,7 +2,7 @@ import { Slider, FormControl, FormHelperText, ThemeProvider } from '@mui/materia
 import { Controller } from 'react-hook-form';
 import { createTheme } from '@mui/material/styles';
 import { green } from '@mui/material/colors';
-import SeparateLabel from 'components/SeparateLabel';
+import SeparateLabel from 'components/InputFields/SeparateLabel';
 import InputFieldWrapper from 'styled/InputFieldWrapper';
 import './SliderInputField.styles.scss';
 import inputErrorMessageFinder from 'utils/helperFunctions/inputErrorMessageFinder';

@@ -8,7 +8,7 @@ import 'animate.css';
 
 import './App.css';
 import './regForm.css';
-import LoadingScreen from 'components/LoadingScreen';
+import LoadingScreen from 'components/UI/LoadingScreen';
 
 // Main Page Routes
 const LoginPage = lazyWithPreload(() => import(`pages/LoginPage`));

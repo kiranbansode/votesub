@@ -12,6 +12,7 @@ import userVotingHistorySlice from 'store/votingHistory/userVotingHistorySlice';
 import existingUserAuthStateSlice from 'store/existingUserAuthStateSlice/existingUserAuthStateSlice';
 import addNewFeedbackSlice from 'store/addNewFeedback';
 import saveFilteredSubjects from 'store/saveFilteredSubjects';
+import passwordResetSlice from 'store/loginPage/passwordResetSlice';
 
 export const store = configureStore({
     reducer: {
@@ -28,6 +29,7 @@ export const store = configureStore({
         existingLoggedUserAuth: existingUserAuthStateSlice,
         addNewFeedback: addNewFeedbackSlice,
         filteredSubjects: saveFilteredSubjects,
+        passwordReset: passwordResetSlice,
     },
 
     // @ts-ignore

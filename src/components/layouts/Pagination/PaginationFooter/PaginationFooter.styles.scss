@@ -34,6 +34,14 @@
         display: flex;
         overflow-x: auto;
 
+        /* 
+        * This will help to overcome missing shadow affected by overflow property
+        * Visit following link to know more
+        * https://stackoverflow.com/questions/41502629/overflow-on-parent-div-prevent-box-shadow-to-display 
+        */
+        padding: 0 4px;
+        margin: 0 -4px;
+
         /* Hide scrollbar for IE, Edge add Firefox */
         -ms-overflow-style: none;
         scrollbar-width: none; /* Firefox */

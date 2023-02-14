@@ -14,18 +14,6 @@ type BaseInputField = {
     fieldName: string;
 
     /**
-     * If `true` , all Labels will not be shown
-     * @default false
-     */
-    noLabel?: boolean;
-
-    /**
-     * If `true` , a separate label will be shown which will be outside of this input field
-     * @default false
-     */
-    separateLabel?: boolean;
-
-    /**
      * error object from useForm().[formState](https://react-hook-form.com/api/useform/formstate)
      */
     inputErrors: FieldErrors;
@@ -49,26 +37,44 @@ type BaseInputField = {
     inputPlaceholder?: string;
 
     /**
+     * If `true` , all Labels will not be shown
+     * @default false
+     */
+    noLabel?: boolean;
+
+    /**
      * If true will show red asterisk
      * @default `false`
      */
     required?: boolean;
+
+    /**
+     * If `true` , a separate label will be shown which will be outside of this input field
+     * @default false
+     */
+    separateLabel?: boolean;
 };
 
 export type AdditionalBaseInputField = {
-    /**
-     * `className` is same as `class` attribute to html elements
-     * @default ''
-     */
-    className?: string;
     /**
      * If `true`, will bring user's attention to this field on first rendering
      * @default false
      */
     autoFocus?: boolean;
+
+    /**
+     * `className` is same as `class` attribute to html elements
+     * @default ''
+     */
+    className?: string;
 };
 
 export interface ITextInputFieldProps extends BaseInputField, AdditionalBaseInputField {
+    /**
+     *@default `end`
+     */
+    adornmentPosition?: 'start' | 'end';
+
     /**
      * `makeItTextArea` will change TextInputField to textarea(multiline) component
      */
@@ -80,15 +86,12 @@ export interface ITextInputFieldProps extends BaseInputField, AdditionalBaseInpu
     showAdornment?: boolean;
 
     /**
-     *@default `end`
-     */
-    adornmentPosition?: 'start' | 'end';
-
-    /**
      *
      */
     adornmentButtonHandler?: () => void;
 }
+
+export interface INumberInputField extends BaseInputField, AdditionalBaseInputField {}
 
 export interface IPasswordInputFieldProps extends BaseInputField, AdditionalBaseInputField {}
 
@@ -105,19 +108,23 @@ export interface IRadioInputField extends Omit<BaseInputField, 'inputPlaceholder
     /**
      *
      */
-    showBorder?: boolean;
+    alignCenter?: boolean;
+
     /**
      *
      */
     className?: string;
-    /**
-     *
-     */
-    alignCenter?: boolean;
+
     /**
      *
      */
     radioSelect: IRadioSelect[];
+
+    /**
+     *
+     */
+    showBorder?: boolean;
+
     /**
      *
      */
@@ -128,23 +135,17 @@ export interface ISliderInputField extends Omit<BaseInputField, 'inputPlaceholde
     /**
      *
      */
-    defaultValue?: number;
-
-    /**
-     *
-     */
     color?: SliderProps['color'];
 
     /**
      *
      */
-    step?: number;
+    defaultValue?: number;
 
     /**
      *
      */
-    size?: SliderProps['size'];
-
+    marks: SliderProps['marks'];
     /**
      *
      */
@@ -158,12 +159,17 @@ export interface ISliderInputField extends Omit<BaseInputField, 'inputPlaceholde
     /**
      *
      */
-    marks: SliderProps['marks'];
+    size?: SliderProps['size'];
 
     /**
      *
      */
     showBorder?: boolean;
+
+    /**
+     *
+     */
+    step?: number;
 }
 
 export interface IOptions {

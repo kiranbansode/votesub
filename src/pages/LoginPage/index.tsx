@@ -17,12 +17,14 @@ import AlertTitle from '@mui/material/AlertTitle';
 import BackdropMssg from 'components/UI/BackdropMssg';
 import InputFieldWrapper from 'styled/InputFieldWrapper';
 
+import { TextInputField, PasswordInputField } from 'components/InputFields';
+
 // @ts-ignore
 import loginPageFormValidation from './yupValidation.ts';
 import './LoginPage.styles.scss';
 
-const TextInputField = lazy(() => import('components/InputFields/TextInputField'));
-const PasswordInputField = lazy(() => import('components/InputFields/PasswordInputField'));
+// const TextInputField = lazy(() => import('components/InputFields/TextInputField'));
+// const PasswordInputField = lazy(() => import('components/InputFields/PasswordInputField'));
 const Button = lazy(() => import('components/UI/Button'));
 const Separator = lazy(() => import('components/UI/Separator'));
 const Logo = lazy(() => import('components/UI/Logo'));
@@ -64,6 +66,7 @@ const LoginPage = () => {
             header="Login Successful."
             mssg="Redirecting to Dashboard..."
             open={globalUI.showSignSuccessPopUp}
+            type="success"
         />
     ) : null;
 

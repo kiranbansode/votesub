@@ -58,7 +58,12 @@ const PasswordInputField = ({
         <InputFieldWrapper id="password-input-field">
             <FormControl error={!!errorMessage} variant="outlined">
                 {separateLabel ? (
-                    <SeparateLabel htmlFor={fieldName} label={inputLabel} required={required} />
+                    <SeparateLabel
+                        error={Boolean(errorMessage)}
+                        htmlFor={fieldName}
+                        label={inputLabel}
+                        required={required}
+                    />
                 ) : null}
 
                 <Controller

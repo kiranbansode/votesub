@@ -30,13 +30,18 @@ const SelectInputField = ({
     control,
     inputLabel,
 }: ISelectInputField) => {
-    const error = inputErrorMessageFinder(fieldName, inputErrors);
+    const errorMessage = inputErrorMessageFinder(fieldName, inputErrors);
 
     return (
         <InputFieldWrapper id="select-input-field">
-            <FormControl fullWidth error={Boolean(error)}>
+            <FormControl fullWidth error={Boolean(errorMessage)}>
                 {separateLabel ? (
-                    <SeparateLabel htmlFor={fieldName} label={inputLabel} required={required} />
+                    <SeparateLabel
+                        error={Boolean(errorMessage)}
+                        htmlFor={fieldName}
+                        label={inputLabel}
+                        required={required}
+                    />
                 ) : null}
                 <Controller
                     control={control}
@@ -52,7 +57,7 @@ const SelectInputField = ({
                         </Select>
                     )}
                 />
-                <FormHelperText>{error || inputHelperText}</FormHelperText>
+                <FormHelperText>{errorMessage || inputHelperText}</FormHelperText>
             </FormControl>
         </InputFieldWrapper>
     );

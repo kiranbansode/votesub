@@ -64,7 +64,12 @@ ISliderInputField) => {
         <InputFieldWrapper className="slider-input-field">
             <FormControl fullWidth error={Boolean(errorMessage)}>
                 {separateLabel ? (
-                    <SeparateLabel htmlFor={fieldName} label={inputLabel} required={required} />
+                    <SeparateLabel
+                        error={Boolean(errorMessage)}
+                        htmlFor={fieldName}
+                        label={inputLabel}
+                        required={required}
+                    />
                 ) : null}
 
                 <div

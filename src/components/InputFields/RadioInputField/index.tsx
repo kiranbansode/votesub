@@ -43,20 +43,25 @@ const RadioInputField = ({
     inputErrors,
     inputLabel,
 }: IRadioInputField) => {
-    const error = inputErrorMessageFinder(fieldName, inputErrors);
+    const errorMessage = inputErrorMessageFinder(fieldName, inputErrors);
 
     // eslint-disable-next-line no-nested-ternary
     const showBorderClass = showBorder ? 'show-border' : '';
     const alignCenterClass = alignCenter ? 'align-center' : '';
     const showRadioVertically = showVertically ? 'show-vertical' : '';
-    const showBorderInErrorState = error ? 'error-border' : '';
+    const showBorderInErrorState = errorMessage ? 'error-border' : '';
 
     return (
         <>
             <InputFieldWrapper>
-                <FormControl fullWidth error={Boolean(error)}>
+                <FormControl fullWidth error={Boolean(errorMessage)}>
                     {separateLabel ? (
-                        <SeparateLabel htmlFor={fieldName} label={inputLabel} required={required} />
+                        <SeparateLabel
+                            error={Boolean(errorMessage)}
+                            htmlFor={fieldName}
+                            label={inputLabel}
+                            required={required}
+                        />
                     ) : null}
 
                     <Controller
@@ -83,7 +88,7 @@ const RadioInputField = ({
                         )}
                     />
                     <FormHelperText className="error-mssg" id={fieldName}>
-                        {error || inputHelperText}
+                        {errorMessage || inputHelperText}
                     </FormHelperText>
                 </FormControl>
             </InputFieldWrapper>

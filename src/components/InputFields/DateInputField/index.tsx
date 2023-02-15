@@ -31,7 +31,7 @@ const DateInputField = ({
     inputLabel,
     control,
 }: IDateInputField) => {
-    const error = inputErrorMessageFinder(fieldName, inputErrors);
+    const errorMessage = inputErrorMessageFinder(fieldName, inputErrors);
     const now = dayjs();
     let labelToShow: string | null;
 
@@ -48,9 +48,14 @@ const DateInputField = ({
     return (
         <>
             <InputFieldWrapper>
-                <FormControl fullWidth error={Boolean(error)}>
+                <FormControl fullWidth error={Boolean(errorMessage)}>
                     {separateLabel ? (
-                        <SeparateLabel htmlFor={fieldName} label={inputLabel} required={required} />
+                        <SeparateLabel
+                            error={Boolean(errorMessage)}
+                            htmlFor={fieldName}
+                            label={inputLabel}
+                            required={required}
+                        />
                     ) : null}
 
                     <Controller
@@ -79,7 +84,9 @@ const DateInputField = ({
                             </LocalizationProvider>
                         )}
                     />
-                    <FormHelperText id={fieldName}>{error || inputHelperText}</FormHelperText>
+                    <FormHelperText id={fieldName}>
+                        {errorMessage || inputHelperText}
+                    </FormHelperText>
                 </FormControl>
             </InputFieldWrapper>
         </>

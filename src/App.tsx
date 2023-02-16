@@ -24,6 +24,9 @@ const SettingsPage = lazyWithPreload(() => import(`pages/SettingsPage`));
 const ProfilePage = lazyWithPreload(() => import(`pages/ProfilePage`));
 const PageNotFound = lazyWithPreload(() => import(`pages/PageNotFound`));
 
+// Login Page Nested Routes
+const PasswordResetPage = lazyWithPreload(() => import('pages/LoginPage/PasswordReset'));
+
 // Dashboard Page Nested Routes
 const SubjectPage = lazyWithPreload(() => import(`pages/DashboardPage/SubjectPage`));
 const SearchQueryPage = lazyWithPreload(() => import(`pages/DashboardPage/SearchQueryPage`));
@@ -48,6 +51,7 @@ function App() {
 
     useEffect(() => {
         LoginPage.preload();
+        PasswordResetPage.preload();
         DashboardPage.preload();
         SubjectPage.preload();
         SearchQueryPage.preload();
@@ -72,6 +76,7 @@ function App() {
             <Suspense fallback={<LoadingScreen />}>
                 <Routes>
                     <Route element={<LoginPage />} path="/" />
+                    <Route element={<PasswordResetPage />} path="/forgotPassword" />
                     <Route element={<RegistrationPage />} path="/register/" />
                     <Route element={<StudentRegForm />} path="/register/student/" />
                     <Route element={<TeacherRegForm />} path="/register/teacher" />

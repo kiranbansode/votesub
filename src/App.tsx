@@ -78,7 +78,7 @@ function App() {
                     <Route element={<LoginPage />} path="/" />
                     <Route element={<PasswordResetPage />} path="/forgotPassword" />
                     <Route element={<RegistrationPage />} path="/register/" />
-                    <Route element={<StudentRegForm />} path="/register/student/" />
+                    <Route element={<StudentRegForm />} path="/register/student" />
                     <Route element={<TeacherRegForm />} path="/register/teacher" />
                     <Route element={<EmployerRegForm />} path="/register/employer" />
                     <Route element={<DeveloperRegForm />} path="/register/developer" />

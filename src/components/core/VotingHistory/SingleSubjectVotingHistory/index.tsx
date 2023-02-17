@@ -48,7 +48,7 @@ const SingleSubjectVotingHistory = ({
                         className="subject-info__name"
                         onClick={() => navigate(`/dashboard/${subjectId}`)}
                     >
-                        {`${subjectName} `}
+                        {`${subjectName || 'Unknown'} `}
                     </span>
                 </p>
                 <p className="candidates-info"> You gave your votes to following candidates :</p>

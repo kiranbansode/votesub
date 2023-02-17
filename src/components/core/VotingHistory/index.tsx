@@ -5,6 +5,7 @@ import Separator from 'components/UI/Separator';
 import SingleSubjectVotingHistory from 'components/core/VotingHistory/SingleSubjectVotingHistory';
 
 import './VotingHistory.styles.scss';
+import { nanoid } from 'nanoid';
 
 interface ILocaleDate {
     date: number;
@@ -48,7 +49,7 @@ const VotingHistory = ({ dayHistory }: IVotingHistory) => {
                 <SingleSubjectVotingHistory
                     candidates={subject.candidates}
                     createdOn={subject.createdOn}
-                    key={subject.id}
+                    key={subject.id || nanoid()}
                     localeDate={subject.localeDate}
                     subjectId={subject.id}
                     subjectName={subject.subjectName}

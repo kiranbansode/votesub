@@ -67,7 +67,7 @@ const PasswordResetPage = () => {
                 <Caption />
 
                 <form
-                    className="default_shadow"
+                    className="dark_shadow"
                     onSubmit={handleSubmit(({ emailId }) => {
                         dispatch(RESET_PASSWORD_RESET_SLICE());
                         dispatch(passwordResetThunk(emailId));
@@ -78,7 +78,7 @@ const PasswordResetPage = () => {
                         required
                         separateLabel
                         control={control}
-                        fieldName=""
+                        fieldName="emailId"
                         inputErrors={formState.errors}
                         inputHelperText="Enter your registered E-mail ID"
                         inputLabel="Email ID"

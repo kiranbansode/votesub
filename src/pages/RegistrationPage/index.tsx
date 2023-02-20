@@ -72,7 +72,7 @@ const RegistrationPage = () => {
                 <Caption />
 
                 <form
-                    className="registration-page__form"
+                    className="registration-page__form dark_shadow"
                     onSubmit={handleSubmit((data) => {
                         dispatch(SAVE_USER_ROLE(data));
                         setNavigateUserToForm(true);

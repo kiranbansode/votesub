@@ -16,6 +16,7 @@ import useAppSelector from 'hooks/useAppSelector';
 import { RESET_EXISTING_USER_AUTH_DETAILS } from 'store/existingUserAuthStateSlice/existingUserAuthStateSlice';
 
 import './Profile.styles.scss';
+import saveLastVisitedRoute from 'utils/helperFunctions/saveLastVisitedRoute';
 
 const ProfileMenu = () => {
     const [showProfileMenu, setShowProfileMenu] = useState<null | HTMLElement>(null);
@@ -30,7 +31,9 @@ const ProfileMenu = () => {
 
     useEffect(() => {
         if (!globalState.user.userDetails.uid) {
-            setTimeout(() => navigate('/'), 2000);
+            setTimeout(() => {
+                navigate('/');
+            }, 2000);
         }
     }, [globalState.user.userDetails.uid]);
 
@@ -90,6 +93,7 @@ const ProfileMenu = () => {
                                 .then(() => {
                                     dispatch(RESET_EXISTING_USER_AUTH_DETAILS());
                                     dispatch(SIGNOUT_USER_AND_RESET_AUTH_DETAILS());
+                                    saveLastVisitedRoute('/');
                                 })
                                 .catch((error) => error);
                         }}

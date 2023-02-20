@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import AddIcon from '@mui/icons-material/Add';
 import HistoryIcon from '@mui/icons-material/History';
@@ -16,6 +16,8 @@ import useAppDispatch from 'hooks/useAppDispatch';
 import { HIDE_SIDEBAR } from 'store/ui';
 
 import './SideBar.styles.scss';
+import saveLastVisitedRoute from 'utils/helperFunctions/saveLastVisitedRoute';
+import { useEffect } from 'react';
 
 const linksToPages = [
     {
@@ -77,6 +79,7 @@ const linksToPages = [
 const SideBar = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const { pathname } = useLocation();
 
     const closeSideBar = (e: any) => {
         const { localName } = e.target as Element;
@@ -92,6 +95,10 @@ const SideBar = () => {
 
         dispatch(HIDE_SIDEBAR());
     };
+
+    useEffect(() => {
+        saveLastVisitedRoute(pathname);
+    }, [pathname]);
 
     return (
         <div className="animate__animated" id="sidebar" onClick={(e) => closeSideBar(e)}>

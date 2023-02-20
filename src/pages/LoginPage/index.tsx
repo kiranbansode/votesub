@@ -16,11 +16,14 @@ import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import BackdropMssg from 'components/UI/BackdropMssg';
 import InputFieldWrapper from 'styled/InputFieldWrapper';
-
 import { TextInputField, PasswordInputField } from 'components/InputFields';
 
 // @ts-ignore
+import getLastVisitedRoute from 'utils/helperFunctions/getLastVisitedRoute.ts';
+
+// @ts-ignore
 import loginPageFormValidation from './yupValidation.ts';
+
 import './LoginPage.styles.scss';
 
 // const TextInputField = lazy(() => import('components/InputFields/TextInputField'));
@@ -47,6 +50,7 @@ const LoginPage = () => {
     });
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const lastVisitedRoute = getLastVisitedRoute();
 
     const userState = useAppSelector(({ user }) => user);
     const existingUser = useAppSelector(({ existingLoggedUserAuth }) => existingLoggedUserAuth);
@@ -111,6 +115,12 @@ const LoginPage = () => {
     }, [existingUser.userDetails.uid]);
 
     useEffect(() => {
+        if (lastVisitedRoute && lastVisitedRoute !== '/' && userState.userDetails.uid) {
+            dispatch(SHOW_SIGN_IN_SUCCESS_POP_UP());
+            setTimeout(() => navigate(lastVisitedRoute), 2000);
+            return;
+        }
+
         if (userState.userDetails.uid) {
             dispatch(SHOW_SIGN_IN_SUCCESS_POP_UP());
             setTimeout(() => navigate('/dashboard'), 2000);
@@ -125,7 +135,7 @@ const LoginPage = () => {
                 <Caption />
 
                 <form
-                    className="login-page__form"
+                    className="login-page__form dark_shadow"
                     onSubmit={handleSubmit((data) => dispatch(userLogIn(data)))}
                 >
                     <TextInputField

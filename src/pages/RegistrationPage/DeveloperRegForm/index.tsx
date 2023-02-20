@@ -62,6 +62,7 @@ const DeveloperRegForm = () => {
             header="Registration Successful."
             mssg="Redirecting to Login page"
             open={!!registrationSlice.data?.uid}
+            type="success"
         />
     ) : null;
 
@@ -89,6 +90,7 @@ const DeveloperRegForm = () => {
                 <Caption />
 
                 <form
+                    className="dark_shadow"
                     onSubmit={handleSubmit((formData) => {
                         dispatch(createNewUserThunk(formData));
                     })}
@@ -97,8 +99,8 @@ const DeveloperRegForm = () => {
                         required
                         separateLabel
                         control={control}
-                        inputErrors={formState.errors}
                         fieldName="name.firstName"
+                        inputErrors={formState.errors}
                         inputLabel="First Name"
                         inputPlaceholder="Your Name"
                     />
@@ -106,8 +108,8 @@ const DeveloperRegForm = () => {
                     <TextInputField
                         separateLabel
                         control={control}
-                        inputErrors={formState.errors}
                         fieldName="name.middleName"
+                        inputErrors={formState.errors}
                         inputLabel="Middle Name"
                         inputPlaceholder="Father/Husband Name"
                     />
@@ -116,8 +118,8 @@ const DeveloperRegForm = () => {
                         required
                         separateLabel
                         control={control}
-                        inputErrors={formState.errors}
                         fieldName="name.lastName"
+                        inputErrors={formState.errors}
                         inputLabel="Last Name"
                         inputPlaceholder="Surname"
                     />
@@ -140,8 +142,8 @@ const DeveloperRegForm = () => {
                     <TextInputField
                         separateLabel
                         control={control}
-                        inputErrors={formState.errors}
                         fieldName="companyName"
+                        inputErrors={formState.errors}
                         inputLabel="Company Name"
                     />
 
@@ -170,8 +172,8 @@ const DeveloperRegForm = () => {
                         required
                         separateLabel
                         control={control}
-                        inputErrors={formState.errors}
                         fieldName="mob1"
+                        inputErrors={formState.errors}
                         inputHelperText="A valid phone number will help us and you to reset your password"
                         inputLabel="Mobile No."
                     />
@@ -179,8 +181,8 @@ const DeveloperRegForm = () => {
                     <TextInputField
                         separateLabel
                         control={control}
-                        inputErrors={formState.errors}
                         fieldName="mob2"
+                        inputErrors={formState.errors}
                         inputLabel="Alternate Mobile No."
                     />
 
@@ -188,8 +190,8 @@ const DeveloperRegForm = () => {
                         required
                         separateLabel
                         control={control}
-                        inputErrors={formState.errors}
                         fieldName="emailId"
+                        inputErrors={formState.errors}
                         inputLabel="Email ID"
                     />
 
@@ -197,8 +199,8 @@ const DeveloperRegForm = () => {
                         required
                         separateLabel
                         control={control}
-                        inputErrors={formState.errors}
                         fieldName="password"
+                        inputErrors={formState.errors}
                         inputLabel="Password"
                     />
 
@@ -206,8 +208,8 @@ const DeveloperRegForm = () => {
                         required
                         separateLabel
                         control={control}
-                        inputErrors={formState.errors}
                         fieldName="confirmPassword"
+                        inputErrors={formState.errors}
                         inputLabel="Confirm Password"
                     />
 

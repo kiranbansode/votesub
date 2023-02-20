@@ -62,6 +62,7 @@ const TeacherRegForm = () => {
             header="Registration Successful."
             mssg="Redirecting to Login page"
             open={!!registrationSlice.data?.uid}
+            type="success"
         />
     ) : null;
 
@@ -89,6 +90,7 @@ const TeacherRegForm = () => {
                 <Caption />
 
                 <form
+                    className="dark_shadow"
                     onSubmit={handleSubmit((formData) => {
                         dispatch(createNewUserThunk(formData));
                     })}
@@ -97,8 +99,8 @@ const TeacherRegForm = () => {
                         required
                         separateLabel
                         control={control}
-                        inputErrors={formState.errors}
                         fieldName="name.firstName"
+                        inputErrors={formState.errors}
                         inputLabel="First Name"
                         inputPlaceholder="Your Name"
                     />
@@ -106,8 +108,8 @@ const TeacherRegForm = () => {
                     <TextInputField
                         separateLabel
                         control={control}
-                        inputErrors={formState.errors}
                         fieldName="name.middleName"
+                        inputErrors={formState.errors}
                         inputLabel="Middle Name"
                         inputPlaceholder="Father/Husband Name"
                     />
@@ -116,8 +118,8 @@ const TeacherRegForm = () => {
                         required
                         separateLabel
                         control={control}
-                        inputErrors={formState.errors}
                         fieldName="name.lastName"
+                        inputErrors={formState.errors}
                         inputLabel="Last Name"
                         inputPlaceholder="Surname"
                     />
@@ -139,8 +141,8 @@ const TeacherRegForm = () => {
                     <TextInputField
                         separateLabel
                         control={control}
-                        inputErrors={formState.errors}
                         fieldName="schoolName"
+                        inputErrors={formState.errors}
                         inputHelperText="Enter name of school where do you work."
                         inputLabel="School Name"
                     />
@@ -171,8 +173,8 @@ const TeacherRegForm = () => {
                         required
                         separateLabel
                         control={control}
-                        inputErrors={formState.errors}
                         fieldName="mob1"
+                        inputErrors={formState.errors}
                         inputHelperText="A valid phone number will help us and you to reset your password"
                         inputLabel="Mobile No."
                     />
@@ -180,8 +182,8 @@ const TeacherRegForm = () => {
                     <TextInputField
                         separateLabel
                         control={control}
-                        inputErrors={formState.errors}
                         fieldName="mob2"
+                        inputErrors={formState.errors}
                         inputLabel="Alternate Mobile No."
                     />
 
@@ -189,8 +191,8 @@ const TeacherRegForm = () => {
                         required
                         separateLabel
                         control={control}
-                        inputErrors={formState.errors}
                         fieldName="emailId"
+                        inputErrors={formState.errors}
                         inputLabel="Email ID"
                     />
 
@@ -198,8 +200,8 @@ const TeacherRegForm = () => {
                         required
                         separateLabel
                         control={control}
-                        inputErrors={formState.errors}
                         fieldName="password"
+                        inputErrors={formState.errors}
                         inputLabel="Password"
                     />
 
@@ -207,8 +209,8 @@ const TeacherRegForm = () => {
                         required
                         separateLabel
                         control={control}
-                        inputErrors={formState.errors}
                         fieldName="confirmPassword"
+                        inputErrors={formState.errors}
                         inputLabel="Confirm Password"
                     />
 

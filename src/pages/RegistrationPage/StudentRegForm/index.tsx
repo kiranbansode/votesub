@@ -13,7 +13,6 @@ import TextInputField from 'components/InputFields/TextInputField';
 import SelectInputField from 'components/InputFields/SelectInputField';
 import RadioInputField from 'components/InputFields/RadioInputField';
 import PasswordInputField from 'components/InputFields/PasswordInputField';
-import NumberInputField from 'components/InputFields/NumberInputField';
 import Button from 'components/UI/Button';
 import Logo from 'components/UI/Logo';
 import Caption from 'components/UI/Caption';
@@ -79,6 +78,7 @@ const StudentRegForm = () => {
             header="Registration Successful."
             mssg="Redirecting to Login page"
             open={!!registrationSlice.data?.uid}
+            type="success"
         />
     ) : null;
 
@@ -106,7 +106,7 @@ const StudentRegForm = () => {
                 <Caption />
 
                 <form
-                    className="student-reg__form"
+                    className="student-reg__form dark_shadow"
                     onSubmit={handleSubmit((formData) => {
                         dispatch(createNewUserThunk(formData));
                     })}
@@ -115,8 +115,8 @@ const StudentRegForm = () => {
                         required
                         separateLabel
                         control={control}
-                        inputErrors={formState.errors}
                         fieldName="name.firstName"
+                        inputErrors={formState.errors}
                         inputLabel="First Name"
                         inputPlaceholder="Your Name"
                     />
@@ -124,8 +124,8 @@ const StudentRegForm = () => {
                     <TextInputField
                         separateLabel
                         control={control}
-                        inputErrors={formState.errors}
                         fieldName="name.middleName"
+                        inputErrors={formState.errors}
                         inputLabel="Middle Name"
                         inputPlaceholder="Father/Husband Name"
                     />
@@ -134,8 +134,8 @@ const StudentRegForm = () => {
                         required
                         separateLabel
                         control={control}
-                        inputErrors={formState.errors}
                         fieldName="name.lastName"
+                        inputErrors={formState.errors}
                         inputLabel="Last Name"
                         inputPlaceholder="Surname"
                     />
@@ -158,8 +158,8 @@ const StudentRegForm = () => {
                     <TextInputField
                         separateLabel
                         control={control}
-                        inputErrors={formState.errors}
                         fieldName="schoolName"
+                        inputErrors={formState.errors}
                         inputLabel="School Name"
                     />
 
@@ -196,8 +196,8 @@ const StudentRegForm = () => {
                         required
                         separateLabel
                         control={control}
-                        inputErrors={formState.errors}
                         fieldName="mob1"
+                        inputErrors={formState.errors}
                         inputHelperText="A valid phone number will help us and you to reset your password"
                         inputLabel="Mobile No."
                     />
@@ -215,8 +215,8 @@ const StudentRegForm = () => {
                     <TextInputField
                         separateLabel
                         control={control}
-                        inputErrors={formState.errors}
                         fieldName="mob2"
+                        inputErrors={formState.errors}
                         inputLabel="Alternate Mobile No."
                     />
 
@@ -224,8 +224,8 @@ const StudentRegForm = () => {
                         required
                         separateLabel
                         control={control}
-                        inputErrors={formState.errors}
                         fieldName="emailId"
+                        inputErrors={formState.errors}
                         inputLabel="Email ID"
                     />
 
@@ -233,8 +233,8 @@ const StudentRegForm = () => {
                         required
                         separateLabel
                         control={control}
-                        inputErrors={formState.errors}
                         fieldName="password"
+                        inputErrors={formState.errors}
                         inputLabel="Password"
                     />
 
@@ -242,8 +242,8 @@ const StudentRegForm = () => {
                         required
                         separateLabel
                         control={control}
-                        inputErrors={formState.errors}
                         fieldName="confirmPassword"
+                        inputErrors={formState.errors}
                         inputLabel="Confirm Password"
                     />
 

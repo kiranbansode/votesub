@@ -36,6 +36,12 @@ const getLocaleDate = () => {
     const date = localeDate.getDate();
 
     /**
+     * Calendar Date as per month in number format with leading zero
+     */
+    const dateWithZero =
+        `${localeDate.getDate()}`.length === 2 ? localeDate.getDate() : `0${localeDate.getDate()}`;
+
+    /**
      * Calendar Month as per year in number format
      * e.g. 1
      */
@@ -71,6 +77,12 @@ const getLocaleDate = () => {
          * Calendar Date as per month
          */
         date,
+
+        /**
+         * Calendar Date as per month in number format with leading zero
+         */
+        dateWithZero,
+
         /**
          * Calendar Month as per year in number format
          * e.g. 1

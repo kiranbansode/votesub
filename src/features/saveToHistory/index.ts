@@ -5,7 +5,7 @@ interface ISaveToHistory {
     subjectId: string;
     candidateId: string;
     localeDate: {
-        date: number;
+        dateWithZero: string | number;
         monthWithZero: string | number;
         year: number;
     };
@@ -13,9 +13,9 @@ interface ISaveToHistory {
 
 const saveToHistory = async ({ subjectId, candidateId, localeDate }: ISaveToHistory) => {
     const userId = auth.currentUser?.uid;
-    const { date, monthWithZero, year } = localeDate;
+    const { dateWithZero, monthWithZero, year } = localeDate;
     // const historyPath = `${date}${monthWithZero}${year}`;
-    const historyPath = `${year}${monthWithZero}${date}`;
+    const historyPath = `${year}${monthWithZero}${dateWithZero}`;
     const daysSinceUnixEpoch = Math.trunc(new Date().getTime() / 1000 / 86400);
     const secondsSinceUnixEpoch = Math.trunc(new Date().getTime() / 1000);
 

@@ -19,7 +19,11 @@ const saveSubjectDetails = async ({
             submittedBy,
             userId,
             subjectName,
-            candidates: candidates.map((candidate: ICandidate) => candidate.id),
+            // eslint-disable-next-line no-shadow
+            candidates: candidates.map(({ id, candidateName }: ICandidate) => ({
+                id,
+                candidateName,
+            })),
             createdOn: firestore.Timestamp.now().seconds,
         });
 };

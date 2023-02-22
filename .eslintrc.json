@@ -26,6 +26,13 @@
         "react/jsx-sort-props": [1, { "callbacksLast": true, "shorthandFirst": true }],
         "react/react-in-jsx-scope": 0,
         "react/button-has-type": [1, { "reset": true }],
-        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }]
+        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
+        "react/require-default-props": [
+            2,
+            {
+                "forbidDefaultForRequired": false,
+                "functions": "defaultArguments"
+            }
+        ]
     }
 }

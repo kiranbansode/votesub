@@ -83,145 +83,143 @@ const EmployerRegForm = () => {
     }, [registrationSlice.data?.uid]);
 
     return (
-        <div className="reg-form" id="employer-reg-form">
-            <div className="page-view">
-                <Logo goHere="/" />
+        <div className="registration-form__container" id="employer-reg__page">
+            <Logo goHere="/" />
 
-                <Caption />
+            <Caption />
 
-                <form
-                    className="dark_shadow"
-                    onSubmit={handleSubmit((formData) => {
-                        dispatch(createNewUserThunk(formData));
-                    })}
-                >
-                    <TextInputField
-                        required
-                        separateLabel
-                        control={control}
-                        fieldName="name.firstName"
-                        inputErrors={formState.errors}
-                        inputLabel="First Name"
-                        inputPlaceholder="Your Name"
-                    />
+            <form
+                className="dark_shadow"
+                onSubmit={handleSubmit((formData) => {
+                    dispatch(createNewUserThunk(formData));
+                })}
+            >
+                <TextInputField
+                    required
+                    separateLabel
+                    control={control}
+                    fieldName="name.firstName"
+                    inputErrors={formState.errors}
+                    inputLabel="First Name"
+                    inputPlaceholder="Your Name"
+                />
 
-                    <TextInputField
-                        separateLabel
-                        control={control}
-                        fieldName="name.middleName"
-                        inputErrors={formState.errors}
-                        inputLabel="Middle Name"
-                        inputPlaceholder="Father/Husband Name"
-                    />
+                <TextInputField
+                    separateLabel
+                    control={control}
+                    fieldName="name.middleName"
+                    inputErrors={formState.errors}
+                    inputLabel="Middle Name"
+                    inputPlaceholder="Father/Husband Name"
+                />
 
-                    <TextInputField
-                        required
-                        separateLabel
-                        control={control}
-                        fieldName="name.lastName"
-                        inputErrors={formState.errors}
-                        inputLabel="Last Name"
-                        inputPlaceholder="Surname"
-                    />
+                <TextInputField
+                    required
+                    separateLabel
+                    control={control}
+                    fieldName="name.lastName"
+                    inputErrors={formState.errors}
+                    inputLabel="Last Name"
+                    inputPlaceholder="Surname"
+                />
 
-                    <RadioInputField
-                        alignCenter
-                        required
-                        separateLabel
-                        showBorder
-                        control={control}
-                        fieldName="gender"
-                        inputErrors={formState.errors}
-                        inputLabel="Gender"
-                        radioSelect={[
-                            { label: 'Male', value: 'male' },
-                            { label: 'Female', value: 'female' },
-                        ]}
-                    />
+                <RadioInputField
+                    alignCenter
+                    required
+                    separateLabel
+                    showBorder
+                    control={control}
+                    fieldName="gender"
+                    inputErrors={formState.errors}
+                    inputLabel="Gender"
+                    radioSelect={[
+                        { label: 'Male', value: 'male' },
+                        { label: 'Female', value: 'female' },
+                    ]}
+                />
 
-                    <TextInputField
-                        separateLabel
-                        control={control}
-                        fieldName="companyName"
-                        inputErrors={formState.errors}
-                        inputLabel="Company Name"
-                    />
+                <TextInputField
+                    separateLabel
+                    control={control}
+                    fieldName="companyName"
+                    inputErrors={formState.errors}
+                    inputLabel="Company Name"
+                />
 
-                    <SelectInputField
-                        required
-                        separateLabel
-                        control={control}
-                        fieldName="role"
-                        inputErrors={formState.errors}
-                        inputLabel="Your role in Company"
-                        options={hrOptions}
-                    />
+                <SelectInputField
+                    required
+                    separateLabel
+                    control={control}
+                    fieldName="role"
+                    inputErrors={formState.errors}
+                    inputLabel="Your role in Company"
+                    options={hrOptions}
+                />
 
-                    <SelectInputField
-                        required
-                        separateLabel
-                        control={control}
-                        fieldName="countryCode"
-                        inputErrors={formState.errors}
-                        inputHelperText="It is required by E.164 standards"
-                        inputLabel="Country Code"
-                        options={countryCodeOptions}
-                    />
+                <SelectInputField
+                    required
+                    separateLabel
+                    control={control}
+                    fieldName="countryCode"
+                    inputErrors={formState.errors}
+                    inputHelperText="It is required by E.164 standards"
+                    inputLabel="Country Code"
+                    options={countryCodeOptions}
+                />
 
-                    <TextInputField
-                        required
-                        separateLabel
-                        control={control}
-                        fieldName="mob1"
-                        inputErrors={formState.errors}
-                        inputHelperText="A valid phone number will help us and you to reset your password"
-                        inputLabel="Mobile No."
-                    />
+                <TextInputField
+                    required
+                    separateLabel
+                    control={control}
+                    fieldName="mob1"
+                    inputErrors={formState.errors}
+                    inputHelperText="A valid phone number will help us and you to reset your password"
+                    inputLabel="Mobile No."
+                />
 
-                    <TextInputField
-                        separateLabel
-                        control={control}
-                        fieldName="mob2"
-                        inputErrors={formState.errors}
-                        inputLabel="Alternate Mobile No."
-                    />
+                <TextInputField
+                    separateLabel
+                    control={control}
+                    fieldName="mob2"
+                    inputErrors={formState.errors}
+                    inputLabel="Alternate Mobile No."
+                />
 
-                    <TextInputField
-                        required
-                        separateLabel
-                        control={control}
-                        fieldName="emailId"
-                        inputErrors={formState.errors}
-                        inputLabel="Email ID"
-                    />
+                <TextInputField
+                    required
+                    separateLabel
+                    control={control}
+                    fieldName="emailId"
+                    inputErrors={formState.errors}
+                    inputLabel="Email ID"
+                />
 
-                    <PasswordInputField
-                        required
-                        separateLabel
-                        control={control}
-                        fieldName="password"
-                        inputErrors={formState.errors}
-                        inputLabel="Password"
-                    />
+                <PasswordInputField
+                    required
+                    separateLabel
+                    control={control}
+                    fieldName="password"
+                    inputErrors={formState.errors}
+                    inputLabel="Password"
+                />
 
-                    <PasswordInputField
-                        required
-                        separateLabel
-                        control={control}
-                        fieldName="confirmPassword"
-                        inputErrors={formState.errors}
-                        inputLabel="Confirm Password"
-                    />
+                <PasswordInputField
+                    required
+                    separateLabel
+                    control={control}
+                    fieldName="confirmPassword"
+                    inputErrors={formState.errors}
+                    inputLabel="Confirm Password"
+                />
 
-                    {showErrorMssg}
+                {showErrorMssg}
 
-                    <Button loading={registrationSlice.loading} type="submit">
-                        Submit
-                    </Button>
+                <Button loading={registrationSlice.loading} type="submit">
+                    Submit
+                </Button>
 
-                    {showLoginSuccessMssg}
-                </form>
-            </div>
+                {showLoginSuccessMssg}
+            </form>
         </div>
     );
 };

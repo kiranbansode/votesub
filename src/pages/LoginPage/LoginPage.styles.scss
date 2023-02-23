@@ -1,21 +1,46 @@
 #login-page {
-    height: 100vh;
+    margin: 0 2rem;
+    padding-bottom: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
-    p {
-        font-size: 12px;
-        margin-left: 10px;
+    .votesub-logo-container {
+        margin-top: 2rem;
+        min-width: 18rem;
+        width: 95%;
     }
 
-    .login-button {
-        margin-top: 10px;
+    .votesub-caption-container {
+        margin-top: 1.5rem;
+        min-width: 12rem;
+        width: 70%;
     }
 
     .login-page__form {
-        padding: 10px;
         margin-top: 3rem;
+        padding: 10px;
+        width: 100%;
+        min-width: 18rem;
         background-color: #fff;
         border-radius: 15px;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
+    }
+
+    .login-page__forgot {
+        margin-top: 15px;
+        margin-bottom: 25px;
+        color: #1976d2;
+        margin-left: 10px;
+    }
+
+    .login-page__register {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .register-link {
+        color: #2f7d32;
     }
 
     .login-page__forgot,
@@ -26,31 +51,23 @@
         }
     }
 
-    .login-page__forgot {
-        font-size: 14px;
-        margin-top: 15px;
-        margin-bottom: 25px;
-        color: #1976d2;
-    }
-
-    .register-link {
-        color: #2f7d32;
-    }
-
     .separator {
-        margin: 0 9px;
+        margin: 0 10px;
     }
 
     .login-page__footer {
-        padding-top: 50px;
+        margin-top: 50px;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
 
+        p:first-child {
+            font-size: 0.9rem;
+        }
+
         .name {
             background-color: #fff;
-            font-size: 14px;
             padding: 10px;
             border-radius: 15px;
             margin-top: 0;
@@ -59,109 +76,82 @@
     }
 }
 
-// @media (min-width: 600px) {
-//     #login-page {
-//         background-color: #e5e5e5;
-//         margin: 0 auto;
-//         padding: 50px 0;
-//         display: grid;
-//         grid-template-areas:
-//             'logo form'
-//             'caption form'
-//             'footer footer';
-
-//         .votesub-logo-container {
-//             padding-bottom: 10px;
-//             grid-area: logo;
-//             align-self: flex-end;
-//             justify-self: end;
-//             justify-content: end;
-//         }
-
-//         .votesub-caption-container {
-//             height: 4rem;
-//             grid-area: caption;
-//             justify-self: end;
-//             justify-content: end;
-//         }
-
-//         .footer {
-//             grid-area: footer;
-//         }
-
-//         // .votesub-caption {
-//         //     width: 75%;
-//         // }
-
-//         form {
-//             width: 350px;
-//             height: fit-content;
-//             margin-left: 100px;
-//             padding: 20px;
-//             background-color: #fff;
-//             border-radius: 30px;
-//             grid-area: form;
-//             justify-self: flex-start;
-//             align-self: center;
-//         }
-//     }
-// }
-
-@media screen and (min-width: 576px) {
+/* ------------------------ Larger Phones or Phablets ----------------------- */
+@media only screen and (min-width: 481px) {
     #login-page {
-        margin-top: 80px;
-
-        .page-view {
-            display: grid;
-            margin: 0;
-            padding: 0;
-            max-width: none;
-            height: 100vh;
-            grid-template-areas:
-                'logo form'
-                'caption form'
-                'footer footer';
+        .votesub-logo-container {
+            width: 50%;
         }
 
-        // .votesub-logo-container,
-        // .votesub-caption-container,
-        // .registration-page__form {
-        //     border: 1px solid red;
-        // }
+        .votesub-caption-container {
+            width: 35%;
+            margin-top: 1rem;
+        }
+
+        .login-page__form {
+            width: 60%;
+            min-width: 350px;
+        }
+    }
+}
+
+/* ------------------------ Tablets and iPads ----------------------- */
+@media only screen and (min-width: 768px) {
+    #login-page {
+        .votesub-logo-container {
+            width: 50%;
+        }
+
+        .votesub-caption-container {
+            width: 35%;
+            margin-top: 1rem;
+        }
+
+        .login-page__form {
+            width: 60%;
+            min-width: 350px;
+            max-width: 450px;
+        }
+    }
+}
+
+/* ------------------------- Desktops, Large Screens ------------------------ */
+@media only screen and (min-width: 960px) {
+    #login-page {
+        height: 100vh;
+        display: grid;
+        grid-template-areas:
+            'logo form'
+            'caption form';
+
+        column-gap: 10rem;
+        align-content: center;
+        place-items: center;
 
         .votesub-logo-container {
             grid-area: logo;
-            aspect-ratio: 2.91 / 1;
+            width: 25rem;
             justify-self: center;
-            align-self: flex-end;
-            max-width: 450px;
-            margin-left: 100px;
-            margin-right: 20px;
+            align-self: end;
         }
 
         .votesub-caption-container {
             grid-area: caption;
-            aspect-ratio: 7.98 / 1;
-            max-width: 250px;
             justify-self: center;
-            margin: 0;
-            margin-top: 10px;
-            margin-left: 100px;
-            margin-right: 20px;
+            align-self: start;
+            width: 15rem;
         }
 
         .login-page__form {
             grid-area: form;
-            max-width: 350px;
-            height: fit-content;
-            margin: auto 0;
-            margin-right: 20px;
+            width: 350px;
         }
 
+        // TODO: find another design to promote yourself
         .login-page__footer {
+            display: none;
             grid-area: footer;
-            padding: 0;
-            padding-bottom: 30px;
+            justify-self: center;
         }
     }
 }

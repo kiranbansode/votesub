@@ -32,7 +32,7 @@ const ProfilePage = () => {
                 <LoadingScreen fullScreen />
             ) : (
                 <div className="page-view">
-                    <RemainingVotes showImmediately />
+                    <RemainingVotes />
                     <div className="profile-basic">
                         {/* <img alt="" className="profile-picture" src="src/assets/dev_image.png" /> */}
 

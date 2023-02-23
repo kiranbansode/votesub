@@ -66,37 +66,35 @@ const RegistrationPage = () => {
 
     return (
         <div className="reg-form" id="registration-page">
-            <div className="page-view">
-                <Logo goHere="/" />
+            <Logo goHere="/" />
 
-                <Caption />
+            <Caption />
 
-                <form
-                    className="registration-page__form dark_shadow"
-                    onSubmit={handleSubmit((data) => {
-                        dispatch(SAVE_USER_ROLE(data));
-                        setNavigateUserToForm(true);
-                    })}
-                >
-                    <RadioInputField
-                        required
-                        showBorder
-                        control={control}
-                        fieldName="category"
-                        inputErrors={errors}
-                        inputHelperText="We need to know who you are, so we can navigate you to appropriate Registration Form."
-                        inputLabel="Who are you ?"
-                        radioSelect={[
-                            { label: 'Student', value: 'st' },
-                            { label: 'Teacher, Principal, Clerk, ...', value: 'tr' },
-                            { label: 'Employer, HR, Manager, ...', value: 'hr' },
-                            { label: 'SDE, UI-UX Designer, ...', value: 'dev' },
-                        ]}
-                    />
+            <form
+                className="registration-page__form dark_shadow"
+                onSubmit={handleSubmit((data) => {
+                    dispatch(SAVE_USER_ROLE(data));
+                    setNavigateUserToForm(true);
+                })}
+            >
+                <RadioInputField
+                    required
+                    showBorder
+                    control={control}
+                    fieldName="category"
+                    inputErrors={errors}
+                    inputHelperText="We need to know who you are, so we can navigate you to appropriate Registration Form."
+                    inputLabel="Who are you ?"
+                    radioSelect={[
+                        { label: 'Student', value: 'st' },
+                        { label: 'Teacher, Principal, Clerk, ...', value: 'tr' },
+                        { label: 'Employer, HR, Manager, ...', value: 'hr' },
+                        { label: 'SDE, UI-UX Designer, ...', value: 'dev' },
+                    ]}
+                />
 
-                    <Button type="submit">Submit</Button>
-                </form>
-            </div>
+                <Button type="submit">Submit</Button>
+            </form>
         </div>
     );
 };

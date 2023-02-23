@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { useEffect, lazy } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useForm, FieldValues } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import useAppDispatch from 'hooks/useAppDispatch';
 import useAppSelector from 'hooks/useAppSelector';
@@ -44,7 +44,7 @@ const loginPageFormDefaultValues: UserLoginFormTypes = {
 };
 
 const LoginPage = () => {
-    const { control, formState, handleSubmit } = useForm<FieldValues>({
+    const { control, formState, handleSubmit } = useForm<UserLoginFormTypes>({
         defaultValues: loginPageFormDefaultValues,
         resolver: yupResolver(loginPageFormValidation),
     });
@@ -56,23 +56,25 @@ const LoginPage = () => {
     const existingUser = useAppSelector(({ existingLoggedUserAuth }) => existingLoggedUserAuth);
     const globalUI = useAppSelector((state) => state.ui);
 
-    const showErrorMssg = userState.error.code ? (
-        <InputFieldWrapper>
-            <Alert severity="error" variant="filled">
-                <AlertTitle>{userState.error.code.toUpperCase()}</AlertTitle>
-                {userState.error.message}
-            </Alert>
-        </InputFieldWrapper>
-    ) : null;
+    const ShowErrorMssg = () =>
+        userState.error.code ? (
+            <InputFieldWrapper>
+                <Alert severity="error" variant="filled">
+                    <AlertTitle>{userState.error.code.toUpperCase()}</AlertTitle>
+                    {userState.error.message}
+                </Alert>
+            </InputFieldWrapper>
+        ) : null;
 
-    const showLoginSuccessMssg = globalUI.showSignSuccessPopUp ? (
-        <BackdropMssg
-            header="Login Successful."
-            mssg="Redirecting to Dashboard..."
-            open={globalUI.showSignSuccessPopUp}
-            type="success"
-        />
-    ) : null;
+    const ShowLoginSuccessMssg = () =>
+        globalUI.showSignSuccessPopUp ? (
+            <BackdropMssg
+                header="Login Successful."
+                mssg="Redirecting to Dashboard..."
+                open={globalUI.showSignSuccessPopUp}
+                type="success"
+            />
+        ) : null;
 
     const ForgotPasswordText = () => (
         // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
@@ -81,20 +83,19 @@ const LoginPage = () => {
         </p>
     );
 
-    const registerText = (
-        <p>
+    const RegisterText = () => (
+        <p className="login-page__register">
             Don&#39;t have an account ? Click on &nbsp;
             <span className="register-link" onClick={() => navigate('/register')}>
                 Register
             </span>
-            &nbsp; button below
         </p>
     );
 
-    const footer = (
+    const Footer = () => (
         <div className="login-page__footer">
             <p className="message"> Made with ❤️ By </p>
-            <p className="name default_shadow">Kiran A. Bansode</p>
+            <p className="name default_shadow">Kiran Bansode</p>
             <p className="version">-x- [23.01.10-2] -x-</p>
         </div>
     );
@@ -128,58 +129,56 @@ const LoginPage = () => {
     }, [userState.userDetails.uid]);
 
     return (
-        <div className="login-page reg-form" id="login-page">
-            <div className="page-view">
-                <Logo className="loginpage__logo" goHere="/" />
+        <div className="login-page" id="login-page">
+            <Logo className="loginpage__logo" goHere="/" />
 
-                <Caption />
+            <Caption />
 
-                <form
-                    className="login-page__form dark_shadow"
-                    onSubmit={handleSubmit((data) => dispatch(userLogIn(data)))}
-                >
-                    <TextInputField
-                        autoFocus
-                        required
-                        separateLabel
-                        control={control}
-                        fieldName="username"
-                        inputErrors={formState.errors}
-                        inputLabel="Username"
-                    />
+            <form
+                className="login-page__form dark_shadow"
+                onSubmit={handleSubmit((formData) => dispatch(userLogIn(formData)))}
+            >
+                <TextInputField
+                    autoFocus
+                    required
+                    separateLabel
+                    control={control}
+                    fieldName="username"
+                    inputErrors={formState.errors}
+                    inputLabel="Username"
+                />
 
-                    <PasswordInputField
-                        required
-                        separateLabel
-                        control={control}
-                        fieldName="password"
-                        inputErrors={formState.errors}
-                        inputLabel="Password"
-                    />
+                <PasswordInputField
+                    required
+                    separateLabel
+                    control={control}
+                    fieldName="password"
+                    inputErrors={formState.errors}
+                    inputLabel="Password"
+                />
 
-                    {/* If there is any error mssg from auth, it should show here, right under password field */}
-                    {showErrorMssg}
+                {/* If there is any error mssg from auth, it should show here, right under password field */}
+                <ShowErrorMssg />
 
-                    <Button className="login-button" loading={userState.loading} type="submit">
-                        Login
-                    </Button>
+                <Button className="login-button" loading={userState.loading} type="submit">
+                    Login
+                </Button>
 
-                    <ForgotPasswordText />
+                <ForgotPasswordText />
 
-                    <Separator />
+                <Separator />
 
-                    {registerText}
+                <RegisterText />
 
-                    <Button color="success" onClick={() => navigate('/register')}>
-                        Register
-                    </Button>
-                </form>
+                <Button color="success" onClick={() => navigate('/register')}>
+                    Register
+                </Button>
+            </form>
 
-                {/* if user is able to login, then a success type mssg will be shown */}
-                {showLoginSuccessMssg}
+            {/* if user is able to login, then a success type mssg will be shown */}
+            <ShowLoginSuccessMssg />
 
-                {footer}
-            </div>
+            <Footer />
         </div>
     );
 };

@@ -66,7 +66,7 @@ const SubjectPage = () => {
                 <LoadingScreen fullScreen />
             ) : (
                 <div className="page-view">
-                    <RemainingVotes showImmediately />
+                    <RemainingVotes />
 
                     <h1 className="subject-title">{subject?.subjectName}</h1>
                     <Separator />

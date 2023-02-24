@@ -10,7 +10,7 @@ interface IRemainingVotes {
     showImmediately?: boolean;
 }
 
-const RemainingVotes = ({ showImmediately }: IRemainingVotes) => {
+const RemainingVotes = ({ showImmediately = false }: IRemainingVotes) => {
     const [showView, setShowView] = useState(false);
     const [remainingVotes] = useUserRemainingVotes();
 
@@ -39,21 +39,18 @@ const RemainingVotes = ({ showImmediately }: IRemainingVotes) => {
                 </ColoredRemainingVotes>
             </div>
 
-            {remainingVotes === 0 ? (
-                <p className="warning">
-                    No votes left. So you can&#39;t vote now. It will be refilled again.
-                </p>
-            ) : null}
-
             <Separator />
+
+            <p
+                className="warning"
+                style={{ visibility: `${remainingVotes === 0 ? 'visible' : 'hidden'}` }}
+            >
+                No votes left. So you can&#39;t vote now. It will be refilled again.
+            </p>
         </div>
     ) : (
         <LoadingScreen className="remaining-votes__loading" />
     );
-};
-
-RemainingVotes.defaultProps = {
-    showImmediately: false,
 };
 
 export default RemainingVotes;

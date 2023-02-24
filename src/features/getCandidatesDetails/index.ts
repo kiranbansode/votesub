@@ -1,10 +1,21 @@
 import { firestore } from 'config/firebase';
-import { doc, getDoc } from 'firebase/firestore';
+import { DocumentReference, doc, getDoc } from 'firebase/firestore';
 
-const getCandidatesDetails = (candidates: any[]) =>
+type TCandidateGetFirestore = {
+    id: string;
+    candidateName: string;
+    subjectID: string;
+    votes: number;
+};
+
+const getCandidatesDetails = (candidates: string[]) =>
     Promise.all(
         candidates.map(async (candidate) => {
-            const candidateRef = doc(firestore, 'candidates', candidate);
+            const candidateRef = doc(
+                firestore,
+                'candidates',
+                candidate,
+            ) as DocumentReference<TCandidateGetFirestore>;
             const docSnap = await getDoc(candidateRef);
             if (!docSnap.exists()) {
                 return null;

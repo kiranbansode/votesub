@@ -5,7 +5,8 @@
         "dev": "vite",
         "build": "tsc && vite build",
         "serve": "vite preview",
-        "prepare": "husky install"
+        "prepare": "husky install",
+        "lint": "eslint src/**/*.{js,ts,tsx}"
     },
     "dependencies": {
         "@emotion/react": "^11.5.0",

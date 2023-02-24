@@ -3,16 +3,17 @@ import { firestore, auth } from 'config/firebase';
 import { useEffect, useState } from 'react';
 
 const useUserRemainingVotes = () => {
-    const [remainingVotes, setRemainingVotes] = useState<number>(0);
+    const [remainingVotes, setRemainingVotes] = useState<number | null>(null);
     const userId = auth.currentUser?.uid;
-    const userRef = doc(firestore, 'users', userId!);
+    const userRef = userId && doc(firestore, 'users', userId!);
 
-    if (remainingVotes < 0) {
+    if (Number(remainingVotes) < 0) {
         // sometimes due to latency user's remaining votes goes below 0
         // if that happen, this will update user's remaining votes back to 0
-        updateDoc(userRef, {
-            remainingVotes: 0,
-        });
+        if (userRef)
+            updateDoc(userRef, {
+                remainingVotes: 0,
+            });
     }
 
     useEffect(() => {

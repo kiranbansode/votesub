@@ -20,7 +20,12 @@ interface ILoadingScreen {
  * @return Circular Progress bar
  */
 
-const LoadingScreen = ({ color, size, fullScreen, className }: ILoadingScreen) => (
+const LoadingScreen = ({
+    color = 'primary',
+    size = 25,
+    fullScreen = false,
+    className = '',
+}: ILoadingScreen) => (
     <div
         className={`${className} loading-screen-container`}
         style={fullScreen ? { height: 'calc(100vh - 80px)' } : { height: '100%' }}
@@ -28,12 +33,5 @@ const LoadingScreen = ({ color, size, fullScreen, className }: ILoadingScreen) =
         <CircularProgress color={color} size={size} />
     </div>
 );
-
-LoadingScreen.defaultProps = {
-    color: 'primary',
-    size: 25,
-    fullScreen: false,
-    className: '',
-};
 
 export default LoadingScreen;

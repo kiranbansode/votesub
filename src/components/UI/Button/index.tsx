@@ -15,15 +15,15 @@ interface ButtonPropsType {
 }
 
 const Button = ({
-    color,
-    variant,
-    children,
-    disabled,
-    size,
-    type,
-    loading,
-    className,
-    onClick,
+    children = 'Button',
+    className = '',
+    color = 'primary',
+    disabled = false,
+    loading = false,
+    size = 'large',
+    type = 'button',
+    variant = 'contained',
+    onClick = () => {},
 }: ButtonPropsType) => (
     <InputFieldWrapper>
         <LoadingButtonMaterial
@@ -41,17 +41,5 @@ const Button = ({
         </LoadingButtonMaterial>
     </InputFieldWrapper>
 );
-
-Button.defaultProps = {
-    children: 'Button',
-    className: '',
-    color: 'primary',
-    disabled: false,
-    loading: false,
-    size: 'large',
-    type: 'button',
-    variant: 'contained',
-    onClick: () => {},
-};
 
 export default Button;

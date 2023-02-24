@@ -16,7 +16,7 @@ interface ILogo {
     onClick?: () => void;
 }
 
-const Logo = ({ goHere, className, onClick }: ILogo) => {
+const Logo = ({ goHere, className = '', onClick = () => {} }: ILogo) => {
     const navigate = useNavigate();
 
     return (
@@ -29,11 +29,6 @@ const Logo = ({ goHere, className, onClick }: ILogo) => {
             />
         </div>
     );
-};
-
-Logo.defaultProps = {
-    className: '',
-    onClick: () => {},
 };
 
 export default Logo;

@@ -14,11 +14,11 @@ interface ISwitchInputField {
 }
 
 const SwitchInputField = ({
+    color = 'secondary',
+    helperText = '',
+    disabled = false,
     control,
-    color,
     fieldName,
-    helperText,
-    disabled,
 }: ISwitchInputField) => (
     <div className="switch-input-field">
         <FormControl>
@@ -42,11 +42,5 @@ const SwitchInputField = ({
         </FormControl>
     </div>
 );
-
-SwitchInputField.defaultProps = {
-    helperText: '',
-    disabled: false,
-    color: 'secondary',
-};
 
 export default SwitchInputField;

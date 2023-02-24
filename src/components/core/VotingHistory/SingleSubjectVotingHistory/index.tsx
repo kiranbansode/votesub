@@ -31,6 +31,7 @@ interface ISingleSubjectVotingHistory {
 const SingleSubjectVotingHistory = ({
     subjectId,
     subjectName,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     createdOn,
     localeDate,
     candidates,

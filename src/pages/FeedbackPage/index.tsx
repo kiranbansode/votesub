@@ -159,8 +159,8 @@ const FeedbackPage = () => {
                         makeItTextArea
                         separateLabel
                         control={control}
-                        inputErrors={formState.errors}
                         fieldName="mssg"
+                        inputErrors={formState.errors}
                         inputLabel="5. Any Message or Feedback to Developer regarding VoteSub app ?"
                         inputPlaceholder="Please enter your message or feedback here"
                     />

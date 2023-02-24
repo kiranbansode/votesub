@@ -1,4 +1,6 @@
 .remaining-votes-container {
+    min-height: 130px;
+
     & div:first-child {
         display: flex;
         justify-content: space-between;
@@ -22,7 +24,6 @@
 
     .warning {
         color: #e53935;
-        margin-top: 0;
         text-align: center;
         animation: blinker 1.5s linear infinite;
     }
@@ -35,5 +36,5 @@
 }
 
 .remaining-votes__loading {
-    height: 72px !important;
+    min-height: 130px !important;
 }

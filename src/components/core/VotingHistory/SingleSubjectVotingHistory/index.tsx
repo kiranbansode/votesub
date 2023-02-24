@@ -3,6 +3,7 @@
 /* eslint-disable arrow-body-style */
 import { useNavigate } from 'react-router-dom';
 import './SingleSubjectVotingHistory.styles.scss';
+import { nanoid } from 'nanoid';
 
 interface ILocaleDate {
     date: number;
@@ -55,8 +56,8 @@ const SingleSubjectVotingHistory = ({
 
                 <ul className="candidates-list">
                     {candidates.map(({ id, candidateName, givenVotes }) => (
-                        <li className="candidate" key={id}>
-                            {candidateName} : {givenVotes}
+                        <li className="candidate" key={id || nanoid()}>
+                            {candidateName || 'Unknown'} : {givenVotes}
                         </li>
                     ))}
                 </ul>

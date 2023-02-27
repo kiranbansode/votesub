@@ -78,7 +78,7 @@ const FailedSVG = () => (
 
 const BackdropMssg = ({ header, mssg, open, footer = '', type }: IBackdropMssg) => (
     <BackdropMUI open={open}>
-        <div className="backdrop-mssg-container darker_shadow">
+        <div className="backdrop-mssg-container">
             <div className="img-container">
                 {type === 'failed' ? <FailedSVG /> : <SuccessSVG />}
             </div>

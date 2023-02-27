@@ -36,7 +36,7 @@ const linksToPages = [
         id: 'fd7d742d-e617-447e-b080-97b975aab9da',
         link: '/addNewSubject',
         linkIcon: <AddIcon />,
-        linkName: 'Add New Subject',
+        linkName: 'New Subject',
     },
     {
         id: 'b42035a2-172e-4b50-9180-c3bb85e36e1f',

@@ -30,7 +30,13 @@ const initialState: IAddNewFeedbackSlice = {
 const addNewFeedbackSlice = createSlice({
     name: 'addNewSlice',
     initialState,
-    reducers: {},
+    reducers: {
+        RESET_ADD_NEW_FEEDBACK_SLICE: (state) => {
+            state.res = initialState.res;
+            state.loading = initialState.loading;
+            state.error = initialState.error;
+        },
+    },
     extraReducers: (builder) => {
         builder.addCase(addNewFeedbackThunk.pending, (state) => {
             state.loading = true;
@@ -50,5 +56,7 @@ const addNewFeedbackSlice = createSlice({
         });
     },
 });
+
+export const { RESET_ADD_NEW_FEEDBACK_SLICE } = addNewFeedbackSlice.actions;
 
 export default addNewFeedbackSlice.reducer;

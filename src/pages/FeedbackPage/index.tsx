@@ -10,9 +10,12 @@ import TextInputField from 'components/InputFields/TextInputField';
 import RadioInputField from 'components/InputFields/RadioInputField';
 
 import './FeedbackPage.styles.scss';
-import { addNewFeedbackThunk } from 'store/addNewFeedback';
+import { RESET_ADD_NEW_FEEDBACK_SLICE, addNewFeedbackThunk } from 'store/addNewFeedback';
 import useAppSelector from 'hooks/useAppSelector';
 import useAppDispatch from 'hooks/useAppDispatch';
+import BackdropMssg from 'components/UI/BackdropMssg';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface IFeedbackPageForm {
     ux: 'a' | 'b' | 'c' | 'd' | '';
@@ -76,7 +79,27 @@ const FeedbackPage = () => {
         resolver: yupResolver(FeedbackPageValidations),
     });
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
     const addNewFeedbackState = useAppSelector((state) => state.addNewFeedback);
+
+    const ShowFeedbackSavedSuccessMssg = () =>
+        addNewFeedbackState.res.code ? (
+            <BackdropMssg
+                header="Feedback saved successfully."
+                mssg="Redirecting to Dashboard..."
+                open={Boolean(addNewFeedbackState.res.code)}
+                type="success"
+            />
+        ) : null;
+
+    useEffect(() => {
+        if (addNewFeedbackState.res.code) {
+            setTimeout(() => {
+                navigate('/dashboard');
+                dispatch(RESET_ADD_NEW_FEEDBACK_SLICE());
+            }, 2000);
+        }
+    }, [addNewFeedbackState.res.code]);
 
     return (
         <div className="page" id="feedback-page">
@@ -169,6 +192,8 @@ const FeedbackPage = () => {
                         Submit
                     </Button>
                 </form>
+
+                <ShowFeedbackSavedSuccessMssg />
             </div>
         </div>
     );

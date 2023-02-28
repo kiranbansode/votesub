@@ -6,29 +6,29 @@ interface IFeedback {
     ux: 'a' | 'b' | 'c' | 'd';
     ui: 'a' | 'b' | 'c' | 'd';
     performance: 'a' | 'b' | 'c' | 'd';
-    rating: number;
+    ratings: number;
     mssg: string;
 }
 
 const saveToFeedback = async (feedback: IFeedback) => {
-    const { ux, ui, performance, rating, mssg } = feedback;
+    const { ux, ui, performance, ratings, mssg } = feedback;
     const userId = auth.currentUser?.uid;
     const feedbackId = nanoid();
     const feedbackRef = doc(firestore, 'feedbacks', feedbackId);
 
     try {
-        await setDoc(feedbackRef, {
+        const res = await setDoc(feedbackRef, {
             userId,
             feedbackId,
             ux,
             ui,
             performance,
-            rating,
+            ratings,
             mssg,
             submittedOn: serverTimestamp(),
         });
 
-        return { code: 201, mssg: 'Feedback saved successfully.' };
+        return { res, code: 201, mssg: 'Feedback saved successfully.' };
     } catch (error) {
         return error;
     }

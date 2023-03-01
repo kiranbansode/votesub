@@ -20,10 +20,15 @@ const saveToHistory = async ({ subjectId, candidateId, localeDate }: ISaveToHist
     const secondsSinceUnixEpoch = Math.trunc(new Date().getTime() / 1000);
 
     const historyRef = doc(firestore, 'users', userId!, 'votingHistory', historyPath);
+    const subjectRef = doc(firestore, 'subjects', subjectId);
+    const candidateRef = doc(firestore, 'candidates', candidateId);
     const historySnap = await getDoc(historyRef);
 
     try {
         let res;
+        const subjectName = await (await getDoc(subjectRef)).get('subjectName');
+        const candidateName = await (await getDoc(candidateRef)).get('candidateName');
+
         if (!historySnap.exists()) {
             res = await setDoc(historyRef, {
                 createdOn: secondsSinceUnixEpoch,
@@ -32,8 +37,9 @@ const saveToHistory = async ({ subjectId, candidateId, localeDate }: ISaveToHist
                 localeDate,
                 history: {
                     [subjectId]: {
-                        [candidateId]: increment(1),
+                        [candidateId]: { candidateName, candidateId, givenVotes: increment(1) },
                         lastUpdatedOn: secondsSinceUnixEpoch,
+                        subjectName,
                     },
                 },
             });
@@ -41,7 +47,7 @@ const saveToHistory = async ({ subjectId, candidateId, localeDate }: ISaveToHist
         }
 
         res = await updateDoc(historyRef, {
-            [`history.${subjectId}.${candidateId}`]: increment(1),
+            [`history.${subjectId}.${candidateId}.givenVotes`]: increment(1),
             [`history.${subjectId}.lastUpdatedOn`]: secondsSinceUnixEpoch,
         });
 

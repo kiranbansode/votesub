@@ -60,38 +60,36 @@ const PasswordResetPage = () => {
     }, [passwordResetSlice.res.status]);
 
     return (
-        <div className="password-reset__page page-view">
-            <div className="reg-form">
-                <Logo goHere="/" />
+        <div className="registration-form__container" id="password-reset__page">
+            <Logo goHere="/" />
 
-                <Caption />
+            <Caption />
 
-                <form
-                    className="dark_shadow"
-                    onSubmit={handleSubmit(({ emailId }) => {
-                        dispatch(RESET_PASSWORD_RESET_SLICE());
-                        dispatch(passwordResetThunk(emailId));
-                    })}
-                >
-                    <TextInputField
-                        autoFocus
-                        required
-                        separateLabel
-                        control={control}
-                        fieldName="emailId"
-                        inputErrors={formState.errors}
-                        inputHelperText="Enter your registered E-mail ID"
-                        inputLabel="Email ID"
-                    />
+            <form
+                className="dark_shadow"
+                onSubmit={handleSubmit(({ emailId }) => {
+                    dispatch(RESET_PASSWORD_RESET_SLICE());
+                    dispatch(passwordResetThunk(emailId));
+                })}
+            >
+                <TextInputField
+                    autoFocus
+                    required
+                    separateLabel
+                    control={control}
+                    fieldName="emailId"
+                    inputErrors={formState.errors}
+                    inputHelperText="Enter your registered E-mail ID"
+                    inputLabel="Email ID"
+                />
 
-                    <ShowErrorInfo />
+                <ShowErrorInfo />
 
-                    <Button color="primary" loading={passwordResetSlice.loading} type="submit">
-                        Submit
-                    </Button>
-                </form>
-                <ShowInfoMssg />
-            </div>
+                <Button color="primary" loading={passwordResetSlice.loading} type="submit">
+                    Submit
+                </Button>
+            </form>
+            <ShowInfoMssg />
         </div>
     );
 };

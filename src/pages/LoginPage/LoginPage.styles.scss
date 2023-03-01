@@ -5,6 +5,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: relative;
 
     .votesub-logo-container {
         margin-top: 2rem;
@@ -118,7 +119,8 @@
 /* ------------------------- Desktops, Large Screens ------------------------ */
 @media only screen and (min-width: 960px) {
     #login-page {
-        height: 100vh;
+        height: calc(100vh - 2px);
+        padding-bottom: 0;
         display: grid;
         grid-template-areas:
             'logo form'
@@ -149,9 +151,10 @@
 
         // TODO: find another design to promote yourself
         .login-page__footer {
-            display: none;
-            grid-area: footer;
-            justify-self: center;
+            position: relative;
+            left: 50%;
+            bottom: 0px;
+            transform: translate(50%, 50%);
         }
     }
 }

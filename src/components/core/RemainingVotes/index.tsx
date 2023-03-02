@@ -32,7 +32,7 @@ const RemainingVotes = ({ showImmediately = false }: IRemainingVotes) => {
             <div>
                 <span className="remaining-votes__title">Your remaining votes : </span>
                 <ColoredRemainingVotes
-                    className="remaining-votes__counter warning"
+                    className="remaining-votes__counter"
                     remainingVotes={Number(remainingVotes)}
                 >
                     {remainingVotes}
@@ -42,14 +42,13 @@ const RemainingVotes = ({ showImmediately = false }: IRemainingVotes) => {
             <Separator />
 
             <p
+                className="warning"
                 style={{
                     visibility: `${remainingVotes === 0 ? 'visible' : 'hidden'}`,
-                    color: '#e53935',
-                    textAlign: 'center',
                 }}
             >
                 No votes left. So you can&#39;t vote now. It will be refilled again at 12 a.m.
-                UTC+0.
+                UTC-0.
             </p>
         </div>
     ) : (

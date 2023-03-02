@@ -67,10 +67,12 @@
 @media only screen and (min-width: 960px) {
     .registration-form__container .votesub-logo-container {
         width: 30%;
+        max-width: 400px;
     }
 
     .registration-form__container .votesub-caption-container {
         width: 20%;
+        max-width: 280px;
         margin-top: 1rem;
     }
 

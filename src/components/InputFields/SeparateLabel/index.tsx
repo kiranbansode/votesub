@@ -2,7 +2,7 @@ import './SeparateLabel.styles.scss';
 
 interface SeparateLabelBaseProps {
     htmlFor: string;
-    label: string;
+    label?: string;
     required?: boolean;
     error?: boolean;
 }
@@ -10,8 +10,8 @@ interface SeparateLabelBaseProps {
 const SeparateLabel = ({
     error = false,
     required = false,
+    label = '',
     htmlFor,
-    label,
 }: SeparateLabelBaseProps) => (
     <label className={`${error && 'show-error'} separate-label`} htmlFor={htmlFor}>
         {label}

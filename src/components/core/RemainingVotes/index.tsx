@@ -45,7 +45,7 @@ const RemainingVotes = ({ showImmediately = false }: IRemainingVotes) => {
             {remainingVotes === 0 ? (
                 <ErrorView
                     errorTitle="No Votes Left"
-                    mssg="You have exhausted your votes limit. Don't worry! It will be refilled again at 12 a.m. UTC-0."
+                    mssg="You have exhausted your votes limit. Don't worry! It will be refilled again at 12 a.m. UTC+0."
                 />
             ) : null}
         </div>

@@ -5,6 +5,7 @@ import LoadingScreen from 'components/UI/LoadingScreen';
 import useUserRemainingVotes from 'hooks/useUserRemainingVotes';
 
 import './RemainingVotes.styles.scss';
+import ErrorView from 'components/UI/ErrorView';
 
 interface IRemainingVotes {
     showImmediately?: boolean;
@@ -41,15 +42,12 @@ const RemainingVotes = ({ showImmediately = false }: IRemainingVotes) => {
 
             <Separator />
 
-            <p
-                className="warning"
-                style={{
-                    visibility: `${remainingVotes === 0 ? 'visible' : 'hidden'}`,
-                }}
-            >
-                No votes left. So you can&#39;t vote now. It will be refilled again at 12 a.m.
-                UTC-0.
-            </p>
+            {remainingVotes === 0 ? (
+                <ErrorView
+                    errorTitle="No Votes Left"
+                    mssg="You have exhausted your votes limit. Don't worry! It will be refilled again at 12 a.m. UTC-0."
+                />
+            ) : null}
         </div>
     ) : (
         <LoadingScreen className="remaining-votes__loading" />

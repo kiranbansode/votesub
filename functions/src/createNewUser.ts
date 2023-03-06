@@ -25,12 +25,18 @@ exports.createNewUser = cloudFn.https.onCall(async (newUserData) => {
     } = newUserData;
 
     try {
+        let customToken;
+
         const res = await auth().createUser({
             email: newUserData.emailId,
             password: newUserData.password,
             displayName: `${firstName} ${lastName}`,
             phoneNumber: `${countryCode}${mob1}`,
         });
+
+        if (res.uid) {
+            customToken = await auth().createCustomToken(res.uid);
+        }
 
         if (res.uid) {
             await auth().setCustomUserClaims(res.uid, { userCategory });
@@ -45,7 +51,7 @@ exports.createNewUser = cloudFn.https.onCall(async (newUserData) => {
                 });
         }
 
-        return res;
+        return { auth: res, customToken };
     } catch (error) {
         return error;
     }

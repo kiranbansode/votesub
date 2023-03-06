@@ -1,8 +1,10 @@
 import { getDoc, doc, updateDoc, increment } from 'firebase/firestore';
 import { auth, firestore } from 'config/firebase';
+import { store } from 'store';
 
 const voteNow = async (candidateId: string) => {
-    const userId = auth.currentUser?.uid;
+    const userIdFromStore = store.getState().user.userDetails.uid;
+    const userId = auth.currentUser?.uid! || userIdFromStore;
 
     if (userId === null) {
         return;

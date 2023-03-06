@@ -8,6 +8,7 @@ import {
     IStUserDetailsFromFirestore,
     ITrUserDetailsFromFirestore,
 } from 'types/userDetails';
+import { store } from 'store';
 
 const useGetUserDetails = () => {
     const [userDetails, setUserDetails] = useState<
@@ -18,7 +19,8 @@ const useGetUserDetails = () => {
         | { [x: string]: any }
     >({});
     const [userRole, setUserRole] = useState<string | null>(null);
-    const userId = auth.currentUser?.uid!;
+    const userIdFromStore = store.getState().user.userDetails.uid;
+    const userId = auth.currentUser?.uid! || userIdFromStore;
 
     const userSnapShot = userId ? doc(firestore, 'users', userId) : '';
 

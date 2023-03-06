@@ -1,10 +1,12 @@
 import { doc, onSnapshot, updateDoc } from 'firebase/firestore';
 import { firestore, auth } from 'config/firebase';
 import { useEffect, useState } from 'react';
+import { store } from 'store';
 
 const useUserRemainingVotes = () => {
     const [remainingVotes, setRemainingVotes] = useState<number | null>(null);
-    const userId = auth.currentUser?.uid;
+    const userIdFromStore = store.getState().user.userDetails.uid;
+    const userId = auth.currentUser?.uid! || userIdFromStore;
     const userRef = userId && doc(firestore, 'users', userId!);
 
     if (Number(remainingVotes) < 0) {

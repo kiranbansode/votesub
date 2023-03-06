@@ -1,5 +1,6 @@
 import { auth, firestore } from 'config/firebase';
 import { setDoc, doc, getDoc, updateDoc, increment } from 'firebase/firestore';
+import { store } from 'store';
 
 interface ISaveToHistory {
     subjectId: string;
@@ -12,7 +13,8 @@ interface ISaveToHistory {
 }
 
 const saveToHistory = async ({ subjectId, candidateId, localeDate }: ISaveToHistory) => {
-    const userId = auth.currentUser?.uid;
+    const userIdFromStore = store.getState().user.userDetails.uid;
+    const userId = auth.currentUser?.uid! || userIdFromStore;
     const { dateWithZero, monthWithZero, year } = localeDate;
     // const historyPath = `${date}${monthWithZero}${year}`;
     const historyPath = `${year}${monthWithZero}${dateWithZero}`;

@@ -1,6 +1,7 @@
 import { setDoc, doc, serverTimestamp } from 'firebase/firestore';
 import { nanoid } from 'nanoid';
 import { firestore, auth } from 'config/firebase';
+import { store } from 'store';
 
 interface IFeedback {
     ux: 'a' | 'b' | 'c' | 'd';
@@ -12,7 +13,8 @@ interface IFeedback {
 
 const saveToFeedback = async (feedback: IFeedback) => {
     const { ux, ui, performance, ratings, mssg } = feedback;
-    const userId = auth.currentUser?.uid;
+    const userIdFromStore = store.getState().user.userDetails.uid;
+    const userId = auth.currentUser?.uid! || userIdFromStore;
     const feedbackId = nanoid();
     const feedbackRef = doc(firestore, 'feedbacks', feedbackId);
 

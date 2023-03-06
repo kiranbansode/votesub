@@ -1,5 +1,6 @@
 import { firestore, auth } from 'config/firebase';
 import { getDocs, collection, CollectionReference } from 'firebase/firestore';
+import { store } from 'store';
 import getSubjectDetails from 'features/getSubjectDetails';
 import getSingleCandidateDetails from 'features/getSingleCandidateDetails';
 
@@ -35,7 +36,8 @@ interface IDayHistoryFromFirestore {
 }
 
 const getUserVotingHistory = async () => {
-    const userId = auth.currentUser?.uid!;
+    const userIdFromStore = store.getState().user.userDetails.uid;
+    const userId = auth.currentUser?.uid! || userIdFromStore;
     const historyDataSnap = await getDocs(
         collection(
             firestore,

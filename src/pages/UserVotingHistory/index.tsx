@@ -20,20 +20,21 @@ const UserVotingHistory = () => {
     const dispatch = useAppDispatch();
     const { history, error, loading } = useAppSelector(({ votingHistory }) => votingHistory);
 
-    const showErrorMssg = error.message ? (
-        <>
-            <InputFieldWrapper className="error-container">
-                <Alert severity="error" variant="filled">
-                    <AlertTitle>Error</AlertTitle>
-                    {error.message}
-                </Alert>
-            </InputFieldWrapper>
+    const ShowErrorMssg = () =>
+        error.message ? (
+            <>
+                <InputFieldWrapper className="error-container">
+                    <Alert severity="error" variant="filled">
+                        <AlertTitle>Error</AlertTitle>
+                        {error.message}
+                    </Alert>
+                </InputFieldWrapper>
 
-            <div className="dashboard-link">
-                <Link to="/dashboard">Go to Dashboard</Link>
-            </div>
-        </>
-    ) : null;
+                <div className="dashboard-link">
+                    <Link to="/dashboard">Go to Dashboard</Link>
+                </div>
+            </>
+        ) : null;
 
     useEffect(() => {
         dispatch(getUserVotingHistoryThunk());
@@ -52,7 +53,8 @@ const UserVotingHistory = () => {
             ) : (
                 <div className="page-view">
                     <PageTitle title="Voting History" />
-                    {showErrorMssg}
+
+                    <ShowErrorMssg />
 
                     {history.map((dayHistory: any) => (
                         <VotingHistory dayHistory={dayHistory} key={dayHistory[0]?.createdOn} />

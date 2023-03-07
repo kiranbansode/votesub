@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import { useEffect, useState } from 'react';
 import Header from 'components/layouts/Header';
 import LoadingScreen from 'components/UI/LoadingScreen';
@@ -70,7 +71,7 @@ const ProfilePage = () => {
                                     </div>
                                     <div>
                                         <p>Birth Date</p>
-                                        <p className="detail single-detail">-</p>
+                                        <p className="detail single-detail">N/A</p>
                                     </div>
                                 </div>
                             </div>
@@ -92,7 +93,11 @@ const ProfilePage = () => {
                                     </p>
                                     <p className="detail single-detail capitalize">
                                         {/* @ts-ignore */}
-                                        {userDetails.companyName || userDetails.schoolName}
+                                        {userDetails.companyName /* @ts-ignore */
+                                            ? userDetails.companyName /* @ts-ignore */
+                                            : userDetails.schoolName /* @ts-ignore */
+                                            ? userDetails.schoolName
+                                            : 'N/A'}
                                     </p>
                                 </div>
 
@@ -103,13 +108,6 @@ const ProfilePage = () => {
                                             {userRole}
                                         </p>
                                     </div>
-
-                                    {/* {userDetails.category === 'st' ? (
-                        <div>
-                            <p>Division</p>
-                            <p className="detail single-detail capitalize">-</p>
-                        </div>
-                    ) : null} */}
                                 </div>
 
                                 {userDetails.category === 'st' ? (
@@ -117,17 +115,20 @@ const ProfilePage = () => {
                                         <div>
                                             <p>Standard</p>
                                             <p className="detail single-detail capitalize">
-                                                {userDetails.uid
-                                                    ? // @ts-ignore
-                                                      findStudentStandard(userDetails.std)
-                                                    : null}
+                                                {
+                                                    // @ts-ignore
+                                                    userDetails.uid && userDetails.std
+                                                        ? // @ts-ignore
+                                                          findStudentStandard(userDetails.std)
+                                                        : 'N/A'
+                                                }
                                             </p>
                                         </div>
                                         <div>
                                             <p>Division</p>
                                             <p className="detail single-detail">
                                                 {/* @ts-ignore */}
-                                                {userDetails.div}
+                                                {userDetails.div || 'N/A'}
                                             </p>
                                         </div>
                                     </div>
@@ -166,7 +167,7 @@ const ProfilePage = () => {
                                                     />
                                                 </span>
                                                 {/* @ts-ignore */}
-                                                <span>{userDetails.linkedIn || '-'}</span>
+                                                <span>{userDetails.linkedIn || 'N/A'}</span>
                                             </p>
                                         </>
                                     ) : null}
@@ -182,7 +183,11 @@ const ProfilePage = () => {
                                                 src={PhoneBlack}
                                             />
                                         </span>
-                                        <span>{`${userDetails.countryCode}  ${userDetails.mob1}`}</span>
+                                        <span>
+                                            {userDetails.mob1
+                                                ? `${userDetails.countryCode}  ${userDetails.mob1}`
+                                                : 'N/A'}
+                                        </span>
                                     </p>
                                 </div>
 
@@ -196,7 +201,11 @@ const ProfilePage = () => {
                                                 src={PhoneBlack}
                                             />
                                         </span>
-                                        <span>{`${userDetails.countryCode}  ${userDetails.mob2}`}</span>
+                                        <span>
+                                            {userDetails.mob2
+                                                ? `${userDetails.countryCode}  ${userDetails.mob2}`
+                                                : 'N/A'}
+                                        </span>
                                     </p>
                                 </div>
                             </div>

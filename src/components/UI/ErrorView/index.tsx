@@ -6,12 +6,13 @@ import('./ErrorView.styles.scss');
 interface IErrorView {
     errorTitle: string;
     mssg: string;
+    makeItNormalCase?: boolean;
 }
 
-const ErrorView = ({ errorTitle, mssg }: IErrorView) => (
+const ErrorView = ({ errorTitle, mssg, makeItNormalCase = false }: IErrorView) => (
     <InputFieldWrapper className="error-view__container">
         <Alert severity="error" variant="filled">
-            <AlertTitle>{errorTitle.toUpperCase()}</AlertTitle>
+            <AlertTitle>{makeItNormalCase ? errorTitle : errorTitle.toUpperCase()}</AlertTitle>
             {mssg}
         </Alert>
     </InputFieldWrapper>

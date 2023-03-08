@@ -6,6 +6,7 @@ import useUserRemainingVotes from 'hooks/useUserRemainingVotes';
 
 import './RemainingVotes.styles.scss';
 import ErrorView from 'components/UI/ErrorView';
+import convertZeroTimeToLocale from 'utils/helperFunctions/convertZeroTimeToLocale';
 
 interface IRemainingVotes {
     showImmediately?: boolean;
@@ -45,7 +46,7 @@ const RemainingVotes = ({ showImmediately = false }: IRemainingVotes) => {
             {remainingVotes === 0 ? (
                 <ErrorView
                     errorTitle="No Votes Left"
-                    mssg="You have exhausted your votes limit. Don't worry! It will be refilled again at 12 a.m. UTC+0."
+                    mssg={`Don't worry! It will be refilled again at ${convertZeroTimeToLocale()}`}
                 />
             ) : null}
         </div>

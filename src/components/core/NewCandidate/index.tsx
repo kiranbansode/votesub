@@ -29,7 +29,7 @@ const NewCandidate = ({ newCandidate, indexNumber, editBtnHandler }: INewCandida
     const { candidateName, id } = newCandidate;
 
     return (
-        <div className="candidate-container" key={id}>
+        <div className="candidate-container default_shadow" key={id}>
             <span className="candidate-position">{indexNumber + 1}</span>
             <p className="candidate-name">{candidateName}</p>
             <span className="edit-button" title="Edit" onClick={() => editBtnHandler(id)}>

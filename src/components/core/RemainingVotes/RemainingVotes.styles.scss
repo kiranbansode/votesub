@@ -37,6 +37,10 @@
             opacity: 0;
         }
     }
+
+    .error-view__container div {
+        justify-content: left;
+    }
 }
 
 .remaining-votes__loading {

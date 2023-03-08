@@ -40,24 +40,8 @@ const VotingCandidate = ({
     const [votes] = useCandidateVotes(id);
     const [remainingVotes] = useUserRemainingVotes();
 
-    // const candidateClickHandler = () => {
-    //     if (remainingVotes === 0 || remainingVotes! < 0) {
-    //         return;
-    //     }
-
-    //     voteNow(id);
-    //     saveToHistory({
-    //         subjectId,
-    //         candidateId,
-    //         localeDate: getLocaleDate(),
-    //     });
-    // };
-
     return (
-        <div
-            className="voting-candidate"
-            // onClick={candidateClickHandler}
-        >
+        <div className="voting-candidate">
             {showColored ? (
                 <CandidatePosition position={position}>{position}</CandidatePosition>
             ) : (
@@ -81,18 +65,12 @@ const VotingCandidate = ({
                                 return;
                             }
 
-                            // voteNowCLF(id);
-                            voteNow(id);
-                            // saveToHistoryCLF({
-                            //     subjectId,
-                            //     candidateId,
-                            //     localeDate: getLocaleDate(),
-                            // });
                             saveToHistory({
                                 subjectId,
                                 candidateId,
                                 localeDate: getLocaleDate(),
                             });
+                            voteNow(id);
                         }}
                     />
                 )}

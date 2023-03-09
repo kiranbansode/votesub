@@ -15,13 +15,14 @@ const PaginationContent = ({ sortedData }: IPaginationContent) => {
     const { error: subjectsError, loading: subjectsLoading } = subjectList;
     const { currentPage } = useAppSelector(({ currPaginationPage }) => currPaginationPage);
 
-    if (subjectsLoading === false && subjectsError === true && sortedData.length === 0)
+    if (subjectsLoading === false && subjectsError === true && sortedData.length === 0) {
         return (
             <ErrorView
                 errorTitle="Error"
-                mssg="No Subjects Found!. You can add your own new subjects in Add New Subject page"
+                mssg="No Subjects Found!. You can add your own new subjects using New Subject page"
             />
         );
+    }
 
     return sortedData.length > 0 ? (
         <div className="pagination-content__container">

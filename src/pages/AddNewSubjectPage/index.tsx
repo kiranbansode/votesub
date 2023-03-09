@@ -61,14 +61,23 @@ const AddNewSubjectPage = () => {
 
         resetField('candidateName', { defaultValue: candidateToEdit[0].candidateName });
         dispatch(DELETE_CANDIDATE(id));
+        setInputFocusOn('candidateName');
     };
 
     const addCandidateBtnHandler = () => {
         const candidateName = watch('candidateName');
-        if (!candidateName) {
+        const subjectName = watch('subject');
+
+        if (!candidateName || !subjectName) {
             setError(
                 'candidateName',
                 { type: 'required', message: 'Please enter a Candidate Name' },
+                { shouldFocus: true },
+            );
+
+            setError(
+                'subject',
+                { type: 'required', message: 'Please enter a Subject Name' },
                 { shouldFocus: true },
             );
             return;
@@ -133,8 +142,8 @@ const AddNewSubjectPage = () => {
                     <Button onClick={() => addCandidateBtnHandler()}>Add Candidate</Button>
 
                     <p className="add-new-subject__info">
-                        If you add more than 3 candidates you will get Metal Ranking 🥇🥈🥉 system
-                        for your voting subject
+                        If you add more than 3 candidates your subject will get Metal Ranking 🥇🥈🥉
+                        system.
                     </p>
 
                     <ShowCandidateListText />

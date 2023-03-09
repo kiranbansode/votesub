@@ -28,6 +28,11 @@
     border-radius: 15px;
 }
 
+.registration-form__container .error-view__container {
+    margin: 0 10px;
+    margin-bottom: 30px;
+}
+
 /* ------------------------ Larger Phones or Phablets ----------------------- */
 @media only screen and (min-width: 481px) {
     .registration-form__container .votesub-logo-container {

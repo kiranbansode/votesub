@@ -85,7 +85,7 @@ const LoginPage = () => {
 
     const RegisterText = () => (
         <p className="login-page__register">
-            Don&#39;t have an account ? Click on &nbsp;
+            Don&#39;t have an account? Click on&nbsp;
             <span className="register-link" onClick={() => navigate('/register')}>
                 Register
             </span>
@@ -94,7 +94,7 @@ const LoginPage = () => {
 
     const Footer = () => (
         <div className="login-page__footer">
-            <p className="message"> Made with ❤️ By </p>
+            <p className="message">Made with ❤️ By</p>
             <p className="name default_shadow">Kiran Bansode</p>
             <p className="version">-x- [23.01.10-2] -x-</p>
         </div>
@@ -175,10 +175,10 @@ const LoginPage = () => {
                 </Button>
             </form>
 
+            <Footer />
+
             {/* if user is able to login, then a success type mssg will be shown */}
             <ShowLoginSuccessMssg />
-
-            <Footer />
         </div>
     );
 };

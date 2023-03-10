@@ -20,6 +20,7 @@ import {
 import useAppDispatch from 'hooks/useAppDispatch';
 import useAppSelector from 'hooks/useAppSelector';
 import BackdropMssg from 'components/UI/BackdropMssg';
+import { SAVE_USER_AUTH_DETAILS } from 'store/loginPage/userLoginSlice';
 
 // eslint-disable-next-line import/extensions
 import DeveloperRegFormValidations from './yupValidations';
@@ -51,20 +52,26 @@ const DeveloperRegForm = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const registrationSlice = useAppSelector(({ registration }) => registration);
+    const authObj = registrationSlice.data;
     const userCategory = useAppSelector((state) => state.userCategory.category);
 
-    const showErrorMssg = registrationSlice.error.code ? (
-        <ErrorView errorTitle={registrationSlice.error.code} mssg={registrationSlice.error.mssg!} />
-    ) : null;
+    const ShowErrorMssg = () =>
+        registrationSlice.error.code ? (
+            <ErrorView
+                errorTitle={registrationSlice.error.code}
+                mssg={registrationSlice.error.mssg!}
+            />
+        ) : null;
 
-    const showLoginSuccessMssg = registrationSlice.data?.uid ? (
-        <BackdropMssg
-            header="Registration Successful."
-            mssg="Redirecting to Login page"
-            open={!!registrationSlice.data?.uid}
-            type="success"
-        />
-    ) : null;
+    const ShowRegisterSuccessMssg = () =>
+        registrationSlice.data?.uid ? (
+            <BackdropMssg
+                header="Registration Successful."
+                mssg="Redirecting to Dashboard page"
+                open={!!registrationSlice.data?.uid}
+                type="success"
+            />
+        ) : null;
 
     useEffect(() => {
         if (!userCategory) {
@@ -74,7 +81,8 @@ const DeveloperRegForm = () => {
 
     useEffect(() => {
         if (registrationSlice.data?.uid) {
-            setTimeout(() => navigate('/'), 2000);
+            dispatch(SAVE_USER_AUTH_DETAILS(authObj));
+            setTimeout(() => navigate('/dashboard'), 2000);
         }
 
         return () => {
@@ -212,14 +220,14 @@ const DeveloperRegForm = () => {
                     inputLabel="Confirm Password"
                 />
 
-                {showErrorMssg}
+                <ShowErrorMssg />
 
                 <Button loading={registrationSlice.loading} type="submit">
                     Submit
                 </Button>
-
-                {showLoginSuccessMssg}
             </form>
+
+            <ShowRegisterSuccessMssg />
         </div>
     );
 };

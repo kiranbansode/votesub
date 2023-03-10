@@ -34,6 +34,7 @@ import divisionOptions from 'utils/menuOptions/divisions';
 import countryCodeOptions from 'utils/menuOptions/countryCodes';
 import { IStudentRegForm } from 'types/regFormData';
 import BackdropMssg from 'components/UI/BackdropMssg';
+import { SAVE_USER_AUTH_DETAILS } from 'store/loginPage/userLoginSlice';
 
 // eslint-disable-next-line import/extensions
 import StudentRegFormValidations from './yupValidations';
@@ -62,25 +63,31 @@ const defaultStudentRegFormVal: IStudentRegForm = {
 const StudentRegForm = () => {
     const { control, formState, handleSubmit } = useForm<FieldValues>({
         defaultValues: defaultStudentRegFormVal,
-        resolver: yupResolver(StudentRegFormValidations),
+        // resolver: yupResolver(StudentRegFormValidations),
     });
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const registrationSlice = useAppSelector(({ registration }) => registration);
+    const authObj = registrationSlice.data;
     const userCategory = useAppSelector((state) => state.userCategory.category);
 
-    const showErrorMssg = registrationSlice.error.code ? (
-        <ErrorView errorTitle={registrationSlice.error.code} mssg={registrationSlice.error.mssg!} />
-    ) : null;
+    const ShowErrorMssg = () =>
+        registrationSlice.error.code ? (
+            <ErrorView
+                errorTitle={registrationSlice.error.code}
+                mssg={registrationSlice.error.mssg!}
+            />
+        ) : null;
 
-    const showLoginSuccessMssg = registrationSlice.data?.uid ? (
-        <BackdropMssg
-            header="Registration Successful."
-            mssg="Redirecting to Login page"
-            open={!!registrationSlice.data?.uid}
-            type="success"
-        />
-    ) : null;
+    const ShowRegisterSuccessMssg = () =>
+        registrationSlice.data?.uid ? (
+            <BackdropMssg
+                header="Registration Successful."
+                mssg="Redirecting to Dashboard page"
+                open={!!registrationSlice.data?.uid}
+                type="success"
+            />
+        ) : null;
 
     useEffect(() => {
         if (!userCategory) {
@@ -90,7 +97,8 @@ const StudentRegForm = () => {
 
     useEffect(() => {
         if (registrationSlice.data?.uid) {
-            setTimeout(() => navigate('/'), 2000);
+            dispatch(SAVE_USER_AUTH_DETAILS(authObj));
+            setTimeout(() => navigate('/dashboard'), 2000);
         }
 
         return () => {
@@ -200,6 +208,7 @@ const StudentRegForm = () => {
                     inputHelperText="A valid phone number will help us and you to reset your password"
                     inputLabel="Mobile No."
                 />
+
                 {/* 
                     <NumberInputField
                         required
@@ -246,14 +255,14 @@ const StudentRegForm = () => {
                     inputLabel="Confirm Password"
                 />
 
-                {showErrorMssg}
+                <ShowErrorMssg />
 
                 <Button loading={registrationSlice.loading} type="submit">
                     Submit
                 </Button>
-
-                {showLoginSuccessMssg}
             </form>
+
+            <ShowRegisterSuccessMssg />
         </div>
     );
 };

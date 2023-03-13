@@ -47,7 +47,7 @@
 
         .add-new-subject__info {
             text-align: center;
-            font-size: 0.75rem;
+            font-size: 0.9rem;
             margin-top: 20px;
             padding-right: 10px;
             padding-left: 10px;
@@ -62,3 +62,23 @@
         }
     }
 }
+
+// @media only screen and (min-width: 600px) {
+//     #add-new-subject-page {
+//         form {
+//             // Submit Button
+//             & > div:nth-last-child(2) {
+//                 display: inline-block;
+//                 width: calc(50% - 10px);
+//                 margin-right: 10px;
+//             }
+
+//             // Reset Button
+//             & > div:last-child {
+//                 display: inline-block;
+//                 width: calc(50% - 10px);
+//                 margin-left: 10px;
+//             }
+//         }
+//     }
+// }

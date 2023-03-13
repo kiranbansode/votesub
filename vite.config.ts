@@ -7,6 +7,9 @@ const reactSvgPlugin = require('vite-plugin-react-svg');
 // https://vitejs.dev/config/
 export default defineConfig(() => ({
     plugins: [react(), vitePWA(), reactSvgPlugin()],
+    esbuild: {
+        logOverride: { 'this-is-undefined-in-esm': 'silent' },
+    },
 
     // Absolute imports (aliases)
     resolve: {

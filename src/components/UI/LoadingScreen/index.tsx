@@ -11,6 +11,7 @@ interface ILoadingScreen {
     color?: CircularProgressProps['color'];
     size?: number;
     fullScreen?: boolean;
+    fullScreenPlus?: boolean;
     className?: string;
 }
 
@@ -24,11 +25,19 @@ const LoadingScreen = ({
     color = 'primary',
     size = 25,
     fullScreen = false,
+    fullScreenPlus = false,
     className = '',
 }: ILoadingScreen) => (
     <div
         className={`${className} loading-screen-container`}
-        style={fullScreen ? { height: 'calc(100vh - 80px)' } : { height: '100%' }}
+        style={
+            // eslint-disable-next-line no-nested-ternary
+            fullScreen
+                ? { height: 'calc(100vh - 80px)' }
+                : fullScreenPlus
+                ? { height: '100vh' }
+                : { height: '100%' }
+        }
     >
         <CircularProgress color={color} size={size} />
     </div>

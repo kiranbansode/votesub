@@ -4,7 +4,7 @@
 
 ## So, What is VoteSub ?
 
-VoteSub is a webapp(SaaS) where users can create new subjects and add respective candidates or/and vote to their favorite candidates of particular subject all in realtime.
+VoteSub is a webapp(SPA) where users can create new subjects and add respective candidates or/and vote to their favorite candidates of particular subject all in realtime.
 
 ## Yes! the project is LIVE 🔴
 

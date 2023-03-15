@@ -38,7 +38,6 @@ const defaultTeacherRegFormVal: ITeacherRegForm = {
     role: '',
     countryCode: '',
     mob1: '',
-    mob2: '',
     emailId: '',
     password: '',
     confirmPassword: '',
@@ -184,14 +183,6 @@ const TeacherRegForm = () => {
                     inputErrors={formState.errors}
                     inputHelperText="A valid phone number will help us and you to reset your password"
                     inputLabel="Mobile No."
-                />
-
-                <TextInputField
-                    separateLabel
-                    control={control}
-                    fieldName="mob2"
-                    inputErrors={formState.errors}
-                    inputLabel="Alternate Mobile No."
                 />
 
                 <TextInputField

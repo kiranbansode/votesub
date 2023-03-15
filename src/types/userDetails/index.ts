@@ -4,7 +4,6 @@ type IBasicUserDetailsFromFirestore = {
     emailId: string;
     gender: string;
     mob1: string;
-    mob2: string;
     name: {
         firstName: string;
         middleName: string;

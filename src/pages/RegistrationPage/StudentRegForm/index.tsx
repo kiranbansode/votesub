@@ -54,7 +54,6 @@ const defaultStudentRegFormVal: IStudentRegForm = {
     div: '',
     countryCode: '',
     mob1: '',
-    mob2: '',
     emailId: '',
     password: '',
     confirmPassword: '',
@@ -63,7 +62,7 @@ const defaultStudentRegFormVal: IStudentRegForm = {
 const StudentRegForm = () => {
     const { control, formState, handleSubmit } = useForm<FieldValues>({
         defaultValues: defaultStudentRegFormVal,
-        // resolver: yupResolver(StudentRegFormValidations),
+        resolver: yupResolver(StudentRegFormValidations),
     });
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
@@ -207,25 +206,6 @@ const StudentRegForm = () => {
                     inputErrors={formState.errors}
                     inputHelperText="A valid phone number will help us and you to reset your password"
                     inputLabel="Mobile No."
-                />
-
-                {/* 
-                    <NumberInputField
-                        required
-                        separateLabel
-                        control={control}
-                        fieldName="mob1"
-                        inputErrors={formState.errors}
-                        inputHelperText="A valid phone number will help us and you to reset your password"
-                        inputLabel="Mobile No."
-                    /> */}
-
-                <TextInputField
-                    separateLabel
-                    control={control}
-                    fieldName="mob2"
-                    inputErrors={formState.errors}
-                    inputLabel="Alternate Mobile No."
                 />
 
                 <TextInputField

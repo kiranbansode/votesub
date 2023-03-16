@@ -1,6 +1,6 @@
-import { IOptions } from '.';
+import { IOption } from '.';
 
-const divisionOptions: IOptions[] = [
+const divisionOptions: IOption[] = [
     { value: 'A', option: 'A', id: '98d5a0aa-610f-11ed-9b6a-0242ac120002' },
     { value: 'B', option: 'B', id: '98d5a3b6-610f-11ed-9b6a-0242ac120002' },
     { value: 'C', option: 'C', id: '98d5a528-610f-11ed-9b6a-0242ac120002' },

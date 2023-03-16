@@ -1,6 +1,6 @@
-import { IOptions } from '.';
+import { IOption } from '.';
 
-export const standardOptions: IOptions[] = [
+export const standardOptions: IOption[] = [
     { value: '1', option: 'I', id: 'bac9b98a-610f-11ed-9b6a-0242ac120002' },
     { value: '2', option: 'II', id: 'bac9bcdc-610f-11ed-9b6a-0242ac120002' },
     { value: '3', option: 'III', id: 'bac9beda-610f-11ed-9b6a-0242ac120002' },

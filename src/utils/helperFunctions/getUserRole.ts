@@ -1,7 +1,7 @@
 import hrOptions from 'utils/menuOptions/hr';
 import devOptions from 'utils/menuOptions/developer';
 import trOptions from 'utils/menuOptions/tr';
-import { IOptions } from 'utils/menuOptions';
+import { IOption } from 'utils/menuOptions';
 
 const getUserRole = (category: string, role: string) => {
     if (category === 'st') return 'student';
@@ -20,7 +20,7 @@ const getUserRole = (category: string, role: string) => {
 
 export default getUserRole;
 
-function findUserRole(userCategory: IOptions[], role: string) {
+function findUserRole(userCategory: IOption[], role: string) {
     const roleOption = userCategory.filter((opt) => opt.value === role);
 
     return roleOption[0].option;

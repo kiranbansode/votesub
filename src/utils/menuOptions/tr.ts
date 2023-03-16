@@ -1,6 +1,6 @@
-import { IOptions } from '.';
+import { IOption } from '.';
 
-const trOptions: IOptions[] = [
+const trOptions: IOption[] = [
     { option: 'Teacher', value: 'tr', id: 'bccc1c26-8d9e-11ed-a1eb-0242ac120002' },
     { option: 'Ass. Teacher', value: 'atr', id: 'bccc1f32-8d9e-11ed-a1eb-0242ac120002' },
     { option: 'Clerk', value: 'cl', id: 'bccc2068-8d9e-11ed-a1eb-0242ac120002' },

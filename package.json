@@ -69,5 +69,9 @@
     "packageManager": "yarn@3.2.2",
     "resolutions": {
         "@types/react": "17.0.0"
+    },
+    "private": true,
+    "script": {
+        "postinstall": "husky install"
     }
 }

@@ -7,6 +7,7 @@ type TGlobalUIState = {
     allowUserToSignIn: boolean;
     showLoginPage: boolean;
     showSignOutSuccessPopUp: boolean;
+    showAppInternals: boolean;
 };
 
 const initialState: TGlobalUIState = {
@@ -16,6 +17,7 @@ const initialState: TGlobalUIState = {
     allowUserToSignIn: false,
     showLoginPage: false,
     showSignOutSuccessPopUp: false,
+    showAppInternals: false,
 };
 
 const uiSlice = createSlice({
@@ -85,6 +87,14 @@ const uiSlice = createSlice({
             state.showSignOutSuccessPopUp = false;
         },
 
+        SHOW_APP_INTERNALS: (state) => {
+            state.showAppInternals = true;
+        },
+
+        HIDE_APP_INTERNALS: (state) => {
+            state.showAppInternals = false;
+        },
+
         ALLOW_USER_TO_SIGN_IN: (state) => {
             state.allowUserToSignIn = true;
         },
@@ -108,6 +118,8 @@ export const {
     HIDE_LOGIN_PAGE,
     SHOW_SIGN_OUT_SUCCESS_POP_UP,
     HIDE_SIGN_OUT_SUCCESS_POP_UP,
+    SHOW_APP_INTERNALS,
+    HIDE_APP_INTERNALS,
 } = uiSlice.actions;
 
 export default uiSlice.reducer;

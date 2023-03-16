@@ -1,8 +1,7 @@
 import * as yup from 'yup';
 import validationsMessages from 'utils/yupValidations/validationsMssg';
 
-const phoneRegExp =
-    /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+const phoneRegExp = /^\+[1-9]\d{1,14}$/;
 
 const yupValidations = {
     category: yup
@@ -36,6 +35,8 @@ const yupValidations = {
         .strict()
         .trim(validationsMessages.TRIM)
         .matches(phoneRegExp, validationsMessages.MOBILE_NO_VALID)
+        .min(8, validationsMessages.MOBILE_NO_MIN)
+        .max(16, validationsMessages.MOBILE_NO_MAX)
         .required(validationsMessages.MOBILE_NO),
     countryCode: yup
         .string()

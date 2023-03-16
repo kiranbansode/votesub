@@ -9,17 +9,6 @@ import { ISelectInputField } from '../types';
 
 import './SelectInputField.styles.scss';
 
-// export interface SelectInputFieldProps {
-//     inputErrors: FieldErrors;
-//     control: Control<any>;
-//     inputLabel: string;
-//     options: IOptions[];
-//     fieldName: string;
-//     inputHelperText?: string;
-//     separateLabel?: boolean;
-//     required?: boolean;
-// }
-
 const SelectInputField = ({
     inputHelperText = '',
     separateLabel = false,
@@ -47,10 +36,23 @@ const SelectInputField = ({
                     control={control}
                     name={fieldName}
                     render={({ field }) => (
-                        // eslint-disable-next-line react/jsx-props-no-spreading
-                        <Select id={fieldName} label={inputLabel} labelId={fieldName} {...field}>
+                        <Select
+                            MenuProps={{
+                                PaperProps: {
+                                    sx: {
+                                        maxHeight: 350,
+                                        maxWidth: 340,
+                                    },
+                                },
+                            }}
+                            id={fieldName}
+                            label={inputLabel}
+                            labelId={fieldName}
+                            // eslint-disable-next-line react/jsx-props-no-spreading
+                            {...field}
+                        >
                             {options.map(({ value, option, id }) => (
-                                <MenuItem key={id} value={value}>
+                                <MenuItem disableRipple key={id} value={value}>
                                     {option}
                                 </MenuItem>
                             ))}
@@ -62,11 +64,5 @@ const SelectInputField = ({
         </InputFieldWrapper>
     );
 };
-
-// SelectInputField.defaultProps = {
-//     separateLabel: false,
-//     required: false,
-//     inputHelperText: '',
-// };
 
 export default SelectInputField;

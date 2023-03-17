@@ -2,10 +2,10 @@ import { lazy, useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useForm, FieldValues } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
 import useAppDispatch from 'hooks/useAppDispatch';
 import useAppSelector from 'hooks/useAppSelector';
 import { RESET_USER_ROLE, SAVE_USER_ROLE } from 'store/registrationPage/saveUserRoleSlice';
+import registrationFormValidation from './yupValidations.tss';
 
 import './RegistrationPage.styles.scss';
 
@@ -13,16 +13,6 @@ const Button = lazy(() => import('components/UI/Button'));
 const RadioInputField = lazy(() => import('components/InputFields/RadioInputField'));
 const Logo = lazy(() => import('components/UI/Logo'));
 const Caption = lazy(() => import('components/UI/Caption'));
-
-const registrationFormValidation = yup.object({
-    category: yup
-        .string()
-        .strict()
-        .trim()
-        .required(
-            'Please choose your category so we can navigate you to appropriate Registration Form',
-        ),
-});
 
 const REGISTRATION_FORM_DEFAULT_VALUE = {
     category: '',

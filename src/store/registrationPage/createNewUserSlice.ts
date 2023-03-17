@@ -117,8 +117,8 @@ const createNewUserSlice = createSlice({
         builder.addCase(createNewUserThunk.rejected, (state, action: PayloadAction<any>) => {
             state.loading = false;
             state.data = initialState.data;
-            state.error.code = action.payload.code;
-            state.error.mssg = action.payload.message;
+            state.error.code = action.payload?.code;
+            state.error.mssg = action.payload?.message;
         });
     },
 });

@@ -42,6 +42,14 @@ const validationsMessages = {
      * `MOBILE_NO`: Message for required
      */
     MOBILE_NO_VALID: 'Invalid Mobile Number is entered. Please! Enter a valid Mobile Number',
+    /**
+     * `MOBILE_NO`: Message for minimum allowed length
+     */
+    MOBILE_NO_MIN: "Minimum allowed Mobile Number length is 7 digits, excluding '+' sign",
+    /**
+     * `MOBILE_NO`: Message for maximum allowed length
+     */
+    MOBILE_NO_MAX: "Maximum allowed Mobile Number length is 15 digits, excluding '+' sign",
 
     /**
      * `EMAIL_ID`: Message for emailId required

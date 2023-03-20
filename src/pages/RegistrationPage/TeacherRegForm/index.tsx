@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useForm, FieldValues } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import TextInputField from 'components/InputFields/TextInputField';
 import RadioInputField from 'components/InputFields/RadioInputField';
@@ -44,7 +44,7 @@ const defaultTeacherRegFormVal: ITeacherRegForm = {
 };
 
 const TeacherRegForm = () => {
-    const { control, formState, handleSubmit } = useForm<FieldValues>({
+    const { control, formState, handleSubmit, watch, setValue } = useForm<ITeacherRegForm>({
         defaultValues: defaultTeacherRegFormVal,
         resolver: yupResolver(TeacherRegFormValidations),
     });
@@ -53,6 +53,7 @@ const TeacherRegForm = () => {
     const registrationSlice = useAppSelector(({ registration }) => registration);
     const authObj = registrationSlice.data;
     const userCategory = useAppSelector((state) => state.userCategory.category);
+    const selectedCountryCode = watch('countryCode');
 
     const ShowErrorMssg = () =>
         registrationSlice.error.code ? (
@@ -71,6 +72,12 @@ const TeacherRegForm = () => {
                 type="success"
             />
         ) : null;
+
+    useEffect(() => {
+        if (selectedCountryCode) {
+            setValue('mob1', selectedCountryCode);
+        }
+    }, [selectedCountryCode]);
 
     useEffect(() => {
         if (!userCategory) {

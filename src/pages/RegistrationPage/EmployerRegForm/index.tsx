@@ -1,4 +1,4 @@
-import { useForm, FieldValues } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import TextInputField from 'components/InputFields/TextInputField';
 import SelectInputField from 'components/InputFields/SelectInputField';
@@ -44,7 +44,7 @@ const defaultEmployerRegFormVal: IEmployerRegForm = {
 };
 
 const EmployerRegForm = () => {
-    const { control, formState, handleSubmit } = useForm<FieldValues>({
+    const { control, formState, handleSubmit, watch, setValue } = useForm<IEmployerRegForm>({
         defaultValues: defaultEmployerRegFormVal,
         resolver: yupResolver(EmployerRegFormValidations),
     });
@@ -53,6 +53,7 @@ const EmployerRegForm = () => {
     const registrationSlice = useAppSelector(({ registration }) => registration);
     const authObj = registrationSlice.data;
     const userCategory = useAppSelector((state) => state.userCategory.category);
+    const selectedCountryCode = watch('countryCode');
 
     const ShowErrorMssg = () =>
         registrationSlice.error.code ? (
@@ -71,6 +72,12 @@ const EmployerRegForm = () => {
                 type="success"
             />
         ) : null;
+
+    useEffect(() => {
+        if (selectedCountryCode) {
+            setValue('mob1', selectedCountryCode);
+        }
+    }, [selectedCountryCode]);
 
     useEffect(() => {
         if (!userCategory) {

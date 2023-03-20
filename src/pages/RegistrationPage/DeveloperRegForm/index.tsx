@@ -1,4 +1,4 @@
-import { useForm, FieldValues } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -44,7 +44,7 @@ const defaultDeveloperRegFormVal: IDeveloperRegForm = {
 };
 
 const DeveloperRegForm = () => {
-    const { control, formState, handleSubmit } = useForm<FieldValues>({
+    const { control, formState, handleSubmit, watch, setValue } = useForm<IDeveloperRegForm>({
         defaultValues: defaultDeveloperRegFormVal,
         resolver: yupResolver(DeveloperRegFormValidations),
     });
@@ -53,6 +53,7 @@ const DeveloperRegForm = () => {
     const registrationSlice = useAppSelector(({ registration }) => registration);
     const authObj = registrationSlice.data;
     const userCategory = useAppSelector((state) => state.userCategory.category);
+    const selectedCountryCode = watch('countryCode');
 
     const ShowErrorMssg = () =>
         registrationSlice.error.code ? (
@@ -71,6 +72,12 @@ const DeveloperRegForm = () => {
                 type="success"
             />
         ) : null;
+
+    useEffect(() => {
+        if (selectedCountryCode) {
+            setValue('mob1', selectedCountryCode);
+        }
+    }, [selectedCountryCode]);
 
     useEffect(() => {
         if (!userCategory) {

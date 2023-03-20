@@ -5,7 +5,7 @@
 /* -------------------------------- Libraries ------------------------------- */
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useForm, FieldValues } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 /* ------------------------------- Components ------------------------------- */
@@ -60,7 +60,7 @@ const defaultStudentRegFormVal: IStudentRegForm = {
 };
 
 const StudentRegForm = () => {
-    const { control, formState, handleSubmit } = useForm<FieldValues>({
+    const { control, formState, handleSubmit, watch, setValue } = useForm<IStudentRegForm>({
         defaultValues: defaultStudentRegFormVal,
         resolver: yupResolver(StudentRegFormValidations),
     });
@@ -69,6 +69,7 @@ const StudentRegForm = () => {
     const registrationSlice = useAppSelector(({ registration }) => registration);
     const authObj = registrationSlice.data;
     const userCategory = useAppSelector((state) => state.userCategory.category);
+    const selectedCountryCode = watch('countryCode');
 
     const ShowErrorMssg = () =>
         registrationSlice.error.code ? (
@@ -87,6 +88,12 @@ const StudentRegForm = () => {
                 type="success"
             />
         ) : null;
+
+    useEffect(() => {
+        if (selectedCountryCode) {
+            setValue('mob1', selectedCountryCode);
+        }
+    }, [selectedCountryCode]);
 
     useEffect(() => {
         if (!userCategory) {

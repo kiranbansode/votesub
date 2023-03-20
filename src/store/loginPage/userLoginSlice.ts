@@ -15,13 +15,13 @@ export const userLogIn = createAsyncThunk('user/LogIn', async (data: any, { reje
         const { user } = userCredentials;
 
         return {
-            uid: user.uid,
+            displayName: user.displayName,
             email: user.email,
             emailVerified: user.emailVerified,
-            displayName: user.displayName,
             phoneNumber: user.phoneNumber,
             photoUrl: user.photoURL,
             providerId: user.providerId,
+            uid: user.uid,
         };
     } catch (error: any) {
         const authErrorMessage = authErrorMessageFinder(error);
@@ -36,25 +36,27 @@ export const userLogIn = createAsyncThunk('user/LogIn', async (data: any, { reje
 
 export interface IUserInfo {
     userDetails: INeededUserCredentials;
-    loading: boolean;
-    showSucMssg: boolean;
-    shouldShowLoginPage: boolean;
+    loading: {
+        new: boolean;
+        existing: boolean;
+    };
     error: any;
 }
 
 const initialState: IUserInfo = {
     userDetails: {
-        uid: '',
         displayName: '',
         email: '',
         emailVerified: false,
         phoneNumber: '',
         photoURL: '',
         providerId: '',
+        uid: '',
     },
-    loading: false,
-    showSucMssg: false,
-    shouldShowLoginPage: false,
+    loading: {
+        new: false,
+        existing: false,
+    },
     error: {},
 };
 
@@ -62,43 +64,58 @@ const userLoginSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
+        CHECK_EXISTING_USER_AUTH_DETAILS: (state) => {
+            state.loading.existing = true;
+        },
+
+        SAVE_EXISTING_USER_AUTH_DETAILS: (state, { payload }) => {
+            state.loading.existing = false;
+            state.userDetails = payload;
+            state.error = initialState.error;
+        },
+
+        EXISTING_USER_AUTH_DETAILS_NOT_FOUND: (state) => {
+            state.loading.existing = false;
+            state.error = initialState.error;
+            state.userDetails = initialState.userDetails;
+        },
+
         SAVE_USER_AUTH_DETAILS: {
             reducer: (state, action: PayloadAction<any>) => {
                 state.userDetails = action.payload;
-                state.showSucMssg = true;
             },
 
             prepare: (payload: IUserInfo['userDetails']) => {
                 const {
                     displayName,
                     email,
+                    emailVerified,
                     phoneNumber,
                     photoURL,
                     providerId,
                     uid,
-                    emailVerified,
                 } = payload;
                 return {
                     payload: {
                         displayName,
                         email,
+                        emailVerified,
                         phoneNumber,
                         photoURL,
                         providerId,
                         uid,
-                        emailVerified,
                     },
                 };
             },
         },
 
-        RESET_AUTH_DETAILS: (state) => {
+        RESET_USER_AUTH_DETAILS: (state) => {
             state.userDetails = initialState.userDetails;
             state.error = initialState.error;
             state.loading = initialState.loading;
         },
 
-        RESET_AUTH_ERROR_STATE: (state) => {
+        RESET_USER_AUTH_ERROR_STATE: (state) => {
             state.error = initialState.error;
             state.loading = initialState.loading;
         },
@@ -108,18 +125,12 @@ const userLoginSlice = createSlice({
             state.error = initialState.error;
             state.loading = initialState.loading;
         },
-
-        SHOW_LOGIN_PAGE: (state) => {
-            state.shouldShowLoginPage = true;
-        },
-
-        HIDE_LOGIN_PAGE: (state) => {
-            state.shouldShowLoginPage = false;
-        },
     },
     extraReducers: (builder) => {
         builder.addCase(userLogIn.pending, (state) => {
-            state.loading = true;
+            state.loading.new = true;
+            state.userDetails = initialState.userDetails;
+            state.error = initialState.error;
         });
 
         /*
@@ -131,25 +142,28 @@ const userLoginSlice = createSlice({
         /* TODO: Remove type any and use right one */
         //! PayloadAction types should not be any
         builder.addCase(userLogIn.fulfilled, (state, action: PayloadAction<any>) => {
+            state.loading.new = false;
             state.userDetails = action.payload;
-            state.loading = false;
+            state.error = initialState.error;
         });
 
         //! PayloadAction types should not be any
         builder.addCase(userLogIn.rejected, (state, action: PayloadAction<any>) => {
+            state.loading.new = false;
+            state.userDetails = initialState.userDetails;
             state.error = action.payload;
-            state.loading = false;
         });
     },
 });
 
 export const {
+    CHECK_EXISTING_USER_AUTH_DETAILS,
+    SAVE_EXISTING_USER_AUTH_DETAILS,
+    EXISTING_USER_AUTH_DETAILS_NOT_FOUND,
     SAVE_USER_AUTH_DETAILS,
-    RESET_AUTH_DETAILS,
-    RESET_AUTH_ERROR_STATE,
+    RESET_USER_AUTH_DETAILS,
+    RESET_USER_AUTH_ERROR_STATE,
     SIGNOUT_USER_AND_RESET_AUTH_DETAILS,
-    SHOW_LOGIN_PAGE,
-    HIDE_LOGIN_PAGE,
 } = userLoginSlice.actions;
 
 export default userLoginSlice.reducer;

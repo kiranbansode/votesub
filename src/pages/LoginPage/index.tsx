@@ -6,11 +6,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import useAppDispatch from 'hooks/useAppDispatch';
 import useAppSelector from 'hooks/useAppSelector';
-import {
-    userLogIn,
-    RESET_AUTH_DETAILS,
-    SAVE_USER_AUTH_DETAILS,
-} from 'store/loginPage/userLoginSlice';
+import { userLogIn, RESET_USER_AUTH_ERROR_STATE } from 'store/loginPage/userLoginSlice';
 import { SHOW_SIGN_IN_SUCCESS_POP_UP } from 'store/ui';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
@@ -26,8 +22,6 @@ import loginPageFormValidation from './yupValidation.ts';
 
 import './LoginPage.styles.scss';
 
-// const TextInputField = lazy(() => import('components/InputFields/TextInputField'));
-// const PasswordInputField = lazy(() => import('components/InputFields/PasswordInputField'));
 const Button = lazy(() => import('components/UI/Button'));
 const Separator = lazy(() => import('components/UI/Separator'));
 const Logo = lazy(() => import('components/UI/Logo'));
@@ -51,23 +45,21 @@ const LoginPage = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const lastVisitedRoute = getLastVisitedRoute();
-
-    const userState = useAppSelector(({ user }) => user);
-    const existingUser = useAppSelector(({ existingLoggedUserAuth }) => existingLoggedUserAuth);
+    const userAuthSlice = useAppSelector(({ user }) => user);
     const globalUI = useAppSelector((state) => state.ui);
 
     const ShowErrorMssg = () =>
-        userState.error.code ? (
+        userAuthSlice.error.code ? (
             <InputFieldWrapper>
                 <Alert severity="error" variant="filled">
-                    <AlertTitle>{userState.error.code.toUpperCase()}</AlertTitle>
-                    {userState.error.message}
+                    <AlertTitle>{userAuthSlice.error.code.toUpperCase()}</AlertTitle>
+                    {userAuthSlice.error.message}
                 </Alert>
             </InputFieldWrapper>
         ) : null;
 
     const ShowLoginSuccessMssg = () =>
-        globalUI.showSignSuccessPopUp ? (
+        userAuthSlice.userDetails.uid && globalUI.showSignSuccessPopUp ? (
             <BackdropMssg
                 header="Login Successful."
                 mssg="Redirecting to Dashboard..."
@@ -104,29 +96,25 @@ const LoginPage = () => {
      * if user come back to Login page all auth states will reset.
      * e.g. previously failed login attempts, error mssg
      */
-    useEffect(() => {
-        if (!existingUser.allowUser) {
-            dispatch(RESET_AUTH_DETAILS());
-        }
-    }, []);
+    useEffect(
+        () => () => {
+            dispatch(RESET_USER_AUTH_ERROR_STATE());
+        },
+        [],
+    );
 
     useEffect(() => {
-        // @ts-ignore
-        dispatch(SAVE_USER_AUTH_DETAILS(existingUser.userDetails));
-    }, [existingUser.userDetails.uid]);
-
-    useEffect(() => {
-        if (lastVisitedRoute && lastVisitedRoute !== '/' && userState.userDetails.uid) {
+        if (lastVisitedRoute && lastVisitedRoute !== '/' && userAuthSlice.userDetails.uid) {
             dispatch(SHOW_SIGN_IN_SUCCESS_POP_UP());
             setTimeout(() => navigate(lastVisitedRoute), 2000);
             return;
         }
 
-        if (userState.userDetails.uid) {
+        if (userAuthSlice.userDetails.uid) {
             dispatch(SHOW_SIGN_IN_SUCCESS_POP_UP());
             setTimeout(() => navigate('/dashboard'), 2000);
         }
-    }, [userState.userDetails.uid]);
+    }, [userAuthSlice.userDetails.uid]);
 
     return (
         <div className="login-page" id="login-page">
@@ -160,7 +148,7 @@ const LoginPage = () => {
                 {/* If there is any error mssg from auth, it should show here, right under password field */}
                 <ShowErrorMssg />
 
-                <Button className="login-button" loading={userState.loading} type="submit">
+                <Button className="login-button" loading={userAuthSlice.loading.new} type="submit">
                     Login
                 </Button>
 

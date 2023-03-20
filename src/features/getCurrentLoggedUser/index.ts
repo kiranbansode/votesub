@@ -2,14 +2,17 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from 'config/firebase';
 import { store } from 'store';
 import {
-    NOT_FOUND_EXISTING_LOGGED_USER,
+    CHECK_EXISTING_USER_AUTH_DETAILS,
+    EXISTING_USER_AUTH_DETAILS_NOT_FOUND,
     SAVE_EXISTING_USER_AUTH_DETAILS,
-} from 'store/existingUserAuthStateSlice/existingUserAuthStateSlice';
+} from 'store/loginPage/userLoginSlice';
 
 const getCurrentLoggedUser = () =>
     onAuthStateChanged(auth, (user: any) => {
+        store.dispatch(CHECK_EXISTING_USER_AUTH_DETAILS());
+
         if (user === null) {
-            store.dispatch(NOT_FOUND_EXISTING_LOGGED_USER());
+            store.dispatch(EXISTING_USER_AUTH_DETAILS_NOT_FOUND());
             return;
         }
 

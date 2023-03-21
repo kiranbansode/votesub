@@ -5,7 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import useAppDispatch from 'hooks/useAppDispatch';
 import useAppSelector from 'hooks/useAppSelector';
 import { RESET_USER_ROLE, SAVE_USER_ROLE } from 'store/registrationPage/saveUserRoleSlice';
-import registrationFormValidation from './yupValidations.tss';
+import registrationFormValidation from './yupValidations.ts';
 
 import './RegistrationPage.styles.scss';
 

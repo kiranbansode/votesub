@@ -3,8 +3,8 @@
 import cloudFn from './index';
 
 exports.createNewUser = cloudFn.https.onCall(async (newUserData) => {
-    const { auth, firestore } = await import('firebase-admin');
-    // const { HttpsError } = await import('firebase-functions/v1/auth');
+    const firebase = await import('firebase-admin');
+    const { auth, firestore } = firebase;
 
     const {
         /**
@@ -20,7 +20,6 @@ exports.createNewUser = cloudFn.https.onCall(async (newUserData) => {
     const {
         name: { firstName, lastName },
         mob1,
-        countryCode,
         userCategory,
     } = newUserData;
 
@@ -31,7 +30,7 @@ exports.createNewUser = cloudFn.https.onCall(async (newUserData) => {
             email: newUserData.emailId,
             password: newUserData.password,
             displayName: `${firstName} ${lastName}`,
-            phoneNumber: `${countryCode}${mob1}`,
+            phoneNumber: `${mob1}`,
         });
 
         if (res.uid) {

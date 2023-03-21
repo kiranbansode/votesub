@@ -5,7 +5,6 @@ import Pagination from 'components/layouts/Pagination';
 import { HIDE_SIGN_IN_SUCCESS_POP_UP } from 'store/ui';
 import { getSubjectsListFromFirestore } from 'store/dashboard/subjectsListSlice';
 import { RESET_SORTED_SUBJECTS_LIST, SHOW_ONLY_FIVE } from 'store/dashboard/sortedSubjectList';
-import { RESET_FILTERED_SUBJECTS } from 'store/saveFilteredSubjects';
 import useAppSelector from 'hooks/useAppSelector';
 import RemainingVotes from 'components/core/RemainingVotes';
 
@@ -15,12 +14,13 @@ const DashboardPage = () => {
     const dispatch = useAppDispatch();
     const unSortedSubjectList = useAppSelector((state) => state.subjectsList.list);
     const sortedSubjectList = useAppSelector(({ sortedSubjects }) => sortedSubjects.list);
+    const globalUI = useAppSelector(({ ui }) => ui);
     const userId = useAppSelector(({ user }) => user.userDetails.uid);
 
     useEffect(() => {
-        dispatch(HIDE_SIGN_IN_SUCCESS_POP_UP());
-        dispatch(getSubjectsListFromFirestore());
-        dispatch(RESET_FILTERED_SUBJECTS());
+        if (userId) dispatch(getSubjectsListFromFirestore());
+
+        if (userId && globalUI.showSignSuccessPopUp) dispatch(HIDE_SIGN_IN_SUCCESS_POP_UP());
 
         return () => {
             dispatch(RESET_SORTED_SUBJECTS_LIST());

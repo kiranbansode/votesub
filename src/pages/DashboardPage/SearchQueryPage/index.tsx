@@ -1,6 +1,7 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
+import { useEffect } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -114,6 +115,13 @@ const SearchQueryPage = () => {
 
         dispatch(SAVE_FILTERED_SUBJECTS(filteredArray));
     };
+
+    useEffect(
+        () => () => {
+            dispatch(RESET_FILTERED_SUBJECTS());
+        },
+        [],
+    );
 
     return (
         <div className="search-query__page">

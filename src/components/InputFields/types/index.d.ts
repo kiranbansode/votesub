@@ -1,5 +1,6 @@
 import { FieldErrors, Control } from 'react-hook-form';
 import { SliderProps } from '@mui/material';
+import { IOption } from 'utils/menuOptions';
 
 type BaseInputField = {
     /**
@@ -172,12 +173,6 @@ export interface ISliderInputField extends Omit<BaseInputField, 'inputPlaceholde
     step?: number;
 }
 
-export interface IOptions {
-    value: string | number;
-    option: string;
-    id: string;
-}
-
 export interface ISelectInputField extends Omit<BaseInputField, 'inputPlaceholder' | 'noLabel'> {
-    options: IOptions[];
+    options: IOption[];
 }

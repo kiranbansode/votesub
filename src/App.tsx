@@ -39,15 +39,27 @@ const DeveloperRegForm = lazyWithPreload(() => import('pages/RegistrationPage/De
 
 function App() {
     const navigate = useNavigate();
-    const userDetails = useAppSelector(({ user }) => user.userDetails);
+    const userAuthSlice = useAppSelector(({ user }) => user);
+    const { showSignOutSuccessPopUp } = useAppSelector(({ ui }) => ui);
 
     useEffect(() => {
         // without useEffect getCurrentLoggedUser does not work properly, it enters in infinite loop
         getCurrentLoggedUser();
-        if (!userDetails.uid) {
+        navigate('/');
+    }, []);
+
+    useEffect(() => {
+        if (showSignOutSuccessPopUp || !userAuthSlice.userDetails.uid) {
+            setTimeout(() => {
+                navigate('/');
+            }, 2000);
+            return;
+        }
+
+        if (!userAuthSlice.userDetails.uid) {
             navigate('/');
         }
-    }, [userDetails.uid]);
+    }, [userAuthSlice.userDetails.uid]);
 
     useEffect(() => {
         LoginPage.preload();
@@ -71,9 +83,11 @@ function App() {
         PageNotFound.preload();
     }, []);
 
-    return (
+    return userAuthSlice.loading.existing ? (
+        <LoadingScreen fullScreenPlus />
+    ) : (
         <div className="app">
-            <Suspense fallback={<LoadingScreen />}>
+            <Suspense fallback={<LoadingScreen fullScreenPlus />}>
                 <Routes>
                     <Route element={<LoginPage />} path="/" />
                     <Route element={<PasswordResetPage />} path="/forgotPassword" />

@@ -13,7 +13,7 @@ import { SIGNOUT_USER_AND_RESET_AUTH_DETAILS } from 'store/loginPage/userLoginSl
 
 import useAppDispatch from 'hooks/useAppDispatch';
 import useAppSelector from 'hooks/useAppSelector';
-import { RESET_EXISTING_USER_AUTH_DETAILS } from 'store/existingUserAuthStateSlice/existingUserAuthStateSlice';
+import { SHOW_SIGN_OUT_SUCCESS_POP_UP } from 'store/ui';
 
 import './Profile.styles.scss';
 import saveLastVisitedRoute from 'utils/helperFunctions/saveLastVisitedRoute';
@@ -59,45 +59,45 @@ const ProfileMenu = () => {
                 }}
                 onClose={closeProfileMenuHandler}
             >
-                <MenuItem>
-                    <p
-                        onClick={() => {
-                            closeProfileMenuHandler();
-                            navigate('/profile');
-                        }}
-                    >
+                <MenuItem
+                    onClick={() => {
+                        closeProfileMenuHandler();
+                        navigate('/profile');
+                    }}
+                >
+                    <p>
                         <span className="profile-menu-icon">
                             <AccountBoxIcon />
                         </span>
                         <span className="profile-menu-name">Profile</span>
                     </p>
                 </MenuItem>
-                <MenuItem>
-                    <p
-                        onClick={() => {
-                            closeProfileMenuHandler();
-                            navigate('/settings');
-                        }}
-                    >
+                <MenuItem
+                    onClick={() => {
+                        closeProfileMenuHandler();
+                        navigate('/settings');
+                    }}
+                >
+                    <p>
                         <span className="profile-menu-icon">
                             <SettingsIcon />
                         </span>
                         <span className="profile-menu-name">Settings</span>
                     </p>
                 </MenuItem>
-                <MenuItem>
-                    <p
-                        onClick={() => {
-                            closeProfileMenuHandler();
-                            signOut(auth)
-                                .then(() => {
-                                    dispatch(RESET_EXISTING_USER_AUTH_DETAILS());
-                                    dispatch(SIGNOUT_USER_AND_RESET_AUTH_DETAILS());
-                                    saveLastVisitedRoute('/');
-                                })
-                                .catch((error) => error);
-                        }}
-                    >
+                <MenuItem
+                    onClick={() => {
+                        closeProfileMenuHandler();
+                        signOut(auth)
+                            .then(() => {
+                                dispatch(SIGNOUT_USER_AND_RESET_AUTH_DETAILS());
+                                saveLastVisitedRoute('/');
+                                dispatch(SHOW_SIGN_OUT_SUCCESS_POP_UP());
+                            })
+                            .catch((error) => error);
+                    }}
+                >
+                    <p>
                         <span className="profile-menu-icon">
                             <PowerSettingsNewIcon />
                         </span>

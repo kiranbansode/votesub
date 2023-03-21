@@ -7,6 +7,7 @@ import useWindowDimensions from 'hooks/useWindowDimensions';
 import convertUnixEpochToDate from 'utils/helperFunctions/convertUnixEpochToDate';
 
 import './VotingSubject.styles.scss';
+import useAppSelector from 'hooks/useAppSelector';
 
 interface IVotingSubject {
     subject: ISubjectData;
@@ -15,6 +16,7 @@ interface IVotingSubject {
 // eslint-disable-next-line arrow-body-style
 const VotingSubject = ({ subject }: IVotingSubject) => {
     const navigate = useNavigate();
+    const { uid: userId } = useAppSelector(({ user }) => user.userDetails);
     const { subjectName, submittedBy, createdOn, id } = subject;
     const totalVotes = useGetTotalVotes(id);
     const { day, month, year } = convertUnixEpochToDate(createdOn);
@@ -40,7 +42,7 @@ const VotingSubject = ({ subject }: IVotingSubject) => {
         changeSubjectNameWidth();
     }, [windowWidth]);
 
-    return totalVotes || totalVotes === 0 ? (
+    return (totalVotes || totalVotes === 0) && userId ? (
         // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
         <div className="voting-subject-container" onClick={() => navigate(`/dashboard/${id}`)}>
             <div className="sect-1">

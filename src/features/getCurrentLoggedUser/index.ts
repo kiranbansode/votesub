@@ -7,7 +7,12 @@ import {
     SAVE_EXISTING_USER_AUTH_DETAILS,
 } from 'store/loginPage/userLoginSlice';
 
-const getCurrentLoggedUser = () =>
+/**
+ * `getCurrentLoggedUser` fn will find any existing user's auth details, if found save it in store.
+ *
+ * @remarks Always put getCurrentLogged User fn inside `useEffect`, `otherwise` it will enter into `infinite loop`
+ */
+const getCurrentLoggedUser = () => {
     onAuthStateChanged(auth, (user: any) => {
         store.dispatch(CHECK_EXISTING_USER_AUTH_DETAILS());
 
@@ -26,11 +31,12 @@ const getCurrentLoggedUser = () =>
                     emailVerified,
                     phoneNumber,
                     photoURL,
-                    uid,
                     providerId,
+                    uid,
                 }),
             );
         }
     });
+};
 
 export default getCurrentLoggedUser;

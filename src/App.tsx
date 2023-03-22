@@ -1,14 +1,13 @@
 import { Suspense, useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { lazyWithPreload } from 'react-lazy-with-preload';
+import LoadingScreen from 'components/UI/LoadingScreen';
 import useAppSelector from 'hooks/useAppSelector';
 import getCurrentLoggedUser from 'features/getCurrentLoggedUser';
-
 import 'animate.css';
 
 import './App.css';
 import './regForm.css';
-import LoadingScreen from 'components/UI/LoadingScreen';
 
 // Main Page Routes
 const LoginPage = lazyWithPreload(() => import(`pages/LoginPage`));
@@ -37,7 +36,7 @@ const TeacherRegForm = lazyWithPreload(() => import('pages/RegistrationPage/Teac
 const EmployerRegForm = lazyWithPreload(() => import('pages/RegistrationPage/EmployerRegForm'));
 const DeveloperRegForm = lazyWithPreload(() => import('pages/RegistrationPage/DeveloperRegForm'));
 
-function App() {
+export default function App() {
     const navigate = useNavigate();
     const userAuthSlice = useAppSelector(({ user }) => user);
     const { showSignOutSuccessPopUp } = useAppSelector(({ ui }) => ui);
@@ -62,6 +61,7 @@ function App() {
     }, [userAuthSlice.userDetails.uid]);
 
     useEffect(() => {
+        // upon first render, App component will preload all below mentioned component. This way user can feel instant page load. No waiting on user side.
         LoginPage.preload();
         PasswordResetPage.preload();
         DashboardPage.preload();
@@ -114,5 +114,3 @@ function App() {
         </div>
     );
 }
-
-export default App;

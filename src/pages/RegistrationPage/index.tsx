@@ -5,7 +5,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import useAppDispatch from 'hooks/useAppDispatch';
 import useAppSelector from 'hooks/useAppSelector';
 import { RESET_USER_ROLE, SAVE_USER_ROLE } from 'store/registrationPage/saveUserRoleSlice';
-import registrationFormValidation from './yupValidations.ts';
+// eslint-disable-next-line import/extensions
+import registrationFormValidation from './yupValidations';
 
 import './RegistrationPage.styles.scss';
 

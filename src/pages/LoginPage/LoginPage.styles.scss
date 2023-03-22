@@ -119,15 +119,14 @@
 /* ------------------------- Desktops, Large Screens ------------------------ */
 @media only screen and (min-width: 960px) {
     #login-page {
+        margin-top: 2rem;
         height: calc(100vh - 2px);
         padding-bottom: 0;
         display: grid;
         grid-template-areas:
             'logo form'
             'caption form';
-
         column-gap: 10rem;
-        align-content: center;
         place-items: center;
 
         .votesub-logo-container {
@@ -135,6 +134,8 @@
             width: 25rem;
             justify-self: center;
             align-self: end;
+            position: relative;
+            top: 23px;
         }
 
         .votesub-caption-container {
@@ -142,6 +143,8 @@
             justify-self: center;
             align-self: start;
             width: 15rem;
+            position: relative;
+            top: 23px;
         }
 
         .login-page__form {

@@ -70,6 +70,7 @@
 /* ------------------------- Desktops, Large Screens ------------------------ */
 @media only screen and (min-width: 960px) {
     #registration-page {
+        margin-top: 2rem;
         height: calc(100vh - 2px);
         padding-bottom: 0;
         display: grid;
@@ -78,8 +79,6 @@
             'caption form';
 
         column-gap: 10rem;
-        align-content: center;
-        place-items: center;
 
         .votesub-logo-container {
             grid-area: logo;

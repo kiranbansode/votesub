@@ -46,6 +46,10 @@ const PaginationFooter = ({ sortedData }: IPaginationFooter) => {
         <div className="pagination-footer-container">
             <div
                 onClick={() => {
+                    if (sortedData.length === 0) {
+                        return;
+                    }
+
                     dispatch(PREVIOUS_PAGE());
                     scrollActivePageInView();
                 }}
@@ -54,7 +58,7 @@ const PaginationFooter = ({ sortedData }: IPaginationFooter) => {
             </div>
 
             <div className="pagination-pages-container">
-                {sortedData.map((subject, idx) => (
+                {sortedData.map((_, idx) => (
                     <div
                         className={currentPage === idx ? 'active-page' : ''}
                         id={`page-no-${idx + 1}`}
@@ -71,6 +75,10 @@ const PaginationFooter = ({ sortedData }: IPaginationFooter) => {
 
             <div
                 onClick={() => {
+                    if (sortedData.length === 0) {
+                        return;
+                    }
+
                     dispatch(NEXT_PAGE(sortedData.length));
                     scrollActivePageInView();
                 }}

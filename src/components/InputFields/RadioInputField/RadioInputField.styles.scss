@@ -5,7 +5,11 @@
 .show-border {
     border: 1px solid #c4c4c4;
     border-radius: 5px;
-    padding: 16px 14px;
+    padding: 6px 14px;
+}
+
+.show-border:hover {
+    border-color: black;
 }
 
 .error-border {
@@ -22,6 +26,15 @@
     flex-direction: column;
 }
 
-.MuiFormControlLabel-root {
-    margin-right: 2rem;
+.MuiFormControlLabel-root .MuiFormControlLabel-label {
+    margin-top: 1px;
+}
+
+.MuiFormControlLabel-root:first-child {
+    margin-right: 1rem;
+}
+
+.MuiFormControlLabel-root:last-child {
+    margin-left: 1rem;
+    margin-right: 0;
 }

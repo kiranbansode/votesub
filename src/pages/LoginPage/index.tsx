@@ -10,6 +10,7 @@ import { userLogIn, RESET_USER_AUTH_ERROR_STATE } from 'store/loginPage/userLogi
 import { SHOW_SIGN_IN_SUCCESS_POP_UP } from 'store/ui';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
+import GitHubIcon from '@mui/icons-material/GitHub';
 import BackdropMssg from 'components/UI/BackdropMssg';
 import InputFieldWrapper from 'styled/InputFieldWrapper';
 import { TextInputField, PasswordInputField } from 'components/InputFields';
@@ -88,7 +89,11 @@ const LoginPage = () => {
         <div className="login-page__footer">
             <p className="message">Made with ❤️ By</p>
             <p className="name default_shadow">Kiran Bansode</p>
-            <p className="version">-x- [23.01.10-2] -x-</p>
+            <p className="github">
+                <a href="https://github.com/kiranbansode/votesub" rel="noreferrer" target="_blank">
+                    <GitHubIcon />
+                </a>
+            </p>
         </div>
     );
 

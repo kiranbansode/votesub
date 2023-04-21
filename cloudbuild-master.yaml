@@ -1,0 +1,9 @@
+steps:
+    - name: 'node'
+      entrypoint: 'yarn'
+      args: ['install']
+    - name: node
+      entrypoint: yarn
+      args: ['build']
+    - name: gcr.io/kiranbansode-votesub/firebase
+      args: ['deploy', '--project=kiranbansode-votesub', '--only=hosting']

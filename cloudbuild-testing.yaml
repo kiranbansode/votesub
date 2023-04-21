@@ -6,4 +6,4 @@ steps:
       entrypoint: yarn
       args: ['build']
     - name: gcr.io/kiranbansode-votesub/firebase
-      args: ['hosting:channel:deploy testing', '--project=kiranbansode-votesub', '--only=hosting']
+      args: ['hosting:channel:deploy testing', '--project=kiranbansode-votesub']

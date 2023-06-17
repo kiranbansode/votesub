@@ -56,13 +56,13 @@ const RegistrationPage = () => {
     }, [navigateUserToForm]);
 
     return (
-        <div className="reg-form" id="registration-page">
+        <div className="registration-form__container" id="registration-page">
             <Logo goHere="/" />
 
             <Caption />
 
             <form
-                className="registration-page__form dark_shadow"
+                className="dark_shadow"
                 onSubmit={handleSubmit((data) => {
                     dispatch(SAVE_USER_ROLE(data));
                     setNavigateUserToForm(true);
@@ -71,6 +71,7 @@ const RegistrationPage = () => {
                 <RadioInputField
                     required
                     showBorder
+                    showVertically
                     control={control}
                     fieldName="category"
                     inputErrors={errors}

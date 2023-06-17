@@ -2,27 +2,18 @@ import { lazy, useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useForm, FieldValues } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
 import useAppDispatch from 'hooks/useAppDispatch';
 import useAppSelector from 'hooks/useAppSelector';
 import { RESET_USER_ROLE, SAVE_USER_ROLE } from 'store/registrationPage/saveUserRoleSlice';
+// eslint-disable-next-line import/extensions
+import registrationFormValidation from './yupValidations';
 
 import './RegistrationPage.styles.scss';
 
-const Button = lazy(() => import('components/Button'));
-const RadioInputField = lazy(() => import('components/RadioInputField'));
-const Logo = lazy(() => import('components/Logo'));
-const Caption = lazy(() => import('components/Caption'));
-
-const registrationFormValidation = yup.object({
-    category: yup
-        .string()
-        .strict()
-        .trim()
-        .required(
-            'Please choose your category so we can navigate you to appropriate Registration Form',
-        ),
-});
+const Button = lazy(() => import('components/UI/Button'));
+const RadioInputField = lazy(() => import('components/InputFields/RadioInputField'));
+const Logo = lazy(() => import('components/UI/Logo'));
+const Caption = lazy(() => import('components/UI/Caption'));
 
 const REGISTRATION_FORM_DEFAULT_VALUE = {
     category: '',
@@ -66,37 +57,35 @@ const RegistrationPage = () => {
 
     return (
         <div className="reg-form" id="registration-page">
-            <div className="page-view">
-                <Logo goHere="/" />
+            <Logo goHere="/" />
 
-                <Caption />
+            <Caption />
 
-                <form
-                    className="registration-page__form"
-                    onSubmit={handleSubmit((data) => {
-                        dispatch(SAVE_USER_ROLE(data));
-                        setNavigateUserToForm(true);
-                    })}
-                >
-                    <RadioInputField
-                        required
-                        showBorder
-                        control={control}
-                        fieldName="category"
-                        inputErrors={errors}
-                        inputHelperText="We need to know who you are, so we can navigate you to appropriate Registration Form."
-                        inputLabel="Who are you ?"
-                        radioSelect={[
-                            { label: 'Student', value: 'st' },
-                            { label: 'Teacher, Principal, Clerk, ...', value: 'tr' },
-                            { label: 'Employer, HR, Manager, ...', value: 'hr' },
-                            { label: 'SDE, UI-UX Designer, ...', value: 'dev' },
-                        ]}
-                    />
+            <form
+                className="registration-page__form dark_shadow"
+                onSubmit={handleSubmit((data) => {
+                    dispatch(SAVE_USER_ROLE(data));
+                    setNavigateUserToForm(true);
+                })}
+            >
+                <RadioInputField
+                    required
+                    showBorder
+                    control={control}
+                    fieldName="category"
+                    inputErrors={errors}
+                    inputHelperText="We need to know who you are, so we can navigate you to appropriate Registration Form."
+                    inputLabel="Who are you ?"
+                    radioSelect={[
+                        { label: 'Student', value: 'st' },
+                        { label: 'Teacher, Principal, Clerk, ...', value: 'tr' },
+                        { label: 'Employer, HR, Manager, ...', value: 'hr' },
+                        { label: 'SDE, UI-UX Designer, ...', value: 'dev' },
+                    ]}
+                />
 
-                    <Button type="submit">Submit</Button>
-                </form>
-            </div>
+                <Button type="submit">Submit</Button>
+            </form>
         </div>
     );
 };

@@ -1,0 +1,41 @@
+.search-subject__container {
+    form {
+        margin-top: 3rem;
+        background-color: #fff;
+        border-radius: 15px;
+        padding: 10px;
+    }
+}
+
+.filtered-subjects__container {
+    margin-top: 3rem;
+}
+
+.filtered-subjects__header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 30px;
+
+    div {
+        background-color: #fff;
+        border-radius: 8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+        height: 20px;
+    }
+
+    & > div {
+        box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+    }
+}
+
+.subject-text {
+    margin: 2rem 0;
+    font-family: 'Bad Script';
+    text-align: center;
+    font-size: 1.5rem;
+    color: #ff3c3c;
+}

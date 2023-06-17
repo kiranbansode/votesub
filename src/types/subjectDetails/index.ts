@@ -8,6 +8,11 @@ export interface ICandidateData {
     subjectId: string;
 }
 
+export interface ICandidatesInSubject {
+    id: string;
+    candidateName: string;
+}
+
 /**
  * ISubjectData - Types for subject data which will be fetched from server
  */
@@ -17,5 +22,5 @@ export interface ISubjectData {
     submittedBy: string;
     userId: string;
     createdOn: number;
-    candidates: string[];
+    candidates: ICandidatesInSubject[];
 }

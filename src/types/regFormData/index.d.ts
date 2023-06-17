@@ -9,7 +9,6 @@ type BasicUserDetails = {
     gender: string;
     countryCode: string;
     mob1: string;
-    mob2?: string;
     emailId: string;
     password: string;
     confirmPassword: string;

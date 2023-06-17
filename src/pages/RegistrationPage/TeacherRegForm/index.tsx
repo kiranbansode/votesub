@@ -1,14 +1,14 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useForm, FieldValues } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import TextInputField from 'components/TextInputField';
-import RadioInputField from 'components/RadioInputField';
-import PasswordInputField from 'components/PasswordInputField';
-import SelectInputField from 'components/SelectInputField';
-import Button from 'components/Button';
-import Caption from 'components/Caption';
-import Logo from 'components/Logo';
+import TextInputField from 'components/InputFields/TextInputField';
+import RadioInputField from 'components/InputFields/RadioInputField';
+import PasswordInputField from 'components/InputFields/PasswordInputField';
+import SelectInputField from 'components/InputFields/SelectInputField';
+import Button from 'components/UI/Button';
+import Caption from 'components/UI/Caption';
+import Logo from 'components/UI/Logo';
 import useAppDispatch from 'hooks/useAppDispatch';
 import {
     createNewUserThunk,
@@ -17,9 +17,10 @@ import {
 import { ITeacherRegForm } from 'types/regFormData';
 import countryCodeOptions from 'utils/menuOptions/countryCodes';
 import useAppSelector from 'hooks/useAppSelector';
-import ErrorView from 'components/Error';
-import BackdropMssg from 'components/BackdropMssg';
+import ErrorView from 'components/UI/ErrorView';
+import BackdropMssg from 'components/UI/BackdropMssg';
 import trOptions from 'utils/menuOptions/tr';
+import { SAVE_USER_AUTH_DETAILS } from 'store/loginPage/userLoginSlice';
 
 // eslint-disable-next-line import/extensions
 import TeacherRegFormValidations from './yupValidations';
@@ -37,38 +38,46 @@ const defaultTeacherRegFormVal: ITeacherRegForm = {
     role: '',
     countryCode: '',
     mob1: '',
-    mob2: '',
     emailId: '',
     password: '',
     confirmPassword: '',
 };
 
 const TeacherRegForm = () => {
-    const {
-        control,
-        formState: { errors },
-        handleSubmit,
-        register,
-    } = useForm<FieldValues>({
+    const { control, formState, handleSubmit, watch, setValue } = useForm<ITeacherRegForm>({
         defaultValues: defaultTeacherRegFormVal,
         resolver: yupResolver(TeacherRegFormValidations),
     });
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const registrationSlice = useAppSelector(({ registration }) => registration);
+    const authObj = registrationSlice.data;
     const userCategory = useAppSelector((state) => state.userCategory.category);
+    const selectedCountryCode = watch('countryCode');
 
-    const showErrorMssg = registrationSlice.error.code ? (
-        <ErrorView errorTitle={registrationSlice.error.code} mssg={registrationSlice.error.mssg!} />
-    ) : null;
+    const ShowErrorMssg = () =>
+        registrationSlice.error.code ? (
+            <ErrorView
+                errorTitle={registrationSlice.error.code}
+                mssg={registrationSlice.error.mssg!}
+            />
+        ) : null;
 
-    const showLoginSuccessMssg = registrationSlice.data?.uid ? (
-        <BackdropMssg
-            header="Registration Successful."
-            mssg="Redirecting to Login page"
-            open={!!registrationSlice.data?.uid}
-        />
-    ) : null;
+    const ShowLoginSuccessMssg = () =>
+        registrationSlice.data?.uid ? (
+            <BackdropMssg
+                header="Registration Successful."
+                mssg="Redirecting to Dashboard page"
+                open={!!registrationSlice.data?.uid}
+                type="success"
+            />
+        ) : null;
+
+    useEffect(() => {
+        if (selectedCountryCode) {
+            setValue('mob1', selectedCountryCode);
+        }
+    }, [selectedCountryCode]);
 
     useEffect(() => {
         if (!userCategory) {
@@ -78,7 +87,8 @@ const TeacherRegForm = () => {
 
     useEffect(() => {
         if (registrationSlice.data?.uid) {
-            setTimeout(() => navigate('/'), 2000);
+            dispatch(SAVE_USER_AUTH_DETAILS(authObj));
+            setTimeout(() => navigate('/dashboard'), 2000);
         }
 
         return () => {
@@ -87,132 +97,136 @@ const TeacherRegForm = () => {
     }, [registrationSlice.data?.uid]);
 
     return (
-        <div className="reg-form" id="teacher-reg-form">
-            <div className="page-view">
-                <Logo goHere="/" />
+        <div className="registration-form__container" id="teacher-reg__page">
+            <Logo goHere="/" />
 
-                <Caption />
+            <Caption />
 
-                <form onSubmit={handleSubmit((formData) => dispatch(createNewUserThunk(formData)))}>
-                    <TextInputField
-                        required
-                        separateLabel
-                        errors={errors}
-                        formRegister={register('name.firstName')}
-                        inputLabel="First Name"
-                        inputPlaceholder="Your Name"
-                    />
+            <form
+                className="dark_shadow"
+                onSubmit={handleSubmit((formData) => {
+                    dispatch(createNewUserThunk(formData));
+                })}
+            >
+                <TextInputField
+                    required
+                    separateLabel
+                    control={control}
+                    fieldName="name.firstName"
+                    inputErrors={formState.errors}
+                    inputLabel="First Name"
+                    inputPlaceholder="Your Name"
+                />
 
-                    <TextInputField
-                        separateLabel
-                        errors={errors}
-                        formRegister={register('name.middleName')}
-                        inputLabel="Middle Name"
-                        inputPlaceholder="Father/Husband Name"
-                    />
+                <TextInputField
+                    separateLabel
+                    control={control}
+                    fieldName="name.middleName"
+                    inputErrors={formState.errors}
+                    inputLabel="Middle Name"
+                    inputPlaceholder="Father/Husband Name"
+                />
 
-                    <TextInputField
-                        required
-                        separateLabel
-                        errors={errors}
-                        formRegister={register('name.lastName')}
-                        inputLabel="Last Name"
-                        inputPlaceholder="Surname"
-                    />
+                <TextInputField
+                    required
+                    separateLabel
+                    control={control}
+                    fieldName="name.lastName"
+                    inputErrors={formState.errors}
+                    inputLabel="Last Name"
+                    inputPlaceholder="Surname"
+                />
 
-                    <RadioInputField
-                        alignCenter
-                        separateLabel
-                        showBorder
-                        control={control}
-                        fieldName="gender"
-                        inputErrors={errors}
-                        inputLabel="Gender"
-                        radioSelect={[
-                            { label: 'Male', value: 'male' },
-                            { label: 'Female', value: 'female' },
-                        ]}
-                    />
+                <RadioInputField
+                    alignCenter
+                    separateLabel
+                    showBorder
+                    control={control}
+                    fieldName="gender"
+                    inputErrors={formState.errors}
+                    inputLabel="Gender"
+                    radioSelect={[
+                        { label: 'Male', value: 'male' },
+                        { label: 'Female', value: 'female' },
+                    ]}
+                />
 
-                    <TextInputField
-                        separateLabel
-                        errors={errors}
-                        formRegister={register('schoolName')}
-                        inputHelperText="Enter name of school where do you work."
-                        inputLabel="School Name"
-                    />
+                <TextInputField
+                    separateLabel
+                    control={control}
+                    fieldName="schoolName"
+                    inputErrors={formState.errors}
+                    inputHelperText="Enter name of school where do you work."
+                    inputLabel="School Name"
+                />
 
-                    <SelectInputField
-                        required
-                        separateLabel
-                        control={control}
-                        fieldName="role"
-                        inputErrors={errors}
-                        inputHelperText="It is required to generate role for Profile"
-                        inputLabel="Your Role in School"
-                        options={trOptions}
-                    />
+                <SelectInputField
+                    required
+                    separateLabel
+                    control={control}
+                    fieldName="role"
+                    inputErrors={formState.errors}
+                    inputHelperText="It is required to generate role for Profile"
+                    inputLabel="Your Role in School"
+                    options={trOptions}
+                />
 
-                    <SelectInputField
-                        required
-                        separateLabel
-                        control={control}
-                        fieldName="countryCode"
-                        inputErrors={errors}
-                        inputHelperText="It is required by E.164 standards"
-                        inputLabel="Country Code"
-                        options={countryCodeOptions}
-                    />
+                <SelectInputField
+                    required
+                    separateLabel
+                    control={control}
+                    fieldName="countryCode"
+                    inputErrors={formState.errors}
+                    inputHelperText="It is required by E.164 standards"
+                    inputLabel="Country Code"
+                    options={countryCodeOptions}
+                />
 
-                    <TextInputField
-                        required
-                        separateLabel
-                        errors={errors}
-                        formRegister={register('mob1')}
-                        inputHelperText="A valid phone number will help us and you to reset your password"
-                        inputLabel="Mobile No."
-                    />
+                <TextInputField
+                    required
+                    separateLabel
+                    control={control}
+                    fieldName="mob1"
+                    inputErrors={formState.errors}
+                    inputHelperText="A valid phone number will help us and you to reset your password"
+                    inputLabel="Mobile No."
+                />
 
-                    <TextInputField
-                        separateLabel
-                        errors={errors}
-                        formRegister={register('mob2')}
-                        inputLabel="Alternate Mobile No."
-                    />
+                <TextInputField
+                    required
+                    separateLabel
+                    control={control}
+                    fieldName="emailId"
+                    inputErrors={formState.errors}
+                    inputLabel="Email ID"
+                />
 
-                    <TextInputField
-                        required
-                        separateLabel
-                        errors={errors}
-                        formRegister={register('emailId')}
-                        inputLabel="Email ID"
-                    />
+                <PasswordInputField
+                    required
+                    separateLabel
+                    control={control}
+                    fieldName="password"
+                    inputErrors={formState.errors}
+                    inputLabel="Password"
+                />
 
-                    <PasswordInputField
-                        required
-                        separateLabel
-                        errors={errors}
-                        formRegister={register('password')}
-                        inputLabel="Password"
-                    />
+                <PasswordInputField
+                    required
+                    separateLabel
+                    control={control}
+                    fieldName="confirmPassword"
+                    inputErrors={formState.errors}
+                    inputLabel="Confirm Password"
+                />
 
-                    <PasswordInputField
-                        required
-                        separateLabel
-                        errors={errors}
-                        formRegister={register('confirmPassword')}
-                        inputLabel="Confirm Password"
-                    />
+                <ShowErrorMssg />
 
-                    {showErrorMssg}
+                <Button loading={registrationSlice.loading} type="submit">
+                    Submit
+                </Button>
+            </form>
 
-                    <Button loading={registrationSlice.loading} type="submit">
-                        Submit
-                    </Button>
-
-                    {showLoginSuccessMssg}
-                </form>
-            </div>
+            <ShowLoginSuccessMssg />
         </div>
     );
 };

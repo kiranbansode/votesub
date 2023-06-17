@@ -1,0 +1,42 @@
+#header {
+    width: 100vw;
+    height: 60px;
+    background-color: #fff;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    position: sticky;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
+    -webkit-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+    .header-icons {
+        cursor: pointer;
+    }
+
+    svg {
+        margin: 0 20px;
+    }
+
+    .votesub-logo {
+        width: 100px;
+        min-height: 0 !important;
+    }
+
+    .header-icons {
+        font-size: 35px;
+    }
+}
+
+@media screen and (min-width: 600px) {
+    #header {
+        .votesub-logo {
+            height: 35px;
+        }
+    }
+}

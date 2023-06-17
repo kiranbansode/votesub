@@ -1,0 +1,27 @@
+.error-mssg {
+    margin-top: 14px;
+}
+
+.show-border {
+    border: 1px solid #c4c4c4;
+    border-radius: 5px;
+    padding: 16px 14px;
+}
+
+.error-border {
+    border: 1px solid #d32f2f;
+}
+
+.align-center {
+    display: flex;
+    justify-content: center;
+}
+
+.show-vertical {
+    display: flex;
+    flex-direction: column;
+}
+
+.MuiFormControlLabel-root {
+    margin-right: 2rem;
+}

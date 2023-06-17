@@ -8,19 +8,12 @@ import styled from 'styled-components';
  * @param {number} position position of candidate in sorted array
  * @return  `<p>` element which shows position of candidate
  */
-const CandidatePosition = styled.p<{ position: number }>`
-    margin: 0px;
-    border: 1px solid black;
-    border-radius: 5px;
-    padding: 5px 10px;
-    -webkit-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    -moz-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+const CandidatePosition = styled.p.attrs({ className: 'candidate-position' })<{ position: number }>`
     background-color: ${({ position }) => {
         const colors: { [x: string]: string } = {
-            1: '#FAFF00;',
-            2: '#EAF6FF;',
-            3: '#D16400;',
+            1: '#FAFF00 !important;',
+            2: '#EAF6FF !important;',
+            3: '#D16400 !important;',
         };
         // eslint-disable-next-line no-prototype-builtins
         if (colors.hasOwnProperty(position)) {

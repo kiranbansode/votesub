@@ -1,0 +1,62 @@
+.voting-candidate {
+    height: 80px;
+    background-color: #fff;
+    height: 80px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    padding: 0 20px;
+    -webkit-box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+    -moz-box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+    box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .candidate-position {
+        margin: 0px;
+        height: 35px;
+        width: 35px;
+        text-align: center;
+        line-height: 35px;
+        background-color: #fff;
+        border: 1px solid black;
+        border-radius: 8px;
+        -webkit-box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+        -moz-box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+        box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+    }
+
+    .candidate-name {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 1.2rem;
+    }
+
+    .vote-now {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .total-votes {
+        margin-top: 5px;
+    }
+
+    .vote-text,
+    .total-votes {
+        font-size: 10px;
+    }
+
+    .actual-votes {
+        display: contents;
+    }
+
+    .vote-icon {
+        cursor: pointer;
+    }
+
+    .close-icon {
+        cursor: not-allowed;
+    }
+}

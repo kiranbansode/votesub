@@ -7,6 +7,7 @@ import { store } from 'store';
 import App from './App';
 
 import './index.css';
+import './utility-styles.css';
 
 ReactDOM.render(
     <StrictMode>

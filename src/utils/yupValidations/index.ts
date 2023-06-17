@@ -1,24 +1,67 @@
 import * as yup from 'yup';
+import validationsMessages from 'utils/yupValidations/validationsMssg';
 
-const yupValidate = {
-    email: yup
+const phoneRegExp = /^\+[1-9]\d{1,14}$/;
+
+const yupValidations = {
+    category: yup
         .string()
-        .trim()
         .strict()
-        .email('Email ID is invalid')
-        .max(255)
-        .required('Email ID is required'),
+        .trim(validationsMessages.TRIM)
+        .required(validationsMessages.CATEGORY),
+    firstName: yup
+        .string()
+        .strict()
+        .trim(validationsMessages.TRIM)
+        .required(validationsMessages.FIRST_NAME),
+    middleName: yup.string().strict().trim(validationsMessages.TRIM),
+    lastName: yup
+        .string()
+        .strict()
+        .trim(validationsMessages.TRIM)
+        .required(validationsMessages.LAST_NAME),
+    gender: yup
+        .string()
+        .strict()
+        .trim(validationsMessages.TRIM)
+        .required(validationsMessages.GENDER),
+    schoolName: yup.string().strict().trim(validationsMessages.TRIM),
+    companyName: yup.string().strict().trim(validationsMessages.TRIM),
+    std: yup.string().strict().trim(validationsMessages.TRIM),
+    div: yup.string().strict().trim(validationsMessages.TRIM),
+    role: yup.string().strict().trim(validationsMessages.TRIM).required(validationsMessages.ROLE),
+    mob1: yup
+        .string()
+        .strict()
+        .trim(validationsMessages.TRIM)
+        .matches(phoneRegExp, validationsMessages.MOBILE_NO_VALID)
+        .min(8, validationsMessages.MOBILE_NO_MIN)
+        .max(16, validationsMessages.MOBILE_NO_MAX)
+        .required(validationsMessages.MOBILE_NO),
+    countryCode: yup
+        .string()
+        .strict()
+        .trim(validationsMessages.TRIM)
+        .required(validationsMessages.COUNTRY_CODE),
+    emailId: yup
+        .string()
+        .strict()
+        .trim(validationsMessages.TRIM)
+        .email(validationsMessages.EMAIL_ID_VALID)
+        .required(validationsMessages.EMAIL_ID),
     password: yup
         .string()
-        .required('Password is required')
+        .strict()
+        .trim(validationsMessages.TRIM)
+        .required(validationsMessages.PASSWORD)
         .matches(
-            /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,16})/,
-            'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character',
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/,
+            validationsMessages.PASSWORD_REGEX,
         ),
     confirmPassword: yup
         .string()
-        .required('Confirm your password')
-        .oneOf([yup.ref('password'), null], 'Password does not match'),
+        .required(validationsMessages.CONFIRM_PASSWORD)
+        .oneOf([yup.ref('password'), null], validationsMessages.CONFIRM_PASSWORD_MATCH),
 };
 
-export default yupValidate;
+export default yupValidations;

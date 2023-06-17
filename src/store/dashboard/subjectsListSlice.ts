@@ -17,12 +17,14 @@ export const getSubjectsListFromFirestore = createAsyncThunk(
 interface ISubjectsList {
     list: [];
     error: boolean;
+    errorMssg: string;
     loading: boolean;
 }
 
 const initialState: ISubjectsList = {
     list: [],
     error: false,
+    errorMssg: '',
     loading: false,
 };
 
@@ -34,9 +36,15 @@ const subjectsListSlice = createSlice({
             state.list = action.payload;
         },
 
+        ERROR_SAVE_UNSORTED_SUBJECTS_LIST: (state, action) => {
+            state.error = !!action.payload.message;
+            state.errorMssg = action.payload.message;
+        },
+
         RESET_UNSORTED_SUBJECTS_LIST: (state) => {
             state.list = initialState.list;
             state.error = initialState.error;
+            state.errorMssg = initialState.errorMssg;
             state.loading = initialState.loading;
         },
     },
@@ -57,13 +65,17 @@ const subjectsListSlice = createSlice({
             getSubjectsListFromFirestore.rejected,
             (state, action: PayloadAction<any>) => {
                 state.loading = false;
-                state.error = action.payload;
+                state.errorMssg = action.payload.message;
+                state.error = !!action.payload.message;
             },
         );
     },
 });
 
-export const { RESET_UNSORTED_SUBJECTS_LIST, SAVE_UNSORTED_SUBJECTS_LIST } =
-    subjectsListSlice.actions;
+export const {
+    RESET_UNSORTED_SUBJECTS_LIST,
+    SAVE_UNSORTED_SUBJECTS_LIST,
+    ERROR_SAVE_UNSORTED_SUBJECTS_LIST,
+} = subjectsListSlice.actions;
 
 export default subjectsListSlice.reducer;

@@ -2,31 +2,30 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { useEffect, lazy } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useForm, FieldValues } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import useAppDispatch from 'hooks/useAppDispatch';
 import useAppSelector from 'hooks/useAppSelector';
-import {
-    userLogIn,
-    RESET_AUTH_DETAILS,
-    SAVE_USER_AUTH_DETAILS,
-} from 'store/loginPage/userLoginSlice';
+import { userLogIn, RESET_USER_AUTH_ERROR_STATE } from 'store/loginPage/userLoginSlice';
 import { SHOW_SIGN_IN_SUCCESS_POP_UP } from 'store/ui';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
-import BackdropMssg from 'components/BackdropMssg';
+import BackdropMssg from 'components/UI/BackdropMssg';
 import InputFieldWrapper from 'styled/InputFieldWrapper';
+import { TextInputField, PasswordInputField } from 'components/InputFields';
+
+// @ts-ignore
+import getLastVisitedRoute from 'utils/helperFunctions/getLastVisitedRoute.ts';
 
 // @ts-ignore
 import loginPageFormValidation from './yupValidation.ts';
+
 import './LoginPage.styles.scss';
 
-const TextInputField = lazy(() => import('components/TextInputField'));
-const PasswordInputField = lazy(() => import('components/PasswordInputField'));
-const Button = lazy(() => import('components/Button'));
-const Separator = lazy(() => import('components/Separator'));
-const Logo = lazy(() => import('components/Logo'));
-const Caption = lazy(() => import('components/Caption'));
+const Button = lazy(() => import('components/UI/Button'));
+const Separator = lazy(() => import('components/UI/Separator'));
+const Logo = lazy(() => import('components/UI/Logo'));
+const Caption = lazy(() => import('components/UI/Caption'));
 
 export type UserLoginFormTypes = {
     username: string;
@@ -39,113 +38,135 @@ const loginPageFormDefaultValues: UserLoginFormTypes = {
 };
 
 const LoginPage = () => {
-    const { register, handleSubmit, formState } = useForm<FieldValues>({
+    const { control, formState, handleSubmit } = useForm<UserLoginFormTypes>({
         defaultValues: loginPageFormDefaultValues,
         resolver: yupResolver(loginPageFormValidation),
     });
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
-
-    const userState = useAppSelector(({ user }) => user);
-    const existingUser = useAppSelector(({ existingLoggedUserAuth }) => existingLoggedUserAuth);
+    const lastVisitedRoute = getLastVisitedRoute();
+    const userAuthSlice = useAppSelector(({ user }) => user);
     const globalUI = useAppSelector((state) => state.ui);
 
+    const ShowErrorMssg = () =>
+        userAuthSlice.error.code ? (
+            <InputFieldWrapper>
+                <Alert severity="error" variant="filled">
+                    <AlertTitle>{userAuthSlice.error.code.toUpperCase()}</AlertTitle>
+                    {userAuthSlice.error.message}
+                </Alert>
+            </InputFieldWrapper>
+        ) : null;
+
+    const ShowLoginSuccessMssg = () =>
+        userAuthSlice.userDetails.uid && globalUI.showSignSuccessPopUp ? (
+            <BackdropMssg
+                header="Login Successful."
+                mssg="Redirecting to Dashboard..."
+                open={globalUI.showSignSuccessPopUp}
+                type="success"
+            />
+        ) : null;
+
+    const ForgotPasswordText = () => (
+        // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
+        <p className="login-page__forgot" onClick={() => navigate('/forgotPassword')}>
+            Forgot Password?
+        </p>
+    );
+
+    const RegisterText = () => (
+        <p className="login-page__register">
+            Don&#39;t have an account? Click on&nbsp;
+            <span className="register-link" onClick={() => navigate('/register')}>
+                Register
+            </span>
+        </p>
+    );
+
+    const Footer = () => (
+        <div className="login-page__footer">
+            <p className="message">Made with ❤️ By</p>
+            <p className="name default_shadow">Kiran Bansode</p>
+            <p className="version">-x- [23.01.10-2] -x-</p>
+        </div>
+    );
+
     /**
-     * Whenever user come back to Login page all auth states will reset.
+     * if user come back to Login page all auth states will reset.
      * e.g. previously failed login attempts, error mssg
      */
+    useEffect(
+        () => () => {
+            dispatch(RESET_USER_AUTH_ERROR_STATE());
+        },
+        [],
+    );
+
     useEffect(() => {
-        if (!existingUser.allowUser) {
-            dispatch(RESET_AUTH_DETAILS());
+        if (lastVisitedRoute && lastVisitedRoute !== '/' && userAuthSlice.userDetails.uid) {
+            dispatch(SHOW_SIGN_IN_SUCCESS_POP_UP());
+            setTimeout(() => navigate(lastVisitedRoute), 2000);
+            return;
         }
-    }, []);
 
-    useEffect(() => {
-        // @ts-ignore
-        dispatch(SAVE_USER_AUTH_DETAILS(existingUser.userDetails));
-    }, [existingUser.userDetails.uid]);
-
-    useEffect(() => {
-        if (userState.userDetails.uid) {
+        if (userAuthSlice.userDetails.uid) {
             dispatch(SHOW_SIGN_IN_SUCCESS_POP_UP());
             setTimeout(() => navigate('/dashboard'), 2000);
         }
-    }, [userState.userDetails.uid]);
-
-    const showErrorMssg = userState.error.code ? (
-        <InputFieldWrapper>
-            <Alert severity="error" variant="filled">
-                <AlertTitle>{userState.error.code.toUpperCase()}</AlertTitle>
-                {userState.error.message}
-            </Alert>
-        </InputFieldWrapper>
-    ) : null;
-
-    const showLoginSuccessMssg = globalUI.showSignSuccessPopUp ? (
-        <BackdropMssg
-            header="Login Successful."
-            mssg="Redirecting to Dashboard..."
-            open={globalUI.showSignSuccessPopUp}
-        />
-    ) : null;
+    }, [userAuthSlice.userDetails.uid]);
 
     return (
-        <div className="login-page reg-form" id="login-page">
-            <div className="page-view">
-                <Logo goHere="/" />
+        <div className="login-page" id="login-page">
+            <Logo className="loginpage__logo" goHere="/" />
 
-                <Caption />
+            <Caption />
 
-                <form
-                    className="login-page__form"
-                    onSubmit={handleSubmit((data) => dispatch(userLogIn(data)))}
-                >
-                    <TextInputField
-                        autoFocus
-                        separateLabel
-                        errors={formState.errors}
-                        formRegister={register('username')}
-                        inputLabel="Username"
-                    />
+            <form
+                className="login-page__form dark_shadow"
+                onSubmit={handleSubmit((formData) => dispatch(userLogIn(formData)))}
+            >
+                <TextInputField
+                    autoFocus
+                    required
+                    separateLabel
+                    control={control}
+                    fieldName="username"
+                    inputErrors={formState.errors}
+                    inputLabel="Username"
+                />
 
-                    <PasswordInputField
-                        separateLabel
-                        errors={formState.errors}
-                        formRegister={register('password')}
-                        inputLabel="Password"
-                    />
+                <PasswordInputField
+                    required
+                    separateLabel
+                    control={control}
+                    fieldName="password"
+                    inputErrors={formState.errors}
+                    inputLabel="Password"
+                />
 
-                    {/* If there is any error mssg from auth, it should show here, right under password field */}
-                    {showErrorMssg}
+                {/* If there is any error mssg from auth, it should show here, right under password field */}
+                <ShowErrorMssg />
 
-                    <Button className="login-button" loading={userState.loading} type="submit">
-                        Login
-                    </Button>
+                <Button className="login-button" loading={userAuthSlice.loading.new} type="submit">
+                    Login
+                </Button>
 
-                    <Separator />
+                <ForgotPasswordText />
 
-                    <p>
-                        Don&#39;t have an account ? Click on &nbsp;
-                        <span className="register-link" onClick={() => navigate('/register')}>
-                            Register
-                        </span>
-                        &nbsp; button below
-                    </p>
+                <Separator />
 
-                    <Button color="success" onClick={() => navigate('/register')}>
-                        Register
-                    </Button>
-                </form>
+                <RegisterText />
 
-                {/* if user is able to login, then a success type mssg will be shown */}
-                {showLoginSuccessMssg}
+                <Button color="success" onClick={() => navigate('/register')}>
+                    Register
+                </Button>
+            </form>
 
-                <div className="login-page__footer">
-                    <p className="message"> Made with ❤️ By </p>
-                    <p className="name">Kiran A. Bansode</p>
-                    <p className="version">-x- [23.01.10-3] -x-</p>
-                </div>
-            </div>
+            <Footer />
+
+            {/* if user is able to login, then a success type mssg will be shown */}
+            <ShowLoginSuccessMssg />
         </div>
     );
 };

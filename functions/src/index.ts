@@ -13,6 +13,8 @@ admin.initializeApp();
 /* -------------------- Import Individual Cloud Functions ------------------- */
 const addNewSubject = require('./addNewSubject');
 const createNewUser = require('./createNewUser');
+const refillVotes = require('./refillVotes');
+
 // const getSubjectsList = require('./getSubjectsList');
 // const getTotalVotes = require('./getTotalVotes');
 // const voteNow = require('./voteNow');
@@ -23,6 +25,7 @@ const createNewUser = require('./createNewUser');
 
 exports.addNewSubject = addNewSubject.addNewSubject;
 exports.createNewUser = createNewUser.createNewUser;
+exports.refillVotes = refillVotes.refillVotes;
 // exports.getSubjectsList = getSubjectsList.getSubjectsList;
 // exports.getTotalVotes = getTotalVotes.getTotalVotes;
 // exports.voteNow = voteNow.voteNow;

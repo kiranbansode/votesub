@@ -1,21 +1,89 @@
-.reg-form {
-    padding-bottom: 2rem;
+.registration-form__container {
+    margin: 0 2rem;
+    padding-bottom: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-.reg-form .votesub-caption-container {
-    width: 60%;
-    margin: 20px auto;
+.registration-form__container .votesub-logo-container {
+    margin-top: 2rem;
+    min-width: 18rem;
+    width: 95%;
 }
 
-.reg-form form {
+.registration-form__container .votesub-caption-container {
+    margin-top: 1.5rem;
+    min-width: 12rem;
+    width: 70%;
+}
+
+.registration-form__container form {
     margin-top: 3rem;
-    background-color: #fff;
     padding: 10px;
+    width: 100%;
+    min-width: 18rem;
+    background-color: #fff;
     border-radius: 15px;
 }
 
-@media screen and (min-width: 576px) {
-    .reg-form {
-        padding: 0;
+.registration-form__container .error-view__container {
+    margin: 0 10px;
+    margin-bottom: 30px;
+}
+
+/* ------------------------ Larger Phones or Phablets ----------------------- */
+@media only screen and (min-width: 481px) {
+    .registration-form__container .votesub-logo-container {
+        width: 50%;
+    }
+
+    .registration-form__container .votesub-caption-container {
+        width: 35%;
+        margin-top: 1rem;
+    }
+
+    .registration-form__container form {
+        width: 60%;
+        min-width: 350px;
+    }
+}
+
+/* ------------------------ Tablets and iPads ----------------------- */
+@media only screen and (min-width: 768px) {
+    .registration-form__container .votesub-logo-container {
+        width: 50%;
+    }
+
+    .registration-form__container .votesub-caption-container {
+        width: 35%;
+        margin-top: 1rem;
+    }
+
+    .registration-form__container form {
+        width: 60%;
+        min-width: 350px;
+        max-width: 450px;
+    }
+}
+
+/* ------------------------- Desktops, Large Screens ------------------------ */
+@media only screen and (min-width: 960px) {
+    .registration-form__container .votesub-logo-container {
+        width: 30%;
+        max-width: 400px;
+    }
+
+    .registration-form__container .votesub-caption-container {
+        width: 20%;
+        max-width: 280px;
+        margin-top: 1rem;
+    }
+
+    .registration-form__container form {
+        width: 60%;
+        min-width: 350px;
+        max-width: 450px;
     }
 }

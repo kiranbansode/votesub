@@ -1,6 +1,36 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { createNewUserCLF } from 'config/firebase';
+import { auth, createNewUserCLF } from 'config/firebase';
+import { signInWithCustomToken, UserCredential } from 'firebase/auth';
 import { RootState } from 'store';
+import { INeededUserCredentials } from 'types/userAuth';
+
+interface IHttpsError {
+    code: string | null;
+    mssg: string | null;
+}
+
+interface ICreateNewUser {
+    loading: boolean;
+    data: INeededUserCredentials;
+    error: IHttpsError;
+}
+
+const initialState: ICreateNewUser = {
+    loading: false,
+    data: {
+        displayName: null,
+        email: null,
+        emailVerified: false,
+        phoneNumber: null,
+        photoURL: null,
+        providerId: '',
+        uid: '',
+    },
+    error: {
+        code: null,
+        mssg: null,
+    },
+};
 
 /**
  * `createNewUserThunk` will help to add new users to Firebase using Firebase's Admin SDKs.
@@ -11,47 +41,55 @@ import { RootState } from 'store';
 
 export const createNewUserThunk = createAsyncThunk(
     'CREATE-NEW-USER',
-    async (formData: any, thunkAPI) => {
+    async (formData: any, { getState, fulfillWithValue, rejectWithValue }) => {
         /**
          * ! Always use thunkAPI.getState() to get latest snapshot of redux store
          */
-        const { userCategory } = thunkAPI.getState() as RootState;
+        const { userCategory } = getState() as RootState;
         const newUserData = { ...formData, ...userCategory };
 
         try {
-            const res = await createNewUserCLF(newUserData);
+            // eslint-disable-next-line no-shadow
+            const newUserRes = (await createNewUserCLF(newUserData)).data as {
+                auth: UserCredential['user'];
+                customToken: string;
+            };
 
             // @ts-ignore
-            if (res.data?.errorInfo?.code) {
-                return thunkAPI.rejectWithValue(res.data);
+            if (newUserRes?.errorInfo?.code) return rejectWithValue(newUserRes.errorInfo);
+
+            if (newUserRes?.customToken) {
+                const logInRes = (await signInWithCustomToken(auth, newUserRes?.customToken)).user;
+                if (logInRes.uid) {
+                    const {
+                        displayName,
+                        email,
+                        emailVerified,
+                        phoneNumber,
+                        photoURL,
+                        providerId,
+                        uid,
+                    } = logInRes;
+
+                    return fulfillWithValue({
+                        displayName,
+                        email,
+                        emailVerified,
+                        phoneNumber,
+                        photoURL,
+                        providerId,
+                        uid,
+                    });
+                }
             }
 
-            return res.data;
+            return null;
         } catch (error) {
-            return thunkAPI.rejectWithValue(error);
+            const { errorInfo } = error as { errorInfo: { code: string; message: string } };
+            return rejectWithValue(errorInfo);
         }
     },
 );
-
-interface IHttpsError {
-    code: string | null;
-    mssg: string | null;
-}
-
-interface ICreateNewUser {
-    loading: boolean;
-    data: any;
-    error: IHttpsError;
-}
-
-const initialState: ICreateNewUser = {
-    loading: false,
-    data: {},
-    error: {
-        code: null,
-        mssg: null,
-    },
-};
 
 const createNewUserSlice = createSlice({
     name: 'createNewUser',
@@ -79,8 +117,8 @@ const createNewUserSlice = createSlice({
         builder.addCase(createNewUserThunk.rejected, (state, action: PayloadAction<any>) => {
             state.loading = false;
             state.data = initialState.data;
-            state.error.code = action.payload.errorInfo.code;
-            state.error.mssg = action.payload.errorInfo.message;
+            state.error.code = action.payload?.code;
+            state.error.mssg = action.payload?.message;
         });
     },
 });

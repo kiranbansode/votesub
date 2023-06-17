@@ -1,0 +1,91 @@
+.pagination-footer-container {
+    margin-top: 3rem;
+    display: none;
+    justify-content: space-between;
+
+    & > div:first-child,
+    & > div:last-child {
+        margin-bottom: 20px;
+        background-color: #fff;
+        padding: 10px;
+        height: 20px;
+        width: 20px;
+        border-radius: 8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+
+        &:hover {
+            outline: solid 1px #1266f1;
+        }
+    }
+
+    & > div:first-child {
+        margin-right: 20px;
+        margin-left: 0;
+
+        .MuiSvgIcon-root {
+            padding-left: 10px;
+        }
+    }
+
+    & > div:nth-child(2) {
+        display: flex;
+        overflow-x: auto;
+
+        /* 
+        * This will help to overcome missing shadow affected by overflow property
+        * Visit following link to know more
+        * https://stackoverflow.com/questions/41502629/overflow-on-parent-div-prevent-box-shadow-to-display 
+        */
+        padding: 0 4px;
+        margin: 0 -4px;
+
+        /* Hide scrollbar for IE, Edge add Firefox */
+        -ms-overflow-style: none;
+        scrollbar-width: none; /* Firefox */
+
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        & > div {
+            box-sizing: border-box;
+            cursor: pointer;
+            background-color: #fff;
+            margin-right: 20px;
+            margin-bottom: 20px;
+            padding: 10px;
+            min-height: 40px;
+            min-width: 40px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+
+            &:hover {
+                border: 1px solid #1266f1;
+            }
+        }
+
+        & > div:last-child {
+            margin-right: 0;
+        }
+    }
+
+    & > div:last-child {
+        margin-left: 20px;
+    }
+
+    .active-page {
+        background-color: #ffeb3b !important;
+        border: 1px solid #37474f;
+
+        &:hover {
+            border: 1px solid #37474f !important;
+        }
+    }
+}

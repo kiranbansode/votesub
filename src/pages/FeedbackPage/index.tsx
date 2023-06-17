@@ -1,19 +1,27 @@
-import Header from 'components/Header';
-import SliderInputField from 'components/SliderInputField';
-import Button from 'components/Button';
+import Header from 'components/layouts/Header';
+import SliderInputField from 'components/InputFields/SliderInputField';
+import Button from 'components/UI/Button';
 import { FieldValues, useForm } from 'react-hook-form';
-import PageTitle from 'components/Title';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import PageTitle from 'components/UI/Title';
 // import PageNotFound from 'pages/PageNotFound';
-import TextInputField from 'components/TextInputField';
-import RadioInputField from 'components/RadioInputField';
+import TextInputField from 'components/InputFields/TextInputField';
+import RadioInputField from 'components/InputFields/RadioInputField';
 
 import './FeedbackPage.styles.scss';
+import { RESET_ADD_NEW_FEEDBACK_SLICE, addNewFeedbackThunk } from 'store/addNewFeedback';
+import useAppSelector from 'hooks/useAppSelector';
+import useAppDispatch from 'hooks/useAppDispatch';
+import BackdropMssg from 'components/UI/BackdropMssg';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface IFeedbackPageForm {
     ux: 'a' | 'b' | 'c' | 'd' | '';
     ui: 'a' | 'b' | 'c' | 'd' | '';
     performance: 'a' | 'b' | 'c' | 'd' | '';
-    rating: number;
+    ratings: number;
     mssg: string;
 }
 
@@ -21,7 +29,7 @@ const feedbackPageFormDefaultValues: IFeedbackPageForm = {
     ux: '',
     ui: '',
     performance: '',
-    rating: 0,
+    ratings: 0,
     mssg: '',
 };
 
@@ -33,18 +41,65 @@ const marksForFeedbackPage = {
         { value: 3, label: '3' },
         { value: 4, label: '4' },
         { value: 5, label: '5' },
-        { value: 6, label: '6' },
-        { value: 7, label: '7' },
-        { value: 8, label: '8' },
-        { value: 9, label: '9' },
-        { value: 10, label: '10' },
     ],
 };
 
+const FeedbackPageValidations = yup.object({
+    ux: yup
+        .string()
+        .required(
+            'Please! Choose a option as per your VoteSub experience. Your feedback is really important for me 😥',
+        ),
+    ui: yup
+        .string()
+        .required(
+            'Please! Choose a option as per your VoteSub experience. Your feedback is really important for me 😥',
+        ),
+    performance: yup
+        .string()
+        .required(
+            'Please! Choose a option as per your VoteSub experience. Your feedback is really important for me 😥',
+        ),
+    ratings: yup
+        .number()
+        .min(
+            1,
+            'Please! Give VoteSub a rating as per your experience. Your feedback is really important for me 😥.',
+        )
+        .max(5, 'Maximum allowed rating is 5')
+        .required(
+            'Please! Give us a rating as per your VoteSub experience. Your feedback is really important for me 😥',
+        ),
+    mssg: yup.string(),
+});
+
 const FeedbackPage = () => {
-    const { control, register, handleSubmit, formState } = useForm<FieldValues>({
+    const { control, handleSubmit, formState } = useForm<FieldValues>({
         defaultValues: feedbackPageFormDefaultValues,
+        resolver: yupResolver(FeedbackPageValidations),
     });
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+    const addNewFeedbackState = useAppSelector((state) => state.addNewFeedback);
+
+    const ShowFeedbackSavedSuccessMssg = () =>
+        addNewFeedbackState.res.code ? (
+            <BackdropMssg
+                header="Feedback saved successfully."
+                mssg="Redirecting to Dashboard..."
+                open={Boolean(addNewFeedbackState.res.code)}
+                type="success"
+            />
+        ) : null;
+
+    useEffect(() => {
+        if (addNewFeedbackState.res.code) {
+            setTimeout(() => {
+                navigate('/dashboard');
+                dispatch(RESET_ADD_NEW_FEEDBACK_SLICE());
+            }, 2000);
+        }
+    }, [addNewFeedbackState.res.code]);
 
     return (
         <div className="page" id="feedback-page">
@@ -52,7 +107,12 @@ const FeedbackPage = () => {
             <div className="feedback-page__view page-view">
                 <PageTitle title="Feedback" />
 
-                <form onSubmit={handleSubmit((data) => console.log(data))}>
+                <form
+                    onSubmit={handleSubmit((data) => {
+                        /* @ts-ignore */
+                        dispatch(addNewFeedbackThunk(data));
+                    })}
+                >
                     <RadioInputField
                         required
                         separateLabel
@@ -61,7 +121,7 @@ const FeedbackPage = () => {
                         control={control}
                         fieldName="ux"
                         inputErrors={formState.errors}
-                        inputLabel="1. Do you find it easy or difficult to navigate ? (User-Experience)"
+                        inputLabel="1. Do you find it easy or difficult to navigate within VoteSub app ? (User-Experience)"
                         radioSelect={[
                             { label: 'Very Difficult', value: 'd' },
                             { label: 'Difficult', value: 'c' },
@@ -78,7 +138,7 @@ const FeedbackPage = () => {
                         control={control}
                         fieldName="ui"
                         inputErrors={formState.errors}
-                        inputLabel="2. How's the VoteSub look ? (User-Interface)"
+                        inputLabel="2. How does VoteSub app look ? (User-Interface)"
                         radioSelect={[
                             { label: 'Very Bad', value: 'd' },
                             { label: 'Bad', value: 'c' },
@@ -95,7 +155,7 @@ const FeedbackPage = () => {
                         control={control}
                         fieldName="performance"
                         inputErrors={formState.errors}
-                        inputLabel="3. How's VoteSub feel ? (Performance)"
+                        inputLabel="3. How does VoteSub app feel ? (Performance)"
                         radioSelect={[
                             { label: 'Very Slow', value: 'd' },
                             { label: 'Slow', value: 'c' },
@@ -109,25 +169,31 @@ const FeedbackPage = () => {
                         separateLabel
                         showBorder
                         control={control}
-                        fieldName="rating"
-                        inputLabel="4. Based on your experience, how much you will rate the VoteSub ?"
+                        fieldName="ratings"
+                        inputErrors={formState.errors}
+                        inputLabel="4. Based on your experience, How much you will rate the VoteSub app ?"
                         marks={marksForFeedbackPage[1]}
-                        max={10}
+                        max={5}
                         min={0}
                         step={1}
                     />
 
                     <TextInputField
-                        changeToTextArea
+                        makeItTextArea
                         separateLabel
-                        errors={formState.errors}
-                        formRegister={register('mssg')}
-                        inputLabel="5. Any Message or Feedback to Developer ?"
+                        control={control}
+                        fieldName="mssg"
+                        inputErrors={formState.errors}
+                        inputLabel="5. Any Message or Feedback to Developer regarding VoteSub app ?"
                         inputPlaceholder="Please enter your message or feedback here"
                     />
 
-                    <Button type="submit">Submit</Button>
+                    <Button loading={addNewFeedbackState.loading} type="submit">
+                        Submit
+                    </Button>
                 </form>
+
+                <ShowFeedbackSavedSuccessMssg />
             </div>
         </div>
     );

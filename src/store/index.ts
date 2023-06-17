@@ -3,13 +3,15 @@ import counterSlice from 'store/counterSlice';
 import userLoginSlice from 'store/loginPage/userLoginSlice';
 import createNewUserSlice from 'store/registrationPage/createNewUserSlice';
 import uiSlice from 'store/ui';
-import addNewTopicSlice from 'store/addNewTopic';
+import addNewSubjectSlice from 'store/addNewSubject';
 import saveUserRoleSlice from 'store/registrationPage/saveUserRoleSlice';
 import subjectsListSlice from 'store/dashboard/subjectsListSlice';
 import sortedSubjectsList from 'store/dashboard/sortedSubjectList';
 import pageTracker from 'store/pagination/pageTracker';
 import userVotingHistorySlice from 'store/votingHistory/userVotingHistorySlice';
-import existingUserAuthStateSlice from 'store/existingUserAuthStateSlice/existingUserAuthStateSlice';
+import addNewFeedbackSlice from 'store/addNewFeedback';
+import saveFilteredSubjects from 'store/saveFilteredSubjects';
+import passwordResetSlice from 'store/loginPage/passwordResetSlice';
 
 export const store = configureStore({
     reducer: {
@@ -18,12 +20,14 @@ export const store = configureStore({
         registration: createNewUserSlice,
         userCategory: saveUserRoleSlice,
         ui: uiSlice,
-        addNewTopic: addNewTopicSlice,
+        addNewSubject: addNewSubjectSlice,
         subjectsList: subjectsListSlice,
         sortedSubjects: sortedSubjectsList,
         currPaginationPage: pageTracker,
         votingHistory: userVotingHistorySlice,
-        existingLoggedUserAuth: existingUserAuthStateSlice,
+        addNewFeedback: addNewFeedbackSlice,
+        filteredSubjects: saveFilteredSubjects,
+        passwordReset: passwordResetSlice,
     },
 
     // @ts-ignore

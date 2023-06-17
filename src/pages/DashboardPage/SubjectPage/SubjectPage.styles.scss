@@ -54,6 +54,7 @@
 
         .votes-name {
             padding-top: 5px;
+            text-align: center;
         }
     }
 
@@ -61,10 +62,6 @@
     .creation-date,
     .votes-name {
         font-size: 14px;
-    }
-
-    .separator {
-        margin: 0;
     }
 
     .candidates-container {

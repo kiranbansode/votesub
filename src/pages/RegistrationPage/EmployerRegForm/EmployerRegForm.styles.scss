@@ -1,0 +1,14 @@
+#employer-reg__page {
+    .MuiFormControlLabel-root .MuiFormControlLabel-label {
+        margin-top: 1px;
+    }
+
+    .MuiFormControlLabel-root:first-child {
+        margin-right: 1rem;
+    }
+
+    .MuiFormControlLabel-root:last-child {
+        margin-left: 1rem;
+        margin-right: 0;
+    }
+}

@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import { FieldValues, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import TextInputField from 'components/InputFields/TextInputField';
@@ -27,16 +27,22 @@ const yupValidation = yup.object({
     candidateName: yup.string().trim().strict(),
 });
 
+type TAddNewSubjectForm = {
+    subject: string;
+    candidateName: string;
+};
+
 const defaultValues = {
     subject: '',
     candidateName: '',
 };
 
 const AddNewSubjectPage = () => {
-    const { control, watch, resetField, setError, formState, handleSubmit } = useForm<FieldValues>({
-        defaultValues,
-        resolver: yupResolver(yupValidation),
-    });
+    const { control, watch, resetField, setError, formState, handleSubmit } =
+        useForm<TAddNewSubjectForm>({
+            defaultValues,
+            resolver: yupResolver(yupValidation),
+        });
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const addNewSubjectState = useAppSelector(({ addNewSubject }) => addNewSubject);

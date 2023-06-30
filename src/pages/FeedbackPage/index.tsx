@@ -1,7 +1,7 @@
 import Header from 'components/layouts/Header';
 import SliderInputField from 'components/InputFields/SliderInputField';
 import Button from 'components/UI/Button';
-import { FieldValues, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import PageTitle from 'components/UI/Title';
@@ -74,7 +74,7 @@ const FeedbackPageValidations = yup.object({
 });
 
 const FeedbackPage = () => {
-    const { control, handleSubmit, formState } = useForm<FieldValues>({
+    const { control, handleSubmit, formState } = useForm<IFeedbackPageForm>({
         defaultValues: feedbackPageFormDefaultValues,
         resolver: yupResolver(FeedbackPageValidations),
     });

@@ -5,7 +5,7 @@ import './AdminPage.styles.scss';
 const AdminPage = () => (
     <PageNotFound
         code={503}
-        mssg="The page you are looking for is under development. Please come back again after some time."
+        mssg="Admin page is under development. Please come back after some time."
         title="Under Development"
     />
 

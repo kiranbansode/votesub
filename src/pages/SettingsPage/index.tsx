@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 
-import { FieldValues, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 // import Header from 'components/Header';
 // import SwitchInputField from 'components/SwitchInputField';
 import PageNotFound from 'pages/PageNotFound';
@@ -13,14 +13,14 @@ const settingPageDefaultValues = {
 };
 
 const SettingsPage = () => {
-    const { handleSubmit, control } = useForm<FieldValues>({
+    const { handleSubmit, control } = useForm({
         defaultValues: settingPageDefaultValues,
     });
 
     return (
         <PageNotFound
             code={503}
-            mssg="The page you are looking for is under development. Please come back again after some time."
+            mssg="Settings page is under development. Please come back after some time."
             title="Under Development"
         />
     );

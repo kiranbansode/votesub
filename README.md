@@ -59,7 +59,7 @@ Now you need to install dependencies for Backend or Firebase's Cloud Functions. 
 Once all required dependencies are installed and Cloud Functions code is compiled you need to setup Firebase Emulators to use Authentication, Cloud Functions, Firestore Database and many more. To start the Firebase Emulators follow the below instructions.
 
 1. Open terminal inside project's root repository.
-2. To run Firebase Emulators, we need to install `firebase-tools` package globally. To install it globally use `npm install -g firebase-tools` command. This way you can use `firebase` anywhere regardless of any directory.
+2. To run Firebase Emulators, we need to install `firebase-tools` package globally. To install it globally use `yarn global add firebase-tools` or `npm install -g firebase-tools` command if you are using npm. This way you can use `firebase` anywhere regardless of any directory. Make sure you give necessary permissions to allow global installation like `sudo` or anything like administrative stuff.
 3. To run Firebase Emulators, use `firebase emulators:start --export-on-exit=./emulators_data/ --import=./emulators_data` command. Lets understand what this command exactly do.
 
     1. `emulators:start` - It will start Firebase Emulators on `http://127.0.0.1:4000/`

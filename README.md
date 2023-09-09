@@ -1,9 +1,9 @@
 <p align="center">
-<img  width="550px"src="https://kiranbansode-votesub--testing-g9jafog5.web.app/assets/logo.votesub.darker.1ea0de26.svg" alt="VoteSub Logo">
+<img  width="550px"src="https://github.com/kiranbansode/votesub/blob/testing/src/assets/svg/logo.votesub.darker.svg" alt="VoteSub Logo">
 </p>
 
 <p align="center">
-<img width="275px" src="https://kiranbansode-votesub--testing-g9jafog5.web.app/assets/caption.votesub.cbb508d7.svg" alt="VoteSub Logo">
+<img width="275px" src="https://github.com/kiranbansode/votesub/blob/testing/src/assets/svg/caption.votesub.svg" alt="VoteSub Logo">
 </p>
 
 # Hi... Welcome to VoteSub's GitHub Repository

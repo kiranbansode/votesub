@@ -18,7 +18,7 @@ VoteSub is a webapp(SPA) where users can create new subjects and add respective 
 
 Click on the following link to visit Preview Channel(Testing Ver.) of VoteSub project <br/>
 
-https://kiranbansode-votesub--testing-g9jafog5.web.app/
+~~https://kiranbansode-votesub--testing-g9jafog5.web.app/~~
 
 > Disclaimer: The `Preview Channel` contain some code or functionality which you will might or might not find on GitHub's `testing` branch. Once underlying code reach it's maturity level, I will slowly `push` it to `testing` branch.
 

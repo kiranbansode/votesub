@@ -5,5 +5,5 @@ steps:
     - name: node
       entrypoint: yarn
       args: ['build']
-    - name: gcr.io/kiranbansode-votesub/firebase
+    - name: asia-south1-docker.pkg.dev/kiranbansode-votesub/gcf-artifacts
       args: ['hosting:channel:deploy', 'testing', '--project=kiranbansode-votesub']

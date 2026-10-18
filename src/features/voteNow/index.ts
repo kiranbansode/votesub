@@ -1,13 +1,14 @@
 import { getDoc, doc, updateDoc, increment } from 'firebase/firestore';
 import { auth, firestore } from 'config/firebase';
 import { store } from 'store';
+import { trackEvent } from 'utils/analytics';
 
-const voteNow = async (candidateId: string) => {
+const voteNow = async (candidateId: string, subjectId: string) => {
     const userIdFromStore = store.getState().user.userDetails.uid;
     const userId = auth.currentUser?.uid! || userIdFromStore;
 
-    if (userId === null) {
-        return;
+    if (!userId) {
+        return false;
     }
 
     const userRef = doc(firestore, 'users', userId!);
@@ -28,7 +29,17 @@ const voteNow = async (candidateId: string) => {
         await updateDoc(userRef, {
             remainingVotes: increment(-1),
         });
+
+        trackEvent('vote_cast', {
+            subject_id: subjectId,
+            candidate_id: candidateId,
+            vote_count: 1,
+        });
+
+        return true;
     }
+
+    return false;
 };
 
 export default voteNow;

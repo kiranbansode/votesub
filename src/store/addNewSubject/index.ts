@@ -3,6 +3,7 @@ import { RootState } from 'store';
 import { nanoid } from 'nanoid';
 import { addNewSubjectCLF } from 'config/firebase';
 import { ICandidate } from 'types/addNewSubject';
+import { trackEvent } from 'utils/analytics';
 
 interface IResponseFromAddNewSubjectCLF {
     subjectId: string;
@@ -53,7 +54,16 @@ export const addNewSubjectThunk = createAsyncThunk(
                 candidates: addNewSubject.candidates,
             });
 
-            return res.data;
+            const createdSubject = res.data as IResponseFromAddNewSubjectCLF;
+
+            if (createdSubject?.subjectId) {
+                trackEvent('subject_created', {
+                    subject_id: createdSubject.subjectId,
+                    candidate_count: addNewSubject.candidates.length,
+                });
+            }
+
+            return createdSubject;
         } catch (error) {
             return rejectWithValue(error);
         }

@@ -3,6 +3,7 @@ import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { signInWithEmailAndPassword, UserCredential } from 'firebase/auth';
 import { auth } from 'config/firebase';
 import authErrorMessageFinder from 'utils/helperFunctions/authErrorMessageFinder';
+import { trackEvent } from 'utils/analytics';
 
 export const userLogIn = createAsyncThunk('user/LogIn', async (data: any, { rejectWithValue }) => {
     try {
@@ -13,6 +14,8 @@ export const userLogIn = createAsyncThunk('user/LogIn', async (data: any, { reje
         );
 
         const { user } = userCredentials;
+
+        trackEvent('login', { method: 'email' });
 
         return {
             displayName: user.displayName,

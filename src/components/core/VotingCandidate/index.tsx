@@ -70,7 +70,7 @@ const VotingCandidate = ({
                                 candidateId,
                                 localeDate: getLocaleDate(),
                             });
-                            voteNow(id);
+                            voteNow(id, subjectId);
                         }}
                     />
                 )}

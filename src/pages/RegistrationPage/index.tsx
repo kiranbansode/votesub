@@ -1,6 +1,6 @@
 import { lazy, useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useForm, FieldValues } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import useAppDispatch from 'hooks/useAppDispatch';
 import useAppSelector from 'hooks/useAppSelector';
@@ -15,7 +15,11 @@ const RadioInputField = lazy(() => import('components/InputFields/RadioInputFiel
 const Logo = lazy(() => import('components/UI/Logo'));
 const Caption = lazy(() => import('components/UI/Caption'));
 
-const REGISTRATION_FORM_DEFAULT_VALUE = {
+type TRegForm = {
+    category: string;
+};
+
+const REGISTRATION_FORM_DEFAULT_VALUE: TRegForm = {
     category: '',
 };
 
@@ -24,7 +28,7 @@ const RegistrationPage = () => {
         handleSubmit,
         control,
         formState: { errors },
-    } = useForm<FieldValues>({
+    } = useForm<TRegForm>({
         defaultValues: REGISTRATION_FORM_DEFAULT_VALUE,
         resolver: yupResolver(registrationFormValidation),
     });

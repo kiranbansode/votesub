@@ -5,7 +5,7 @@ import './AboutMePage.styles.scss';
 const AboutMePage = () => (
     <PageNotFound
         code={503}
-        mssg="The page you are looking for is under development. Please come back again after some time."
+        mssg="About Me page is under development. Please come back after some time."
         title="Under Development"
     />
 

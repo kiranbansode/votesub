@@ -5,7 +5,7 @@ import './CreditsPage.styles.scss';
 const CreditsPage = () => (
     <PageNotFound
         code={503}
-        mssg="The page you are looking for is under development. Please come back again after some time."
+        mssg="Credits page is under development. Please come back after some time."
         title="Under Development"
     />
 

@@ -3,6 +3,7 @@ import { auth, createNewUserCLF } from 'config/firebase';
 import { signInWithCustomToken, UserCredential } from 'firebase/auth';
 import { RootState } from 'store';
 import { INeededUserCredentials } from 'types/userAuth';
+import { trackEvent, userCategoryLabel } from 'utils/analytics';
 
 interface IHttpsError {
     code: string | null;
@@ -70,6 +71,11 @@ export const createNewUserThunk = createAsyncThunk(
                         providerId,
                         uid,
                     } = logInRes;
+
+                    trackEvent('sign_up', {
+                        method: 'email',
+                        user_category: userCategoryLabel(userCategory.category),
+                    });
 
                     return fulfillWithValue({
                         displayName,

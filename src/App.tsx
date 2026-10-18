@@ -1,5 +1,6 @@
-import { Suspense, useEffect } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Suspense, useEffect, useRef } from 'react';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import { trackPageView } from 'utils/analytics';
 import { lazyWithPreload } from 'react-lazy-with-preload';
 import LoadingScreen from 'components/UI/LoadingScreen';
 import useAppSelector from 'hooks/useAppSelector';
@@ -38,8 +39,20 @@ const DeveloperRegForm = lazyWithPreload(() => import('pages/RegistrationPage/De
 
 export default function App() {
     const navigate = useNavigate();
+    const location = useLocation();
+    const isFirstPageView = useRef(true);
     const userAuthSlice = useAppSelector(({ user }) => user);
     const { showSignOutSuccessPopUp } = useAppSelector(({ ui }) => ui);
+
+    useEffect(() => {
+        // GTM's Google tag already records the first full page load.
+        if (isFirstPageView.current) {
+            isFirstPageView.current = false;
+            return;
+        }
+
+        trackPageView(`${location.pathname}${location.search}`);
+    }, [location.pathname, location.search]);
 
     useEffect(() => {
         // without useEffect getCurrentLoggedUser does not work properly, it enters in infinite loop

@@ -2,6 +2,7 @@ import { setDoc, doc, serverTimestamp } from 'firebase/firestore';
 import { nanoid } from 'nanoid';
 import { firestore, auth } from 'config/firebase';
 import { store } from 'store';
+import { trackEvent } from 'utils/analytics';
 
 interface IFeedback {
     ux: 'a' | 'b' | 'c' | 'd';
@@ -28,6 +29,13 @@ const saveToFeedback = async (feedback: IFeedback) => {
             ratings,
             mssg,
             submittedOn: serverTimestamp(),
+        });
+
+        trackEvent('feedback_submit', {
+            rating: ratings,
+            ux_rating: ux,
+            ui_rating: ui,
+            performance_rating: performance,
         });
 
         return { res, code: 201, mssg: 'Feedback saved successfully.' };
